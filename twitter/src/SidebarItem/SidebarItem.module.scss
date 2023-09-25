@@ -11,30 +11,29 @@
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 15px;
       padding: 12px;
-      color: black;
+      color: #000;
       border-radius: 25px;
+      font-size: 20px;
       &:hover {
         background-color: rgb(221, 217, 217);
       }
       &.active {
-        font-weight: bolder;
+        font-weight: 700;
         cursor: pointer;
         background-image: url();
       }
     }
   }
-  // .logo {
-  //   &:hover {
-  //     background-color: rgb(185, 181, 181);
-  //     border-radius: 15px;
-  //   }
-  // }
+
   .icon {
+    padding: 12px;
+    
     &:hover {
       background-color: rgb(221, 217, 217);
-      border-radius: 15px;
+      border-radius: 30px;
+      
     }
   }
 }
