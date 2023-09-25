@@ -8,6 +8,7 @@
     margin-top: 0;
     margin-bottom: 10px;
     .listLink {
+      
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -16,8 +17,10 @@
       color: #000;
       border-radius: 25px;
       font-size: 20px;
+      
       &:hover {
         background-color: rgb(221, 217, 217);
+        width: fit-content;
       }
       &.active {
         font-weight: 700;
@@ -29,11 +32,10 @@
 
   .icon {
     padding: 12px;
-    
+
     &:hover {
       background-color: rgb(221, 217, 217);
       border-radius: 30px;
-      
     }
   }
 }
