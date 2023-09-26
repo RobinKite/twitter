@@ -5,7 +5,6 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 
 const ButtonStyled = styled(Button)({
-
   height: "3em",
   minWidth: "20%",
   margin: 15,
@@ -30,4 +29,3 @@ export default ButtonStyled;
 //   type: "button",
 //   onClick: () => {},
 // };
-
