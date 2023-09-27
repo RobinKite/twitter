@@ -1,26 +1,26 @@
-import React, { memo } from "react";
-import PropTypes from "prop-types";
+import React from "react";
+// import PropTypes from "prop-types";
 import { NavLink, useLocation } from "react-router-dom";
 import styles from "../SidebarItem/SidebarItem.module.scss";
 import classNames from "classnames";
 
-import { ReactComponent as HomeIcon } from "../assets/svg/home.svg";
-import { ReactComponent as HomeIconFilled } from "../assets/svg/home-filled.svg";
-import { ReactComponent as SearchIcon } from "../assets/svg/search.svg";
-import { ReactComponent as SearchIconFilled } from "../assets/svg/search-filled.svg";
-import { ReactComponent as ProfileIcon } from "../assets/svg/profile.svg";
-import { ReactComponent as ProfileIconFilled } from "../assets/svg/profile-filled.svg";
-import { ReactComponent as NotificationIcon } from "../assets/svg/notifications.svg";
-import { ReactComponent as NotificationIconFilled } from "../assets/svg/notifications-filled.svg";
-import { ReactComponent as MessageIcon } from "../assets/svg/message.svg";
-import { ReactComponent as MessageIconFilled } from "../assets/svg/message-filled.svg";
-import { ReactComponent as ListIcon } from "../assets/svg/list.svg";
-import { ReactComponent as ListIconFilled } from "../assets/svg/list-filled.svg";
-import { ReactComponent as CommunitiesIcon } from "../assets/svg/communities.svg";
-import { ReactComponent as CommunitiesIconFilled } from "../assets/svg/communities-filled.svg";
-import { ReactComponent as MoreIcon } from "../assets/svg/more.svg";
-import { ReactComponent as MoreIconFilled } from "../assets/svg/more-filled.svg";
-import { ReactComponent as TwitterIcon } from "../assets/svg/twitter.svg";
+import { ReactComponent as HomeIcon } from "../../assets/svg/home.svg";
+import { ReactComponent as HomeIconFilled } from "../../assets/svg/home-filled.svg";
+import { ReactComponent as SearchIcon } from "../../assets/svg/search.svg";
+import { ReactComponent as SearchIconFilled } from "../../assets/svg/search-filled.svg";
+import { ReactComponent as ProfileIcon } from "../../assets/svg/profile.svg";
+import { ReactComponent as ProfileIconFilled } from "../../assets/svg/profile-filled.svg";
+import { ReactComponent as NotificationIcon } from "../../assets/svg/notifications.svg";
+import { ReactComponent as NotificationIconFilled } from "../../assets/svg/notifications-filled.svg";
+import { ReactComponent as MessageIcon } from "../../assets/svg/message.svg";
+import { ReactComponent as MessageIconFilled } from "../../assets/svg/message-filled.svg";
+import { ReactComponent as ListIcon } from "../../assets/svg/list.svg";
+import { ReactComponent as ListIconFilled } from "../../assets/svg/list-filled.svg";
+import { ReactComponent as CommunitiesIcon } from "../../assets/svg/communities.svg";
+import { ReactComponent as CommunitiesIconFilled } from "../../assets/svg/communities-filled.svg";
+import { ReactComponent as MoreIcon } from "../../assets/svg/more.svg";
+import { ReactComponent as MoreIconFilled } from "../../assets/svg/more-filled.svg";
+import { ReactComponent as TwitterIcon } from "../../assets/svg/twitter.svg";
 
 const SidebarItem = () => {
   const location = useLocation();
@@ -149,12 +149,6 @@ const SidebarItem = () => {
   );
 };
 
-// Sidebar.propTypes = {
 
-// };
-
-// Sidebar.defaultProps = {
-
-// };
 
 export default SidebarItem;
