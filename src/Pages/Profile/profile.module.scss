@@ -1,0 +1,30 @@
+.arrowSvg{
+background-color: white;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 40px;
+height: 40px;
+}
+.arrowSvg:hover{
+    background-color: rgb(133, 125, 125);
+}
+.containerHederText{
+    padding-left: 20px;
+    color: black;
+}
+.containerUserInfo{
+    padding-left: 20px;
+    padding-top: 60px;
+    position: relative;
+}
+.containerImg{
+    max-width: 600px;
+    width: 100%;
+    height: 200px;
+    position: relative;
+    background-color: red;
+    box-sizing: border-box; 
+}
+
