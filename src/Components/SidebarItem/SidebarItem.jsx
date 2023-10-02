@@ -1,5 +1,5 @@
 import React from "react";
-// import PropTypes from "prop-types";
+
 import { NavLink, useLocation } from "react-router-dom";
 import styles from "../SidebarItem/SidebarItem.module.scss";
 import classNames from "classnames";
@@ -32,7 +32,7 @@ const SidebarItem = () => {
     <div className={styles.sidebar}>
       <ul className={styles.sidebarList}>
         <li>
-          <NavLink className={styles.logo}>
+          <NavLink to="/" className={styles.logo}>
             <TwitterIcon className={styles.icon} />
           </NavLink>
         </li>
