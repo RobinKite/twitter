@@ -1,10 +1,11 @@
-import React from 'react';
-import './App.css';
-import Sidebar from './Components/Sidebar/Sidebar';
+import React from "react";
+import "./App.css";
+// import Sidebar from './Components/Sidebar/Sidebar';
 import AppRoutes from "./AppRoutes";
 import { useSelector, useDispatch } from "react-redux";
 import LoginForm from "./Components/LoginFormsModal/LoginForm";
 import BasicModal from "./Components/LoginFormsModal/LoginForm";
+import Container from "./Components/Container/Container";
 
 function App() {
   const dispatch = useDispatch();
@@ -14,7 +15,8 @@ function App() {
   // const handleClose = () => setOpen(false);
   return (
     <div className="App">
-      <Sidebar />
+      <Container />
+      {/* <Sidebar /> */}
       <AppRoutes />
       {firstModalOpen && <BasicModal open={firstModalOpen} />}
     </div>
