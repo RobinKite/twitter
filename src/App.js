@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import LoginForm from "./Components/LoginFormsModal/LoginForm";
 import BasicModal from "./Components/LoginFormsModal/LoginForm";
 import Container from "./Components/Container/Container";
+import PasswordForm from "./Components/LoginFormsModal/PasswordForm/PasswordForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ function App() {
       {/* <Sidebar /> */}
       <AppRoutes />
       {firstModalOpen && <BasicModal open={firstModalOpen} />}
+      <PasswordForm/>
     </div>
   );
 }

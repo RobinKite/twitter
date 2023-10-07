@@ -16,7 +16,6 @@ import ButtonStyled from "../Button/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { setModal } from "../../redux/actions/modalLogin";
 
-
 const style = {
   position: "absolute",
   display: "flex",
@@ -56,20 +55,17 @@ export default function BasicModal(props) {
       toggleModal();
     }
   };
-  const {open}= props
+  const { open } = props;
 
   return (
     <div>
-      
       <Modal
-
-       open={open}
-       onClose={fonnClick}
-    
+        open={open}
+        onClose={fonnClick}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} >
+        <Box sx={style}>
           <div className={classNames(styles.clossvg)} onClick={toggleModal}>
             <Clos />
           </div>
@@ -80,7 +76,7 @@ export default function BasicModal(props) {
             Sign in to X
           </Typography>
           <ButtonStyled endIcon={<Google />}>Sign in with Google</ButtonStyled>
-          <ButtonStyled startIcon={<Apple />}>Sign up with Apple</ButtonStyled>
+          <ButtonStyled startIcon={<Apple />}>Sign in with Apple</ButtonStyled>
           <span className={styles.retreat}>or</span>
 
           <Formik
@@ -89,7 +85,12 @@ export default function BasicModal(props) {
             validationSchema={schema}
           >
             <Form>
-              <Input name="email" type="email"  label="email@" variant="email@"/>
+              <Input
+                name="email"
+                type="email"
+                label="email@"
+                variant="email@"
+              />
             </Form>
           </Formik>
           <ButtonStyled
@@ -121,4 +122,3 @@ export default function BasicModal(props) {
     </div>
   );
 }
-
