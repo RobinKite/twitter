@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
 import { Form, Formik, Field } from "formik";
 import Button from "../../Button/Button";
 import { ReactComponent as TwiterLogo } from "../../../Pages/ExitLogin/svg/twiterLogo.svg";
@@ -15,7 +21,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  maxWidth: 440,
+  width: "80%",
   bgcolor: "background.paper",
   border: "0",
   boxShadow: 24,
@@ -24,27 +31,45 @@ const style = {
   borderRadius: "15px",
   display: "flex",
   justifyContent: "flex-start",
-
+  alignItems: "flex-start",
   flexDirection: "column",
-  alignItems: "center",
+
   minHeight: "650px",
 };
 
 const PasswordForm = () => {
+  //First Modal
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // Second Modal
+  const [open2, setOpen2] = React.useState(false);
+  const handleOpen2 = () => setOpen2(true);
+  const handleClose2 = () => setOpen2(false);
+
   const initialValues = {
     inputValue: "",
   };
+  const initialValue2 = {
+    password: "",
+    email: "",
+  };
+  const email = "example@example.com";
+
+  const validationSchema2 = Yup.object({
+    password: Yup.string().required("Required"),
+  });
+
   const onSubmit = (values) => {
     console.log(values);
+    handleClose();
+    handleOpen2(); // Open the second modal onSubmit
   };
   const validationSchema = Yup.object().shape({
     inputValue: Yup.string()
       .required("This field is required")
-      .test("phone-or-username", "Invalid input", (value) => {
+      .test("phone-or-username", "Enter phone number or name", (value) => {
         // Define your custom validation logic here
         // You can use regular expressions or any other criteria
         const phoneRegex = /^\+\d{1,3}[- ]?\d{6,}$/;
@@ -53,6 +78,12 @@ const PasswordForm = () => {
         return phoneRegex.test(value) || usernameRegex.test(value);
       }),
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div>
@@ -64,12 +95,13 @@ const PasswordForm = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <button className={styles.closeBtn}>
-            <CloseButton />
+          <button className={styles.closeBtn} onClick={handleClose}>
+            <CloseButton style={{ height: "30px" }} />
           </button>
           <div className={styles.twitterLogo}>
             <TwiterLogo />
           </div>
+
           <div className={styles.textContainer}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Enter your phone number or username
@@ -78,7 +110,7 @@ const PasswordForm = () => {
               id="modal-modal-description"
               sx={{
                 mt: 2,
-                marginBottom: "30px",
+                
                 color: "#536471",
               }}
             >
@@ -93,10 +125,10 @@ const PasswordForm = () => {
             validationSchema={validationSchema}
           >
             {({ errors, touched }) => (
-              <Form>
+              <Form className={styles.form}>
                 <Field
                   as={TextField}
-                  id="outlined-basic"
+                  // id='outlined-basic'
                   name="inputValue"
                   label="Phone or username"
                   placeholder="Phone or username"
@@ -115,7 +147,9 @@ const PasswordForm = () => {
                     backgroundColor: "#000000",
                     color: "#FFFFFF",
                     padding: "0 32px",
-                    width: "375px",
+                    width: "100%",
+                    height: "4rem",
+                    margin:'0',
                     "&:hover": {
                       backgroundColor: "#0f1419",
                     },
@@ -126,6 +160,125 @@ const PasswordForm = () => {
               </Form>
             )}
           </Formik>
+        </Box>
+      </Modal>
+
+      <Modal
+        open={open2}
+        onClose={handleClose2}
+        aria-labelledby="modal-modal-title2"
+        aria-describedby="modal-modal-description2"
+      >
+        <Box sx={style}>
+          <button className={styles.closeBtn} onClick={handleClose2}>
+            <CloseButton style={{ height: "30px" }} />
+          </button>
+          <div className={styles.twitterLogo}>
+            <TwiterLogo />
+          </div>
+          <div className={styles.textContainer}>
+            <Typography id="modal-modal-title2" variant="h6" component="h2">
+              Enter your password
+            </Typography>
+          </div>
+          <Formik
+            initialValues={initialValue2}
+            onSubmit={onSubmit}
+            validationSchema={validationSchema2}
+          >
+            {({ errors, touched }) => (
+              <Form className={styles.form}>
+                <TextField
+                  label="Email"
+                  value={email}
+                  variant="outlined"
+                  fullWidth
+                  disabled
+                  sx={{
+                    marginBottom: "20px",
+                  }}
+                ></TextField>
+                <Field
+                  as={TextField}
+                  id="outlined-password-input"
+                  autoComplete="current-password"
+                  name="password"
+                  label="Password"
+                  placeholder="Password"
+                  variant="outlined"
+                  type={showPassword ? "text" : "password"}
+                  fullWidth
+                  required
+                  error={touched.password && Boolean(errors.password)} // Corrected field names here
+                  helperText={touched.password && errors.password} // Corrected field names here
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={handleTogglePasswordVisibility}
+                          edge="end"
+                          aria-label="toggle password visibility"
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                 
+                ></Field>
+                <Typography
+                  sx={{
+                    marginBottom: "200px",
+                  }}
+                >
+                  <Link
+                    className={styles.link}
+                    href="/forgotPassword" // actual URL or route to  "Forgot password" page
+                    color="primary"
+                  >
+                    Forgot password?
+                  </Link>
+                </Typography>
+                <Button
+                  type="submit"
+                  sx={{
+                    backgroundColor: "#000000",
+                    color: "#FFFFFF",
+                    padding: "0 32px",
+                    width: "100%",
+                    height: "4rem",
+                    margin: '0',
+                    "&:hover": {
+                      backgroundColor: "#0f1419",
+                    },
+                  }}
+                >
+                  Next
+                </Button>
+              </Form>
+            )}
+          </Formik>
+          <div>
+            <Typography
+              id="modal-modal-title2"
+              variant="body2"
+              sx={{
+                mt: 2,
+
+                color: "#536471",
+              }}
+            >
+              Don't have an account?{" "}
+              <Link
+                className={styles.link}
+                href="/signup" // actual URL or route to  "Sign Up" page
+                color="primary"
+                
+              >
+                Sign Up
+              </Link>
+            </Typography>
+          </div>
         </Box>
       </Modal>
     </div>
