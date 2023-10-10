@@ -95,7 +95,8 @@ const RegistrationForm = () => {
           >
             {({ errors, touched }) => (
               <Form>
-                <Field className={styles.textField}
+                <Field
+                  className={styles.textField}
                   as={TextField}
                   // id='outlined-basic'
                   name="firstName"
@@ -106,9 +107,12 @@ const RegistrationForm = () => {
                   required
                   error={touched.firstName && Boolean(errors.firstName)}
                   helperText={touched.firstName && errors.firstName}
-                 
+                  sx={{
+                    marginBottom: "35px",
+                  }}
                 ></Field>
-                <Field className={styles.textField}
+                <Field
+                  className={styles.textField}
                   as={TextField}
                   // id='outlined-basic'
                   name="lastName"
@@ -119,9 +123,12 @@ const RegistrationForm = () => {
                   required
                   error={touched.lastName && Boolean(errors.lastName)}
                   helperText={touched.lastName && errors.lastName}
-                 
+                  sx={{
+                    marginBottom: "35px",
+                  }}
                 ></Field>
-                <Field className={styles.textField}
+                <Field
+                  className={styles.textField}
                   as={TextField}
                   // id='outlined-basic'
                   name="email"
@@ -132,9 +139,12 @@ const RegistrationForm = () => {
                   required
                   error={touched.email && Boolean(errors.email)}
                   helperText={touched.email && errors.email}
-                 
+                  sx={{
+                    marginBottom: "35px",
+                  }}
                 ></Field>
-                <Field className={styles.textField}
+                <Field
+                  className={styles.textField}
                   as={TextField}
                   id="outlined-password-input"
                   autoComplete="current-password"
@@ -147,7 +157,6 @@ const RegistrationForm = () => {
                   required
                   error={touched.password && Boolean(errors.password)} // Corrected field names here
                   helperText={touched.password && errors.password} // Corrected field names here
-                  
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -161,6 +170,9 @@ const RegistrationForm = () => {
                       </InputAdornment>
                     ),
                   }}
+                  sx={{
+                    marginBottom: "35px",
+                  }}
                 ></Field>
 
                 <Button
@@ -172,7 +184,7 @@ const RegistrationForm = () => {
                     width: "100%",
                     height: "4rem",
                     margin: "0",
-                    marginTop:"40px",
+                    marginTop: "40px",
                     "&:hover": {
                       backgroundColor: "#0f1419",
                     },
