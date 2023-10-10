@@ -110,7 +110,7 @@ const PasswordForm = () => {
               id="modal-modal-description"
               sx={{
                 mt: 2,
-                
+
                 color: "#536471",
               }}
             >
@@ -127,6 +127,7 @@ const PasswordForm = () => {
             {({ errors, touched }) => (
               <Form className={styles.form}>
                 <Field
+                  className={styles.textField}
                   as={TextField}
                   // id='outlined-basic'
                   name="inputValue"
@@ -138,7 +139,7 @@ const PasswordForm = () => {
                   error={touched.inputValue && Boolean(errors.inputValue)}
                   helperText={touched.inputValue && errors.inputValue}
                   sx={{
-                    marginBottom: "245px",
+                    marginBottom: "285px",
                   }}
                 ></Field>
                 <Button
@@ -149,7 +150,7 @@ const PasswordForm = () => {
                     padding: "0 32px",
                     width: "100%",
                     height: "4rem",
-                    margin:'0',
+                    margin: "0",
                     "&:hover": {
                       backgroundColor: "#0f1419",
                     },
@@ -189,6 +190,7 @@ const PasswordForm = () => {
             {({ errors, touched }) => (
               <Form className={styles.form}>
                 <TextField
+                  className={styles.textField}
                   label="Email"
                   value={email}
                   variant="outlined"
@@ -199,6 +201,7 @@ const PasswordForm = () => {
                   }}
                 ></TextField>
                 <Field
+                  className={styles.textField}
                   as={TextField}
                   id="outlined-password-input"
                   autoComplete="current-password"
@@ -211,6 +214,7 @@ const PasswordForm = () => {
                   required
                   error={touched.password && Boolean(errors.password)} // Corrected field names here
                   helperText={touched.password && errors.password} // Corrected field names here
+                  sx={{ marginBottom: "20px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -224,11 +228,10 @@ const PasswordForm = () => {
                       </InputAdornment>
                     ),
                   }}
-                 
                 ></Field>
                 <Typography
                   sx={{
-                    marginBottom: "200px",
+                    marginBottom: "230px",
                   }}
                 >
                   <Link
@@ -247,7 +250,7 @@ const PasswordForm = () => {
                     padding: "0 32px",
                     width: "100%",
                     height: "4rem",
-                    margin: '0',
+                    margin: "0",
                     "&:hover": {
                       backgroundColor: "#0f1419",
                     },
@@ -273,7 +276,6 @@ const PasswordForm = () => {
                 className={styles.link}
                 href="/signup" // actual URL or route to  "Sign Up" page
                 color="primary"
-                
               >
                 Sign Up
               </Link>
