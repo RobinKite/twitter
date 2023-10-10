@@ -1,19 +1,27 @@
 import React from "react";
 import SidebarItem from "../SidebarItem/SidebarItem";
-import styles from '../Sidebar/Sidebar.module.scss'
-import Button from "@mui/material/Button";
+import Button from '../Button/Button'
+// import Button from "@mui/material/Button";
 const Sidebar = () => {
   return (
     <div>
       <SidebarItem />
       <Button
         variant="contained"
-        className={`${styles.button}`}
         sx={{
+          color: "#ffffff",
+          boxShadow:"none",
+          backgroundColor:' #1d9bf0',
           borderRadius: "45px",
-          padding: "0px 70px",
+          height:'52px',
           fontWeight: 700,
-          fontSize: '20px',
+          minWidth:'233px',
+          fontSize: "17px",
+          margin: 0,
+          "&:hover": {
+            boxShadow:"none",
+            backgroundColor: "#1a8cd8",
+          },
         }}
       >
         Post
