@@ -1,14 +1,15 @@
 import React from "react";
-import SignUpForm from "../../Components/RegistrationForm/RegistrationForm";
 
-function SignUpPage() {
+import RegistrationForm from "../../Components/RegistrationForm/RegistrationForm";
+
+function RegistrationPage() {
 
     return (
         <>
             
-            <SignUpForm />
+            <RegistrationForm />
         </>
     )
 }
 
-export default SignUpPage;
+export default RegistrationPage;
