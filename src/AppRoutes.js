@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-
+import ItemPost from '../src/Components/ItemPost/ItemPost'
 function AppRoutes() {
   return (
     <Routes>
@@ -11,7 +11,7 @@ function AppRoutes() {
       <Route path="/lists" element={<div>Lists</div>} />
       <Route path="/communities" element={<div>Communities</div>} />
       <Route path="/verified" element={<div>Verified</div>} />
-      <Route path="/profile" element={<div>Profile</div>} />
+      <Route path="/profile" element={<ItemPost/>} />
       <Route path="/more" element={<div>More</div>} />
     </Routes>
   );

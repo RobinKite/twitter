@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import LoginForm from "./Components/LoginFormsModal/LoginForm";
 import BasicModal from "./Components/LoginFormsModal/LoginForm";
 import Container from "./Components/Container/Container";
+import Main from "./Components/Main/Main";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,7 +18,8 @@ function App() {
     <div className="App">
       <Container />
       {/* <Sidebar /> */}
-      <AppRoutes />
+      {/* <AppRoutes /> */}
+      {/* <Main/> */}
       {firstModalOpen && <BasicModal open={firstModalOpen} />}
     </div>
   );
