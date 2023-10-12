@@ -1,12 +1,16 @@
 .container {
   display: grid;
-grid-template-columns: 1fr ;
-    grid-template-areas: 
-    "leftsidebar" 
-    "main" 
-    "rightsidebar";
-  @media screen and (min-width: 481px) {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas: "leftsidebar main rightsidebar";
-  }
+  max-width: 1200px;
+  margin: auto;
+  grid-template-columns: minmax(275px, 300px) 1fr minmax(275px, 300px);
+  // grid-template-rows: max-content;
+// grid-template-columns: 1fr ;
+//     grid-template-areas: 
+//     "leftsidebar" 
+//     "main" 
+//     "rightsidebar";
+//   @media screen and (min-width: 481px) {
+//     grid-template-columns: minmax(0, 275px) minmax(0, 600px) minmax(0, 350px);
+//     grid-template-areas: "leftsidebar main rightsidebar";
+//   }
 }

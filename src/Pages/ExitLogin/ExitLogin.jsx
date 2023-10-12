@@ -8,19 +8,17 @@ import { ReactComponent as Apple } from "./svg/apple.svg";
 import { ReactComponent as Google } from "./svg/google.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { setModal } from "../../redux/actions/modalLogin";
-
 import ButtonStyled from "../../Components/Button/Button";
+import { useNavigate } from "react-router-dom";
 
-
-
-const ExitLogin = () => {
+const ExitLogin = ({ setIsLog, isLog }) => {
   const dispatch = useDispatch();
   const toggleModal = () => {
     dispatch(setModal());
   };
 
   return (
-    <div>
+    <div className={classNames(styles.wrapper)}>
       <div className={classNames(styles.conteiner)}>
         <div className={classNames(styles.svgX)}>
           <TwiterLogo />
@@ -44,15 +42,13 @@ const ExitLogin = () => {
           <p className={classNames(styles.titleProfile)}>
             Already have a profile?
           </p>
-         
+
           <ButtonStyled onClick={toggleModal}>Exit</ButtonStyled>
-        
         </div>
       </div>
       <div>
         <Footer />
       </div>
-
     </div>
   );
 };
