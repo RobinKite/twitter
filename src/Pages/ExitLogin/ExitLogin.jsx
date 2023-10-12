@@ -9,7 +9,7 @@ import { ReactComponent as Google } from "./svg/google.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { setModal } from "../../redux/actions/modalLogin";
 import ButtonStyled from "../../Components/Button/Button";
-import { useNavigate } from "react-router-dom";
+
 
 const ExitLogin = ({ setIsLog, isLog }) => {
   const dispatch = useDispatch();

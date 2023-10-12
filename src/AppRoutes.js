@@ -7,7 +7,7 @@ import ExitLogin from "./Pages/ExitLogin/ExitLogin";
 import Container from "./Components/Container/Container.jsx";
 import PasswordForm from "./Components/LoginFormsModal/PasswordForm/PasswordForm";
 import RegistrationForm from "./Components/RegistrationForm/RegistrationForm";
-import ExitLogin from "./Pages/ExitLogin/ExitLogin";
+
 function AppRoutes() {
   // const isLog = useSelector((state) => state.registration.isLog);
   const isLog = true;
