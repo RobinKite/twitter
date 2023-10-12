@@ -212,8 +212,8 @@ const PasswordForm = () => {
                   type={showPassword ? "text" : "password"}
                   fullWidth
                   required
-                  error={touched.password && Boolean(errors.password)} // Corrected field names here
-                  helperText={touched.password && errors.password} // Corrected field names here
+                  error={touched.password && Boolean(errors.password)}
+                  helperText={touched.password && errors.password} 
                   sx={{ marginBottom: "20px" }}
                   InputProps={{
                     endAdornment: (
@@ -274,7 +274,7 @@ const PasswordForm = () => {
               Don't have an account?{" "}
               <Link
                 className={styles.link}
-                href="/signup" // actual URL or route to  "Sign Up" page
+                href="/LoginPage" // actual URL or route to  "Sign Up" page
                 color="primary"
               >
                 Sign Up

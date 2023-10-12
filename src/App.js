@@ -20,7 +20,7 @@ function App() {
       {/* <Sidebar /> */}
       <AppRoutes />
       {firstModalOpen && <BasicModal open={firstModalOpen} />}
-      {/* <PasswordForm/> */}
+    
     </div>
   );
 }

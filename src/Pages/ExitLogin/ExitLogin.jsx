@@ -1,6 +1,6 @@
 import React from "react";
 import Footer from "../../Components/Footer/Footer";
-
+import { useNavigate } from "react-router-dom";
 import styles from "./ExitLogin.module.scss";
 import classNames from "classnames";
 import { ReactComponent as TwiterLogo } from "./svg/twiterLogo.svg";
@@ -11,14 +11,15 @@ import { setModal } from "../../redux/actions/modalLogin";
 
 import ButtonStyled from "../../Components/Button/Button";
 
-
-
 const ExitLogin = () => {
   const dispatch = useDispatch();
   const toggleModal = () => {
     dispatch(setModal());
   };
 
+   const navigate = useNavigate();
+
+  
   return (
     <div>
       <div className={classNames(styles.conteiner)}>
@@ -33,6 +34,7 @@ const ExitLogin = () => {
           <ButtonStyled startIcon={<Apple />}>Sign up with Apple</ButtonStyled>
           <span className={styles.retreat}>or</span>
           <ButtonStyled
+            onClick={() => navigate("/registration")}
             sx={{
               color: "white",
               backgroundColor: "rgb(8, 139, 226)",
@@ -44,15 +46,13 @@ const ExitLogin = () => {
           <p className={classNames(styles.titleProfile)}>
             Already have a profile?
           </p>
-         
+
           <ButtonStyled onClick={toggleModal}>Exit</ButtonStyled>
-        
         </div>
       </div>
       <div>
         <Footer />
       </div>
-
     </div>
   );
 };
