@@ -1,0 +1,40 @@
+export const formFields = [
+  { name: "name", label: "Name", rows: 1, maxLength: 20 },
+  { name: "bio", label: "Bio", rows: 3, maxLength: 100 },
+  { name: "location", label: "Location", rows: 1, maxLength: 55 },
+  { name: "website", label: "Website", rows: 1, maxLength: 20 },
+];
+
+export const configDateForm = [
+  {
+    name: "month",
+    label: "month",
+    rows: 1,
+    options: [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
+  },
+  {
+    name: "day",
+    label: "day",
+    rows: 1,
+    // options: Array.from({ length: 31 }, (_, i) => i + 1),
+  },
+  {
+    name: "year",
+    label: "year",
+    rows: 1,
+    options: Array.from({ length: 112 }, (_, i) => 1910 + i), // Генерируем годы
+  },
+];

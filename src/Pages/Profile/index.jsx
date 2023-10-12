@@ -1,8 +1,8 @@
 import { ReactComponent as ArrowBack } from "./svg/arrow.svg";
-import React from "react";
-import classNames from "classnames";
-import styles from "./profile.module.scss";
-import EditForm from "../../Components/EditForm";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ModalEdit from "../../Components/ModalEdit";
+
 import {
   Avatar,
   Box,
@@ -11,12 +11,69 @@ import {
   Container,
   Button,
   Modal,
+  styled,
 } from "@mui/material";
+import LabTabs from "../../Components/ProfileTabs";
+import TabPanel from "@mui/lab/TabPanel";
+import UserFoto from "../../Components/UserFoto";
 
+import { GetUserAsync } from "../../redux/actions/userInfo";
+const tabs = [
+  { label: "Post", value: "1" },
+  { label: "Replies", value: "2" },
+  { label: "Likes", value: "3" },
+];
+
+const HeaderPage = styled(Box)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: "10px 0 5px 20px",
+}));
+const ContainerUserInfo = styled(Box)(({ theme }) => ({
+  padding: "60px 0 25px 20px",
+  position: "relative",
+}));
+const ArrowSvg = styled(Box)(({ theme }) => ({
+  backgroundColor: "white",
+  borderRadius: "50%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "40px",
+  height: "40px",
+  transition: "background-color 0.3s",
+  "&:hover": {
+    backgroundColor: "rgb(133, 125, 125)",
+  },
+}));
+const ContainerHederText = styled(Box)(({ theme }) => ({
+  paddingLeft: "20px",
+  color: "black",
+}));
+const EditButton = styled(Button)(({ theme }) => ({
+  position: "absolute",
+  borderRadius: "50px",
+  right: "20px",
+  top: "20px",
+  border: "1px solid rgb(239, 243, 244)",
+  color: "black",
+  " &:hover": {
+    border: "1px solid rgb(207, 217, 222)",
+    background: " rgb(239, 243, 244)",
+  },
+}));
 export default function Profile() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const dispatch = useDispatch();
+  // const token = useSelector((state) => state.authorization);
+  // const userInfo = useSelector((state) => state.user.user);
+  // const formData = {
+  //   email: "user1@gmail.com",
+  //   password: "1111",
+  // };
+
   return (
     <>
       <Modal
@@ -25,91 +82,40 @@ export default function Profile() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <EditForm />
+        <ModalEdit onClose={handleClose} />
       </Modal>
 
-      <Container
-        maxWidth="sm"
-        sx={{
-          borderLeft: "1px solid rgb(239, 243, 244)",
-          borderRight: "1px solid rgb(239, 243, 244)",
-          padding: "0 !important",
-        }}
-      >
-        <Box
-          style={{
-            display: "flex",
-            alignItems: "center",
-            padding: "10px 0 5px 20px",
-          }}
-        >
-          <Box className={classNames(styles.arrowSvg)}>
+      <Container maxWidth="sm" disableGutters={true}>
+        <HeaderPage>
+          <ArrowSvg>
             <ArrowBack />
-          </Box>
-          <Box className={classNames(styles.containerHederText)}>
-            <div>go flex</div>
+          </ArrowSvg>
+          <ContainerHederText>
+            <Typography variant="h6">go flex</Typography>
             <div>post</div>
-          </Box>
-        </Box>
-        <Box className={classNames(styles.containerImg)}>
-          <Avatar
-            sx={{
-              width: "100px",
-              height: "100px",
-              position: "absolute",
-              bottom: "-50px",
-              left: "30px",
-            }}
-            alt="Remy Sharp"
-            src="https://bipbap.ru/wp-content/uploads/2017/04/0_7c779_5df17311_orig.jpg"
-          />
-          <img
-            // src="https://bipbap.ru/wp-content/uploads/2017/04/0_7c779_5df17311_orig.jpg"
-            alt=""
-            style={{ width: "100%", maxHeight: "200px" }}
-          />
-        </Box>
-
-        <Box className={classNames(styles.containerUserInfo)}>
-          <Button
-            onClick={handleOpen}
-            sx={{
-              position: "absolute",
-              borderRadius: "50px",
-              right: "20px",
-              top: "20px",
-              border: "1px solid rgb(239, 243, 244)",
-              color: "black",
-              " &:hover": {
-                border: "1px solid rgb(207, 217, 222)",
-                background: " rgb(239, 243, 244)",
-              },
-            }}
-            variant="outlined"
-          >
+            {/* <button onClick={() => dispatch(PostAuthorizationAsync(formData))}>
+              test
+            </button>
+            <button onClick={() => dispatch(GetUserAsync())}>test2</button> */}
+          </ContainerHederText>
+        </HeaderPage>
+        <UserFoto changeIcon={false} />
+        <ContainerUserInfo>
+          <EditButton onClick={handleOpen} variant="outlined">
             Edit profile
-          </Button>
+          </EditButton>
           <Typography variant="h6">go flex</Typography>
           <Typography variant="body1">@goflex175802</Typography>
           <Typography
             component="div"
             variant="body1"
             sx={{
-              padding: "15px 0",
+              padding: "10px 0",
             }}
           >
-            {"dffddf"}
+            {"some bio"}
           </Typography>
-          <Typography
-            variant="body2"
-            sx={
-              {
-                // paddingTop: "15px",
-              }
-            }
-          >
-            Joined September 2023
-          </Typography>
+          <Typography variant="body2">Joined September 2023</Typography>
 
           <Typography component="span" variant="body1">
             1 Following
@@ -123,7 +129,21 @@ export default function Profile() {
           >
             0 Followers
           </Typography>
-        </Box>
+        </ContainerUserInfo>
+        <LabTabs
+          tabs={tabs}
+          variant="scrollable"
+          scrollButtons="auto"
+          style={{
+            "& .MuiTabs-flexContainer": {
+              justifyContent: "space-around",
+            },
+          }}
+        >
+          <TabPanel value="1">Post</TabPanel>
+          <TabPanel value="2">Peplies</TabPanel>
+          <TabPanel value="3">Likes</TabPanel>
+        </LabTabs>
       </Container>
     </>
   );
