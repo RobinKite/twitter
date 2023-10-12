@@ -15,7 +15,7 @@ import classNames from "classnames";
 import ButtonStyled from "../Button/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { setModal } from "../../redux/actions/modalLogin";
-
+import { useNavigate } from "react-router-dom";
 const style = {
   position: "absolute",
   display: "flex",
@@ -56,6 +56,11 @@ export default function BasicModal(props) {
     }
   };
   const { open } = props;
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate("/passwordForm");
+  };
 
   return (
     <div>
@@ -94,6 +99,7 @@ export default function BasicModal(props) {
             </Form>
           </Formik>
           <ButtonStyled
+            onClick={handleButtonClick}
             sx={{
               color: "white",
               backgroundColor: "rgb(0, 0, 0)",

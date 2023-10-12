@@ -9,7 +9,7 @@ function AppRoutes() {
       <Route exact path="/" element={<PasswordForm />} />
       {/* <Route exact path="/" element={<div>Home</div>} /> */}
       {/* <Route path="/explore" element={<RegistrationForm />} /> */}
-      {/* <Route path="/explore" element={<div>Explore</div>} /> */}
+      {/* <Route path="/explore" element={<PasswordForm/>} /> */}
       <Route path="/notifications" element={<div>Notifications</div>} />
       <Route path="/messages" element={<div>Messages</div>} />
       <Route path="/lists" element={<div>Lists</div>} />
@@ -18,7 +18,8 @@ function AppRoutes() {
       <Route path="/profile" element={<div>Profile</div>} />
       <Route path="/more" element={<div>More</div>} />
       <Route path="/LoginPage" element={<ExitLogin />} />
-      <Route path="/registration" element={<RegistrationForm/>} />
+      <Route path="/registration" element={<RegistrationForm />} />
+      <Route exact path="/passwordForm" element={<PasswordForm />} />
     </Routes>
   );
 }
