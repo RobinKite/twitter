@@ -1,12 +1,13 @@
 import classNames from "classnames";
-import AppRoutes from "../../AppRoutes";
 import styles from "./Main.module.scss";
-
-const Main = () => {
+import AppRoutes from "../../AppRoutes";
+const Main = ({ children }) => {
   return (
     <div className={classNames(styles.main)}>
-      <h2>MAIN SECTION</h2>
-      <AppRoutes/>
+      {/* <AppRoutes /> */}
+      {children}
+      {/* <h2>MAIN SECTION</h2>
+      <AppRoutes/> */}
     </div>
   );
 };
