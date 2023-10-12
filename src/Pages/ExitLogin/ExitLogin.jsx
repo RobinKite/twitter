@@ -8,10 +8,10 @@ import { ReactComponent as Apple } from "./svg/apple.svg";
 import { ReactComponent as Google } from "./svg/google.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { setModal } from "../../redux/actions/modalLogin";
-
 import ButtonStyled from "../../Components/Button/Button";
+import { useNavigate } from "react-router-dom";
 
-const ExitLogin = () => {
+const ExitLogin = ({ setIsLog, isLog }) => {
   const dispatch = useDispatch();
   const toggleModal = () => {
     dispatch(setModal());
@@ -21,7 +21,7 @@ const ExitLogin = () => {
 
   
   return (
-    <div>
+    <div className={classNames(styles.wrapper)}>
       <div className={classNames(styles.conteiner)}>
         <div className={classNames(styles.svgX)}>
           <TwiterLogo />
