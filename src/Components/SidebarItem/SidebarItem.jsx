@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { NavLink, useLocation } from "react-router-dom";
 import styles from "../SidebarItem/SidebarItem.module.scss";
 import classNames from "classnames";
-
+import Button from "../Button/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import { ReactComponent as HomeIcon } from "../../assets/svg/home.svg";
 import { ReactComponent as HomeIconFilled } from "../../assets/svg/home-filled.svg";
 import { ReactComponent as SearchIcon } from "../../assets/svg/search.svg";
@@ -27,6 +29,20 @@ const SidebarItem = () => {
   const isActive = (path) => {
     return location.pathname === path ? "active-link" : "";
   };
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+    setIsButtonActive(true); // Activate the button
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+    setIsButtonActive(false); // Activate the button
+  };
+
+  const [isButtonActive, setIsButtonActive] = useState(false);
 
   return (
     <div className={styles.sidebar}>
@@ -134,21 +150,40 @@ const SidebarItem = () => {
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
-          <NavLink
-            to="more"
-            className={({ isActive }) =>
-              classNames(styles.listLink, { [styles.active]: isActive })
-            }
+          <Button
+            onClick={handleOpenMenu}
+            startIcon={<MoreIcon />}
+            sx={{
+              border: 0,
+              margin: 0,
+              fontSize: "20px",
+              height: "50px",
+              display: "flex",
+              gap: "15px",
+              fontWeight: isButtonActive ? "bold" : "normal",
+              "&:hover": {
+                backgroundColor: 'rgb(221, 217, 217)',
+              }
+            }}
+            // className={({ isActive }) =>
+            //   classNames(styles.listLink, { [styles.active]: isActive })
+            // }
           >
-            {isActive("/more") ? <MoreIconFilled /> : <MoreIcon />}
             More
-          </NavLink>
+          </Button>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleCloseMenu}
+          >
+            <MenuItem onClick={handleCloseMenu}>Option 1</MenuItem>
+            <MenuItem onClick={handleCloseMenu}>Option 2</MenuItem>
+            <MenuItem onClick={handleCloseMenu}>Option 3</MenuItem>
+          </Menu>
         </li>
       </ul>
     </div>
   );
 };
-
-
 
 export default SidebarItem;
