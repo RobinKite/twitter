@@ -61,13 +61,15 @@ export default function PostModal(props) {
         aria-describedby="modal-modal-description"
       >
         <ModalBody>
-          <div className={classNames(styles.close)} onClick={toggleModalPost}>
-            <Close className={classNames(styles.clossvg)} />
+          <div className={classNames(styles.close)}>
+            <Close
+              onClick={toggleModalPost}
+              className={classNames(styles.clossvg)}
+            />
           </div>
           <div className={classNames(styles.postInput)}>
             <Post />
           </div>
-          
         </ModalBody>
       </Modal>
     </div>

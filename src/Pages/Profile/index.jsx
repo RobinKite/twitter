@@ -2,6 +2,7 @@ import { ReactComponent as ArrowBack } from "./svg/arrow.svg";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ModalEdit from "../../Components/ModalEdit";
+import ItemPost from "../../Components/ItemPost/ItemPost";
 
 import {
   Avatar,
@@ -140,7 +141,7 @@ export default function Profile() {
             },
           }}
         >
-          <TabPanel value="1">Post</TabPanel>
+          <TabPanel value="1"> <ItemPost /></TabPanel>
           <TabPanel value="2">Peplies</TabPanel>
           <TabPanel value="3">Likes</TabPanel>
         </LabTabs>
