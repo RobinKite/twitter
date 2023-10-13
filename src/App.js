@@ -22,7 +22,7 @@ function App() {
       {/* <AppRoutes /> */}
       {/* <AppRoutes /> */}
       {/* <Main/> */}
-      {firstModalOpen && <BasicModal open={firstModalOpen} />}
+      {/* {firstModalOpen && <BasicModal open={firstModalOpen} />} */}
     </div>
   );
 }

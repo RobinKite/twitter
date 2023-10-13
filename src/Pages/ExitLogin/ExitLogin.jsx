@@ -10,12 +10,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { setModal } from "../../redux/actions/modalLogin";
 import ButtonStyled from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
+import LoginForm from "../../Components/LoginFormsModal/LoginForm";
 
 const ExitLogin = ({ setIsLog, isLog }) => {
   const dispatch = useDispatch();
   const toggleModal = () => {
     dispatch(setModal());
   };
+  const firstModalOpen = useSelector((state) => state.loginModal.isActive);
 
   return (
     <div className={classNames(styles.wrapper)}>
@@ -49,6 +51,8 @@ const ExitLogin = ({ setIsLog, isLog }) => {
       <div>
         <Footer />
       </div>
+      {firstModalOpen && <LoginForm open={firstModalOpen} />}
+
     </div>
   );
 };
