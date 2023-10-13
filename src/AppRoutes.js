@@ -25,8 +25,10 @@ function AppRoutes() {
           )
         }
       >
-        <Route index element={<div>Home</div>} />
+        {/* <Route index element={<div>Home</div>} /> */}
+        <Route index element={<ExitLogin/>} />
         <Route path="/explore" element={<div>Explore</div>} />
+        {/* <Route path="/explore" element={<PasswordForm/>} /> */}
         <Route path="/notifications" element={<div>Notifications</div>} />
         <Route path="/messages" element={<div>Messages</div>} />
         <Route path="/lists" element={<div>Lists</div>} />
@@ -34,9 +36,9 @@ function AppRoutes() {
         <Route path="/verified" element={<div>Verified</div>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/more" element={<div>More</div>} />
-        <Route path="/LoginPage" element={<ExitLogin />} />
+        {/* <Route path="/LoginPage" element={<ExitLogin />} /> */}
         <Route path="/registration" element={<RegistrationForm />} />
-        <Route exact path="/passwordForm" element={<PasswordForm />} />
+        <Route path="/passwordForm" element={<PasswordForm />} />
       </Route>
       <Route
         path="/login"
