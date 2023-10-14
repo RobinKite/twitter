@@ -62,34 +62,43 @@ const Sidebar = () => {
         More
       </Button>
       <Select
+        sx={{
+          position:"relative",
+          "& .MuiSelect-select": {
+            display: "none",
+          },
+        }}
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        sx={{
-          backgroundColor:"red",
-          position: "absolute",
-          display: "flex",
-          borderRadius: 10,
-          "&:hover": {
-            backgroundColor: "eff3f4",
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              position: "absolute",
+              borderRadius: 5,
+              backgroundColor: "#ffffff",
+
+              "& .MuiMenuItem-root": {
+                padding: 2,
+                fontSize: 20,
+                fontWeight: 700,
+                minWidth: 318,
+                backgroundColor: "#ffffff",
+                gap: 3,
+                "&:hover": {
+                  backgroundColor: "#eff3f4",
+                },
+              },
+            },
           },
         }}
       >
-        <MenuItem
-          component={Link}
-          to="/bookmarks"
-          style={{
-            gap: "15px",
-            minWidth: "318px",
-            fontSize: "20px",
-            fontWeight: "700",
-          }}
-        >
+        <MenuItem component={Link} to="/bookmarks">
           <BookmarkBorderIcon />
           Bookmarks
         </MenuItem>
-        <MenuItem style={{ gap: "15px", fontSize: "20px", fontWeight: "700" }}>
+        <MenuItem>
           <DisplaySettingsIcon />
           Display
         </MenuItem>
