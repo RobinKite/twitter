@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import SidebarItem from "../SidebarItem/SidebarItem";
 import Button from "../Button/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+
+import { Select, MenuItem } from "@mui/material";
+
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import { ReactComponent as MoreIcon } from "../../assets/svg/more.svg";
-// import styles from "./Sidebar.module.scss";
+
 // import { ReactComponent as MoreIconFilled } from "../../assets/svg/more-filled.svg";
 
 const Sidebar = () => {
@@ -33,7 +34,7 @@ const Sidebar = () => {
   const [isButtonActive, setIsButtonActive] = useState(false);
 
   return (
-    <div className={classNames(styles.sidebar)}>
+    <div>
       <SidebarItem />
 
       <Button
@@ -60,18 +61,16 @@ const Sidebar = () => {
       >
         More
       </Button>
-      <Menu
+      <Select
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
         sx={{
+          backgroundColor:"red",
           position: "absolute",
           display: "flex",
-          borderRadius: "10px!important",
+          borderRadius: 10,
           "&:hover": {
             backgroundColor: "eff3f4",
           },
@@ -94,7 +93,7 @@ const Sidebar = () => {
           <DisplaySettingsIcon />
           Display
         </MenuItem>
-      </Menu>
+      </Select>
 
       <Button
         variant="contained"
