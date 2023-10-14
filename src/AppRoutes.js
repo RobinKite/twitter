@@ -7,6 +7,7 @@ import ExitLogin from "./Pages/ExitLogin/ExitLogin";
 import Container from "./Components/Container/Container.jsx";
 import PasswordForm from "./Components/LoginFormsModal/PasswordForm/PasswordForm";
 import RegistrationForm from "./Components/RegistrationForm/RegistrationForm";
+import Main from "./Components/Main/Main.jsx";
 
 function AppRoutes() {
   // const isLog = useSelector((state) => state.registration.isLog);
@@ -26,7 +27,7 @@ function AppRoutes() {
         }
       >
         {/* <Route index element={<div>Home</div>} /> */}
-        <Route index element={<ExitLogin/>} />
+        <Route index element={<ExitLogin />} />
         <Route path="/explore" element={<div>Explore</div>} />
         {/* <Route path="/explore" element={<PasswordForm/>} /> */}
         <Route path="/notifications" element={<div>Notifications</div>} />
@@ -34,12 +35,27 @@ function AppRoutes() {
         <Route path="/lists" element={<div>Lists</div>} />
         <Route path="/communities" element={<div>Communities</div>} />
         <Route path="/verified" element={<div>Verified</div>} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={
+            <div>
+              <Profile />
+            </div>
+          }
+        />
         <Route path="/more" element={<div>More</div>} />
         {/* <Route path="/LoginPage" element={<ExitLogin />} /> */}
         <Route path="/registration" element={<RegistrationForm />} />
         <Route path="/passwordForm" element={<PasswordForm />} />
       </Route>
+      <Route
+        path="/main"
+        element={
+          <div>
+            <Main />
+          </div>
+        }
+      />
       <Route
         path="/login"
         element={isLog ? <Navigate to="/" /> : <ExitLogin />}

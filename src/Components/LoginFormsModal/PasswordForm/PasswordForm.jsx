@@ -304,7 +304,7 @@ import Button from "../../Button/Button";
 import { ReactComponent as TwiterLogo } from "../../../Pages/ExitLogin/svg/twiterLogo.svg";
 import { ReactComponent as CloseButton } from "../svg/Clos.svg";
 import styles from "./PasswordForm.module.scss";
-
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 const style = {
@@ -345,7 +345,9 @@ const PasswordForm = () => {
     password: "",
     email: "",
   };
-  const email = "example@example.com";
+  // const email = "example@example.com";
+
+  const [email, setEmail] = useState("");
 
   const validationSchema2 = Yup.object({
     password: Yup.string().required("Required"),
@@ -353,6 +355,7 @@ const PasswordForm = () => {
 
   const onSubmit = (values) => {
     console.log(values);
+     setEmail(values.inputValue);
     handleClose();
     handleOpen2(); // Open the second modal onSubmit
   };
@@ -380,6 +383,18 @@ const PasswordForm = () => {
   useEffect(() => {
     handleOpen();
   }, []);
+
+
+
+  //chanhing route to Main onClick Log in button
+ const navigate = useNavigate();
+
+   const handleLoginClick = () => {
+     // Handle your login logic here
+     // If login is successful, navigate to the Main component
+     // You can conditionally navigate based on login success or other conditions
+     navigate("/main");
+   };
 
   return (
     <div>
@@ -538,6 +553,7 @@ const PasswordForm = () => {
                 </Typography>
                 <Button
                   type="submit"
+                  onClick={handleLoginClick}
                   sx={{
                     backgroundColor: "#000000",
                     color: "#FFFFFF",
