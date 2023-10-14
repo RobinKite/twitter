@@ -33,7 +33,7 @@ const Sidebar = () => {
   const [isButtonActive, setIsButtonActive] = useState(false);
 
   return (
-    <div>
+    <div className={classNames(styles.sidebar)}>
       <SidebarItem />
 
       <Button

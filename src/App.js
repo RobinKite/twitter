@@ -1,11 +1,12 @@
-import React from 'react';
-import './App.css';
-import Sidebar from './Components/Sidebar/Sidebar';
-import AppRoutes from "./AppRoutes";
+import React from "react";
+import "./App.css";
+// import Sidebar from './Components/Sidebar/Sidebar';
+// import AppRoutes from "./AppRoutes";
 import { useSelector, useDispatch } from "react-redux";
 import LoginForm from "./Components/LoginFormsModal/LoginForm";
 import BasicModal from "./Components/LoginFormsModal/LoginForm";
-
+import Container from "./Components/Container/Container";
+import AppRoutes from "./AppRoutes";
 function App() {
   const dispatch = useDispatch();
   const firstModalOpen = useSelector((state) => state.loginModal.isActive);
@@ -14,8 +15,9 @@ function App() {
   // const handleClose = () => setOpen(false);
   return (
     <div className="App">
-      <Sidebar />
       <AppRoutes />
+      {/* <Sidebar /> */}
+      {/* <AppRoutes /> */}
       {firstModalOpen && <BasicModal open={firstModalOpen} />}
     </div>
   );

@@ -5,7 +5,12 @@
   position: relative;
 }
 
-
+.wrapper{
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+}
 .svgX {
   min-width: 30%;
   margin-top: 12%;
