@@ -12,7 +12,8 @@ function AppRoutes() {
       <Route path="/communities" element={<div>Communities</div>} />
       <Route path="/verified" element={<div>Verified</div>} />
       <Route path="/profile" element={<div>Profile</div>} />
-      {/* <Route path="/more" element={<div>More</div>} /> */}
+      
+      <Route path="/bookmarks" element={<div>Bookmarks</div> } />
     </Routes>
   );
 }

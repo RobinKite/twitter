@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { NavLink, useLocation } from "react-router-dom";
 import styles from "../SidebarItem/SidebarItem.module.scss";
 import classNames from "classnames";
-import Button from "../Button/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+
+
 import { ReactComponent as HomeIcon } from "../../assets/svg/home.svg";
 import { ReactComponent as HomeIconFilled } from "../../assets/svg/home-filled.svg";
 import { ReactComponent as SearchIcon } from "../../assets/svg/search.svg";
@@ -20,8 +19,7 @@ import { ReactComponent as ListIcon } from "../../assets/svg/list.svg";
 import { ReactComponent as ListIconFilled } from "../../assets/svg/list-filled.svg";
 import { ReactComponent as CommunitiesIcon } from "../../assets/svg/communities.svg";
 import { ReactComponent as CommunitiesIconFilled } from "../../assets/svg/communities-filled.svg";
-import { ReactComponent as MoreIcon } from "../../assets/svg/more.svg";
-import { ReactComponent as MoreIconFilled } from "../../assets/svg/more-filled.svg";
+
 import { ReactComponent as TwitterIcon } from "../../assets/svg/twitter.svg";
 
 const SidebarItem = () => {
@@ -30,20 +28,7 @@ const SidebarItem = () => {
     return location.pathname === path ? "active-link" : "";
   };
 
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleOpenMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-    setIsButtonActive(true); // Activate the button
-  };
-
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-    setIsButtonActive(false); // Activate the button
-  };
-
-  const [isButtonActive, setIsButtonActive] = useState(false);
-
+  
   return (
     <div className={styles.sidebar}>
       <ul className={styles.sidebarList}>
@@ -149,38 +134,7 @@ const SidebarItem = () => {
             Profile
           </NavLink>
         </li>
-        <li className={styles.sidebarListLink}>
-          <Button
-            onClick={handleOpenMenu}
-            startIcon={<MoreIcon />}
-            sx={{
-              border: 0,
-              margin: 0,
-              fontSize: "20px",
-              height: "50px",
-              display: "flex",
-              gap: "15px",
-              fontWeight: isButtonActive ? "bold" : "normal",
-              "&:hover": {
-                backgroundColor: 'rgb(221, 217, 217)',
-              }
-            }}
-            // className={({ isActive }) =>
-            //   classNames(styles.listLink, { [styles.active]: isActive })
-            // }
-          >
-            More
-          </Button>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleCloseMenu}
-          >
-            <MenuItem onClick={handleCloseMenu}>Option 1</MenuItem>
-            <MenuItem onClick={handleCloseMenu}>Option 2</MenuItem>
-            <MenuItem onClick={handleCloseMenu}>Option 3</MenuItem>
-          </Menu>
-        </li>
+       
       </ul>
     </div>
   );
