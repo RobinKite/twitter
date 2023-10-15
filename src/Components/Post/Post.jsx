@@ -1,4 +1,3 @@
-// import * as React from "react";
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,8 +5,6 @@ import { setModalPost } from "../../redux/actions/modalPost";
 import { Avatar } from "@mui/material";
 import styles from "./Post.module.scss";
 import classNames from "classnames";
-// import { ReactComponent as Close } from "../LoginFormsModal/svg/Close.svg";
-import { ReactComponent as Close } from "../LoginFormsModal/svg/Clos.svg";
 import ButtonStyled from "../Button/Button";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 import TextField from "@mui/material/TextField";
@@ -15,9 +12,6 @@ import { styled } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import EmojiPicker from "emoji-picker-react";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
-
-import ReactDOM from "react-dom/client";
-import Button from "@mui/material/Button";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -31,31 +25,6 @@ const VisuallyHiddenInput = styled("input")({
   width: 30,
 });
 
-// const ModalBody = styled(Box)(() => ({
-//   position: "absolute",
-//   top: "50%",
-//   left: "50%",
-//   transform: "translate(-50%, -50%)",
-//   // position: "relative",
-//   maxWidth: "700px",
-//   width: "100%",
-//   minHeight: "30em",
-//   maxHeight: "55em",
-//   overflowY: "auto",
-//   overflowX: "hidden",
-//   backgroundColor: "white",
-//   display: "flex",
-//   justifyContent: "space-between",
-//   flexDirection: "column",
-//   textAlign: "center",
-//   borderRadius: 24,
-//   paddingLeft: 16,
-//   paddingRight: 16,
-//   "@media(max-width: 700px)": {
-//     minWidth: "100%",
-//     minHeight: "100%",
-//   },
-// }));
 const InputFieldCostum = styled(TextField)({
   marginLeft: "70px",
   width: "100%",
@@ -69,8 +38,10 @@ const InputFieldCostum = styled(TextField)({
 });
 const Post = () => {
   const [files, setFiles] = useState([]);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [inputStr, setInputStr] = useState("");
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  // Відмалювання смайлів
   const onEmojiClick = (event, emojiObject) => {
     setInputStr((prevInput) => {
       return (prevInput += event.emoji);
@@ -78,20 +49,29 @@ const Post = () => {
 
     setShowEmojiPicker(false);
   };
+  // Створення масиву URL зображень
+  const imageUrls = [];
 
-  const dispatch = useDispatch();
-  const toggleModal = () => {
-    dispatch(setModalPost());
+  files.forEach((file) => {
+    const blob = new Blob([file], { type: file.type });
+    const imageUrl = URL.createObjectURL(blob);
+    imageUrls.push(imageUrl);
+  });
+  // Створення обєкта з даними поста
+  const createPost = (e) => {
+    e.preventDefault();
+    const tweet = {
+      body: inputStr,
+      type: "string",
+      parentPostId: "string",
+      images: imageUrls,
+    };
+    console.log(tweet);
   };
 
   return (
     <>
-      {/* <ModalBody> */}
       <div>
-        {/* <div className={classNames(styles.close)} onClick={toggleModal}>
-            <Close className={classNames(styles.clossvg)} />
-          </div> */}
-
         <div className={classNames(styles.conteinerPost)}>
           <Avatar
             sx={{
@@ -116,6 +96,7 @@ const Post = () => {
             onChange={(e) => setInputStr(e.target.value)}
             value={inputStr}
           />
+
           {showEmojiPicker && (
             <EmojiPicker
               pickerStyle={{ width: "100%" }}
@@ -174,6 +155,8 @@ const Post = () => {
           </IconButton>
         </div>
         <ButtonStyled
+          type="submit"
+          onClick={createPost}
           sx={{
             color: "white",
             fontSize: "20px",
@@ -187,7 +170,6 @@ const Post = () => {
           Post
         </ButtonStyled>
       </div>
-      {/* </ModalBody> */}
     </>
   );
 };

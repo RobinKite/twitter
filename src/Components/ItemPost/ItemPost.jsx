@@ -2,14 +2,41 @@ import React from "react";
 import classNames from "classnames";
 import styles from "./ItemPost.module.scss";
 import Avatar from "@mui/material/Avatar";
+import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
+import MenuList from "@mui/material/MenuList";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Typography from "@mui/material/Typography";
+import ContentCut from "@mui/icons-material/ContentCut";
+import ContentCopy from "@mui/icons-material/ContentCopy";
+import ContentPaste from "@mui/icons-material/ContentPaste";
+import Cloud from "@mui/icons-material/Cloud";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MapsUgcIcon from "@mui/icons-material/MapsUgc";
 import Button from "@mui/material/Button";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { IconButton } from "@mui/material";
+import { ReactComponent as View } from "./svg/view.svg";
+import { ReactComponent as Reply } from "./svg/reply.svg";
+import { ReactComponent as Like } from "./svg/like.svg";
+import { ReactComponent as Repost } from "./svg/repost.svg";
+import { ReactComponent as Share } from "./svg/share.svg";
+import { ReactComponent as LikeFalse } from "./svg/likeFalse.svg";
+import { ReactComponent as Delete } from "./svg/delete.svg";
+import Menu from "@mui/material/Menu";
+// import MenuItem from "@mui/material/MenuItem";
 const ItemPost = (props) => {
   const { src, img, username, content, nickname } = props;
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <div className={classNames(styles.tweet)}>
       <div className={classNames(styles.tweetHeader)}>
@@ -22,14 +49,35 @@ const ItemPost = (props) => {
             </span>
           </div>
         </div>
-        <IconButton>
-          <MoreHorizIcon fontSize="large" />
-        </IconButton>
+        <div>
+          <IconButton
+            id="basic-button"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+          >
+            <MoreHorizIcon fontSize="large" />
+          </IconButton>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={handleClose} sx={{ color: "red" }}>
+              <Delete />
+              Delete
+            </MenuItem>
+          </Menu>
+        </div>
       </div>
       <p className={classNames(styles.tweetContent)}>
-        {content}контент jdbndfndkfbdkflbdf fdbmdflnbldfnbkd fbmdlfkbldfnb
-        dfbmldkfnbldnflb dfbmldnfkbdfnbndfkbnnfdk bjldnfbldfblidf привіт ти
-        вийдеш гуляти з собако чи сам текст
+        {content}Привіт лпкупжщкпукд вма м вам вам в амв м ва м ав м в м в ам
+        вама авиьвлаила аваиваиьавидав dfkmd;fm d;fmvdfml;b
       </p>
       <div className={classNames(styles.tweetImg)}>
         <img
@@ -59,11 +107,20 @@ const ItemPost = (props) => {
       </div>
       <div className={classNames(styles.tweetActions)}>
         <IconButton>
-          <MapsUgcIcon color="primary" />
+          <Reply className={classNames(styles.tweetReply)} />
         </IconButton>
 
         <IconButton>
-          <FavoriteBorderIcon color="error" />
+          <Repost className={classNames(styles.tweetRepost)} />
+        </IconButton>
+        <IconButton>
+          <LikeFalse className={classNames(styles.tweetLike)} />
+        </IconButton>
+        <IconButton>
+          <View className={classNames(styles.tweetReply)} />
+        </IconButton>
+        <IconButton>
+          <Share className={classNames(styles.tweetReply)} />
         </IconButton>
       </div>
     </div>

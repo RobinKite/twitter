@@ -2,12 +2,17 @@
 
 
 .tweet {
-  // border: 1px solid #ccc;
-  // padding: 15px;
+  
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+  padding: 15px;
   margin: 10px;
   width: 95%;
   // max-width: 400px;
-  font-size: 24px;
+  // font-size: 24px;
+  &:hover{
+    background-color: hwb(0 89% 9% / 0.311);
+  }
 }
 .tweetHeader{
   display: flex;
@@ -58,10 +63,16 @@
   flex-wrap: wrap;
   gap: 4px;
 }
-.likeButton {
-  color: #e0245e; /* Twitter like button color */
-}
 
-.retweetButton {
-  color: #17bf63; /* Twitter retweet button color */
+.tweetReply:hover{
+fill: hsl(201, 79%, 48%);
+
+}
+.tweetRepost:hover{
+fill: hsl(134, 66%, 57%);
+
+}
+.tweetLike:hover{
+fill: hsla(325, 72%, 58%, 0.688);
+
 }
