@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import styles from "./LoginForm.module.scss";
@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setModal } from "../../redux/actions/modalLogin";
 
 import { useNavigate } from "react-router";
+
 const style = {
   position: "absolute",
   display: "flex",

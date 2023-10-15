@@ -393,7 +393,7 @@ const PasswordForm = () => {
      // Handle your login logic here
      // If login is successful, navigate to the Main component
      // You can conditionally navigate based on login success or other conditions
-     navigate("/main");
+     navigate("/");
    };
 
   return (

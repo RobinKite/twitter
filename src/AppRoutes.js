@@ -48,14 +48,7 @@ function AppRoutes() {
         <Route path="/registration" element={<RegistrationForm />} />
         <Route path="/passwordForm" element={<PasswordForm />} />
       </Route>
-      <Route
-        path="/main"
-        element={
-          <div>
-            <Main />
-          </div>
-        }
-      />
+      
       <Route
         path="/login"
         element={isLog ? <Navigate to="/" /> : <ExitLogin />}
