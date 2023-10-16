@@ -3,10 +3,12 @@ import React from "react";
 import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Profile from "./Pages/Profile/index.jsx";
-import ExitLogin from "./Pages/ExitLogin/ExitLogin";
+import ExitLogin from "./Pages/ExitLogin/ExitLogin.jsx";
 import Container from "./Components/Container/Container.jsx";
 import PasswordForm from "./Components/LoginFormsModal/PasswordForm/PasswordForm";
 import RegistrationForm from "./Components/RegistrationForm/RegistrationForm";
+import ForgotPasswordForm from "./Components/ForgotPasswordForm/ForgotPasswordForm.jsx"
+import SignUpForm from "./Components/SignUpForm/SignUpForm.jsx"
 import Main from "./Components/Main/Main.jsx";
 
 function AppRoutes() {
@@ -48,7 +50,8 @@ function AppRoutes() {
         <Route path="/registration" element={<RegistrationForm />} />
         <Route path="/passwordForm" element={<PasswordForm />} />
       </Route>
-      
+      <Route path="/signUpForm" element={<SignUpForm />}></Route>
+      <Route path="/forgotPassword" element={<ForgotPasswordForm />}></Route>
       <Route
         path="/login"
         element={isLog ? <Navigate to="/" /> : <ExitLogin />}

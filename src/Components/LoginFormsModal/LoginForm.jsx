@@ -115,7 +115,7 @@ export default function BasicModal(props) {
               "&:hover": { backgroundColor: "rgb(60, 58, 58)" },
             }}
           >
-            Further
+            Next
           </Button>
           <ButtonStyled>Forgot your password</ButtonStyled>
           <Typography
