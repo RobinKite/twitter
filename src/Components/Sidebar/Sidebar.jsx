@@ -63,7 +63,7 @@ const Sidebar = () => {
       </Button>
       <Select
         sx={{
-          position:"relative",
+          position: "relative",
           "& .MuiSelect-select": {
             display: "none",
           },
@@ -73,18 +73,29 @@ const Sidebar = () => {
         open={open}
         onClose={handleClose}
         MenuProps={{
+          anchorOrigin: {
+            vertical: "bottom",
+            horizontal: "left",
+          },
+          transformOrigin: {
+            vertical: "bottom",
+            horizontal: "left", // Match the end of the menu with the end of the button
+          },
           PaperProps: {
             sx: {
               position: "absolute",
               borderRadius: 5,
-              backgroundColor: "#ffffff",
-
+              "& .css-6hp17o-MuiList-root-MuiMenu-list": {
+                paddingTop: 0,
+                paddingBottom: 0,
+                backgroundColor: "#ffffff",
+              },
               "& .MuiMenuItem-root": {
                 padding: 2,
                 fontSize: 20,
                 fontWeight: 700,
                 minWidth: 318,
-                backgroundColor: "#ffffff",
+
                 gap: 3,
                 "&:hover": {
                   backgroundColor: "#eff3f4",
