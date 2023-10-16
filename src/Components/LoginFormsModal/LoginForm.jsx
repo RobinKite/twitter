@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import styles from "./LoginForm.module.scss";
 import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
 import { Form, Formik } from "formik";
 import Input from "../Input/Input";
 import { ReactComponent as TwiterLogo } from "../../Pages/ExitLogin/svg/twiterLogo.svg";
@@ -130,7 +131,13 @@ export default function BasicModal(props) {
               },
             }}
           >
-            Dont have a profile? <a href="###">Sign up</a>
+            Dont have an account?{" "}
+            <Link
+              href="/SignUpForm" // actual URL or route to  "Sign Up" page
+              color="primary"
+            >
+              Sign Up
+            </Link>
           </Typography>
         </Box>
       </Modal>

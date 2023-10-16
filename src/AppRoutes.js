@@ -30,7 +30,8 @@ function AppRoutes() {
       >
         {/* <Route index element={<div>Home</div>} /> */}
         <Route index element={<ExitLogin />} />
-        <Route path="/explore" element={<div>Explore</div>} />
+        {/* <Route path="/explore" element={<div>Explore</div>} /> */}
+        <Route path="/explore" element={<div>SignUpForm</div>} />
         {/* <Route path="/explore" element={<PasswordForm/>} /> */}
         <Route path="/notifications" element={<div>Notifications</div>} />
         <Route path="/messages" element={<div>Messages</div>} />
@@ -50,7 +51,7 @@ function AppRoutes() {
         <Route path="/registration" element={<RegistrationForm />} />
         <Route path="/passwordForm" element={<PasswordForm />} />
       </Route>
-      <Route path="/signUpForm" element={<SignUpForm />}></Route>
+      {/* <Route path="/signUpForm" element={<SignUpForm />}></Route> */}
       <Route path="/forgotPassword" element={<ForgotPasswordForm />}></Route>
       <Route
         path="/login"
