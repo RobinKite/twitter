@@ -19,122 +19,122 @@ import { useSelector, useDispatch } from "react-redux";
 import { setModal } from "../../redux/actions/modalLogin";
 
 import { useNavigate } from "react-router";
-
+import styles from "./SignUpForm.module.scss";
+import { display } from "@mui/system";
 
 const style = {
   position: "absolute",
-  display: "flex",
-  flexDirection: "column",
-  textAlign: "center",
-  gap: "20px",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: " 30%",
-  height: "80%",
+  maxWidth: 440,
+  width: "80%",
   bgcolor: "background.paper",
-  borderRadius: 6,
+  border: "0",
   boxShadow: 24,
-  p: 10,
+  p: 4,
+  padding: "10px 80px",
+  borderRadius: "15px",
+  display: "flex",
+  justifyContent: "flex-start",
+ width:600,
+  flexDirection: "column",
+  minHeight: "650px",
+ alignItems: 'center',
 };
 
+const SignUpForm = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const schema = object().shape({
+    email: string().required("Email is required").email("Email is not valid"),
+  });
 
-const SignUpForm = () => {const [open, setOpen] = useState(true);
-const schema = object().shape({
-  email: string().required("Email is required").email("Email is not valid"),
-});
-const initialValues = {
-  email: "",
-};
-const onSubmit = (values) => {
-  console.log(values);
-};
+  const onSubmit = (values) => {
+    console.log(values);
 
-const dispatch = useDispatch();
-const toggleModal = () => {
-  dispatch(setModal());
-};
-// const fonnClick = (event) => {
-//   // Перевіряємо, чи клік був здійснений за межами модального вікна
-//   if (event.currentTarget === event.target) {
-//     //Якщо так, то додаємо код для закриття модального вікна
-//     toggleModal();
-//   }
-// };
-useEffect(() => {
-  setOpen(true); // Open the modal when the component is mounted
-}, []); // Empty dependency array means this effect runs once after the initial render
+    handleClose();
+  };
 
-// const { open } = props;
-const navigate = useNavigate();
+  useEffect(() => {
+    handleOpen();
+  }, []);
 
-const handleButtonClick = () => {
-  setOpen(false); // Close the current modal
-  navigate("/passwordForm");
-};
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    setOpen(false); // Close the current modal
+    navigate("/registration");
+  };
+
   return (
     <div>
       <Modal
         open={open}
-        onClose={() => setOpen(false)}
-        // onClose={fonnClick}
+        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div  onClick={toggleModal}>
-            <CloseButton />
-          </div>
-          <div >
+          <button className={styles.closeBtn} onClick={handleClose}>
+            <CloseButton style={{ height: "30px" }} />
+          </button>
+          <div className={styles.twitterLogo}>
             <TwiterLogo />
           </div>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{
+              fontSize: 30,
+              forntWeight: 700,
+            }}
+          >
             Join X today
           </Typography>
-          <Button endIcon={<Google />}>Sign up with Google</Button>
-          <Button startIcon={<Apple />}>Sign up with Apple</Button>
-          <span >or</span>
-
-          <Formik
-            initialValues={initialValues}
-            onSubmit={onSubmit}
-            validationSchema={schema}
+          <Button
+            className={styles.signUpBtn}
+            style={{ flexDirection: "row-reverse", fontSize: 15 }}
+            endIcon={<Google />}
           >
-            <Form>
-              <Input
-                name="email"
-                type="email"
-                label="email@"
-                variant="email@"
-              />
-            </Form>
-          </Formik>
+            Sign up with Google
+          </Button>
+          <Button
+            className={styles.signUpBtn}
+            style={{  fontSize: 15 }}
+            startIcon={<Apple />}
+          >
+            Sign up with Apple
+          </Button>
+          <span className={styles.separator }>or</span>
+
           <Button
             onClick={handleButtonClick}
             sx={{
+              fontSize: 15,
+              width: 300,
               color: "white",
+              marginBottom:40,
               backgroundColor: "rgb(0, 0, 0)",
               "&:hover": { backgroundColor: "rgb(60, 58, 58)" },
             }}
           >
             Create account
           </Button>
-          <Button>Forgot your password</Button>
+
           <Typography
             id="modal-modal-description"
             sx={{
-              fontSize: "22px",
+              fontSize: 15,
               fontWeight: 500,
 
-              a: { color: "rgb(21, 17, 218)", textDecoration: "none" },
-              " &:hover": {
-                textDecoration: "underline",
-              },
+              color: "#536471",
             }}
           >
             Have an account already?{" "}
             <Link
-              
               href="/LoginPage" // actual URL or route to  "Sign Up" page
               color="primary"
             >
