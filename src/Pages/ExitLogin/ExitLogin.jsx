@@ -18,6 +18,13 @@ const ExitLogin = ({ setIsLog, isLog }) => {
 
   const navigate = useNavigate();
 
+  const handleCreateElementClick = () => {
+    // Close the previous modal first
+    toggleModal();
+
+    // Navigate to the registration page after the previous modal has closed
+    navigate("/registration");
+  };
   return (
     <div className={classNames(styles.wrapper)}>
       <div className={classNames(styles.conteiner)}>
@@ -32,7 +39,7 @@ const ExitLogin = ({ setIsLog, isLog }) => {
           <ButtonStyled startIcon={<Apple />}>Sign up with Apple</ButtonStyled>
           <span className={styles.retreat}>or</span>
           <ButtonStyled
-            onClick={() => navigate("/registration")}
+            onClick={handleCreateElementClick}
             sx={{
               color: "white",
               backgroundColor: "rgb(8, 139, 226)",

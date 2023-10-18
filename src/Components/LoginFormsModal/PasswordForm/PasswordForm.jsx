@@ -16,7 +16,7 @@ import { ReactComponent as CloseButton } from "../svg/Clos.svg";
 import styles from "./PasswordForm.module.scss";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import SignUpForm from "../../SignUpForm/SignUpForm";
+
 
 const style = {
   position: "absolute",
@@ -104,16 +104,19 @@ const PasswordForm = () => {
      // Handle your login logic here
      // If login is successful, navigate to the Main component
      // You can conditionally navigate based on login success or other conditions
+
      navigate("/");
    };
 
   
    const handleForgotPasswordClick = () => {
      // Navigate to the "Forgot password" page
+     setOpen(false); // Close the current modal
      navigate("/forgotPasswordForm");
-  };
+   };
    const handleSignUpClick = () => {
      // Navigate to the "Forgot password" page
+     setOpen(false); // Close the current modal
      navigate("/signUpForm");
    };
   return (
@@ -264,7 +267,7 @@ const PasswordForm = () => {
                 >
                   <Link
                     className={styles.link}
-                    href="/forgotPasswordForm" // actual URL or route to  "Forgot password" page
+                    
                     color="primary"
                     onClick={handleForgotPasswordClick}
                   >

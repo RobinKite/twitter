@@ -27,20 +27,25 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  maxWidth: 440,
-  width: "80%",
+    width: '30%',
+    height: '80%',
+    
   bgcolor: "background.paper",
-  border: "0",
+  border: 0,
   boxShadow: 24,
   p: 4,
-  padding: "10px 80px",
+  padding: "10px 125px",
   borderRadius: "15px",
   display: "flex",
   justifyContent: "flex-start",
- width:600,
+ alignItems: 'flex-start',
   flexDirection: "column",
   minHeight: "650px",
- alignItems: 'center',
+ 
+ 
+
+
+  
 };
 
 const SignUpForm = () => {
@@ -95,35 +100,50 @@ const SignUpForm = () => {
             Join X today
           </Typography>
           <Button
+            
             className={styles.signUpBtn}
-            style={{ flexDirection: "row-reverse", fontSize: 15 }}
+            style={{
+              flexDirection: "row-reverse",
+              fontSize: 15,
+              marginLeft: 0,
+            }}
             endIcon={<Google />}
           >
             Sign up with Google
           </Button>
           <Button
             className={styles.signUpBtn}
-            style={{  fontSize: 15 }}
+            style={{ fontSize: 15, marginLeft: 0 }}
             startIcon={<Apple />}
           >
             Sign up with Apple
           </Button>
-          <span className={styles.separator }>or</span>
+          <span className={styles.separator}>or</span>
 
           <Button
             onClick={handleButtonClick}
             sx={{
               fontSize: 15,
+              fontWeight:700,
               width: 300,
               color: "white",
-              marginBottom:40,
+              marginBottom:2 ,
               backgroundColor: "rgb(0, 0, 0)",
+              marginLeft:0,
               "&:hover": { backgroundColor: "rgb(60, 58, 58)" },
             }}
           >
             Create account
           </Button>
-
+          <Typography
+            sx={{
+              color: "#536471",
+              marginBottom:5,
+            }}
+          >
+            By signing up, you agree to the Terms of Service and Privacy Policy,
+            including Cookie Use.
+          </Typography>
           <Typography
             id="modal-modal-description"
             sx={{

@@ -7,8 +7,8 @@ import ExitLogin from "./Pages/ExitLogin/ExitLogin.jsx";
 import Container from "./Components/Container/Container.jsx";
 import PasswordForm from "./Components/LoginFormsModal/PasswordForm/PasswordForm";
 import RegistrationForm from "./Components/RegistrationForm/RegistrationForm";
-import ForgotPasswordForm from "./Components/ForgotPasswordForm/ForgotPasswordForm.jsx"
-import SignUpForm from "./Components/SignUpForm/SignUpForm.jsx"
+import ForgotPasswordForm from "./Components/ForgotPasswordForm/ForgotPasswordForm.jsx";
+import SignUpForm from "./Components/SignUpForm/SignUpForm.jsx";
 import Main from "./Components/Main/Main.jsx";
 
 function AppRoutes() {
@@ -31,9 +31,15 @@ function AppRoutes() {
         <Route index element={<div>Home</div>} />
         {/* <Route index element={<ExitLogin />} /> */}
         <Route path="/explore" element={<div>Explore</div>} />
-       
-       
-        <Route path="/notifications" element={<div><ExitLogin/></div>} />
+
+        <Route
+          path="/notifications"
+          element={
+            <div>
+              <ExitLogin />
+            </div>
+          }
+        />
         {/* <Route path="/notifications" element={<div>Notifications</div>} /> */}
         <Route path="/messages" element={<div>Messages</div>} />
         <Route path="/lists" element={<div>Lists</div>} />
@@ -55,11 +61,7 @@ function AppRoutes() {
       <Route path="/signUpForm" element={<SignUpForm />}></Route>
       <Route
         path="/forgotPasswordForm"
-        element={
-          <div>
-            <ForgotPasswordForm />
-          </div>
-        }
+        element={<ForgotPasswordForm />}
       ></Route>
       <Route
         path="/login"

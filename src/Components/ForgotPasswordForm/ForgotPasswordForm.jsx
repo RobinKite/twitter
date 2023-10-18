@@ -40,43 +40,38 @@ const style = {
 
 
 const ForgotPasswordForm = () => {
-const [open, setOpen] = useState(false);
-const handleOpen = () => setOpen(true);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  
+  // Automatically open the modal when the component is mounted
+  useEffect(() => {
+    handleOpen();
+    
+  }, []);
 
   const onSubmit = (values) => {
     console.log(values);
-   
+
     handleClose();
-     // Open the second modal onSubmit
+    // Open the second modal onSubmit
   };
 
   const initialValues = {
     inputValue: "",
   };
 
-const validationSchema = Yup.object().shape({
-  inputValue: Yup.string()
-    .required("This field is required")
-    .test("phone-or-username", "Enter phone number or name", (value) => {
-      // Define your custom validation logic here
-      // You can use regular expressions or any other criteria
-      const phoneRegex = /^\+\d{1,3}[- ]?\d{6,}$/;
-      const usernameRegex = /^[a-zA-Z\s]+$/;
+  const validationSchema = Yup.object().shape({
+    inputValue: Yup.string()
+      .required("This field is required")
+      .test("phone-or-username", "Enter phone number or name", (value) => {
+        // Define your custom validation logic here
+        // You can use regular expressions or any other criteria
+        const phoneRegex = /^\+\d{1,3}[- ]?\d{6,}$/;
+        const usernameRegex = /^[a-zA-Z\s]+$/;
 
-      return phoneRegex.test(value) || usernameRegex.test(value);
-    }),
-});
-
-  
-  const navigate = useNavigate();
-   const handleClick = () => {
-     // Handle your login logic here
-     // If login is successful, navigate to the Main component
-     // You can conditionally navigate based on login success or other conditions
-     navigate("/forgotPasswordForm");
-   };
+        return phoneRegex.test(value) || usernameRegex.test(value);
+      }),
+  });
 
   return (
     <div>
@@ -93,23 +88,20 @@ const validationSchema = Yup.object().shape({
           <div className={styles.twitterLogo}>
             <TwiterLogo />
           </div>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Find your X account
+          </Typography>
 
-          <div className={styles.textContainer}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Enter your phone number or username
-            </Typography>
-            <Typography
-              id="modal-modal-description"
-              sx={{
-                mt: 2,
-                color: "#536471",
-              }}
-            >
-              There was unusual login activity on your account. To help keep
-              your account safe, please enter your phone number or username to
-              verify it’s you.
-            </Typography>
-          </div>
+          <Typography
+            id="modal-modal-description"
+            sx={{
+              mt: 2,
+              color: "#536471",
+            }}
+          >
+            Enter your phone number or username
+          </Typography>
+
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
@@ -121,8 +113,8 @@ const validationSchema = Yup.object().shape({
                   className={styles.textField}
                   as={TextField}
                   name="inputValue"
-                  label="Phone or username"
-                  placeholder="Phone or username"
+                  label="Email, phone number or username"
+                  placeholder="Email, phone number or username"
                   variant="outlined"
                   fullWidth
                   required
