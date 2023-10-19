@@ -45,7 +45,7 @@ const SidebarItem = () => {
             }
           >
             {isActive("/") ? <HomeIconFilled /> : <HomeIcon />}
-            Home
+            <span className={styles.hideText}>Home</span>
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -56,7 +56,7 @@ const SidebarItem = () => {
             }
           >
             {isActive("/explore") ? <SearchIconFilled /> : <SearchIcon />}
-            Explore
+            <span className={styles.hideText}>Explore</span>
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -71,7 +71,7 @@ const SidebarItem = () => {
             ) : (
               <NotificationIcon />
             )}
-            Notification
+            <span className={styles.hideText}>Notification</span>
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -82,7 +82,7 @@ const SidebarItem = () => {
             }
           >
             {isActive("/messages") ? <MessageIconFilled /> : <MessageIcon />}
-            Messages
+            <span className={styles.hideText}>Messages</span>
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -93,7 +93,7 @@ const SidebarItem = () => {
             }
           >
             {isActive("/lists") ? <ListIconFilled /> : <ListIcon />}
-            Lists
+            <span className={styles.hideText}>Lists</span>
           </NavLink>
         </li>
 
@@ -109,7 +109,7 @@ const SidebarItem = () => {
             ) : (
               <CommunitiesIcon />
             )}
-            Communities
+            <span className={styles.hideText}>Communities</span>
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -120,7 +120,7 @@ const SidebarItem = () => {
             }
           >
             <TwitterIcon />
-            Verified
+            <span className={styles.hideText}>Verified</span>
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -131,10 +131,9 @@ const SidebarItem = () => {
             }
           >
             {isActive("/profile") ? <ProfileIconFilled /> : <ProfileIcon />}
-            Profile
+            <span className={styles.hideText}>Profile</span>
           </NavLink>
         </li>
-       
       </ul>
     </div>
   );
