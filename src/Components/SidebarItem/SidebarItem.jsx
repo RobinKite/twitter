@@ -1,7 +1,7 @@
 import React from "react";
 
 import { NavLink, useLocation } from "react-router-dom";
-import styles from "../SidebarItem/SidebarItem.module.scss";
+import styles from "./SidebarItem.module.scss";
 import classNames from "classnames";
 
 

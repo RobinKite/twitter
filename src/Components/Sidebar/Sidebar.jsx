@@ -14,7 +14,7 @@ import { ReactComponent as MoreIcon } from "../../assets/svg/more.svg";
 // import { ReactComponent as MoreIconFilled } from "../../assets/svg/more-filled.svg";
 
 const Sidebar = () => {
-  const isMobile = useMediaQuery("(max-width: 1264px)");
+  const isMobile = useMediaQuery("(max-width: 1280px)");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -50,20 +50,33 @@ const Sidebar = () => {
         className={styles.moreBtn}
         sx={{
           border: 0,
-          margin: 0,
+          padding: "25px 12px ",
+          height: 0,
+          minWidth: 0,
           fontSize: "20px",
-          height: "50px",
           display: "flex",
           gap: "15px",
-          minWidth: "135px",
           position: "relative",
           fontWeight: isButtonActive ? "bold" : "normal",
+          // padding: 0,
+          margin: "0 0 20px 0",
           "&:hover": {
             backgroundColor: "rgb(221, 217, 217)",
           },
+
+          "& .css-1tnmhci-MuiButtonBase-root-MuiButton-root": {
+            justifyContent: "flex-start",
+          },
+          "& .css-1d6wzja-MuiButton-startIcon": {
+            margin: 0,
+          },
         }}
       >
-        <span className={styles.hideText}>More</span>
+        {isMobile ? ( // Conditionally hide the text for mobile view
+          <span className={styles.hideText}>More</span>
+        ) : (
+          "More"
+        )}
       </Button>
       <Select
         sx={{
@@ -76,6 +89,7 @@ const Sidebar = () => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        inputProps={{ IconComponent: () => null }}
         MenuProps={{
           anchorOrigin: {
             vertical: "bottom",
@@ -125,9 +139,15 @@ const Sidebar = () => {
             margin: 0,
             backgroundColor: "#1d9bf0",
             color: "#ffffff",
-            width: 50,
-            height: 60,
-            padding: 0,
+            // width: 50,
+            // height: 60,
+            height: 0,
+            minWidth: 0,
+
+            padding: "26px 14px",
+            "&:hover": {
+              backgroundColor: "#1a8cd8",
+            },
           }}
         >
           <svg
@@ -152,11 +172,12 @@ const Sidebar = () => {
             boxShadow: "none",
             backgroundColor: " #1d9bf0",
             borderRadius: "45px",
-            height: "52px",
+            // height: "52px",
             fontWeight: 700,
             minWidth: "233px",
             fontSize: "17px",
             margin: 0,
+
             "&:hover": {
               boxShadow: "none",
               backgroundColor: "#1a8cd8",
@@ -166,27 +187,6 @@ const Sidebar = () => {
           Post
         </Button>
       )}
-      {/* <Button
-        sx={buttonStyles}
-        variant="contained"
-        // sx={{
-        //   color: "#ffffff",
-        //   boxShadow: "none",
-        //   backgroundColor: " #1d9bf0",
-        //   borderRadius: "45px",
-        //   height: "52px",
-        //   fontWeight: 700,
-        //   minWidth: "233px",
-        //   fontSize: "17px",
-        //   margin: 0,
-        //   "&:hover": {
-        //     boxShadow: "none",
-        //     backgroundColor: "#1a8cd8",
-        //   },
-        // }}
-      >
-        Post
-      </Button> */}
     </div>
   );
 };
