@@ -18,8 +18,9 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  maxWidth: 440,
-  width: "80%",
+  width: "30%",
+  height: "80%",
+  
   bgcolor: "background.paper",
   border: "0",
   boxShadow: 24,
