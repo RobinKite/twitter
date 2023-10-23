@@ -27,7 +27,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "25%",
+  width: "23%",
   height: "80%",
 
   bgcolor: "background.paper",
@@ -99,6 +99,9 @@ const SignUpForm = () => {
             style={{
               flexDirection: "row-reverse",
               fontSize: 15,
+              
+              marginLeft: 0,
+             
             }}
             endIcon={<Google />}
           >
@@ -106,7 +109,12 @@ const SignUpForm = () => {
           </Button>
           <Button
             className={styles.signUpBtn}
-            style={{ fontSize: 15 }}
+            style={{
+              fontSize: 15,
+              
+              marginLeft: 0,
+            
+            }}
             startIcon={<Apple />}
           >
             Sign up with Apple
@@ -118,11 +126,11 @@ const SignUpForm = () => {
             sx={{
               fontSize: 15,
               fontWeight: 700,
-              width: 300,
+              width: 320,
               color: "white",
               marginBottom: 2,
               backgroundColor: "rgb(0, 0, 0)",
-
+marginLeft:0,
               "&:hover": { backgroundColor: "rgb(60, 58, 58)" },
             }}
           >
@@ -132,7 +140,6 @@ const SignUpForm = () => {
             sx={{
               color: "#536471",
               marginBottom: 5,
-            
             }}
           >
             By signing up, you agree to the Terms of Service and Privacy Policy,

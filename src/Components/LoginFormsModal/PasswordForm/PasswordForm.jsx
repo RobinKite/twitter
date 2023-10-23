@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -17,14 +16,14 @@ import styles from "./PasswordForm.module.scss";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
-
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  maxWidth: 440,
-  width: "80%",
+  width: "30%",
+  height: "80%",
+  
   bgcolor: "background.paper",
   border: "0",
   boxShadow: 24,
@@ -66,7 +65,7 @@ const PasswordForm = () => {
 
   const onSubmit = (values) => {
     console.log(values);
-     setEmail(values.inputValue);
+    setEmail(values.inputValue);
     handleClose();
     handleOpen2(); // Open the second modal onSubmit
   };
@@ -95,30 +94,26 @@ const PasswordForm = () => {
     handleOpen();
   }, []);
 
+  const navigate = useNavigate();
 
+  const handleLoginClick = () => {
+    // Handle your login logic here
+    // If login is successful, navigate to the Main component
+    // You can conditionally navigate based on login success or other conditions
 
+    navigate("/");
+  };
 
- const navigate = useNavigate();
-
-   const handleLoginClick = () => {
-     // Handle your login logic here
-     // If login is successful, navigate to the Main component
-     // You can conditionally navigate based on login success or other conditions
-
-     navigate("/");
-   };
-
-  
-   const handleForgotPasswordClick = () => {
-     // Navigate to the "Forgot password" page
-     setOpen(false); // Close the current modal
-     navigate("/forgotPasswordForm");
-   };
-   const handleSignUpClick = () => {
-     // Navigate to the "Forgot password" page
-     setOpen(false); // Close the current modal
-     navigate("/signUpForm");
-   };
+  const handleForgotPasswordClick = () => {
+    // Navigate to the "Forgot password" page
+    setOpen(false); // Close the current modal
+    navigate("/forgotPasswordForm");
+  };
+  const handleSignUpClick = () => {
+    // Navigate to the "Forgot password" page
+    setOpen(false); // Close the current modal
+    navigate("/signUpForm");
+  };
   return (
     <div>
       <Modal
@@ -156,7 +151,7 @@ const PasswordForm = () => {
             onSubmit={onSubmit}
             validationSchema={validationSchema}
           >
-            {({ errors, touched }) => (
+            {({ errors, touched, isValid, submitForm }) => (
               <Form className={styles.form}>
                 <Field
                   className={styles.textField}
@@ -174,7 +169,14 @@ const PasswordForm = () => {
                   }}
                 ></Field>
                 <Button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (isValid) {
+                      submitForm();
+                    }
+                  }}
                   type="submit"
+                  disabled={!isValid}
                   sx={{
                     backgroundColor: "#000000",
                     color: "#FFFFFF",
@@ -184,6 +186,11 @@ const PasswordForm = () => {
                     margin: "0",
                     "&:hover": {
                       backgroundColor: "#0f1419",
+                    },
+                    "&:disabled": {
+                      backgroundColor: "#6d6d6d",
+                      color: "#ffffff",
+                      cursor: "not-allowed",
                     },
                   }}
                 >
@@ -218,7 +225,7 @@ const PasswordForm = () => {
             onSubmit={onSubmit}
             validationSchema={validationSchema2}
           >
-            {({ errors, touched }) => (
+            {({ errors, touched, isValid, submitForm }) => (
               <Form className={styles.form}>
                 <TextField
                   className={styles.textField}
@@ -267,7 +274,6 @@ const PasswordForm = () => {
                 >
                   <Link
                     className={styles.link}
-                    
                     color="primary"
                     onClick={handleForgotPasswordClick}
                   >
@@ -277,6 +283,7 @@ const PasswordForm = () => {
                 <Button
                   type="submit"
                   onClick={handleLoginClick}
+                  disabled={!isValid}
                   sx={{
                     backgroundColor: "#000000",
                     color: "#FFFFFF",
@@ -286,6 +293,11 @@ const PasswordForm = () => {
                     margin: "0",
                     "&:hover": {
                       backgroundColor: "#0f1419",
+                    },
+                    "&:disabled": {
+                      backgroundColor: "#6d6d6d",
+                      color: "#ffffff",
+                      cursor: "not-allowed",
                     },
                   }}
                 >

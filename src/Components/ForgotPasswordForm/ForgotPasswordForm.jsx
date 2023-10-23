@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -12,19 +11,18 @@ import { Form, Formik, Field } from "formik";
 import Button from "../Button/Button";
 import { ReactComponent as TwiterLogo } from "../../Pages/ExitLogin/svg/twiterLogo.svg";
 import { ReactComponent as CloseButton } from "../LoginFormsModal/svg/Clos.svg";
-import styles from "./ForgotPassword.module.scss"
+import styles from "./ForgotPassword.module.scss";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-
-
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  maxWidth: 440,
-  width: "80%",
+  width: "30%",
+  height: "80%",
+
   bgcolor: "background.paper",
   border: "0",
   boxShadow: 24,
@@ -38,7 +36,6 @@ const style = {
   minHeight: "650px",
 };
 
-
 const ForgotPasswordForm = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -46,7 +43,6 @@ const ForgotPasswordForm = () => {
   // Automatically open the modal when the component is mounted
   useEffect(() => {
     handleOpen();
-    
   }, []);
 
   const onSubmit = (values) => {
@@ -63,14 +59,23 @@ const ForgotPasswordForm = () => {
   const validationSchema = Yup.object().shape({
     inputValue: Yup.string()
       .required("This field is required")
-      .test("phone-or-username", "Enter phone number or name", (value) => {
-        // Define your custom validation logic here
-        // You can use regular expressions or any other criteria
-        const phoneRegex = /^\+\d{1,3}[- ]?\d{6,}$/;
-        const usernameRegex = /^[a-zA-Z\s]+$/;
+      .test(
+        "phone-or-username-or-email",
+        "Enter a valid phone number, username, or email",
+        (value) => {
+          const phoneRegex = /^\+\d{1,3}[- ]?\d{6,}$/;
+          const usernameRegex = /^[a-zA-Z\s]+$/;
+          const emailRegex =
+            /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 
-        return phoneRegex.test(value) || usernameRegex.test(value);
-      }),
+          // Test if the value matches any of the allowed formats
+          return (
+            phoneRegex.test(value) ||
+            usernameRegex.test(value) ||
+            emailRegex.test(value)
+          );
+        }
+      ),
   });
 
   return (
@@ -88,7 +93,15 @@ const ForgotPasswordForm = () => {
           <div className={styles.twitterLogo}>
             <TwiterLogo />
           </div>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{
+              fontSize: 30,
+              fontWeighta: 700,
+            }}
+          >
             Find your X account
           </Typography>
 
@@ -97,9 +110,12 @@ const ForgotPasswordForm = () => {
             sx={{
               mt: 2,
               color: "#536471",
+              fontSize: 15,
+             marginBottom:5,
             }}
           >
-            Enter your phone number or username
+            Enter the email, phone number, or username associated with your
+            account to change your password.
           </Typography>
 
           <Formik
@@ -107,7 +123,7 @@ const ForgotPasswordForm = () => {
             onSubmit={onSubmit}
             validationSchema={validationSchema}
           >
-            {({ errors, touched }) => (
+            {({ errors, touched, isValid, submitForm }) => (
               <Form className={styles.form}>
                 <Field
                   className={styles.textField}
@@ -120,12 +136,12 @@ const ForgotPasswordForm = () => {
                   required
                   error={touched.inputValue && Boolean(errors.inputValue)}
                   helperText={touched.inputValue && errors.inputValue}
-                  sx={{
-                    marginBottom: "285px",
-                  }}
+                 
                 ></Field>
                 <Button
                   type="submit"
+                  onClick={submitForm}
+                  disabled={!isValid}
                   sx={{
                     backgroundColor: "#000000",
                     color: "#FFFFFF",
@@ -135,6 +151,11 @@ const ForgotPasswordForm = () => {
                     margin: "0",
                     "&:hover": {
                       backgroundColor: "#0f1419",
+                    },
+                    "&:disabled": {
+                      backgroundColor: "#6d6d6d",
+                      color: "#ffffff",
+                      cursor: "not-allowed",
                     },
                   }}
                 >
@@ -147,5 +168,5 @@ const ForgotPasswordForm = () => {
       </Modal>
     </div>
   );
-}
-export default ForgotPasswordForm
+};
+export default ForgotPasswordForm;

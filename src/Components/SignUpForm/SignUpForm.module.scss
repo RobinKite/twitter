@@ -1,4 +1,3 @@
-
 .closeBtn {
   position: absolute;
   left: 5px;
@@ -21,18 +20,15 @@
 .signUpBtn {
   display: "flex";
   gap: 15px;
-  width:300px;
- 
-  
+  width: 320px;
 }
 .separator {
   display: flex;
   justify-content: space-between;
-  align-items: center; 
- margin-left: 15px;
-  color:#0f1419;
+  align-items: center;
+  margin-left: 15px;
+  color: #0f1419;
   font-size: 17px;
-
 }
 .separator::before {
   content: "";

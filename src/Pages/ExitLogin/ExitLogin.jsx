@@ -25,6 +25,9 @@ const ExitLogin = ({ setIsLog, isLog }) => {
     // Navigate to the registration page after the previous modal has closed
     navigate("/registration");
   };
+ 
+
+
   return (
     <div className={classNames(styles.wrapper)}>
       <div className={classNames(styles.conteiner)}>

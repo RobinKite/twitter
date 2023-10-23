@@ -102,7 +102,7 @@ const RegistrationForm = () => {
             onSubmit={onSubmit}
             validationSchema={validationSchema}
           >
-            {({ errors, touched }) => (
+            {({ errors, touched, isValid, submitForm }) => (
               <Form>
                 <Field
                   className={styles.textField}
@@ -184,9 +184,16 @@ const RegistrationForm = () => {
                   }}
                 ></Field>
 
-                <Button
+                <Button  //роут, куда ведет кнопка некст??????
                   type="submit"
-                  onClick={handleNextButtonClick}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (isValid) {
+                      submitForm();
+                      
+                    }
+                  }}
+                  disabled={!isValid}
                   sx={{
                     backgroundColor: "#000000",
                     color: "#FFFFFF",
@@ -197,6 +204,11 @@ const RegistrationForm = () => {
                     marginTop: "40px",
                     "&:hover": {
                       backgroundColor: "#0f1419",
+                    },
+                    "&:disabled": {
+                      backgroundColor: "#6d6d6d",
+                      color: "#ffffff",
+                      cursor: "not-allowed",
                     },
                   }}
                 >
