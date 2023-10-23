@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { useSelector, useDispatch } from "react-redux";
+import { updateTweet } from "../../redux/actions/createPost";
 import { setModalPost } from "../../redux/actions/modalPost";
 import { Avatar } from "@mui/material";
 import styles from "./Post.module.scss";
@@ -36,11 +37,75 @@ const InputFieldCostum = styled(TextField)({
     lineHeight: "28px",
   },
 });
+const access_token =
+  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2OTgwNDI5NTEsImV4cCI6MTY5ODA4NjE1MX0.91QCoZLAhSWLsyFf9HWGCbP5gqDJn7reA-p14877n8s";
 const Post = () => {
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  // const [tweet, setTweet] = useState()
 
+  const dispatch = useDispatch();
+  // Створення обєкта з даними поста
+
+  // const handlePostSubmit = () => {
+  //   const postData = {
+  //     body: inputStr,
+  //     images: files,
+  //     type: "TWEET",
+  //   };
+  //   // console.log(postData);
+  //   fetch(
+  //     "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/posts/create",
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         Authorization: `Bearer ${access_token}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(postData),
+  //     }
+  //   )
+  //     .then((response) => response.json())
+
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Сталася помилка:", error);
+  //     });
+  // };
+  const submit = () => {
+    const formData = new FormData();
+
+    formData.append("body", inputStr);
+    // console.log(inputStr)
+    formData.append("type", "TWEET");
+    files.forEach((files, index) => {
+      // console.log(files)
+      formData.append(`images[${index}]`, files);
+    });
+    // console.log(formData);
+    fetch(
+      "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/posts/create",
+      {
+        method: "POST",
+
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Сталася помилка:", error);
+      });
+  };
   // Відмалювання смайлів
   const onEmojiClick = (event, emojiObject) => {
     setInputStr((prevInput) => {
@@ -50,24 +115,14 @@ const Post = () => {
     setShowEmojiPicker(false);
   };
   // Створення масиву URL зображень
-  const imageUrls = [];
+  // const imageUrls = [];
 
-  files.forEach((file) => {
-    const blob = new Blob([file], { type: file.type });
-    const imageUrl = URL.createObjectURL(blob);
-    imageUrls.push(imageUrl);
-  });
-  // Створення обєкта з даними поста
-  const createPost = (e) => {
-    e.preventDefault();
-    const tweet = {
-      body: inputStr,
-      type: "string",
-      parentPostId: "string",
-      images: imageUrls,
-    };
-    console.log(tweet);
-  };
+  // files.forEach((file) => {
+  //   const blob = new Blob([file], { type: file.type });
+  //   const imageUrl = URL.createObjectURL(blob);
+  //   imageUrls.push(imageUrl);
+
+  // });
 
   return (
     <>
@@ -156,7 +211,7 @@ const Post = () => {
         </div>
         <ButtonStyled
           type="submit"
-          onClick={createPost}
+          onClick={submit}
           sx={{
             color: "white",
             fontSize: "20px",

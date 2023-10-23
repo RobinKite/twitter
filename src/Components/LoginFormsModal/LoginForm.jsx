@@ -15,6 +15,28 @@ import classNames from "classnames";
 import ButtonStyled from "../Button/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { setModal } from "../../redux/actions/modalLogin";
+import { styled } from "@mui/material/styles";
+
+const BoxStyled = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  display: "flex",
+  flexDirection: "column",
+  textAlign: "center",
+  gap: "20px",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: " 30%",
+  height: "80%",
+  bgcolor: "background.paper",
+  borderRadius: 6,
+  boxShadow: 24,
+  p: 10,
+  [theme.breakpoints.down("sm")]: {
+    width: " 100%",
+    height: "100%",
+  },
+}));
 
 const style = {
   position: "absolute",
@@ -31,6 +53,12 @@ const style = {
   borderRadius: 6,
   boxShadow: 24,
   p: 10,
+  "@media (max-width: 400px)": {
+    width: " 80%",
+    height: "100%",
+  }
+   
+ 
 };
 
 export default function BasicModal(props) {
@@ -66,6 +94,7 @@ export default function BasicModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+        {/* <BoxStyled> */}
           <div className={classNames(styles.clossvg)} onClick={toggleModal}>
             <Clos />
           </div>
@@ -117,6 +146,7 @@ export default function BasicModal(props) {
           >
             Dont have a profile? <a href="###">Sign up</a>
           </Typography>
+        {/* </BoxStyled> */}
         </Box>
       </Modal>
     </div>

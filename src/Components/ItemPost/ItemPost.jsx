@@ -25,10 +25,14 @@ import { ReactComponent as Repost } from "./svg/repost.svg";
 import { ReactComponent as Share } from "./svg/share.svg";
 import { ReactComponent as LikeFalse } from "./svg/likeFalse.svg";
 import { ReactComponent as Delete } from "./svg/delete.svg";
+import { useSelector, useDispatch } from "react-redux";
 import Menu from "@mui/material/Menu";
 // import MenuItem from "@mui/material/MenuItem";
-const ItemPost = (props) => {
-  const { src, img, username, content, nickname } = props;
+const ItemPost = () => {
+  // const { src, img, username, content, nickname } = props;
+  const newTweet = useSelector((state) => state.createPost);
+  // console.log(newTweet);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -45,7 +49,7 @@ const ItemPost = (props) => {
           {/* <img src={props.profileImageUrl} alt={`${username}'s profile`} /> */}
           <div className={classNames(styles.tweetUserInfo)}>
             <span className={classNames(styles.tweetUsername)}>
-              {username}username {nickname} nickname
+              {/* {username}username {nickname} nickname */}
             </span>
           </div>
         </div>
@@ -76,11 +80,25 @@ const ItemPost = (props) => {
         </div>
       </div>
       <p className={classNames(styles.tweetContent)}>
-        {content}Привіт лпкупжщкпукд вма м вам вам в амв м ва м ав м в м в ам
-        вама авиьвлаила аваиваиьавидав dfkmd;fm d;fmvdfml;b
+        {newTweet.newTweet.body}
       </p>
       <div className={classNames(styles.tweetImg)}>
         <img
+         style={{ width: "240px", objectFit: "cover" }}
+          src={newTweet.newTweet.images[0]}
+          alt=""
+        />
+        <img
+        style={{ width: "240px", objectFit: "cover" }}
+          src={newTweet.newTweet.images[1]}
+          alt=""
+        />
+        <img
+          style={{ width: "240px", objectFit: "cover" }}
+          src={newTweet.newTweet.images[2]}
+          alt=""
+        />
+        {/* <img
           src="https://randomuser.me/api/portraits/women/65.jpg"
           alt={`${username}'s profile`}
         />
@@ -91,19 +109,7 @@ const ItemPost = (props) => {
         <img
           src="https://randomuser.me/api/portraits/women/60.jpg"
           alt={`${username}'s profile`}
-        />
-        <img
-          src="https://randomuser.me/api/portraits/women/65.jpg"
-          alt={`${username}'s profile`}
-        />
-        <img
-          src="https://randomuser.me/api/portraits/women/63.jpg"
-          alt={`${username}'s profile`}
-        />
-        <img
-          src="https://randomuser.me/api/portraits/women/60.jpg"
-          alt={`${username}'s profile`}
-        />
+        /> */}
       </div>
       <div className={classNames(styles.tweetActions)}>
         <IconButton>

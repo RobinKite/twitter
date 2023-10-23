@@ -2,12 +2,14 @@ import styles from "./Home.module.scss";
 import LabTabs from "../../Components/ProfileTabs";
 import TabPanel from "@mui/lab/TabPanel";
 import Post from "../../Components/Post/Post";
+import ItemPost from "../../Components/ItemPost/ItemPost";
 
 const tabs = [
   { label: "Following", value: "1" },
   // { label: "Following", value: "2" },
 ];
 const Home = () => {
+  
   return (
     <>
       <h1>Home</h1>
@@ -27,7 +29,8 @@ const Home = () => {
         }}
       >
         <TabPanel value="1">
-          <Post />{" "}
+          <Post />
+           <ItemPost  />
         </TabPanel>
         {/* <TabPanel value="2"></TabPanel> */}
       </LabTabs>
