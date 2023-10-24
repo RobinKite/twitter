@@ -31,7 +31,7 @@ function AppRoutes() {
         <Route path="/communities" element={<div>Communities</div>} />
         <Route path="/verified" element={<div>Verified</div>} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/more" element={<div>More</div>} />
+        <Route path="/bookmarks" element={<div>Bookmarks</div>} />
       </Route>
       <Route
         path="/login"
