@@ -85,7 +85,7 @@ const ItemPost = ({ content }) => {
               </Menu>
             </div>
           </div>
-          <p className={classNames(styles.tweetContent)}></p>
+          <p className={classNames(styles.tweetContent)}>{content.body}</p>
           <div className={classNames(styles.tweetImg)}>
             <img
               style={{ width: "240px", objectFit: "cover" }}

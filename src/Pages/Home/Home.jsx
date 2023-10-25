@@ -4,36 +4,26 @@ import TabPanel from "@mui/lab/TabPanel";
 import Post from "../../Components/Post/Post";
 import ItemPost from "../../Components/ItemPost/ItemPost";
 import React, { useState, useEffect } from 'react';
+import {api} from "../../service/api";
+import {useSelector} from "react-redux";
 
-const access_token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2OTgwNDI5NTEsImV4cCI6MTY5ODA4NjE1MX0.91QCoZLAhSWLsyFf9HWGCbP5gqDJn7reA-p14877n8s";
-const refresh_token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2OTgwNDI5NTEsImV4cCI6MTY5ODY0Nzc1MX0.T7XZEerJNZYe6JNgQM5mR2itiaEB0jljfKWdx_vbpDY";
 
 const tabs = [
   { label: "Following", value: "1" },
   // { label: "Following", value: "2" },
 ];
 const Home = () => {
-  const [content, setContent] = useState(null);
-// console.log(content);
+  const [content, setContent] = useState([]);
+  const {isAuthenticated} = useSelector(state => state.user);
 
   useEffect(() => {
-    
-    fetch("https://danit-final-twitter-8f32e99a3dec.herokuapp.com/posts/home", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${refresh_token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then(({ content }) => {
-        setContent(content); 
-      })
-      .catch((error) => {
-        console.error("Сталася помилка:", error);
-      });
-  }, []);
+      if (isAuthenticated) {
+          api.get('posts/home')
+              .then(r => setContent(r.data.content));
+      }
+  }, [isAuthenticated])
+
+    if (!isAuthenticated) return "Not authenticated...";
 
   return (
     <>
@@ -57,7 +47,7 @@ const Home = () => {
       >
         <TabPanel value="1">
           <Post />
-          <ItemPost content={content}/>
+            {content.map(p => <ItemPost content={p}/>)}
         </TabPanel>
         {/* <TabPanel value="2"></TabPanel> */}
       </LabTabs>

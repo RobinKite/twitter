@@ -19,6 +19,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import UserFoto from "../../Components/UserFoto";
 
 import { GetUserAsync } from "../../redux/actions/userInfo";
+import {api} from "../../service/api";
 const tabs = [
   { label: "Post", value: "1" },
   { label: "Replies", value: "2" },
@@ -65,44 +66,17 @@ const EditButton = styled(Button)(({ theme }) => ({
 }));
 
 
-const access_token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2OTgwNDI5NTEsImV4cCI6MTY5ODA4NjE1MX0.91QCoZLAhSWLsyFf9HWGCbP5gqDJn7reA-p14877n8s";
-const refresh_token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2OTgwNDI5NTEsImV4cCI6MTY5ODY0Nzc1MX0.T7XZEerJNZYe6JNgQM5mR2itiaEB0jljfKWdx_vbpDY";
 
 export default function Profile() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
-  // const token = useSelector((state) => state.authorization);
-  // const userInfo = useSelector((state) => state.user.user);
-  // const formData = {
-  //   email: "user1@gmail.com",
-  //   password: "1111",
-  // };
 
   const addPost = () => {
-    fetch("https://danit-final-twitter-8f32e99a3dec.herokuapp.com/posts/home", {
-      method: "GET",
-
-      headers: {
-        Authorization: `Bearer ${refresh_token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.content);
-      })
-      .catch((error) => {
-        console.error("Сталася помилка:", error);
-      });
+    api.get('posts/home')
+        .then(r => console.log(r.data.content));
   };
-
-
-
-
-
 
 
   return (
