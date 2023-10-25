@@ -73,6 +73,18 @@ const RegistrationForm = () => {
     setOpen(false); // Close the current modal
   };
 
+  const [registrationData, setRegistrationData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const handleRegistrationDataChange = (newData) => {
+    
+    setRegistrationData(newData);
+  };
+
   return (
     <div>
       <Modal
@@ -98,6 +110,8 @@ const RegistrationForm = () => {
             Create your account
           </Typography>
           <Formik
+            data={registrationData}
+            onDataChange={handleRegistrationDataChange}
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
@@ -184,13 +198,13 @@ const RegistrationForm = () => {
                   }}
                 ></Field>
 
-                <Button  //роут, куда ведет кнопка некст??????
+                <Button //роут, куда ведет кнопка некст??????
                   type="submit"
                   onClick={(e) => {
                     e.preventDefault();
                     if (isValid) {
                       submitForm();
-                      navigate('/');
+                      navigate("/");
                     }
                   }}
                   disabled={!isValid}
