@@ -190,7 +190,7 @@ const RegistrationForm = () => {
                     e.preventDefault();
                     if (isValid) {
                       submitForm();
-                      
+                      navigate('/');
                     }
                   }}
                   disabled={!isValid}

@@ -55,10 +55,34 @@ function AppRoutes() {
         />
         <Route path="/more" element={<div>More</div>} />
         {/* <Route path="/LoginPage" element={<ExitLogin />} /> */}
-        <Route path="/registration" element={<RegistrationForm />} />
-        <Route path="/passwordForm" element={<PasswordForm />} />
+        <Route
+          path="/registration"
+          element={
+            <>
+              <ExitLogin />
+              <RegistrationForm />
+            </>
+          }
+        />
+        <Route
+          path="/passwordForm"
+          element={
+            <>
+              <ExitLogin />
+              <PasswordForm />
+            </>
+          }
+        />
       </Route>
-      <Route path="/signUpForm" element={<SignUpForm />}></Route>
+      <Route
+        path="/signUpForm"
+        element={
+          <>
+            <ExitLogin />
+            <SignUpForm />
+          </>
+        }
+      ></Route>
       <Route
         path="/forgotPasswordForm"
         element={<ForgotPasswordForm />}

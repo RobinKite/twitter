@@ -105,12 +105,10 @@ const PasswordForm = () => {
   };
 
   const handleForgotPasswordClick = () => {
-    // Navigate to the "Forgot password" page
     setOpen(false); // Close the current modal
     navigate("/forgotPasswordForm");
   };
   const handleSignUpClick = () => {
-    // Navigate to the "Forgot password" page
     setOpen(false); // Close the current modal
     navigate("/signUpForm");
   };
@@ -276,6 +274,7 @@ const PasswordForm = () => {
                     className={styles.link}
                     color="primary"
                     onClick={handleForgotPasswordClick}
+                    
                   >
                     Forgot password?
                   </Link>

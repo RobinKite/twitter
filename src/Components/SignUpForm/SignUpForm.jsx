@@ -156,7 +156,7 @@ marginLeft:0,
           >
             Have an account already?{" "}
             <Link
-              href="/LoginPage" // actual URL or route to  "Sign Up" page
+              href="/login" // actual URL or route to  "Sign Up" page
               color="primary"
             >
               Log in
