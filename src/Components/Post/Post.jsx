@@ -39,6 +39,9 @@ const InputFieldCostum = styled(TextField)({
 });
 const access_token =
   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2OTgwNDI5NTEsImV4cCI6MTY5ODA4NjE1MX0.91QCoZLAhSWLsyFf9HWGCbP5gqDJn7reA-p14877n8s";
+const refresh_token =
+  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2OTgwNDI5NTEsImV4cCI6MTY5ODY0Nzc1MX0.T7XZEerJNZYe6JNgQM5mR2itiaEB0jljfKWdx_vbpDY";
+
 const Post = () => {
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
@@ -81,11 +84,15 @@ const Post = () => {
     formData.append("body", inputStr);
     // console.log(inputStr)
     formData.append("type", "TWEET");
-    files.forEach((files, index) => {
+    // files.forEach((files, index) => {
+    //   // console.log(files)
+    //   formData.append(`images[${index}]`, files);
+    // });
+    files.forEach((file) => {
       // console.log(files)
-      formData.append(`images[${index}]`, files);
+      formData.append(`images`, file);
     });
-    // console.log(formData);
+    console.log(formData);
     fetch(
       "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/posts/create",
       {
@@ -93,8 +100,7 @@ const Post = () => {
 
         body: formData,
         headers: {
-          Authorization: `Bearer ${access_token}`,
-
+          Authorization: `Bearer ${refresh_token}`,
         },
       }
     )

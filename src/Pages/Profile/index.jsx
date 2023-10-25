@@ -63,6 +63,13 @@ const EditButton = styled(Button)(({ theme }) => ({
     background: " rgb(239, 243, 244)",
   },
 }));
+
+
+const access_token =
+  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2OTgwNDI5NTEsImV4cCI6MTY5ODA4NjE1MX0.91QCoZLAhSWLsyFf9HWGCbP5gqDJn7reA-p14877n8s";
+const refresh_token =
+  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2OTgwNDI5NTEsImV4cCI6MTY5ODY0Nzc1MX0.T7XZEerJNZYe6JNgQM5mR2itiaEB0jljfKWdx_vbpDY";
+
 export default function Profile() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -74,6 +81,29 @@ export default function Profile() {
   //   email: "user1@gmail.com",
   //   password: "1111",
   // };
+
+  const addPost = () => {
+    fetch("https://danit-final-twitter-8f32e99a3dec.herokuapp.com/posts/home", {
+      method: "GET",
+
+      headers: {
+        Authorization: `Bearer ${refresh_token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.content);
+      })
+      .catch((error) => {
+        console.error("Сталася помилка:", error);
+      });
+  };
+
+
+
+
+
+
 
   return (
     <>

@@ -28,7 +28,11 @@ import { ReactComponent as Delete } from "./svg/delete.svg";
 import { useSelector, useDispatch } from "react-redux";
 import Menu from "@mui/material/Menu";
 // import MenuItem from "@mui/material/MenuItem";
-const ItemPost = () => {
+const ItemPost = ({ content }) => {
+
+
+ 
+
   // const { src, img, username, content, nickname } = props;
   const newTweet = useSelector((state) => state.createPost);
   // console.log(newTweet);
@@ -42,63 +46,63 @@ const ItemPost = () => {
     setAnchorEl(null);
   };
   return (
-    <div className={classNames(styles.tweet)}>
-      <div className={classNames(styles.tweetHeader)}>
-        <div className={classNames(styles.tweetAvatar)}>
-          <Avatar src="https://randomuser.me/api/portraits/women/79.jpg" />
-          {/* <img src={props.profileImageUrl} alt={`${username}'s profile`} /> */}
-          <div className={classNames(styles.tweetUserInfo)}>
-            <span className={classNames(styles.tweetUsername)}>
-              {/* {username}username {nickname} nickname */}
-            </span>
+    <div>
+      {/* {content.map((item) => { */}
+        <div className={classNames(styles.tweet)} >
+          <div className={classNames(styles.tweetHeader)}>
+            <div className={classNames(styles.tweetAvatar)}>
+              <Avatar src="https://randomuser.me/api/portraits/women/79.jpg" />
+              {/* <img src={props.profileImageUrl} alt={`${username}'s profile`} /> */}
+              <div className={classNames(styles.tweetUserInfo)}>
+                <span className={classNames(styles.tweetUsername)}>
+                  {/* {username}username {nickname} nickname */}
+                </span>
+              </div>
+            </div>
+            <div>
+              <IconButton
+                id="basic-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+                <MoreHorizIcon fontSize="large" />
+              </IconButton>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem onClick={handleClose} sx={{ color: "red" }}>
+                  <Delete />
+                  Delete
+                </MenuItem>
+              </Menu>
+            </div>
           </div>
-        </div>
-        <div>
-          <IconButton
-            id="basic-button"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-          >
-            <MoreHorizIcon fontSize="large" />
-          </IconButton>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem onClick={handleClose} sx={{ color: "red" }}>
-              <Delete />
-              Delete
-            </MenuItem>
-          </Menu>
-        </div>
-      </div>
-      <p className={classNames(styles.tweetContent)}>
-        {newTweet.newTweet.body}
-      </p>
-      <div className={classNames(styles.tweetImg)}>
-        <img
-         style={{ width: "240px", objectFit: "cover" }}
-          src={newTweet.newTweet.images[0]}
-          alt=""
-        />
-        <img
-        style={{ width: "240px", objectFit: "cover" }}
-          src={newTweet.newTweet.images[1]}
-          alt=""
-        />
-        <img
-          style={{ width: "240px", objectFit: "cover" }}
-          src={newTweet.newTweet.images[2]}
-          alt=""
-        />
-        {/* <img
+          <p className={classNames(styles.tweetContent)}></p>
+          <div className={classNames(styles.tweetImg)}>
+            <img
+              style={{ width: "240px", objectFit: "cover" }}
+              src={newTweet.newTweet.images[0]}
+              alt=""
+            />
+            <img
+              style={{ width: "240px", objectFit: "cover" }}
+              src={newTweet.newTweet.images[1]}
+              alt=""
+            />
+            <img
+              style={{ width: "240px", objectFit: "cover" }}
+              src={newTweet.newTweet.images[2]}
+              alt=""
+            />
+            {/* <img
           src="https://randomuser.me/api/portraits/women/65.jpg"
           alt={`${username}'s profile`}
         />
@@ -110,25 +114,27 @@ const ItemPost = () => {
           src="https://randomuser.me/api/portraits/women/60.jpg"
           alt={`${username}'s profile`}
         /> */}
-      </div>
-      <div className={classNames(styles.tweetActions)}>
-        <IconButton>
-          <Reply className={classNames(styles.tweetReply)} />
-        </IconButton>
+          </div>
+          <div className={classNames(styles.tweetActions)}>
+            <IconButton>
+              <Reply className={classNames(styles.tweetReply)} />
+            </IconButton>
 
-        <IconButton>
-          <Repost className={classNames(styles.tweetRepost)} />
-        </IconButton>
-        <IconButton>
-          <LikeFalse className={classNames(styles.tweetLike)} />
-        </IconButton>
-        <IconButton>
-          <View className={classNames(styles.tweetReply)} />
-        </IconButton>
-        <IconButton>
-          <Share className={classNames(styles.tweetReply)} />
-        </IconButton>
-      </div>
+            <IconButton>
+              <Repost className={classNames(styles.tweetRepost)} />
+            </IconButton>
+            <IconButton>
+              <LikeFalse className={classNames(styles.tweetLike)} />
+            </IconButton>
+            <IconButton>
+              <View className={classNames(styles.tweetReply)} />
+            </IconButton>
+            <IconButton>
+              <Share className={classNames(styles.tweetReply)} />
+            </IconButton>
+          </div>
+        </div>
+       {/* })}  */}
     </div>
   );
 };
