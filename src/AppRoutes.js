@@ -73,6 +73,8 @@ function AppRoutes() {
             </>
           }
         />
+       
+        <Route path="/bookmarks" element={<div>Bookmarks</div>} />
       </Route>
       <Route
         path="/signUpForm"

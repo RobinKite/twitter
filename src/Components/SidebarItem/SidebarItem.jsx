@@ -1,8 +1,9 @@
 import React from "react";
-// import PropTypes from "prop-types";
+
 import { NavLink, useLocation } from "react-router-dom";
-import styles from "../SidebarItem/SidebarItem.module.scss";
+import styles from "./SidebarItem.module.scss";
 import classNames from "classnames";
+
 
 import { ReactComponent as HomeIcon } from "../../assets/svg/home.svg";
 import { ReactComponent as HomeIconFilled } from "../../assets/svg/home-filled.svg";
@@ -18,8 +19,7 @@ import { ReactComponent as ListIcon } from "../../assets/svg/list.svg";
 import { ReactComponent as ListIconFilled } from "../../assets/svg/list-filled.svg";
 import { ReactComponent as CommunitiesIcon } from "../../assets/svg/communities.svg";
 import { ReactComponent as CommunitiesIconFilled } from "../../assets/svg/communities-filled.svg";
-import { ReactComponent as MoreIcon } from "../../assets/svg/more.svg";
-import { ReactComponent as MoreIconFilled } from "../../assets/svg/more-filled.svg";
+
 import { ReactComponent as TwitterIcon } from "../../assets/svg/twitter.svg";
 
 const SidebarItem = () => {
@@ -28,11 +28,12 @@ const SidebarItem = () => {
     return location.pathname === path ? "active-link" : "";
   };
 
+  
   return (
     <div className={styles.sidebar}>
       <ul className={styles.sidebarList}>
         <li>
-          <NavLink className={styles.logo}>
+          <NavLink to="/" className={styles.logo}>
             <TwitterIcon className={styles.icon} />
           </NavLink>
         </li>
@@ -44,7 +45,7 @@ const SidebarItem = () => {
             }
           >
             {isActive("/") ? <HomeIconFilled /> : <HomeIcon />}
-            Home
+            <span className={styles.hideText}>Home</span>
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -55,7 +56,7 @@ const SidebarItem = () => {
             }
           >
             {isActive("/explore") ? <SearchIconFilled /> : <SearchIcon />}
-            Explore
+            <span className={styles.hideText}>Explore</span>
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -70,7 +71,7 @@ const SidebarItem = () => {
             ) : (
               <NotificationIcon />
             )}
-            Notification
+            <span className={styles.hideText}>Notification</span>
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -81,7 +82,7 @@ const SidebarItem = () => {
             }
           >
             {isActive("/messages") ? <MessageIconFilled /> : <MessageIcon />}
-            Messages
+            <span className={styles.hideText}>Messages</span>
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -92,7 +93,7 @@ const SidebarItem = () => {
             }
           >
             {isActive("/lists") ? <ListIconFilled /> : <ListIcon />}
-            Lists
+            <span className={styles.hideText}>Lists</span>
           </NavLink>
         </li>
 
@@ -108,7 +109,7 @@ const SidebarItem = () => {
             ) : (
               <CommunitiesIcon />
             )}
-            Communities
+            <span className={styles.hideText}>Communities</span>
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -119,7 +120,7 @@ const SidebarItem = () => {
             }
           >
             <TwitterIcon />
-            Verified
+            <span className={styles.hideText}>Verified</span>
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -130,18 +131,7 @@ const SidebarItem = () => {
             }
           >
             {isActive("/profile") ? <ProfileIconFilled /> : <ProfileIcon />}
-            Profile
-          </NavLink>
-        </li>
-        <li className={styles.sidebarListLink}>
-          <NavLink
-            to="more"
-            className={({ isActive }) =>
-              classNames(styles.listLink, { [styles.active]: isActive })
-            }
-          >
-            {isActive("/more") ? <MoreIconFilled /> : <MoreIcon />}
-            More
+            <span className={styles.hideText}>Profile</span>
           </NavLink>
         </li>
       </ul>
