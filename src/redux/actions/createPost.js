@@ -1,15 +1,31 @@
-import { ADD_TO_POST, GET_POST, DELETE_FROM_POST } from "../types/createPost";
+import {
+  ADD_TO_POST,
+  SET_POSTS,
+  GET_POST,
+  // DELETE_FROM_POST,
+} from "../types/createPost";
+import { api } from "../../service/api";
 
-
-export const updateTweet = (newTweet) => ({
-  type: 'UPDATE_TWEET',
-  payload: newTweet,
+export const addPost = (post) => ({
+  type: ADD_TO_POST,
+  payload: post,
 });
 
-// export const getPost = (data) => ({
-//   type: GET_POST,
-//   payload: data,
-// });
+export const setPosts = (posts) => ({
+  type: SET_POSTS,
+  payload: posts,
+});
+export const getPosts = () => {
+  return async (dispatch) => {
+    try {
+      // const { data } = await api.get("posts/home");
+      api.get("posts/home").then((r) => dispatch(setPosts(r.data.content)));
+      // setPosts(data.content)
+    } catch (error) {
+      console.log("ERROR", error);
+    }
+  };
+};
 
 // export const addToPost = (data) => ({
 //   type: ADD_TO_POST,

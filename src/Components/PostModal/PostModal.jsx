@@ -48,7 +48,7 @@ export default function PostModal(props) {
     // Перевіряємо, чи клік був здійснений за межами модального вікна
     if (event.currentTarget === event.target) {
       //Якщо так, то додаємо код для закриття модального вікна
-      toggleModalPost();
+      // toggleModalPost();
     }
   };
 

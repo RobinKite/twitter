@@ -18,8 +18,9 @@ import LabTabs from "../../Components/ProfileTabs";
 import TabPanel from "@mui/lab/TabPanel";
 import UserFoto from "../../Components/UserFoto";
 
-import { GetUserAsync } from "../../redux/actions/userInfo";
+// import { GetUserAsync } from "../../redux/actions/userInfo";
 import {api} from "../../service/api";
+import { getPosts } from "../../redux/actions/createPost";
 const tabs = [
   { label: "Post", value: "1" },
   { label: "Replies", value: "2" },
@@ -71,12 +72,20 @@ export default function Profile() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  // const [content, setContent] = useState(null);
   const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state.user);
+  const posts = useSelector((state) => state.posts.posts);
+  useEffect(() => {
+    if (isAuthenticated) {
+      // api.get("posts/home").then((r) => setContent(r.data.content));
+      dispatch(getPosts())
+    }
+    
+  }, [isAuthenticated]);
 
-  const addPost = () => {
-    api.get('posts/home')
-        .then(r => console.log(r.data.content));
-  };
+  if (!isAuthenticated) return "Not authenticated...";
+
 
 
   return (
@@ -145,7 +154,7 @@ export default function Profile() {
             },
           }}
         >
-          <TabPanel value="1"> <ItemPost /></TabPanel>
+          <TabPanel value="1">  {posts?.map(p => <ItemPost content={p.body} imageUrls={p.imageUrls}/>)}</TabPanel>
           <TabPanel value="2">Peplies</TabPanel>
           <TabPanel value="3">Likes</TabPanel>
         </LabTabs>

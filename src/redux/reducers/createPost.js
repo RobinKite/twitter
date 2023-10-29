@@ -1,31 +1,42 @@
-import { ADD_TO_POST, GET_POST, DELETE_FROM_POST } from "../types/createPost";
-
-// const initialState = {
-//   post: [],
-// };
+import { ADD_TO_POST,SET_POSTS, GET_POST, DELETE_FROM_POST } from "../types/createPost";
 
 const initialState = {
-  newTweet: {
-    body: '',
-    type: 'string',
-    parentPostId: 'string',
-    images: [],
-  },
+  posts: [],
 };
+
+// const initialState = {
+//   newTweet: {
+//     body: '',
+//     type: 'string',
+//     parentPostId: 'string',
+//     images: [],
+//   },
+// };
 const createPostReducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case 'UPDATE_TWEET':
+    case SET_POSTS: {
       return {
         ...state,
-        newTweet: action.payload,
+        posts:  action.payload,
       };
-    // case GET_POST: {
-    //   return {
-    //     ...state,
-    //     post: [...state.post, action.payload],
-    //   };
-    // }
+    }
+      case ADD_TO_POST:
+        // let newPost = [...state.posts];
+        // const post = action.payload;
+        // newPost.push(post);
+      return {
+        ...state,
+        posts: [...state.posts,action.payload]
+      };
+   
+    case GET_POST: {
+      return {
+        ...state,
+        posts: [...state.posts, action.payload],
+      };
+    }
+
 
   //   case ADD_TO_POST: {
   //     let newPost = [...state.post];

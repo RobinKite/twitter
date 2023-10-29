@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { useSelector, useDispatch } from "react-redux";
-import { updateTweet } from "../../redux/actions/createPost";
+import { addPost, updateTweet } from "../../redux/actions/createPost";
 import { setModalPost } from "../../redux/actions/modalPost";
 import { Avatar } from "@mui/material";
 import styles from "./Post.module.scss";
@@ -13,6 +13,7 @@ import { styled } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import EmojiPicker from "emoji-picker-react";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
+import { api } from "../../service/api";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -37,81 +38,61 @@ const InputFieldCostum = styled(TextField)({
     lineHeight: "28px",
   },
 });
-const access_token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2OTgwNDI5NTEsImV4cCI6MTY5ODA4NjE1MX0.91QCoZLAhSWLsyFf9HWGCbP5gqDJn7reA-p14877n8s";
-const refresh_token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2OTgwNDI5NTEsImV4cCI6MTY5ODY0Nzc1MX0.T7XZEerJNZYe6JNgQM5mR2itiaEB0jljfKWdx_vbpDY";
 
 const Post = () => {
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  // const [tweet, setTweet] = useState()
+
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
+
   // Створення обєкта з даними поста
 
-  // const handlePostSubmit = () => {
-  //   const postData = {
-  //     body: inputStr,
-  //     images: files,
-  //     type: "TWEET",
-  //   };
-  //   // console.log(postData);
-  //   fetch(
-  //     "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/posts/create",
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         Authorization: `Bearer ${access_token}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(postData),
-  //     }
-  //   )
-  //     .then((response) => response.json())
+  const formData = new FormData();
 
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Сталася помилка:", error);
-  //     });
-  // };
   const submit = () => {
-    const formData = new FormData();
-
+    // const textData = new Blob([inputStr], { type: "text/plain;charset=UTF-8" });
     formData.append("body", inputStr);
-    // console.log(inputStr)
+
     formData.append("type", "TWEET");
-    // files.forEach((files, index) => {
-    //   // console.log(files)
-    //   formData.append(`images[${index}]`, files);
-    // });
+
     files.forEach((file) => {
-      // console.log(files)
       formData.append(`images`, file);
     });
-    console.log(formData);
-    fetch(
-      "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/posts/create",
-      {
-        method: "POST",
 
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${refresh_token}`,
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
+    // console.log(formData);
+    dispatch(addPost(formData));
+    // async function createPost() {
+    //   try {
+    //     const response = await api.post("posts/create", formData, {
+    //       headers: { "Content-Type": "application/json" },
+    //     });
+    //     const post = response.data;
+    //     console.log(post);
+    //     dispatch(addPost(post)); // dispatch викликає вашу дію ADD_TO_POST для збереження поста в Redux-стані
+    //   } catch (error) {
+    //     console.error(error.response.data);
+    //   }
+    // }
+    // createPost();
+    
+  
+    
+    api
+      .post("posts/create", formData)
+      .then((response) => response)
+      .then(({ data }) => {
         console.log(data);
       })
       .catch((error) => {
         console.error("Сталася помилка:", error);
       });
+
+    // toggleModalPost()
   };
+
   // Відмалювання смайлів
   const onEmojiClick = (event, emojiObject) => {
     setInputStr((prevInput) => {
@@ -130,6 +111,9 @@ const Post = () => {
 
   // });
 
+  const toggleModalPost = () => {
+    dispatch(setModalPost());
+  };
   return (
     <>
       <div>

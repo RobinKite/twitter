@@ -11,6 +11,6 @@ export const rootReducer = combineReducers({
   loginModal: modalReducer,
   postModal: modalPostReducer,
   user: userReducer,
-  createPost:createPostReducer,
+  posts:createPostReducer,
 
 });

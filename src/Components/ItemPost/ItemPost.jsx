@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import styles from "./ItemPost.module.scss";
 import Avatar from "@mui/material/Avatar";
@@ -25,17 +25,17 @@ import { ReactComponent as Repost } from "./svg/repost.svg";
 import { ReactComponent as Share } from "./svg/share.svg";
 import { ReactComponent as LikeFalse } from "./svg/likeFalse.svg";
 import { ReactComponent as Delete } from "./svg/delete.svg";
+import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import Menu from "@mui/material/Menu";
+import ImgModal from "../ImgModal/ImgModal";
 // import MenuItem from "@mui/material/MenuItem";
-const ItemPost = ({ content }) => {
+const ItemPost = ({ content, imageUrls }) => {
+  // console.log(content);
 
-
- 
-
-  // const { src, img, username, content, nickname } = props;
-  const newTweet = useSelector((state) => state.createPost);
-  // console.log(newTweet);
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -45,98 +45,108 @@ const ItemPost = ({ content }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  return (
-    <div>
-      {/* {content.map((item) => { */}
-        <div className={classNames(styles.tweet)} >
-          <div className={classNames(styles.tweetHeader)}>
-            <div className={classNames(styles.tweetAvatar)}>
-              <Avatar src="https://randomuser.me/api/portraits/women/79.jpg" />
-              {/* <img src={props.profileImageUrl} alt={`${username}'s profile`} /> */}
-              <div className={classNames(styles.tweetUserInfo)}>
-                <span className={classNames(styles.tweetUsername)}>
-                  {/* {username}username {nickname} nickname */}
-                </span>
-              </div>
-            </div>
-            <div>
-              <IconButton
-                id="basic-button"
-                aria-controls={open ? "basic-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
-              >
-                <MoreHorizIcon fontSize="large" />
-              </IconButton>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-              >
-                <MenuItem onClick={handleClose} sx={{ color: "red" }}>
-                  <Delete />
-                  Delete
-                </MenuItem>
-              </Menu>
-            </div>
-          </div>
-          <p className={classNames(styles.tweetContent)}>{content.body}</p>
-          <div className={classNames(styles.tweetImg)}>
-            <img
-              style={{ width: "240px", objectFit: "cover" }}
-              src={newTweet.newTweet.images[0]}
-              alt=""
-            />
-            <img
-              style={{ width: "240px", objectFit: "cover" }}
-              src={newTweet.newTweet.images[1]}
-              alt=""
-            />
-            <img
-              style={{ width: "240px", objectFit: "cover" }}
-              src={newTweet.newTweet.images[2]}
-              alt=""
-            />
-            {/* <img
-          src="https://randomuser.me/api/portraits/women/65.jpg"
-          alt={`${username}'s profile`}
-        />
-        <img
-          src="https://randomuser.me/api/portraits/women/63.jpg"
-          alt={`${username}'s profile`}
-        />
-        <img
-          src="https://randomuser.me/api/portraits/women/60.jpg"
-          alt={`${username}'s profile`}
-        /> */}
-          </div>
-          <div className={classNames(styles.tweetActions)}>
-            <IconButton>
-              <Reply className={classNames(styles.tweetReply)} />
-            </IconButton>
 
-            <IconButton>
-              <Repost className={classNames(styles.tweetRepost)} />
+  const openImageModal = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setIsModalOpen(true);
+  };
+
+  const closeImageModal = () => {
+    setSelectedImage(null);
+    setIsModalOpen(false);
+  };
+  return (
+    <div >
+      <div className={classNames(styles.tweet)} >
+        <div className={classNames(styles.tweetHeader)}>
+          <div className={classNames(styles.tweetAvatar)}>
+            <Avatar src="https://randomuser.me/api/portraits/women/79.jpg" />
+            {/* <img src={props.profileImageUrl} alt={`${username}'s profile`} /> */}
+            <div className={classNames(styles.tweetUserInfo)}>
+              <span className={classNames(styles.tweetUsername)}>
+                {/* {username}username {nickname} nickname */}
+              </span>
+            </div>
+          </div>
+          <div>
+            <IconButton
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+            >
+              <MoreHorizIcon fontSize="large" />
             </IconButton>
-            <IconButton>
-              <LikeFalse className={classNames(styles.tweetLike)} />
-            </IconButton>
-            <IconButton>
-              <View className={classNames(styles.tweetReply)} />
-            </IconButton>
-            <IconButton>
-              <Share className={classNames(styles.tweetReply)} />
-            </IconButton>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={handleClose} sx={{ color: "red" }}>
+                <Delete />
+                Delete
+              </MenuItem>
+            </Menu>
           </div>
         </div>
-       {/* })}  */}
+        <p className={classNames(styles.tweetContent)}>{content}</p>
+        <div className={classNames(styles.tweetImg)}>
+        
+          { imageUrls.map((imageUrl, index) => (
+            <img
+              key={index}
+              src={imageUrl}
+              alt={`Image ${index}`}
+              onClick={() => openImageModal(imageUrl)}
+              style={{ width: "220px", objectFit: "cover" }}
+            />
+          ))}
+            
+        </div>
+        {/* {isModalOpen && (
+          <ImgModal imageUrl={selectedImage} onClose={closeImageModal} />
+        )} */}
+        <div className={classNames(styles.tweetActions)}>
+          <IconButton>
+            <Reply className={classNames(styles.tweetReply)} />
+          </IconButton>
+
+          <IconButton>
+            <Repost className={classNames(styles.tweetRepost)} />
+          </IconButton>
+          <IconButton>
+            <LikeFalse className={classNames(styles.tweetLike)} />
+          </IconButton>
+          <IconButton>
+            <View className={classNames(styles.tweetReply)} />
+          </IconButton>
+          <IconButton>
+            <Share className={classNames(styles.tweetReply)} />
+          </IconButton>
+        </div>
+      </div>
     </div>
   );
+};
+
+
+
+
+ItemPost.propTypes = {
+  content: PropTypes.string,
+  imageUrls: PropTypes.array,
+
+};
+
+ItemPost.defaultProps = {
+  content: "",
+  imageUrls: [],
+
 };
 
 export default ItemPost;
