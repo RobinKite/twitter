@@ -1,7 +1,16 @@
-import { SET_MODAL, SET_MODAL_ACTION, SET_MODAL_TITLE,PRODUKT_PRICE,PRODUKT_NAME } from "../types/modalLogin";
+import {
+  SET_MODAL,
+  SET_MODAL_ACTION,
+  SET_MODAL_TITLE,
+  PRODUKT_PRICE,
+  PRODUKT_NAME,
+} from "../types/modalLogin";
 
 export const setModal = () => ({ type: SET_MODAL });
 
+export const setCreateProfileModal = () => ({
+  type: "SET_CREATE_PROFILE_MODAL",
+});
 // export const setModalAction = (value) => ({
 //   type: SET_MODAL_ACTION,
 //   payload: value,

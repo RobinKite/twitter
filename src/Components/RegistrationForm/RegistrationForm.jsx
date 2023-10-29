@@ -12,7 +12,13 @@ import TextField from "@mui/material/TextField";
 import { Form, Formik, Field } from "formik";
 import { ReactComponent as CloseButton } from "../LoginFormsModal/svg/Clos.svg";
 import * as Yup from "yup";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {
+  setModal,
+  setCreateProfileModal,
+} from "../../redux/actions/modalLogin";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -20,7 +26,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "30%",
   height: "80%",
-  
+
   bgcolor: "background.paper",
   border: "0",
   boxShadow: 24,
@@ -35,10 +41,8 @@ const style = {
 };
 
 const RegistrationForm = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+  const { isActiveProfileModal } = useSelector((state) => state.loginModal);
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePasswordVisibility = () => {
@@ -54,7 +58,7 @@ const RegistrationForm = () => {
 
   const onSubmit = (values) => {
     console.log(values);
-    handleClose();
+    handleClose(setCreateProfileModal());
   };
   const validationSchema = Yup.object({
     firstName: Yup.string().required("First name is required"),
@@ -63,14 +67,14 @@ const RegistrationForm = () => {
     password: Yup.string().required("Password is required"),
   });
 
-  useEffect(() => {
-    handleOpen();
-  }, []);
+  const handleClose = () => {
+    dispatch(setCreateProfileModal());
+  };
+
   const navigate = useNavigate();
   const handleNextButtonClick = () => {
     // Use the navigate function to change the route
     navigate("/signUpForm");
-    setOpen(false); // Close the current modal
   };
 
   const [registrationData, setRegistrationData] = useState({
@@ -81,14 +85,13 @@ const RegistrationForm = () => {
   });
 
   const handleRegistrationDataChange = (newData) => {
-    
     setRegistrationData(newData);
   };
 
   return (
     <div>
       <Modal
-        open={open}
+        open={isActiveProfileModal}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"

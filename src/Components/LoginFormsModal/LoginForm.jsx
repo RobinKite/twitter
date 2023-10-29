@@ -71,11 +71,11 @@ export default function BasicModal(props) {
     setOpen(false); // Close the current modal
     navigate("/passwordForm");
   };
-   const handleForgotPasswordClick = () => {
-     // Use the navigate function to change the route
-     navigate("/forgotPasswordForm");
-     setOpen(false); // Close the current modal
-   };
+  const handleForgotPasswordClick = () => {
+    // Use the navigate function to change the route
+    navigate("/forgotPasswordForm");
+    setOpen(false); // Close the current modal
+  };
   return (
     <div>
       <Modal

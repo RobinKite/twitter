@@ -1,13 +1,16 @@
 import React from "react";
 import Footer from "../../Components/Footer/Footer";
-import { useNavigate } from "react-router-dom";
+
 import styles from "./ExitLogin.module.scss";
 import classNames from "classnames";
 import { ReactComponent as TwiterLogo } from "./svg/twiterLogo.svg";
 import { ReactComponent as Apple } from "./svg/apple.svg";
 import { ReactComponent as Google } from "./svg/google.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { setModal } from "../../redux/actions/modalLogin";
+import {
+  setModal,
+  setCreateProfileModal,
+} from "../../redux/actions/modalLogin";
 import ButtonStyled from "../../Components/Button/Button";
 
 const ExitLogin = ({ setIsLog, isLog }) => {
@@ -15,18 +18,11 @@ const ExitLogin = ({ setIsLog, isLog }) => {
   const toggleModal = () => {
     dispatch(setModal());
   };
-
-  const navigate = useNavigate();
-
-  const handleCreateElementClick = () => {
-    // Close the previous modal first
-    toggleModal();
-
-    // Navigate to the registration page after the previous modal has closed
-    navigate("/registration");
-  };
  
-
+  const handleCreateElementClick = () => {
+    dispatch(setCreateProfileModal());
+   
+  };
 
   return (
     <div className={classNames(styles.wrapper)}>
