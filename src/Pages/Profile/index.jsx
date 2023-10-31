@@ -154,7 +154,7 @@ export default function Profile() {
             },
           }}
         >
-          <TabPanel value="1">  {posts?.map(p => <ItemPost content={p.body} imageUrls={p.imageUrls}/>)}</TabPanel>
+          <TabPanel value="1">  {posts?.map(p => <ItemPost  key={p.id} id ={p.id} content={p.body} imageUrls={p.imageUrls}/>)}</TabPanel>
           <TabPanel value="2">Peplies</TabPanel>
           <TabPanel value="3">Likes</TabPanel>
         </LabTabs>

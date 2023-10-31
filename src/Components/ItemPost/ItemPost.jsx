@@ -29,11 +29,12 @@ import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import Menu from "@mui/material/Menu";
 import ImgModal from "../ImgModal/ImgModal";
+import { deleteFromPost,deletePost } from "../../redux/actions/createPost";
 // import MenuItem from "@mui/material/MenuItem";
-const ItemPost = ({ content, imageUrls }) => {
+const ItemPost = ({ content, imageUrls, id }) => {
+  // console.log(id)
   // console.log(content);
-
-  
+  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -56,7 +57,7 @@ const ItemPost = ({ content, imageUrls }) => {
     setIsModalOpen(false);
   };
   return (
-    <div >
+    <div>
       <div className={classNames(styles.tweet)} >
         <div className={classNames(styles.tweetHeader)}>
           <div className={classNames(styles.tweetAvatar)}>
@@ -87,7 +88,13 @@ const ItemPost = ({ content, imageUrls }) => {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleClose} sx={{ color: "red" }}>
+              <MenuItem
+                onClick={() => {
+                  dispatch(deletePost(id));
+                  
+                }}
+                sx={{ color: "red" }}
+              >
                 <Delete />
                 Delete
               </MenuItem>
@@ -96,8 +103,7 @@ const ItemPost = ({ content, imageUrls }) => {
         </div>
         <p className={classNames(styles.tweetContent)}>{content}</p>
         <div className={classNames(styles.tweetImg)}>
-        
-          { imageUrls.map((imageUrl, index) => (
+          {imageUrls.map((imageUrl, index) => (
             <img
               key={index}
               src={imageUrl}
@@ -106,7 +112,6 @@ const ItemPost = ({ content, imageUrls }) => {
               style={{ width: "220px", objectFit: "cover" }}
             />
           ))}
-            
         </div>
         {/* {isModalOpen && (
           <ImgModal imageUrl={selectedImage} onClose={closeImageModal} />
@@ -134,19 +139,14 @@ const ItemPost = ({ content, imageUrls }) => {
   );
 };
 
-
-
-
 ItemPost.propTypes = {
   content: PropTypes.string,
   imageUrls: PropTypes.array,
-
 };
 
 ItemPost.defaultProps = {
   content: "",
   imageUrls: [],
-
 };
 
 export default ItemPost;

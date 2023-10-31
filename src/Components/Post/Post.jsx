@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { useSelector, useDispatch } from "react-redux";
-import { addPost, updateTweet } from "../../redux/actions/createPost";
+import { addPost, addPosts, updateTweet } from "../../redux/actions/createPost";
 import { setModalPost } from "../../redux/actions/modalPost";
 import { Avatar } from "@mui/material";
 import styles from "./Post.module.scss";
@@ -62,8 +62,9 @@ const Post = () => {
       formData.append(`images`, file);
     });
 
+    dispatch(addPosts(formData));
     // console.log(formData);
-    dispatch(addPost(formData));
+    // dispatch(addPost(formData));
     // async function createPost() {
     //   try {
     //     const response = await api.post("posts/create", formData, {
@@ -77,18 +78,19 @@ const Post = () => {
     //   }
     // }
     // createPost();
-    
-  
-    
-    api
-      .post("posts/create", formData)
-      .then((response) => response)
-      .then(({ data }) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Сталася помилка:", error);
-      });
+
+    // api.get("posts/home")
+    // .then((r) => setContent(r.data.content));
+
+    // api
+    //   .post("posts/create", formData)
+    //   .then((response) => response)
+    //   .then(({ data }) => {
+    //     console.log(data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Сталася помилка:", error);
+    //   });
 
     // toggleModalPost()
   };

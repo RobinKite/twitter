@@ -4,39 +4,51 @@ const initialState = {
   posts: [],
 };
 
-// const initialState = {
-//   newTweet: {
-//     body: '',
-//     type: 'string',
-//     parentPostId: 'string',
-//     images: [],
-//   },
-// };
-const createPostReducer = (state = initialState, action) => {
-  switch (action.type) {
 
+const createPostReducer = (state = initialState, action) => {
+  
+  switch (action.type) {
+    case ADD_TO_POST:
+
+    return {
+      ...state,
+      posts: [...state.posts,action.payload]
+    };
     case SET_POSTS: {
       return {
         ...state,
         posts:  action.payload,
       };
     }
-      case ADD_TO_POST:
-        // let newPost = [...state.posts];
-        // const post = action.payload;
-        // newPost.push(post);
-      return {
-        ...state,
-        posts: [...state.posts,action.payload]
-      };
+
    
     case GET_POST: {
       return {
         ...state,
-        posts: [...state.posts, action.payload],
+        posts: [...state.posts,action.payload],
       };
     }
+    case DELETE_FROM_POST: {
+      const newPosts = [...state.posts];
+     
+    
+      const post = action.payload;
+      const index = newPosts.findIndex((el) => el.id === post.id);
+      newPosts.splice(index, 1);
+      
+      
+      return {
+        ...state,
+        posts: newPosts,
+       
+      
+      };
+    }
+    default:
 
+      return state;
+  }
+};
 
   //   case ADD_TO_POST: {
   //     let newPost = [...state.post];
@@ -52,10 +64,6 @@ const createPostReducer = (state = initialState, action) => {
   //       post: newPost,
   //     };
   //   }
-    default:
 
-      return state;
-  }
-};
 
 export default createPostReducer;

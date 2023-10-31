@@ -16,7 +16,7 @@ const tabs = [
 const Home = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
-  console.log(posts);
+  // console.log(posts);
   // const [content, setContent] = useState(null);
 
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -53,7 +53,7 @@ const Home = () => {
         <TabPanel value="1">
           <Post />
           {posts?.map((p) => (
-            <ItemPost key={p.id} content={p.body} imageUrls={p.imageUrls} />
+            <ItemPost key={p.id} content={p.body} imageUrls={p.imageUrls} id ={p.id} />
           ))}
         </TabPanel>
         {/* <TabPanel value="2"></TabPanel> */}
