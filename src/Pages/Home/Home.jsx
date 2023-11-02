@@ -53,7 +53,7 @@ const Home = () => {
         <TabPanel value="1">
           <Post />
           {posts?.map((p) => (
-            <ItemPost key={p.id} content={p.body} imageUrls={p.imageUrls} id ={p.id} />
+            <ItemPost key={p.id} content={p.body} imageUrls={p.imageUrls} id ={p.id} likeCount ={p.likeCount } liked={p.liked}/>
           ))}
         </TabPanel>
         {/* <TabPanel value="2"></TabPanel> */}

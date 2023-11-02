@@ -2,41 +2,45 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import styles from "./ItemPost.module.scss";
 import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
-import Paper from "@mui/material/Paper";
-import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Typography from "@mui/material/Typography";
-import ContentCut from "@mui/icons-material/ContentCut";
-import ContentCopy from "@mui/icons-material/ContentCopy";
-import ContentPaste from "@mui/icons-material/ContentPaste";
-import Cloud from "@mui/icons-material/Cloud";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import MapsUgcIcon from "@mui/icons-material/MapsUgc";
-import Button from "@mui/material/Button";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { IconButton } from "@mui/material";
 import { ReactComponent as View } from "./svg/view.svg";
 import { ReactComponent as Reply } from "./svg/reply.svg";
-import { ReactComponent as Like } from "./svg/like.svg";
+import { ReactComponent as LikeFalse } from "./svg/likeFalse.svg";
 import { ReactComponent as Repost } from "./svg/repost.svg";
 import { ReactComponent as Share } from "./svg/share.svg";
-import { ReactComponent as LikeFalse } from "./svg/likeFalse.svg";
+import { ReactComponent as Like } from "./svg/like.svg";
 import { ReactComponent as Delete } from "./svg/delete.svg";
 import PropTypes from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import Menu from "@mui/material/Menu";
+import { useNavigate } from "react-router-dom";
+
 import ImgModal from "../ImgModal/ImgModal";
-import { deleteFromPost,deletePost } from "../../redux/actions/createPost";
+import {
+  deleteFromPost,
+  deletePost,
+  likePost,
+  likePostAxios,
+} from "../../redux/actions/createPost";
+import PostModal from "../PostModal/PostModal";
+import { setModalPost } from "../../redux/actions/modalPost";
+import ComentPost from "../ComentPost/ComentPost";
 // import MenuItem from "@mui/material/MenuItem";
-const ItemPost = ({ content, imageUrls, id }) => {
-  // console.log(id)
-  // console.log(content);
+
+const ItemPost = ({ content, imageUrls, id, likeCount, liked }) => {
+  console.log(liked)
+  const posts = useSelector((state) => state.posts.posts, shallowEqual);
+
+  const secondModalOpen = useSelector((state) => state.postModal.isActive);
+  const toggleModalPost = () => {
+    dispatch(setModalPost());
+  };
+  
   const dispatch = useDispatch();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [selectedImage, setSelectedImage] = useState(null);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -47,18 +51,32 @@ const ItemPost = ({ content, imageUrls, id }) => {
     setAnchorEl(null);
   };
 
-  const openImageModal = (imageUrl) => {
-    setSelectedImage(imageUrl);
-    setIsModalOpen(true);
+  // const openImageModal = (imageUrl) => {
+  //   setSelectedImage(imageUrl);
+  //   setIsModalOpen(true);
+  // };
+
+  // const closeImageModal = () => {
+  //   setSelectedImage(null);
+  //   setIsModalOpen(false);
+  // };
+
+  const navigate = useNavigate();
+
+  const redirectToPost = () => {
+    navigate(`/inshyy-post/${id}`);
+  };
+  const fonnClick = (event) => {
+    // Перевіряємо, чи клік був здійснений за межами модального вікна
+    if (event.currentTarget === event.target) {
+      //Якщо так, то додаємо код для закриття модального вікна
+      redirectToPost();
+    }
   };
 
-  const closeImageModal = () => {
-    setSelectedImage(null);
-    setIsModalOpen(false);
-  };
   return (
     <div>
-      <div className={classNames(styles.tweet)} >
+      <div className={classNames(styles.tweet)} onClick={fonnClick}>
         <div className={classNames(styles.tweetHeader)}>
           <div className={classNames(styles.tweetAvatar)}>
             <Avatar src="https://randomuser.me/api/portraits/women/79.jpg" />
@@ -72,9 +90,9 @@ const ItemPost = ({ content, imageUrls, id }) => {
           <div>
             <IconButton
               id="basic-button"
-              aria-controls={open ? "basic-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
+              // aria-controls={open ? "basic-menu" : undefined}
+              // aria-haspopup="true"
+              // aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
             >
               <MoreHorizIcon fontSize="large" />
@@ -91,7 +109,6 @@ const ItemPost = ({ content, imageUrls, id }) => {
               <MenuItem
                 onClick={() => {
                   dispatch(deletePost(id));
-                  
                 }}
                 sx={{ color: "red" }}
               >
@@ -108,7 +125,7 @@ const ItemPost = ({ content, imageUrls, id }) => {
               key={index}
               src={imageUrl}
               alt={`Image ${index}`}
-              onClick={() => openImageModal(imageUrl)}
+              // onClick={() => openImageModal(imageUrl)}
               style={{ width: "220px", objectFit: "cover" }}
             />
           ))}
@@ -117,16 +134,20 @@ const ItemPost = ({ content, imageUrls, id }) => {
           <ImgModal imageUrl={selectedImage} onClose={closeImageModal} />
         )} */}
         <div className={classNames(styles.tweetActions)}>
-          <IconButton>
+          <IconButton onClick={toggleModalPost}>
             <Reply className={classNames(styles.tweetReply)} />
+            {secondModalOpen && <ComentPost open={secondModalOpen} />}
           </IconButton>
 
           <IconButton>
             <Repost className={classNames(styles.tweetRepost)} />
           </IconButton>
-          <IconButton>
-            <LikeFalse className={classNames(styles.tweetLike)} />
-          </IconButton>
+          <div>
+            <IconButton onClick={likePostAxios(id)}>
+              {liked?<LikeFalse/> :<Like className={classNames(styles.tweetLike)} /> } 
+            </IconButton>
+            <span>{likeCount}</span>
+          </div>
           <IconButton>
             <View className={classNames(styles.tweetReply)} />
           </IconButton>

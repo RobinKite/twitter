@@ -6,6 +6,7 @@ import Profile from "./Pages/Profile/index.jsx";
 import ExitLogin from "./Pages/ExitLogin/ExitLogin";
 import Container from "./Components/Container/Container.jsx";
 import Home from "./Pages/Home/Home.jsx";
+import PostPages from "./Pages/Post/PostPages.jsx";
 
 function AppRoutes() {
   // const isLog = useSelector((state) => state.registration.isLog);
@@ -33,6 +34,7 @@ function AppRoutes() {
         <Route path="/verified" element={<div>Verified</div>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/more" element={<div>More</div>} />
+        <Route path="/inshyy-post/:id" element={<PostPages/>} />
       </Route>
       <Route
         path="/login"

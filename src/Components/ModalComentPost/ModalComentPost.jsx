@@ -2,7 +2,7 @@ import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setModalPost } from "../../redux/actions/modalPost";
 import Modal from "@mui/material/Modal";
-import Post from "../Post/Post";
+
 import { ReactComponent as Close } from "../LoginFormsModal/svg/Clos.svg";
 // import { ReactComponent as Close } from "../LoginFormsModal/svg/Close.svg";
 import classNames from "classnames";
@@ -10,6 +10,7 @@ import styles from "./PostModal.module.scss";
 import { Box } from "@mui/system";
 import { TextField } from "@mui/material";
 import { styled } from "@mui/material";
+import ComentPost from "../ComentPost/ComentPost";
 
 export const  ModalBody = styled(Box)(() => ({
   position: "absolute",
@@ -68,7 +69,7 @@ export default function PostModal(props) {
             />
           </div>
           <div className={classNames(styles.postInput)}>
-            <Post />
+            <ComentPost/>
           </div>
         </ModalBody>
       </Modal>

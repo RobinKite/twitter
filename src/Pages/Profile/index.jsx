@@ -6,13 +6,13 @@ import ItemPost from "../../Components/ItemPost/ItemPost";
 
 import {
   Avatar,
-  Box,
+  Box,styled,
   Toolbar,
   Typography,
   Container,
   Button,
   Modal,
-  styled,
+  
 } from "@mui/material";
 import LabTabs from "../../Components/ProfileTabs";
 import TabPanel from "@mui/lab/TabPanel";

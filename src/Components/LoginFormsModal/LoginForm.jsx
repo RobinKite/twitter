@@ -62,6 +62,8 @@ const style = {
 };
 
 export default function BasicModal(props) {
+  const { open } = props;
+  
   const schema = object().shape({
     email: string().required("Email is required").email("Email is not valid"),
   });
@@ -83,7 +85,7 @@ export default function BasicModal(props) {
       toggleModal();
     }
   };
-  const { open } = props;
+  
 
   return (
     <div>

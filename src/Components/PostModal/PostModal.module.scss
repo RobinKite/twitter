@@ -1,28 +1,21 @@
 .close {
-    display: flex;
-    // position: absolute;
-    position: sticky;
-    // padding-top: 15px;
-    top: 0;
-    z-index: 1;
-    // top: -10px;
-    
-    // left: 4px;
-    background-color: rgba(255, 255, 255, 0.85);
-    // background-color: #c9c3c381   ;
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+.clossvg {
+  padding: 15px;
+  border-radius: 50%;
+  &:hover {
+    background-color: hsl(0, 13%, 90%);
   }
-  .clossvg {
-    padding: 15px;
-  
-    border-radius: 50%;
-    &:hover {
-      background-color: hsl(0, 13%, 90%);
-    }
-  }
-  .postInput{
-    width: 100%;
-    min-height: 26em;
-display: flex;
-flex-direction: column;
-justify-content: space-between
-  }
+}
+.postInput {
+  width: 100%;
+  min-height: 26em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

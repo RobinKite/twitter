@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addPost, addPosts, updateTweet } from "../../redux/actions/createPost";
 import { closeModal, setModalPost } from "../../redux/actions/modalPost";
 import { Avatar } from "@mui/material";
-import styles from "./Post.module.scss";
+import styles from "./ComentPost.module.scss";
 import classNames from "classnames";
 import ButtonStyled from "../Button/Button";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
@@ -13,8 +13,8 @@ import { styled } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import EmojiPicker from "emoji-picker-react";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
-import { api } from "../../service/api";
 
+import { useParams } from "react-router-dom";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -28,7 +28,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 const InputFieldCostum = styled(TextField)({
-  marginLeft: "70px",
+  marginLeft: "15px",
   width: "100%",
   height: "70%",
   cursor: "text",
@@ -39,8 +39,9 @@ const InputFieldCostum = styled(TextField)({
   },
 });
 
-const Post = () => {
+const ComentPost = ({id}) => {
   
+  console.log(id);
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -52,7 +53,7 @@ const Post = () => {
   const toggleModalPost = () => {
     dispatch(closeModal());
   };
-  // Створення обєкта з даними поста
+  // Створення обєкта з даними Коментаря
 
   const formData = new FormData();
 
@@ -60,8 +61,9 @@ const Post = () => {
    
     formData.append("body", inputStr);
 
-    formData.append("type", "TWEET");
-
+    formData.append("type", "REPLY");
+    formData.append("type", "REPLY");
+    formData.append('parentPostId',id );
     files.forEach((file) => {
       formData.append(`images`, file);
     });
@@ -92,10 +94,13 @@ const Post = () => {
   // });
 
 
+
+
   return (
     <>
-      <div>
-      <Avatar
+      <div >
+        <div className={classNames(styles.conteinerPost)}>
+          <Avatar
             sx={{
               mt: 0,
               ml: 1,
@@ -106,10 +111,8 @@ const Post = () => {
             alt="Remy Sharp"
             src="/static/images/avatar/1.jpg"
           />
-        <div className={classNames(styles.conteinerPost)}>
-   
           <InputFieldCostum
-            placeholder="What is happening ?!"
+            placeholder="Post your reply "
             variant="standard"
             InputProps={{
               disableUnderline: true,
@@ -150,7 +153,7 @@ const Post = () => {
               id="svg-element"
               color="primary"
               fontSize="large"
-              sx={{ "&:hover": { transform: "scale(1.3)" } }}
+              sx={{ height: "30px", "&:hover": { transform: "scale(1.3)" } }}
             />
             <VisuallyHiddenInput
               multiple
@@ -181,7 +184,7 @@ const Post = () => {
         <ButtonStyled
 
           type="submit"
-          onClick={submit}
+          
           
           sx={{
             color: "white",
@@ -193,10 +196,10 @@ const Post = () => {
             "&:hover": { backgroundColor: "rgb(26, 26, 172)" },
           }}
         >
-          Post
+          Reply
         </ButtonStyled>
       </div>
     </>
   );
 };
-export default Post;
+export default ComentPost;

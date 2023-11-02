@@ -1,8 +1,8 @@
-import { SET_MODAL_POST ,POST_DESC} from "../types/modalPost";
+import { SET_MODAL_POST ,POST_DESC, CLOSE_MODAL} from "../types/modalPost";
 
 const initialValue = {
   isActive: false,
-  post: [],
+
 
 };
 
@@ -11,12 +11,10 @@ const modalPostReducer = (state = initialValue, action) => {
     case SET_MODAL_POST: {
       return { ...state, isActive: !state.isActive };
     }
-    case POST_DESC: {
-      return { ...state, post: action.payload };
+  
+    case CLOSE_MODAL: {
+      return { ...state, isActive: false};
     }
-    // case SET_MODAL_TITLE: {
-    //   return { ...state, title:action.payload};
-    // }
    
 
     default:
