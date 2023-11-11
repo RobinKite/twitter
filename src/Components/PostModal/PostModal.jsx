@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setModalPost } from "../../redux/actions/modalPost";
+import {  setModalPost } from "../../redux/actions/modalPost";
 import Modal from "@mui/material/Modal";
 import Post from "../Post/Post";
 import { ReactComponent as Close } from "../LoginFormsModal/svg/Clos.svg";
@@ -38,11 +38,10 @@ export const  ModalBody = styled(Box)(() => ({
   },
 }));
 export default function PostModal(props) {
-  const { open } = props;
+  const {  isOpen   } = props;
   const dispatch = useDispatch();
-  const toggleModalPost = () => {
-    dispatch(setModalPost());
-  };
+  const content = useSelector((state) => state.postModal.content);
+
 
   const fonnClick = (event) => {
     // Перевіряємо, чи клік був здійснений за межами модального вікна
@@ -55,20 +54,20 @@ export default function PostModal(props) {
   return (
     <div>
       <Modal
-        open={open}
-        onClose={fonnClick}
+        open={isOpen}
+        // onClose={}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <ModalBody>
           <div className={classNames(styles.close)}>
             <Close
-              onClick={toggleModalPost}
+                onClick={()=>{ if(isOpen){dispatch(setModalPost())}}}
               className={classNames(styles.clossvg)}
             />
           </div>
           <div className={classNames(styles.postInput)}>
-            <Post />
+            {content }
           </div>
         </ModalBody>
       </Modal>

@@ -6,13 +6,13 @@ import Modal from "@mui/material/Modal";
 import { ReactComponent as Close } from "../LoginFormsModal/svg/Clos.svg";
 // import { ReactComponent as Close } from "../LoginFormsModal/svg/Close.svg";
 import classNames from "classnames";
-import styles from "./PostModal.module.scss";
+import styles from "../PostModal/PostModal.module.scss";
 import { Box } from "@mui/system";
 import { TextField } from "@mui/material";
 import { styled } from "@mui/material";
 import ComentPost from "../ComentPost/ComentPost";
-
-export const  ModalBody = styled(Box)(() => ({
+import ItemPost from "../ItemPost/ItemPost";
+export const ModalBody = styled(Box)(() => ({
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -38,25 +38,30 @@ export const  ModalBody = styled(Box)(() => ({
     minHeight: "100%",
   },
 }));
-export default function PostModal(props) {
-  const { open } = props;
+export default function ModalComentPost({
+  isOpen,
+  closeModal,
+  content,
+  imageUrls,
+  id,
+  likeCount,
+  liked,
+  updateComment,
+  
+})
+
+{
   const dispatch = useDispatch();
-  const toggleModalPost = () => {
-    dispatch(setModalPost());
-  };
 
   const fonnClick = (event) => {
-    // Перевіряємо, чи клік був здійснений за межами модального вікна
     if (event.currentTarget === event.target) {
-      //Якщо так, то додаємо код для закриття модального вікна
-      // toggleModalPost();
     }
   };
 
   return (
     <div>
       <Modal
-        open={open}
+        open={isOpen}
         onClose={fonnClick}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -64,12 +69,21 @@ export default function PostModal(props) {
         <ModalBody>
           <div className={classNames(styles.close)}>
             <Close
-              onClick={toggleModalPost}
+              onClick={closeModal}
               className={classNames(styles.clossvg)}
             />
           </div>
           <div className={classNames(styles.postInput)}>
-            <ComentPost/>
+            <ItemPost
+              key={id}
+              content={content}
+              imageUrls={imageUrls}
+              id={id}
+              likeCount={likeCount}
+              liked={liked}
+              disable={true}
+            />
+            <ComentPost id={id} closeModal={closeModal} updateComment={updateComment} />
           </div>
         </ModalBody>
       </Modal>

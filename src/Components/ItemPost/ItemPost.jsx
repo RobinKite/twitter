@@ -21,26 +21,45 @@ import ImgModal from "../ImgModal/ImgModal";
 import {
   deleteFromPost,
   deletePost,
+  dislikePostAxios,
   likePost,
   likePostAxios,
 } from "../../redux/actions/createPost";
 import PostModal from "../PostModal/PostModal";
-import { setModalPost } from "../../redux/actions/modalPost";
+import {
+  setContent,
+  setContentComent,
+  setModal,
+  setModalComent,
+  setModalPost,
+} from "../../redux/actions/modalPost";
 import ComentPost from "../ComentPost/ComentPost";
+import ModalComentPost from "../ModalComentPost/ModalComentPost";
 // import MenuItem from "@mui/material/MenuItem";
 
-const ItemPost = ({ content, imageUrls, id, likeCount, liked }) => {
-  console.log(liked)
+const ItemPost = ({ content, imageUrls, id, likeCount, liked, disable, onPostDeleted,replyCount,updateComment }) => {
+  
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+  // console.log(liked);
+  const handleDeletePost = () => {
+    dispatch(deletePost(id)); // Видаліть пост
+    if (onPostDeleted) {
+      onPostDeleted(id); // Викликаємо функцію onPostDeleted з ID видаленого поста
+    }
+  }
+
+  const isActiveModal1 = useSelector(
+    (state) => state.postModal.isActiveSetModalComent
+  );
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
 
-  const secondModalOpen = useSelector((state) => state.postModal.isActive);
-  const toggleModalPost = () => {
-    dispatch(setModalPost());
-  };
-  
   const dispatch = useDispatch();
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [selectedImage, setSelectedImage] = useState(null);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -50,16 +69,6 @@ const ItemPost = ({ content, imageUrls, id, likeCount, liked }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  // const openImageModal = (imageUrl) => {
-  //   setSelectedImage(imageUrl);
-  //   setIsModalOpen(true);
-  // };
-
-  // const closeImageModal = () => {
-  //   setSelectedImage(null);
-  //   setIsModalOpen(false);
-  // };
 
   const navigate = useNavigate();
 
@@ -107,9 +116,7 @@ const ItemPost = ({ content, imageUrls, id, likeCount, liked }) => {
               }}
             >
               <MenuItem
-                onClick={() => {
-                  dispatch(deletePost(id));
-                }}
+                onClick={handleDeletePost}
                 sx={{ color: "red" }}
               >
                 <Delete />
@@ -130,32 +137,65 @@ const ItemPost = ({ content, imageUrls, id, likeCount, liked }) => {
             />
           ))}
         </div>
-        {/* {isModalOpen && (
-          <ImgModal imageUrl={selectedImage} onClose={closeImageModal} />
-        )} */}
-        <div className={classNames(styles.tweetActions)}>
-          <IconButton onClick={toggleModalPost}>
-            <Reply className={classNames(styles.tweetReply)} />
-            {secondModalOpen && <ComentPost open={secondModalOpen} />}
-          </IconButton>
 
-          <IconButton>
-            <Repost className={classNames(styles.tweetRepost)} />
-          </IconButton>
-          <div>
-            <IconButton onClick={likePostAxios(id)}>
-              {liked?<LikeFalse/> :<Like className={classNames(styles.tweetLike)} /> } 
-            </IconButton>
-            <span>{likeCount}</span>
-          </div>
-          <IconButton>
-            <View className={classNames(styles.tweetReply)} />
-          </IconButton>
-          <IconButton>
-            <Share className={classNames(styles.tweetReply)} />
-          </IconButton>
+        <div className={classNames(styles.tweetActions)}>
+          {!disable && (
+            <>
+              <div>
+                <IconButton
+                  onClick={openModal}
+                  // onClick={() => {
+                  //   // const postId = id;
+                  //     dispatch(setModalComent());
+                  //     dispatch(setContent(<ComentPost id={id}/>));
+
+                  // }}
+                >
+                  <Reply className={classNames(styles.tweetReply)} />
+                </IconButton>
+                <span>{replyCount}</span>
+              </div>
+              <IconButton>
+                <Repost className={classNames(styles.tweetRepost)} />
+              </IconButton>
+              <div>
+                <IconButton
+                  onClick={() => {
+                    liked
+                      ? dispatch(dislikePostAxios(id))
+                      : dispatch(likePostAxios(id));
+                  }}
+                >
+                  {liked ? (
+                    <LikeFalse />
+                  ) : (
+                    <Like className={classNames(styles.tweetLike)} />
+                  )}
+                </IconButton>
+                <span>{likeCount}</span>
+              </div>
+              <IconButton>
+                <View className={classNames(styles.tweetReply)} />
+              </IconButton>
+              <IconButton>
+                <Share className={classNames(styles.tweetReply)} />
+              </IconButton>
+            </>
+          )}
         </div>
       </div>
+
+      <ModalComentPost
+        isOpen={modalIsOpen}
+        closeModal={closeModal}
+        content={content}
+        imageUrls={imageUrls}
+        id={id}
+        likeCount={likeCount}
+        liked={liked}
+        updateComment={updateComment}
+     
+      />
     </div>
   );
 };

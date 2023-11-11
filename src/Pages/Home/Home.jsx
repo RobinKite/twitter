@@ -16,7 +16,7 @@ const tabs = [
 const Home = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
-  // console.log(posts);
+
   // const [content, setContent] = useState(null);
 
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -29,8 +29,22 @@ const Home = () => {
     }
   }, [isAuthenticated]);
 
-  if (!isAuthenticated) return "Not authenticated...";
-
+  
+  function compareByDate(a, b) {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+  
+    if (dateA < dateB) {
+      return 1; // Змінюємо на -1, якщо потрібно сортувати за зростанням
+    }
+    if (dateA > dateB) {
+      return -1; // Змінюємо на 1, якщо потрібно сортувати за зростанням
+    }
+    return 0;
+  }
+  
+  // Використовуємо метод sort() для сортування
+  if (!isAuthenticated) return "Завантаження";
   return (
     <>
       <h1>Home</h1>
@@ -51,9 +65,9 @@ const Home = () => {
         }}
       >
         <TabPanel value="1">
-          <Post />
-          {posts?.map((p) => (
-            <ItemPost key={p.id} content={p.body} imageUrls={p.imageUrls} id ={p.id} likeCount ={p.likeCount } liked={p.liked}/>
+          <Post  />
+          {posts?.sort(compareByDate).map((p) => (
+            <ItemPost   key={p.id} content={p.body} replyCount={p.replyCount} imageUrls={p.imageUrls} id ={p.id} likeCount ={p.likeCount } liked={p.liked}/>
           ))}
         </TabPanel>
         {/* <TabPanel value="2"></TabPanel> */}

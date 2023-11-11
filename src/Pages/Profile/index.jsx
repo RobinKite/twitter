@@ -78,11 +78,27 @@ export default function Profile() {
   const posts = useSelector((state) => state.posts.posts);
   useEffect(() => {
     if (isAuthenticated) {
-      // api.get("posts/home").then((r) => setContent(r.data.content));
       dispatch(getPosts())
+      
     }
     
   }, [isAuthenticated]);
+
+
+
+  function compareByDate(a, b) {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+  
+    if (dateA < dateB) {
+      return 1; // Змінюємо на -1, якщо потрібно сортувати за зростанням
+    }
+    if (dateA > dateB) {
+      return -1; // Змінюємо на 1, якщо потрібно сортувати за зростанням
+    }
+    return 0;
+  }
+
 
   if (!isAuthenticated) return "Not authenticated...";
 
@@ -154,7 +170,7 @@ export default function Profile() {
             },
           }}
         >
-          <TabPanel value="1">  {posts?.map(p => <ItemPost  key={p.id} id ={p.id} content={p.body} imageUrls={p.imageUrls}/>)}</TabPanel>
+          <TabPanel value="1">  {posts?.sort(compareByDate).map(p => <ItemPost  key={p.id} replyCount={p.replyCount} id ={p.id} content={p.body} likeCount ={p.likeCount } liked={p.liked} imageUrls={p.imageUrls}/>)}</TabPanel>
           <TabPanel value="2">Peplies</TabPanel>
           <TabPanel value="3">Likes</TabPanel>
         </LabTabs>

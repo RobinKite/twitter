@@ -1,21 +1,21 @@
-import { SET_MODAL_POST ,POST_DESC, CLOSE_MODAL} from "../types/modalPost";
+import { SET_MODAL_POST, SET_CONTENT, SET_MODAL_COMENT } from "../types/modalPost";
 
 const initialValue = {
-  isActive: false,
-
-
+  isActiveSetModal: false,
+  content: null,
 };
 
 const modalPostReducer = (state = initialValue, action) => {
   switch (action?.type) {
     case SET_MODAL_POST: {
-      return { ...state, isActive: !state.isActive };
+      return { ...state, isActiveSetModal:  action.payload  };
     }
-  
-    case CLOSE_MODAL: {
-      return { ...state, isActive: false};
+    case SET_CONTENT: {
+      return { ...state, content: action.payload };
     }
-   
+    case SET_MODAL_COMENT: {
+      return { ...state, isActiveSetModal: !state.isActiveSetModal };
+    }
 
     default:
       return state;

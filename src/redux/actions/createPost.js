@@ -4,27 +4,99 @@ import {
   GET_POST,
   DELETE_FROM_POST,
   LIKE_POST,
-  UNLIKE_POST,
+  DISLIKE_POST,
+  GET_POST_BY_ID,
+  DELETE_COMMENT,
 } from "../types/createPost";
 import { api } from "../../service/api";
 
-export const addPost = (post) => {
-  return {
-    type: ADD_TO_POST,
-    payload: post,
-  };
-};
+
 
 export const setPosts = (posts) => ({
   type: SET_POSTS,
   payload: posts,
 });
-export const deleteFromPost = (post) => ({
-  type: DELETE_FROM_POST,
-  payload: post,
+
+
+
+
+
+
+
+// export const likePostAxios = (postId) => {
+//   return async (dispatch) => {
+//     try {
+//       const requestData = {
+//         postId: postId,
+//       };
+//       // Відправка запиту на сервер для лайку
+//       const response = await api.post(`likes/like`, requestData);
+      
+//       // Отримання даних про лайки з відповіді сервера
+//       const likeCount = response.data.likeCount;
+//       const liked = true;
+
+//       // Оновлення стану зараз, коли ми вже отримали дані від сервера
+//       dispatch(likePost(postId, likeCount, liked));
+      
+//     } catch (error) {
+//       console.error("Сталася помилка:", error);
+//     }
+//   };
+// };
+export const deleteComment = (commentId) => ({
+  type: DELETE_COMMENT,
+  payload: commentId,
 });
 
-export const likePost = (postId,likeCount,liked) => {
+
+
+
+
+export const deleteFromPost = (id) => ({
+  type: DELETE_FROM_POST,
+  payload: id,
+});
+export const deletePost = (id) => {
+  return async (dispatch) => {
+    try {
+      await api.delete(`posts/delete?id=${id}`);
+
+      await dispatch(deleteFromPost(id));
+      // dispatch(getPosts());
+    } catch (error) {
+      console.error("Сталася помилка при видаленні поста:", error);
+    }
+  };
+};
+export const dislikePost = (postId, likeCount, liked) => {
+  return {
+    type: DISLIKE_POST,
+    payload: {
+      postId,
+      likeCount,
+      liked,
+    },
+  };
+};
+export const dislikePostAxios = (postId) => {
+  return async (dispatch) => {
+    try {
+      const response = await api.delete(`likes/unlike?id=${postId}`);
+      dispatch(dislikePost(postId, response.data.likeCount,));
+    
+    } catch (error) {
+      console.error("Сталася помилка:", error);
+    }
+  };
+};
+
+
+
+
+
+
+export const likePost = (postId, likeCount, liked) => {
   return {
     type: LIKE_POST,
     payload: {
@@ -42,13 +114,16 @@ export const likePostAxios = (postId) => {
       };
       await api
         .post(`likes/like`, requestData)
-
-        .then((r) => dispatch(likePost(r.data.likeCount)));
+        .then((r) => dispatch(likePost(postId, r.data.likeCount, )));
+      
     } catch (error) {
       console.error("Сталася помилка :", error);
     }
   };
 };
+
+
+
 
 
 export const getPosts = () => {
@@ -62,37 +137,21 @@ export const getPosts = () => {
     }
   };
 };
+export const addPost = (post) => {
+  return {
+    type: ADD_TO_POST,
+    payload: post,
+  };
+};
 export const addPosts = (formData) => {
   return async (dispatch) => {
     try {
-      // const { data } = await api.get("posts/home");
-      api
-        .post("posts/create", formData)
-        .then((response) => response)
-        .then(({ data }) => {
-          console.log(data);
-          dispatch(addPost(data));
-          api.get("posts/home").then((r) => {
-            dispatch(setPosts(r.data.content));
-          });
-        });
+      const response = await api.post("posts/create", formData);
+      const data = response.data;
+      dispatch(addPost(data));
     } catch (error) {
       console.log("ERROR", error);
     }
   };
 };
 
-export const deletePost = (id) => {
-  return async (dispatch) => {
-    try {
-      await api.delete(`posts/delete?id=${id}`);
-
-      dispatch(deleteFromPost(id));
-      api.get("posts/home").then((r) => {
-        dispatch(setPosts(r.data.content));
-      });
-    } catch (error) {
-      console.error("Сталася помилка при видаленні поста:", error);
-    }
-  };
-};

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { useSelector, useDispatch } from "react-redux";
 import { addPost, addPosts, updateTweet } from "../../redux/actions/createPost";
-import { closeModal, setModalPost } from "../../redux/actions/modalPost";
+import { closeModal, setModal, setModalPost } from "../../redux/actions/modalPost";
 import { Avatar } from "@mui/material";
 import styles from "./Post.module.scss";
 import classNames from "classnames";
@@ -39,8 +39,9 @@ const InputFieldCostum = styled(TextField)({
   },
 });
 
-const Post = () => {
-  
+const Post = ({isOpen}) => {
+  const isActiveModal = useSelector((state) => state.postModal.isActive);
+
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -49,9 +50,7 @@ const Post = () => {
 
   const dispatch = useDispatch();
 
-  const toggleModalPost = () => {
-    dispatch(closeModal());
-  };
+  
   // Створення обєкта з даними поста
 
   const formData = new FormData();
@@ -70,7 +69,13 @@ const Post = () => {
 
     setInputStr('')
     setFiles([])
-    toggleModalPost()
+
+
+   
+      dispatch(setModalPost(false))
+    console.log('11111111')
+    // if(!isOpen){dispatch(setModal(false))}
+    
   };
 
   // Відмалювання смайлів

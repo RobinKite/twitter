@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { useSelector, useDispatch } from "react-redux";
-import { addPost, addPosts, updateTweet } from "../../redux/actions/createPost";
-import { closeModal, setModalPost } from "../../redux/actions/modalPost";
+import { addPost, addPosts, deleteFromPost, getPosts, setPosts, updateTweet } from "../../redux/actions/createPost";
+import {
+  closeModal,
+  setModal,
+  setModalPost,
+} from "../../redux/actions/modalPost";
 import { Avatar } from "@mui/material";
 import styles from "./ComentPost.module.scss";
 import classNames from "classnames";
@@ -13,8 +17,10 @@ import { styled } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import EmojiPicker from "emoji-picker-react";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
-
+import { api } from "../../service/api";
+import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
+import ItemPost from "../ItemPost/ItemPost";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -39,40 +45,51 @@ const InputFieldCostum = styled(TextField)({
   },
 });
 
-const ComentPost = ({id}) => {
+const ComentPost = ({ id, closeModal,updateComment,setPostComments,}) => {
   
-  console.log(id);
+  const [commentList, setCommentList] = useState([]);
+  // console.log(dataComent);
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-
   const { isAuthenticated } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
-  const toggleModalPost = () => {
-    dispatch(closeModal());
-  };
   // Створення обєкта з даними Коментаря
 
   const formData = new FormData();
 
   const submit = () => {
-   
     formData.append("body", inputStr);
-
     formData.append("type", "REPLY");
-    formData.append("type", "REPLY");
-    formData.append('parentPostId',id );
+    formData.append("parentPostId", id);
+  
     files.forEach((file) => {
       formData.append(`images`, file);
     });
-
-    dispatch(addPosts(formData));
-
-    setInputStr('')
-    setFiles([])
-    toggleModalPost()
+  
+    api
+      .post("posts/create", formData)
+      .then((response) => {
+        const responseDataComent = response.data;
+        console.log(responseDataComent.parentPost);
+  
+        // Викликаємо функцію оновлення коментарів лише при успішному створенні
+        updateComment(responseDataComent);
+        // updateCommentHome(responseDataComent)
+        // Очищення стану після успішного створення коментаря
+        setInputStr("");
+        setFiles([]);
+       
+        // Закриваємо модальне вікно після успішного створення коментаря
+        closeModal();
+      })
+      .catch((error) => {
+        console.error("Помилка отримання деталей поста:", error);
+  
+        // Додайте логіку обробки помилок тут, наприклад, показ помилки користувачу
+      });
   };
 
   // Відмалювання смайлів
@@ -83,22 +100,13 @@ const ComentPost = ({id}) => {
 
     setShowEmojiPicker(false);
   };
-  // Створення масиву URL зображень
-  // const imageUrls = [];
 
-  // files.forEach((file) => {
-  //   const blob = new Blob([file], { type: file.type });
-  //   const imageUrl = URL.createObjectURL(blob);
-  //   imageUrls.push(imageUrl);
-
-  // });
-
-
-
-
+  // if (!dataComent) {
+  //   return <div>Loading...</div>;
+  // }
   return (
     <>
-      <div >
+      <div>
         <div className={classNames(styles.conteinerPost)}>
           <Avatar
             sx={{
@@ -182,10 +190,8 @@ const ComentPost = ({id}) => {
           </IconButton>
         </div>
         <ButtonStyled
-
           type="submit"
-          
-          
+          onClick={submit}
           sx={{
             color: "white",
             fontSize: "20px",
@@ -199,7 +205,20 @@ const ComentPost = ({id}) => {
           Reply
         </ButtonStyled>
       </div>
+
+
     </>
   );
 };
+ComentPost.propTypes = {
+  closeModal: PropTypes.func,
+  updateComment:PropTypes.func,
+};
+
+ComentPost.defaultProps = {
+  closeModal:() => {} ,
+  updateComment:() => {} ,
+
+};
+
 export default ComentPost;
