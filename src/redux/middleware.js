@@ -7,7 +7,7 @@ export const logger = createLogger({
   collapsed: true,
   colors: {
     title: (action) => {
-      return action.error ? "firebrick" : "deepskyblue";
+      return action?.error ? "firebrick" : "deepskyblue";
     },
     prevState: () => "#1C5FAF",
     action: () => "#149945",

@@ -7,14 +7,21 @@ import { ReactComponent as TwiterLogo } from "./svg/twiterLogo.svg";
 import { ReactComponent as Apple } from "./svg/apple.svg";
 import { ReactComponent as Google } from "./svg/google.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { setModal } from "../../redux/actions/modalLogin";
+import {
+  setModal,
+  setCreateProfileModal,
+} from "../../redux/actions/modalLogin";
 import ButtonStyled from "../../Components/Button/Button";
-import { useNavigate } from "react-router-dom";
 
 const ExitLogin = ({ setIsLog, isLog }) => {
   const dispatch = useDispatch();
   const toggleModal = () => {
     dispatch(setModal());
+  };
+ 
+  const handleCreateElementClick = () => {
+    dispatch(setCreateProfileModal());
+   
   };
 
   return (
@@ -27,10 +34,11 @@ const ExitLogin = ({ setIsLog, isLog }) => {
         <div className={classNames(styles.exitLogin)}>
           <h1 className={classNames(styles.titleLogin)}>Here and now</h1>
           <h5 className={classNames(styles.titleJoin)}>Join today.</h5>
-          <ButtonStyled endIcon={<Google />}>Sign in with Google</ButtonStyled>
+          <ButtonStyled endIcon={<Google />}>Sign up with Google</ButtonStyled>
           <ButtonStyled startIcon={<Apple />}>Sign up with Apple</ButtonStyled>
           <span className={styles.retreat}>or</span>
           <ButtonStyled
+            onClick={handleCreateElementClick}
             sx={{
               color: "white",
               backgroundColor: "rgb(8, 139, 226)",
@@ -43,7 +51,7 @@ const ExitLogin = ({ setIsLog, isLog }) => {
             Already have a profile?
           </p>
 
-          <ButtonStyled onClick={toggleModal}>Exit</ButtonStyled>
+          <ButtonStyled onClick={toggleModal}>Sign in</ButtonStyled>
         </div>
       </div>
       <div>
