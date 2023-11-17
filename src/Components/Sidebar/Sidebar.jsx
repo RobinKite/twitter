@@ -5,10 +5,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { setModalPost, setContent } from "../../redux/actions/modalPost";
 import Button from "@mui/material/Button";
 import Post from "../Post/Post";
-import { useState } from "react";
+// import { useState } from "react";
 import { Link } from "react-router-dom";
 import SidebarItem from "../SidebarItem/SidebarItem";
-import Button from "../Button/Button";
+// import Button from "../Button/Button";
 import { useMediaQuery } from "@mui/material";
 
 import { Select, MenuItem } from "@mui/material";
@@ -67,16 +67,12 @@ const Sidebar = () => {
       <SidebarItem />
 
       <Button
-        variant="contained"
-        onClick={() => {
-          dispatch(setModalPost(true));
-          dispatch(setContent(<Post avatarUrl={avatarUrl} />));
-        }}
+    
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
-        // onClick={handleClick}
+        onClick={handleClick}
         startIcon={<MoreIcon />}
         className={styles.moreBtn}
         sx={{
@@ -109,8 +105,7 @@ const Sidebar = () => {
           "More"
         )}
       </Button>
-      {isActiveModal && (
-        <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />)}
+     
       <Select
         sx={{
           position: "relative",
@@ -200,6 +195,11 @@ const Sidebar = () => {
       ) : (
         // For desktop version
         <Button
+        
+        onClick={() => {
+          dispatch(setModalPost(true));
+          dispatch(setContent(<Post avatarUrl={avatarUrl} />));
+        }}
           sx={{
             color: "#ffffff",
             boxShadow: "none",
@@ -220,6 +220,8 @@ const Sidebar = () => {
           Post
         </Button>
       )}
+       {isActiveModal && (
+        <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />)}
     </div>
   );
 };
