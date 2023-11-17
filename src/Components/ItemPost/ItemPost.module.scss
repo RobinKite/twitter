@@ -5,7 +5,7 @@
   
   font-size: 18px;
   font-family: 'Montserrat', sans-serif;
-  padding: 15px;
+  padding: 2px;
   margin: 10px;
   width: 95%;
   // max-width: 400px;
@@ -24,12 +24,6 @@
   align-items: center;
 }
 
-.tweetAvatar img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
 
 .tweetUserInfo {
   display: flex;
@@ -43,6 +37,7 @@
 
 .tweetContent {
   margin-top: 10px;
+  margin-left: 70px;
 }
 
 .tweetActions {

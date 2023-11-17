@@ -39,14 +39,14 @@ const InputFieldCostum = styled(TextField)({
   },
 });
 
-const Post = ({isOpen}) => {
-  const isActiveModal = useSelector((state) => state.postModal.isActive);
-
+const Post = ({avatarUrl}
+  ) => {
+ 
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  const { isAuthenticated } = useSelector((state) => state.user);
+ 
 
   const dispatch = useDispatch();
 
@@ -73,9 +73,7 @@ const Post = ({isOpen}) => {
 
    
       dispatch(setModalPost(false))
-    console.log('11111111')
-    // if(!isOpen){dispatch(setModal(false))}
-    
+
   };
 
   // Відмалювання смайлів
@@ -86,15 +84,7 @@ const Post = ({isOpen}) => {
 
     setShowEmojiPicker(false);
   };
-  // Створення масиву URL зображень
-  // const imageUrls = [];
 
-  // files.forEach((file) => {
-  //   const blob = new Blob([file], { type: file.type });
-  //   const imageUrl = URL.createObjectURL(blob);
-  //   imageUrls.push(imageUrl);
-
-  // });
 
 
   return (
@@ -105,11 +95,11 @@ const Post = ({isOpen}) => {
               mt: 0,
               ml: 1,
               bgcolor: "rgb(8, 139, 226)",
-              width: 56,
-              height: 56,
+              width: 50,
+              height: 50,
             }}
             alt="Remy Sharp"
-            src="/static/images/avatar/1.jpg"
+            src={avatarUrl}
           />
         <div className={classNames(styles.conteinerPost)}>
    
@@ -174,7 +164,7 @@ const Post = ({isOpen}) => {
           <IconButton
             component="label"
             onClick={() => setShowEmojiPicker((val) => !val)}
-            // onChange={(e) => setInputStr(e.target.value)}
+           
           >
             <InsertEmoticonIcon
               color="primary"

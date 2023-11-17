@@ -10,7 +10,11 @@ import Post from "../Post/Post";
 import { useState } from "react";
 
 const Sidebar = () => {
-  const isActiveModal = useSelector((state) => state.postModal.isActiveSetModal);
+  const posts = useSelector((state) => state.posts.posts);
+  const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
+  const isActiveModal = useSelector(
+    (state) => state.postModal.isActiveSetModal
+  );
   const dispatch = useDispatch();
 
   return (
@@ -20,7 +24,7 @@ const Sidebar = () => {
         variant="contained"
         onClick={() => {
           dispatch(setModalPost(true));
-          dispatch(setContent(<Post isOpen={isActiveModal} />));
+          dispatch(setContent(<Post avatarUrl={avatarUrl} />));
         }}
         sx={{
           borderRadius: "20px",
@@ -32,7 +36,9 @@ const Sidebar = () => {
       >
         Post
       </Button>
-      {isActiveModal && <PostModal isOpen={isActiveModal} />}
+      {isActiveModal && (
+        <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />
+      )}
     </div>
   );
 };

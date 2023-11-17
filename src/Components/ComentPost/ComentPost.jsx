@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
 import { useSelector, useDispatch } from "react-redux";
-import { addPost, addPosts, deleteFromPost, getPosts, setPosts, updateTweet } from "../../redux/actions/createPost";
-import {
-  closeModal,
-  setModal,
-  setModalPost,
-} from "../../redux/actions/modalPost";
 import { Avatar } from "@mui/material";
 import styles from "./ComentPost.module.scss";
 import classNames from "classnames";
@@ -19,8 +12,7 @@ import EmojiPicker from "emoji-picker-react";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import { api } from "../../service/api";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
-import ItemPost from "../ItemPost/ItemPost";
+
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -45,8 +37,8 @@ const InputFieldCostum = styled(TextField)({
   },
 });
 
-const ComentPost = ({ id, closeModal,updateComment,setPostComments,}) => {
-  
+const ComentPost = ({ id, closeModal, updateComment, setPostComments ,avatarUrl, 
+  fullName,}) => {
   const [commentList, setCommentList] = useState([]);
   // console.log(dataComent);
   const [files, setFiles] = useState([]);
@@ -64,31 +56,26 @@ const ComentPost = ({ id, closeModal,updateComment,setPostComments,}) => {
     formData.append("body", inputStr);
     formData.append("type", "REPLY");
     formData.append("parentPostId", id);
-  
+
     files.forEach((file) => {
       formData.append(`images`, file);
     });
-  
+
     api
       .post("posts/create", formData)
       .then((response) => {
         const responseDataComent = response.data;
-        console.log(responseDataComent.parentPost);
-  
-        // Викликаємо функцію оновлення коментарів лише при успішному створенні
+        // console.log(responseDataComent.parentPost);
+
         updateComment(responseDataComent);
-        // updateCommentHome(responseDataComent)
-        // Очищення стану після успішного створення коментаря
+
         setInputStr("");
         setFiles([]);
-       
-        // Закриваємо модальне вікно після успішного створення коментаря
+
         closeModal();
       })
       .catch((error) => {
         console.error("Помилка отримання деталей поста:", error);
-  
-        // Додайте логіку обробки помилок тут, наприклад, показ помилки користувачу
       });
   };
 
@@ -117,7 +104,7 @@ const ComentPost = ({ id, closeModal,updateComment,setPostComments,}) => {
               height: 56,
             }}
             alt="Remy Sharp"
-            src="/static/images/avatar/1.jpg"
+            src={avatarUrl}
           />
           <InputFieldCostum
             placeholder="Post your reply "
@@ -205,20 +192,17 @@ const ComentPost = ({ id, closeModal,updateComment,setPostComments,}) => {
           Reply
         </ButtonStyled>
       </div>
-
-
     </>
   );
 };
 ComentPost.propTypes = {
   closeModal: PropTypes.func,
-  updateComment:PropTypes.func,
+  updateComment: PropTypes.func,
 };
 
 ComentPost.defaultProps = {
-  closeModal:() => {} ,
-  updateComment:() => {} ,
-
+  closeModal: () => {},
+  updateComment: () => {},
 };
 
 export default ComentPost;

@@ -16,51 +16,35 @@ import PropTypes from "prop-types";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
-
-import ImgModal from "../ImgModal/ImgModal";
-import {
-  deleteFromPost,
-  deletePost,
-  dislikePostAxios,
-  likePost,
-  likePostAxios,
-} from "../../redux/actions/createPost";
-import PostModal from "../PostModal/PostModal";
-import {
-  setContent,
-  setContentComent,
-  setModal,
-  setModalComent,
-  setModalPost,
-} from "../../redux/actions/modalPost";
-import ComentPost from "../ComentPost/ComentPost";
+import { deletePost, getPosts } from "../../redux/actions/createPost";
 import ModalComentPost from "../ModalComentPost/ModalComentPost";
-// import MenuItem from "@mui/material/MenuItem";
+import { api } from "../../service/api";
 
-const ItemPost = ({ content, imageUrls, id, likeCount, liked, disable, onPostDeleted,replyCount,updateComment }) => {
-  
+const ItemPost = ({
+  content,
+  imageUrls,
+  id,
+  likeCount,
+  liked,
+  disable,
+  onPostDeleted,
+  replyCount,
+  updateComment,
+  avatarUrl,
+  fullName,
+}) => {
+  const dispatch = useDispatch();
+  /////////////////Модалка коментаря поста
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const openModal = () => {
     setModalIsOpen(true);
   };
+
   const closeModal = () => {
     setModalIsOpen(false);
   };
-  // console.log(liked);
-  const handleDeletePost = () => {
-    dispatch(deletePost(id)); // Видаліть пост
-    if (onPostDeleted) {
-      onPostDeleted(id); // Викликаємо функцію onPostDeleted з ID видаленого поста
-    }
-  }
-
-  const isActiveModal1 = useSelector(
-    (state) => state.postModal.isActiveSetModalComent
-  );
-  const posts = useSelector((state) => state.posts.posts, shallowEqual);
-
-  const dispatch = useDispatch();
-
+  // меню видалення з material.ui
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -69,17 +53,59 @@ const ItemPost = ({ content, imageUrls, id, likeCount, liked, disable, onPostDel
   const handleClose = () => {
     setAnchorEl(null);
   };
+  // Видалення поста
+  const handleDeletePost = () => {
+    dispatch(deletePost(id));
+    if (onPostDeleted) {
+      onPostDeleted(id);
+    }
+  };
 
+  // /////////Навігація на роут поста
   const navigate = useNavigate();
 
   const redirectToPost = () => {
     navigate(`/inshyy-post/${id}`);
   };
   const fonnClick = (event) => {
-    // Перевіряємо, чи клік був здійснений за межами модального вікна
     if (event.currentTarget === event.target) {
-      //Якщо так, то додаємо код для закриття модального вікна
       redirectToPost();
+    }
+  };
+  ///////////// Передача Лайка
+  const [isLiked, setIsLiked] = useState(liked);
+  const [likeCountState, setLikeCount] = useState(likeCount);
+
+  const handleLike = async () => {
+    try {
+      const requestData = {
+        postId: id,
+      };
+      const response = await api.post(`likes/like`, requestData);
+
+      if (response.status === 200) {
+        setIsLiked(true);
+
+        setLikeCount((prevCount) => prevCount + 1);
+        // dispatch(getPosts());
+      }
+    } catch (error) {
+      console.error("Error liking the post:", error);
+    }
+  };
+  const handleUnlike = async () => {
+    try {
+      const response = await api.delete(`likes/unlike?id=${id}`);
+
+      if (response.status === 200) {
+        setIsLiked(false);
+
+        setLikeCount((prevCount) => prevCount - 1);
+
+        // dispatch(getPosts());
+      }
+    } catch (error) {
+      console.error("Error liking the post:", error);
     }
   };
 
@@ -88,22 +114,24 @@ const ItemPost = ({ content, imageUrls, id, likeCount, liked, disable, onPostDel
       <div className={classNames(styles.tweet)} onClick={fonnClick}>
         <div className={classNames(styles.tweetHeader)}>
           <div className={classNames(styles.tweetAvatar)}>
-            <Avatar src="https://randomuser.me/api/portraits/women/79.jpg" />
-            {/* <img src={props.profileImageUrl} alt={`${username}'s profile`} /> */}
+            <Avatar
+              sx={{
+                mt: 0,
+                ml: 1,
+                bgcolor: "rgb(8, 139, 226)",
+                width: 50,
+                height: 50,
+              }}
+              src={avatarUrl}
+            />
             <div className={classNames(styles.tweetUserInfo)}>
               <span className={classNames(styles.tweetUsername)}>
-                {/* {username}username {nickname} nickname */}
+                {fullName}
               </span>
             </div>
           </div>
           <div>
-            <IconButton
-              id="basic-button"
-              // aria-controls={open ? "basic-menu" : undefined}
-              // aria-haspopup="true"
-              // aria-expanded={open ? "true" : undefined}
-              onClick={handleClick}
-            >
+            <IconButton id="basic-button" onClick={handleClick}>
               <MoreHorizIcon fontSize="large" />
             </IconButton>
             <Menu
@@ -115,10 +143,7 @@ const ItemPost = ({ content, imageUrls, id, likeCount, liked, disable, onPostDel
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem
-                onClick={handleDeletePost}
-                sx={{ color: "red" }}
-              >
+              <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
                 <Delete />
                 Delete
               </MenuItem>
@@ -132,7 +157,6 @@ const ItemPost = ({ content, imageUrls, id, likeCount, liked, disable, onPostDel
               key={index}
               src={imageUrl}
               alt={`Image ${index}`}
-              // onClick={() => openImageModal(imageUrl)}
               style={{ width: "220px", objectFit: "cover" }}
             />
           ))}
@@ -159,20 +183,14 @@ const ItemPost = ({ content, imageUrls, id, likeCount, liked, disable, onPostDel
                 <Repost className={classNames(styles.tweetRepost)} />
               </IconButton>
               <div>
-                <IconButton
-                  onClick={() => {
-                    liked
-                      ? dispatch(dislikePostAxios(id))
-                      : dispatch(likePostAxios(id));
-                  }}
-                >
-                  {liked ? (
+                <IconButton onClick={isLiked ? handleUnlike : handleLike}>
+                  {isLiked ? (
                     <LikeFalse />
                   ) : (
                     <Like className={classNames(styles.tweetLike)} />
                   )}
                 </IconButton>
-                <span>{likeCount}</span>
+                <span>{likeCountState}</span>
               </div>
               <IconButton>
                 <View className={classNames(styles.tweetReply)} />
@@ -194,7 +212,8 @@ const ItemPost = ({ content, imageUrls, id, likeCount, liked, disable, onPostDel
         likeCount={likeCount}
         liked={liked}
         updateComment={updateComment}
-     
+        avatarUrl={avatarUrl}
+        fullName={fullName}
       />
     </div>
   );
@@ -203,11 +222,15 @@ const ItemPost = ({ content, imageUrls, id, likeCount, liked, disable, onPostDel
 ItemPost.propTypes = {
   content: PropTypes.string,
   imageUrls: PropTypes.array,
+  avatarUrl: PropTypes.string,
+  fullName: PropTypes.string,
 };
 
 ItemPost.defaultProps = {
   content: "",
   imageUrls: [],
+  avatarUrl: "",
+  fullName: "",
 };
 
 export default ItemPost;

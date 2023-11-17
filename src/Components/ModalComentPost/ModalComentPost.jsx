@@ -1,14 +1,10 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setModalPost } from "../../redux/actions/modalPost";
 import Modal from "@mui/material/Modal";
-
 import { ReactComponent as Close } from "../LoginFormsModal/svg/Clos.svg";
-// import { ReactComponent as Close } from "../LoginFormsModal/svg/Close.svg";
 import classNames from "classnames";
 import styles from "../PostModal/PostModal.module.scss";
 import { Box } from "@mui/system";
-import { TextField } from "@mui/material";
 import { styled } from "@mui/material";
 import ComentPost from "../ComentPost/ComentPost";
 import ItemPost from "../ItemPost/ItemPost";
@@ -47,10 +43,9 @@ export default function ModalComentPost({
   likeCount,
   liked,
   updateComment,
-  
-})
-
-{
+  avatarUrl,
+  fullName,
+}) {
   const dispatch = useDispatch();
 
   const fonnClick = (event) => {
@@ -81,9 +76,17 @@ export default function ModalComentPost({
               id={id}
               likeCount={likeCount}
               liked={liked}
+              avatarUrl={avatarUrl}
+              fullName={fullName}
               disable={true}
             />
-            <ComentPost id={id} closeModal={closeModal} updateComment={updateComment} />
+            <ComentPost
+              id={id}
+              closeModal={closeModal}
+              updateComment={updateComment}
+              avatarUrl={avatarUrl}
+              fullName={fullName}
+            />
           </div>
         </ModalBody>
       </Modal>

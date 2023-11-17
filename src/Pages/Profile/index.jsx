@@ -3,11 +3,9 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ModalEdit from "../../Components/ModalEdit";
 import ItemPost from "../../Components/ItemPost/ItemPost";
-
+import { compareByDate } from "../../utils/function";
 import {
-  Avatar,
   Box,styled,
-  Toolbar,
   Typography,
   Container,
   Button,
@@ -17,9 +15,6 @@ import {
 import LabTabs from "../../Components/ProfileTabs";
 import TabPanel from "@mui/lab/TabPanel";
 import UserFoto from "../../Components/UserFoto";
-
-// import { GetUserAsync } from "../../redux/actions/userInfo";
-import {api} from "../../service/api";
 import { getPosts } from "../../redux/actions/createPost";
 const tabs = [
   { label: "Post", value: "1" },
@@ -76,33 +71,55 @@ export default function Profile() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.user);
   const posts = useSelector((state) => state.posts.posts);
+
+  // Скрол постів infinite scroll   //////////////////////////////////////////////////////////////
+ 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const loadMorePosts = () => {
+    if (!loading) {
+      setLoading(true);
+      dispatch(getPosts(currentPage))
+        .then(() => {
+          setCurrentPage((prevPage) => prevPage + 1);
+        })
+        .catch((error) => {
+          console.error('Error loading more posts:', error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+      if (scrollTop + clientHeight >= scrollHeight && !loading) {
+        loadMorePosts();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [loading, currentPage]);
+
   useEffect(() => {
     if (isAuthenticated) {
-      dispatch(getPosts())
-      
+      loadMorePosts();
     }
-    
   }, [isAuthenticated]);
 
 
 
-  function compareByDate(a, b) {
-    const dateA = new Date(a.createdAt);
-    const dateB = new Date(b.createdAt);
-  
-    if (dateA < dateB) {
-      return 1; // Змінюємо на -1, якщо потрібно сортувати за зростанням
-    }
-    if (dateA > dateB) {
-      return -1; // Змінюємо на 1, якщо потрібно сортувати за зростанням
-    }
-    return 0;
-  }
 
 
   if (!isAuthenticated) return "Not authenticated...";
-
-
 
   return (
     <>
@@ -170,7 +187,7 @@ export default function Profile() {
             },
           }}
         >
-          <TabPanel value="1">  {posts?.sort(compareByDate).map(p => <ItemPost  key={p.id} replyCount={p.replyCount} id ={p.id} content={p.body} likeCount ={p.likeCount } liked={p.liked} imageUrls={p.imageUrls}/>)}</TabPanel>
+          <TabPanel value="1">  {posts?.sort(compareByDate).map(p => <ItemPost avatarUrl={p.user.avatarUrl} fullName={p.user.fullName}  key={p.id} replyCount={p.replyCount} id ={p.id} content={p.body} likeCount ={p.likeCount } liked={p.liked} imageUrls={p.imageUrls}/>)}</TabPanel>
           <TabPanel value="2">Peplies</TabPanel>
           <TabPanel value="3">Likes</TabPanel>
         </LabTabs>
