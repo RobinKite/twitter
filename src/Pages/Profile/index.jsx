@@ -2,22 +2,20 @@ import { ReactComponent as ArrowBack } from "./svg/arrow.svg";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ModalEdit from "../../Components/ModalEdit";
-
+import ItemPost from "../../Components/ItemPost/ItemPost";
+import { compareByDate } from "../../utils/function";
 import {
-  Avatar,
-  Box,
-  Toolbar,
+  Box,styled,
   Typography,
   Container,
   Button,
   Modal,
-  styled,
+  
 } from "@mui/material";
 import LabTabs from "../../Components/ProfileTabs";
 import TabPanel from "@mui/lab/TabPanel";
 import UserFoto from "../../Components/UserFoto";
-
-import { GetUserAsync } from "../../redux/actions/userInfo";
+import { getPosts } from "../../redux/actions/createPost";
 const tabs = [
   { label: "Post", value: "1" },
   { label: "Replies", value: "2" },
@@ -62,17 +60,66 @@ const EditButton = styled(Button)(({ theme }) => ({
     background: " rgb(239, 243, 244)",
   },
 }));
+
+
+
 export default function Profile() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  // const [content, setContent] = useState(null);
   const dispatch = useDispatch();
-  // const token = useSelector((state) => state.authorization);
-  // const userInfo = useSelector((state) => state.user.user);
-  // const formData = {
-  //   email: "user1@gmail.com",
-  //   password: "1111",
-  // };
+  const { isAuthenticated } = useSelector((state) => state.user);
+  const posts = useSelector((state) => state.posts.posts);
+
+  // Скрол постів infinite scroll   //////////////////////////////////////////////////////////////
+ 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const loadMorePosts = () => {
+    if (!loading) {
+      setLoading(true);
+      dispatch(getPosts(currentPage))
+        .then(() => {
+          setCurrentPage((prevPage) => prevPage + 1);
+        })
+        .catch((error) => {
+          console.error('Error loading more posts:', error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+      if (scrollTop + clientHeight >= scrollHeight && !loading) {
+        loadMorePosts();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [loading, currentPage]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadMorePosts();
+    }
+  }, [isAuthenticated]);
+
+
+
+
+
+  if (!isAuthenticated) return "Not authenticated...";
 
   return (
     <>
@@ -140,7 +187,7 @@ export default function Profile() {
             },
           }}
         >
-          <TabPanel value="1">Post</TabPanel>
+          <TabPanel value="1">  {posts?.sort(compareByDate).map(p => <ItemPost avatarUrl={p.user.avatarUrl} fullName={p.user.fullName}  key={p.id} replyCount={p.replyCount} id ={p.id} content={p.body} likeCount ={p.likeCount } liked={p.liked} imageUrls={p.imageUrls}/>)}</TabPanel>
           <TabPanel value="2">Peplies</TabPanel>
           <TabPanel value="3">Likes</TabPanel>
         </LabTabs>

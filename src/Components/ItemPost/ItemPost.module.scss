@@ -1,0 +1,77 @@
+
+
+
+.tweet {
+  
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+  padding: 2px;
+  margin: 10px;
+  width: 95%;
+  // max-width: 400px;
+  // font-size: 24px;
+  &:hover{
+    background-color: hwb(0 89% 9% / 0.311);
+  }
+}
+.tweetHeader{
+  display: flex;
+  justify-content: space-between;
+}
+.tweetAvatar {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+
+.tweetUserInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.tweetUsername {
+  font-weight: bold;
+}
+
+
+.tweetContent {
+  margin-top: 10px;
+  margin-left: 70px;
+}
+
+.tweetActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.likeButton,
+.retweetButton {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.tweetImg{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  
+}
+
+.tweetReply:hover{
+fill: hsl(201, 79%, 48%);
+
+}
+.tweetRepost:hover{
+fill: hsl(134, 66%, 57%);
+
+}
+.tweetLike:hover{
+fill: hsla(325, 72%, 58%, 0.688);
+
+}
+// .tweetLike{
+//   stroke: aqua;
+// }

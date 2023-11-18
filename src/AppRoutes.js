@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Profile from "./Pages/Profile/index.jsx";
 import ExitLogin from "./Pages/ExitLogin/ExitLogin.jsx";
 import Container from "./Components/Container/Container.jsx";
+import Home from "./Pages/Home/Home.jsx";
+import PostPages from "./Pages/Post/PostPages.jsx";
 import PasswordForm from "./Components/LoginFormsModal/PasswordForm/PasswordForm";
 import RegistrationForm from "./Components/RegistrationForm/RegistrationForm";
 import ForgotPasswordForm from "./Components/ForgotPasswordForm/ForgotPasswordForm.jsx";
@@ -28,8 +30,7 @@ function AppRoutes() {
           )
         }
       >
-        <Route index element={<div>Home</div>} />
-
+        <Route index element={<Home/>} />
         <Route path="/explore" element={<div>Explore</div>} />
 
         <Route path="/notifications" element={<div>Notifications</div>} />
@@ -46,6 +47,7 @@ function AppRoutes() {
           }
         />
         <Route path="/more" element={<div>More</div>} />
+        <Route path="/inshyy-post/:id" element={<PostPages/>} />
 
         <Route
           path="/registration"

@@ -1,7 +1,16 @@
-import { GET_USER_INFO } from "../types/userInfo";
+import {GET_USER_INFO, LOGIN_USER} from "../types/userInfo";
+import {api} from "../../service/api";
+import {setAuthToken, setRefreshToken} from "../../utils/tokens";
 export function getUser(data) {
   return {
     type: GET_USER_INFO,
+    payload: data,
+  };
+}
+
+export function loginUserAction(data) {
+  return {
+    type: LOGIN_USER,
     payload: data,
   };
 }
@@ -23,3 +32,18 @@ export function GetUserAsync() {
     dispatch(getUser(userInfo));
   };
 }
+
+
+export const loginUser = (email, password) => (dispatch) => {
+  const data = {
+    email,
+    password
+  }
+  api.post('/auth/login', data)
+      .then(r => {
+        setAuthToken(r.data.access_token);
+        setRefreshToken(r.data.refresh_token);
+        dispatch(loginUserAction(r.data));
+      })
+}
+

@@ -6,6 +6,8 @@ const Main = ({ children }) => {
     <div className={classNames(styles.main)}>
       {/* <AppRoutes /> */}
       {children}
+      {/* <h2>MAIN SECTION</h2>
+      <AppRoutes/> */}
     </div>
   );
 };

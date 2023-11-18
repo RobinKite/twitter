@@ -35,6 +35,12 @@ const style = {
   borderRadius: 6,
   boxShadow: 24,
   p: 10,
+  "@media (max-width: 400px)": {
+    width: " 80%",
+    height: "100%",
+  }
+   
+ 
 };
 
 export default function BasicModal(props) {
@@ -86,6 +92,7 @@ export default function BasicModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+        {/* <BoxStyled> */}
           <div className={classNames(styles.clossvg)} onClick={toggleModal}>
             <Clos />
           </div>
@@ -146,6 +153,7 @@ export default function BasicModal(props) {
               Sign Up
             </Link>
           </Typography>
+        {/* </BoxStyled> */}
         </Box>
       </Modal>
     </div>

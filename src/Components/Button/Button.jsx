@@ -21,6 +21,7 @@ const ButtonStyled = styled(Button)(({ theme }) => ({
   // Медиазапрос для ширин меньше 480px
   [theme.breakpoints.down("sm")]: {
     fontSize: 14,
+    
   },
 }));
 export default ButtonStyled;

@@ -57,6 +57,8 @@ const ExitLogin = ({ setIsLog, isLog }) => {
       <div>
         <Footer />
       </div>
+      {/* {firstModalOpen && <LoginForm open={firstModalOpen} />} */}
+
     </div>
   );
 };
