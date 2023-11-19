@@ -12,6 +12,7 @@ import RegistrationForm from "./Components/RegistrationForm/RegistrationForm";
 import ForgotPasswordForm from "./Components/ForgotPasswordForm/ForgotPasswordForm.jsx";
 import SignUpForm from "./Components/SignUpForm/SignUpForm.jsx";
 import Main from "./Components/Main/Main.jsx";
+import Notifications from "./Pages/Notifications/Notifications";
 
 function AppRoutes() {
   // const isLog = useSelector((state) => state.registration.isLog);
@@ -30,10 +31,10 @@ function AppRoutes() {
           )
         }
       >
-        <Route index element={<Home/>} />
+        <Route index element={<Home />} />
         <Route path="/explore" element={<div>Explore</div>} />
 
-        <Route path="/notifications" element={<div>Notifications</div>} />
+        <Route path="/notifications" element={<Notifications />} />
         <Route path="/messages" element={<div>Messages</div>} />
         <Route path="/lists" element={<div>Lists</div>} />
         <Route path="/communities" element={<div>Communities</div>} />
@@ -47,7 +48,7 @@ function AppRoutes() {
           }
         />
         <Route path="/more" element={<div>More</div>} />
-        <Route path="/inshyy-post/:id" element={<PostPages/>} />
+        <Route path="/inshyy-post/:id" element={<PostPages />} />
 
         <Route
           path="/registration"
