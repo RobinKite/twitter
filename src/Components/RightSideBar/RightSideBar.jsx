@@ -1,10 +1,13 @@
 import classNames from "classnames";
+import SearchBar from "../SearchBar/SearchBar";
+import WhoToFollow from "../WhoToFollow/WhoToFollow";
 import styles from "./RightSideBar.module.scss";
 
 const RightSideBar = () => {
   return (
-    <div className={classNames(styles.main)}>
-      <h2>RIGHT SIDE BAR SECTION</h2>
+    <div className={classNames(styles.rightSideBar)}>
+      <SearchBar />
+      <WhoToFollow />
     </div>
   );
 };
