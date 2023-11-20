@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import classNames from "classnames";
+import { clsx } from "clsx";
 import TwitterIcon from "../../assets/icons/twitter.svg?react";
 import HomeIcon from "../../assets/icons/home.svg?react";
 import HomeIconFilled from "../../assets/icons/home-filled.svg?react";
@@ -35,7 +35,7 @@ export const Navigation = () => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              classNames(styles.listLink, { [styles.active]: isActive })
+              clsx(styles.listLink, { [styles.active]: isActive })
             }>
             {isActive("/") ? <HomeIconFilled /> : <HomeIcon />}
             <span className={styles.hideText}>Home</span>
@@ -45,7 +45,7 @@ export const Navigation = () => {
           <NavLink
             to="explore"
             className={({ isActive }) =>
-              classNames(styles.listLink, { [styles.active]: isActive })
+              clsx(styles.listLink, { [styles.active]: isActive })
             }>
             {isActive("/explore") ? <SearchIconFilled /> : <SearchIcon />}
             <span className={styles.hideText}>Explore</span>
@@ -55,7 +55,7 @@ export const Navigation = () => {
           <NavLink
             to="notifications"
             className={({ isActive }) =>
-              classNames(styles.listLink, { [styles.active]: isActive })
+              clsx(styles.listLink, { [styles.active]: isActive })
             }>
             {isActive("/notifications") ? (
               <NotificationIconFilled />
@@ -69,7 +69,7 @@ export const Navigation = () => {
           <NavLink
             to="messages"
             className={({ isActive }) =>
-              classNames(styles.listLink, { [styles.active]: isActive })
+              clsx(styles.listLink, { [styles.active]: isActive })
             }>
             {isActive("/messages") ? <MessageIconFilled /> : <MessageIcon />}
             <span className={styles.hideText}>Messages</span>
@@ -79,7 +79,7 @@ export const Navigation = () => {
           <NavLink
             to="lists"
             className={({ isActive }) =>
-              classNames(styles.listLink, { [styles.active]: isActive })
+              clsx(styles.listLink, { [styles.active]: isActive })
             }>
             {isActive("/lists") ? <ListIconFilled /> : <ListIcon />}
             <span className={styles.hideText}>Lists</span>
@@ -90,7 +90,7 @@ export const Navigation = () => {
           <NavLink
             to="communities"
             className={({ isActive }) =>
-              classNames(styles.listLink, { [styles.active]: isActive })
+              clsx(styles.listLink, { [styles.active]: isActive })
             }>
             {isActive("/communities") ? <CommunitiesIconFilled /> : <CommunitiesIcon />}
             <span className={styles.hideText}>Communities</span>
@@ -100,7 +100,7 @@ export const Navigation = () => {
           <NavLink
             to="verified"
             className={({ isActive }) =>
-              classNames(styles.listLink, { [styles.active]: isActive })
+              clsx(styles.listLink, { [styles.active]: isActive })
             }>
             <TwitterIcon />
             <span className={styles.hideText}>Verified</span>
@@ -110,7 +110,7 @@ export const Navigation = () => {
           <NavLink
             to="profile"
             className={({ isActive }) =>
-              classNames(styles.listLink, { [styles.active]: isActive })
+              clsx(styles.listLink, { [styles.active]: isActive })
             }>
             {isActive("/profile") ? <ProfileIconFilled /> : <ProfileIcon />}
             <span className={styles.hideText}>Profile</span>
