@@ -1,10 +1,8 @@
-import { SET_MODAL_POST,SET_CONTENT, SET_MODAL_COMENT, } from "../types/modalPost";
+import { SET_MODAL_POST, SET_CONTENT, SET_MODAL_COMENT } from "../types/modalPost";
 
 // export const setModalPost = () => ({ type: SET_MODAL_POST });
 
-
-
-export const setModalComent = () => ({ type:  SET_MODAL_COMENT});
+export const setModalComent = () => ({ type: SET_MODAL_COMENT });
 export const setModalPost = (payload) => ({ type: SET_MODAL_POST, payload });
 
 export const setContent = (content) => {

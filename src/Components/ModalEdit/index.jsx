@@ -92,20 +92,16 @@ export default function EditForm({ onClose }) {
     <ModalContainer>
       <ModalContent>
         <ModalHeader disableGutters={true}>
-          <Typography
-            variant="h5"
-            sx={{ display: "flex", alignItems: "center" }}
-          >
-            <CloseOutlinedIcon sx={{ marginRight: "20px" }} onClick={onClose} />{" "}
-            Edit profile
+          <Typography variant="h5" sx={{ display: "flex", alignItems: "center" }}>
+            <CloseOutlinedIcon sx={{ marginRight: "20px" }} onClick={onClose} /> Edit
+            profile
           </Typography>
 
           <CustomButton
             variant="contained"
             type="submit"
             onClick={formik.handleSubmit}
-            size="small"
-          >
+            size="small">
             save
           </CustomButton>
         </ModalHeader>
@@ -121,8 +117,7 @@ export default function EditForm({ onClose }) {
           noValidate
           autoComplete="off"
           sx={{ padding: "70px 15px" }}
-          onSubmit={formik.handleSubmit}
-        >
+          onSubmit={formik.handleSubmit}>
           {formFields.map((field) => (
             <div key={field.name}>
               <TextField
@@ -143,13 +138,8 @@ export default function EditForm({ onClose }) {
                     paddingTop: "5px",
                   },
                 }}
-                error={
-                  formik.touched[field.name] &&
-                  Boolean(formik.errors[field.name])
-                }
-                helperText={
-                  formik.touched[field.name] && formik.errors[field.name]
-                }
+                error={formik.touched[field.name] && Boolean(formik.errors[field.name])}
+                helperText={formik.touched[field.name] && formik.errors[field.name]}
                 InputProps={{
                   sx: {
                     padding: "16px 10px",
@@ -162,19 +152,15 @@ export default function EditForm({ onClose }) {
                           fontSize: "14px",
                           position: "relative",
                           bottom: "15px",
-                        }}
-                      >
-                        {(formik.values[field.name] || "").length}/
-                        {field.maxLength}
+                        }}>
+                        {(formik.values[field.name] || "").length}/{field.maxLength}
                       </div>
                     ) : null,
                 }}
                 InputLabelProps={{
                   shrink: false,
                   sx: {
-                    transform: formik.values[field.name]
-                      ? "translate(10px, 4px)"
-                      : null,
+                    transform: formik.values[field.name] ? "translate(10px, 4px)" : null,
                     fontSize: formik.values[field.name] ? "14px" : "16px",
                     transition: "transform 0.3s, font-size 0.3s",
                     "&.Mui-focused": {
@@ -205,8 +191,7 @@ export default function EditForm({ onClose }) {
                   } else {
                     formik.setFieldValue(field.name, value); // Оновити значення через formik
                   }
-                }}
-              >
+                }}>
                 {field.name === "day"
                   ? getDaysInMonth(selectedMonth).map((option) => (
                       <MenuItem key={option} value={option}>

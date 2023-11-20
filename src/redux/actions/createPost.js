@@ -44,12 +44,10 @@ export const addPosts = (formData) => {
   };
 };
 
-
 export const deleteComment = (commentId) => ({
   type: DELETE_COMMENT,
   payload: commentId,
 });
-
 
 export const deleteFromPost = (id) => ({
   type: DELETE_FROM_POST,
@@ -82,17 +80,12 @@ export const deletePost = (id) => {
 //     try {
 //       const response = await api.delete(`likes/unlike?id=${postId}`);
 //       dispatch(dislikePost(postId, response.data.likeCount,));
-    
+
 //     } catch (error) {
 //       console.error("Сталася помилка:", error);
 //     }
 //   };
 // };
-
-
-
-
-
 
 // export const likePost = (postId, likeCount, liked) => {
 //   return {
@@ -113,7 +106,7 @@ export const deletePost = (id) => {
 //       await api
 //         .post(`likes/like`, requestData)
 //         .then((r) => dispatch(likePost(postId, r.data.likeCount, )));
-      
+
 //     } catch (error) {
 //       console.error("Сталася помилка :", error);
 //     }
@@ -125,22 +118,16 @@ export const deletePost = (id) => {
 //       const requestData = {
 //         postId: postId,
 //       };
-//      
+//
 //       const response = await api.post(`likes/like`, requestData);
-//      
+//
 //       const likeCount = response.data.likeCount;
 //       const liked = true;
 
 //       dispatch(likePost(postId, likeCount, liked));
-      
+
 //     } catch (error) {
 //       console.error("Сталася помилка:", error);
 //     }
 //   };
 // };
-
-
-
-
-
-

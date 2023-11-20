@@ -5,7 +5,7 @@
   position: relative;
 }
 
-.wrapper{
+.wrapper {
   position: absolute;
   top: 0;
   right: 0;
@@ -17,12 +17,10 @@
   padding: 16px;
   @media (max-width: 700px) {
     min-width: 7%;
-;
-  position: absolute;
-  top: -3%;
-  left:  5%;
-
-     }
+    position: absolute;
+    top: -3%;
+    left: 5%;
+  }
 }
 
 .exitLogin {
@@ -34,34 +32,29 @@
   padding-left: 10%;
   padding-right: 10%;
   position: relative;
-
 }
 
 .titleLogin {
   font-size: 70px;
   @media (max-width: 700px) {
     font-size: 30px;
-
-     }
+  }
 }
 .titleJoin {
   font-size: 40px;
   @media (max-width: 700px) {
     font-size: 20px;
-
-     }
+  }
 }
-.titleProfile{
+.titleProfile {
   font-size: 24px;
-
 }
 .retreat {
   display: flex;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
   margin: 31px 0 12px;
   color: #848484;
-
 }
 .retreat::before {
   content: "";
@@ -74,4 +67,3 @@
   min-width: 45%;
   border: 1px solid #878383;
 }
-

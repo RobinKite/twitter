@@ -8,7 +8,7 @@ const initialValue = {
 const modalPostReducer = (state = initialValue, action) => {
   switch (action?.type) {
     case SET_MODAL_POST: {
-      return { ...state, isActiveSetModal:  action.payload  };
+      return { ...state, isActiveSetModal: action.payload };
     }
     case SET_CONTENT: {
       return { ...state, content: action.payload };

@@ -10,16 +10,15 @@ import AppRoutes from "./AppRoutes";
 function App() {
   const dispatch = useDispatch();
   const firstModalOpen = useSelector((state) => state.loginModal.isActive);
-  
+
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
   return (
     <div className="App">
       <AppRoutes />
-     
+
       {firstModalOpen && <BasicModal open={firstModalOpen} />}
-    
     </div>
   );
 }

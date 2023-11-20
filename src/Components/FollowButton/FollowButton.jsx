@@ -20,8 +20,7 @@ const FollowButton = ({ initialIsFollowing, id }) => {
       <FollowButtonStyled
         variant="contained"
         onClick={handleFollow}
-        isFollowing={isFollowing}
-      >
+        isFollowing={isFollowing}>
         <p>{isFollowing ? "Following" : "Follow"}</p>
       </FollowButtonStyled>
 

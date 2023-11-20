@@ -74,8 +74,7 @@ const SignUpForm = () => {
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose}>
             <CloseButton style={{ height: "30px" }} />
@@ -90,8 +89,7 @@ const SignUpForm = () => {
             sx={{
               fontSize: 30,
               forntWeight: 700,
-            }}
-          >
+            }}>
             Join X today
           </Typography>
           <Button
@@ -99,24 +97,20 @@ const SignUpForm = () => {
             style={{
               flexDirection: "row-reverse",
               fontSize: 15,
-              
+
               marginLeft: 0,
-             
             }}
-            endIcon={<Google />}
-          >
+            endIcon={<Google />}>
             Sign up with Google
           </Button>
           <Button
             className={styles.signUpBtn}
             style={{
               fontSize: 15,
-              
+
               marginLeft: 0,
-            
             }}
-            startIcon={<Apple />}
-          >
+            startIcon={<Apple />}>
             Sign up with Apple
           </Button>
           <span className={styles.separator}>or</span>
@@ -130,20 +124,18 @@ const SignUpForm = () => {
               color: "white",
               marginBottom: 2,
               backgroundColor: "rgb(0, 0, 0)",
-marginLeft:0,
+              marginLeft: 0,
               "&:hover": { backgroundColor: "rgb(60, 58, 58)" },
-            }}
-          >
+            }}>
             Create account
           </Button>
           <Typography
             sx={{
               color: "#536471",
               marginBottom: 5,
-            }}
-          >
-            By signing up, you agree to the Terms of Service and Privacy Policy,
-            including Cookie Use.
+            }}>
+            By signing up, you agree to the Terms of Service and Privacy Policy, including
+            Cookie Use.
           </Typography>
           <Typography
             id="modal-modal-description"
@@ -152,13 +144,11 @@ marginLeft:0,
               fontWeight: 500,
 
               color: "#536471",
-            }}
-          >
+            }}>
             Have an account already?{" "}
             <Link
               href="/login" // actual URL or route to  "Sign Up" page
-              color="primary"
-            >
+              color="primary">
               Log in
             </Link>
           </Typography>

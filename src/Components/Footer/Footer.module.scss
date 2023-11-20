@@ -1,26 +1,24 @@
-.footer{
-    padding: 16px;
-    text-align: center;
-    li{
-        display: inline-block;
-        margin-left: 15px;
-        color: aqua;
-        
-        a{
-            color: rgba(76, 74, 76, 0.849);
-            font-size: 26px;
-            white-space: inherit;
-            text-decoration: none;
-            &:hover{
-                text-decoration: underline;
-            }
-        }
-        
-      }
+.footer {
+  padding: 16px;
+  text-align: center;
+  li {
+    display: inline-block;
+    margin-left: 15px;
+    color: aqua;
 
-      .XCorp{
-        color: rgba(76, 74, 76, 0.849);
-        font-size: 26px;
+    a {
+      color: rgba(76, 74, 76, 0.849);
+      font-size: 26px;
+      white-space: inherit;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
       }
+    }
   }
-  
+
+  .XCorp {
+    color: rgba(76, 74, 76, 0.849);
+    font-size: 26px;
+  }
+}

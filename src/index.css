@@ -1,17 +1,15 @@
 body {
   margin: 0;
-  font-family: 'Lato', sans-serif;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Lato", sans-serif;
+  font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
-    overflow-y: auto;
-  
+
+  overflow-y: auto;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 ul {
   list-style: none;

@@ -34,13 +34,7 @@ const IconAddFoto = styled(Box)(({ theme }) => ({
   transform: "translate(-50%, -50%)",
 }));
 
-export default function UserFoto({
-  changeIcon,
-  image,
-  setImage,
-  avatar,
-  setAvatar,
-}) {
+export default function UserFoto({ changeIcon, image, setImage, avatar, setAvatar }) {
   // const [image, setImage] = useState("");
   // const [avatar, setAvatar] = useState("");
   const handleFileChange = (e) => {
@@ -68,8 +62,7 @@ export default function UserFoto({
                   "& .css-9tj150-MuiButton-endIcon": {
                     margin: "0px",
                   },
-                }}
-              >
+                }}>
                 <VisuallyHiddenInput
                   onChange={handleFileChange}
                   accept="image/*"
@@ -90,8 +83,7 @@ export default function UserFoto({
               left: "30px",
             }}
             alt="Remy Sharp"
-            src={avatar}
-          >
+            src={avatar}>
             <Button
               component="label"
               endIcon={<AddAPhotoIcon sx={{ margin: "0px", color: "white" }} />}
@@ -99,8 +91,7 @@ export default function UserFoto({
                 "& .css-9tj150-MuiButton-endIcon": {
                   margin: "0px",
                 },
-              }}
-            >
+              }}>
               <VisuallyHiddenInput
                 onChange={handleAvatarChange}
                 accept="image/*"
@@ -118,8 +109,7 @@ export default function UserFoto({
               left: "30px",
             }}
             alt="Remy Sharp"
-            src={avatar}
-          >
+            src={avatar}>
             M
           </Avatar>
         )}

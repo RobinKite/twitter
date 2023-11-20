@@ -39,24 +39,18 @@ const InputFieldCostum = styled(TextField)({
   },
 });
 
-const Post = ({avatarUrl}
-  ) => {
- 
+const Post = ({ avatarUrl }) => {
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
- 
-
   const dispatch = useDispatch();
 
-  
   // Створення обєкта з даними поста
 
   const formData = new FormData();
 
   const submit = () => {
-   
     formData.append("body", inputStr);
 
     formData.append("type", "TWEET");
@@ -67,13 +61,10 @@ const Post = ({avatarUrl}
 
     dispatch(addPosts(formData));
 
-    setInputStr('')
-    setFiles([])
+    setInputStr("");
+    setFiles([]);
 
-
-   
-      dispatch(setModalPost(false))
-
+    dispatch(setModalPost(false));
   };
 
   // Відмалювання смайлів
@@ -85,24 +76,21 @@ const Post = ({avatarUrl}
     setShowEmojiPicker(false);
   };
 
-
-
   return (
     <>
       <div>
-      <Avatar
-            sx={{
-              mt: 0,
-              ml: 1,
-              bgcolor: "rgb(8, 139, 226)",
-              width: 50,
-              height: 50,
-            }}
-            alt="Remy Sharp"
-            src={avatarUrl}
-          />
+        <Avatar
+          sx={{
+            mt: 0,
+            ml: 1,
+            bgcolor: "rgb(8, 139, 226)",
+            width: 50,
+            height: 50,
+          }}
+          alt="Remy Sharp"
+          src={avatarUrl}
+        />
         <div className={classNames(styles.conteinerPost)}>
-   
           <InputFieldCostum
             placeholder="What is happening ?!"
             variant="standard"
@@ -117,10 +105,7 @@ const Post = ({avatarUrl}
           />
 
           {showEmojiPicker && (
-            <EmojiPicker
-              pickerStyle={{ width: "100%" }}
-              onEmojiClick={onEmojiClick}
-            />
+            <EmojiPicker pickerStyle={{ width: "100%" }} onEmojiClick={onEmojiClick} />
           )}
 
           {files.map((file, index) => (
@@ -130,9 +115,7 @@ const Post = ({avatarUrl}
               src={URL.createObjectURL(file)}
               alt=""
               onClick={() => {
-                setFiles((prevState) =>
-                  prevState.filter((_, i) => i !== index)
-                );
+                setFiles((prevState) => prevState.filter((_, i) => i !== index));
               }}
             />
           ))}
@@ -155,17 +138,13 @@ const Post = ({avatarUrl}
                 setFiles(
                   Array(e.target.files.length)
                     .fill({})
-                    .map((_, i) => e.target.files[i])
+                    .map((_, i) => e.target.files[i]),
                 );
               }}
             />
           </IconButton>
 
-          <IconButton
-            component="label"
-            onClick={() => setShowEmojiPicker((val) => !val)}
-           
-          >
+          <IconButton component="label" onClick={() => setShowEmojiPicker((val) => !val)}>
             <InsertEmoticonIcon
               color="primary"
               fontSize="large"
@@ -174,10 +153,8 @@ const Post = ({avatarUrl}
           </IconButton>
         </div>
         <ButtonStyled
-
           type="submit"
           onClick={submit}
-          
           sx={{
             color: "white",
             fontSize: "20px",
@@ -186,8 +163,7 @@ const Post = ({avatarUrl}
             backgroundColor: "rgb(8, 139, 226)",
             width: "17%",
             "&:hover": { backgroundColor: "rgb(26, 26, 172)" },
-          }}
-        >
+          }}>
           Post
         </ButtonStyled>
       </div>

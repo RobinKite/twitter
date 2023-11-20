@@ -22,8 +22,7 @@ const Notifications = () => {
           "& .MuiTabs-flexContainer": {
             justifyContent: "space-around",
           },
-        }}
-      >
+        }}>
         <TabPanel value="1">
           <AllNotifications />
         </TabPanel>

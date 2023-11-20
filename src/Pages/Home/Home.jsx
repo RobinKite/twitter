@@ -32,7 +32,7 @@ const Home = () => {
           setCurrentPage((prevPage) => prevPage + 1);
         })
         .catch((error) => {
-          console.error('Error loading more posts:', error);
+          console.error("Error loading more posts:", error);
         })
         .finally(() => {
           setLoading(false);
@@ -49,10 +49,10 @@ const Home = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [loading, currentPage]);
 
@@ -66,13 +66,10 @@ const Home = () => {
   // useEffect(() => {
   //   if (isAuthenticated) {
   //     dispatch(getPosts());
-     
+
   //   }
   // }, [isAuthenticated]);
 
-  
-
-  
   if (!isAuthenticated) return "Завантаження";
   return (
     <>
@@ -90,10 +87,8 @@ const Home = () => {
             "&:hover": {
               backgroundColor: "#c9c3c381",
             },
-
           },
-        }}
-      >
+        }}>
         <TabPanel value="1">
           <Post avatarUrl={avatarUrl} />
           {posts?.sort(compareByDate).map((p) => (

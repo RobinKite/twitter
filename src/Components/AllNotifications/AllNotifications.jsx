@@ -24,8 +24,7 @@ const AllNotificationsContainer = ({ id, fullName, avatarUrl, massage }) => {
           component="div"
           fontSize="14px"
           fontWeight="bold"
-          paddingTop="15px"
-        >
+          paddingTop="15px">
           {fullName}
         </Typography>
         <p>{massage}</p>

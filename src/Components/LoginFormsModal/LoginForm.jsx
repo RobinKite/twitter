@@ -38,9 +38,7 @@ const style = {
   "@media (max-width: 400px)": {
     width: " 80%",
     height: "100%",
-  }
-   
- 
+  },
 };
 
 export default function BasicModal(props) {
@@ -89,10 +87,9 @@ export default function BasicModal(props) {
         onClose={() => setOpen(false)}
         // onClose={fonnClick}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
-        {/* <BoxStyled> */}
+          {/* <BoxStyled> */}
           <div className={classNames(styles.clossvg)} onClick={toggleModal}>
             <Clos />
           </div>
@@ -109,15 +106,9 @@ export default function BasicModal(props) {
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
-            validationSchema={schema}
-          >
+            validationSchema={schema}>
             <Form>
-              <Input
-                name="email"
-                type="email"
-                label="email@"
-                variant="email@"
-              />
+              <Input name="email" type="email" label="email@" variant="email@" />
             </Form>
           </Formik>
           <Button
@@ -126,8 +117,7 @@ export default function BasicModal(props) {
               color: "white",
               backgroundColor: "rgb(0, 0, 0)",
               "&:hover": { backgroundColor: "rgb(60, 58, 58)" },
-            }}
-          >
+            }}>
             Next
           </Button>
           <ButtonStyled onClick={handleForgotPasswordClick}>
@@ -143,17 +133,15 @@ export default function BasicModal(props) {
               " &:hover": {
                 textDecoration: "underline",
               },
-            }}
-          >
+            }}>
             Dont have an account?{" "}
             <Link
               href="/SignUpForm" // actual URL or route to  "Sign Up" page
-              color="primary"
-            >
+              color="primary">
               Sign Up
             </Link>
           </Typography>
-        {/* </BoxStyled> */}
+          {/* </BoxStyled> */}
         </Box>
       </Modal>
     </div>

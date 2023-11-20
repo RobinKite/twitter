@@ -23,7 +23,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "30%",
   height: "80%",
-  
+
   bgcolor: "background.paper",
   border: "0",
   boxShadow: 24,
@@ -118,8 +118,7 @@ const PasswordForm = () => {
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose}>
             <CloseButton style={{ height: "30px" }} />
@@ -137,18 +136,15 @@ const PasswordForm = () => {
               sx={{
                 mt: 2,
                 color: "#536471",
-              }}
-            >
-              There was unusual login activity on your account. To help keep
-              your account safe, please enter your phone number or username to
-              verify it’s you.
+              }}>
+              There was unusual login activity on your account. To help keep your account
+              safe, please enter your phone number or username to verify it’s you.
             </Typography>
           </div>
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
-            validationSchema={validationSchema}
-          >
+            validationSchema={validationSchema}>
             {({ errors, touched, isValid, submitForm }) => (
               <Form className={styles.form}>
                 <Field
@@ -164,8 +160,7 @@ const PasswordForm = () => {
                   helperText={touched.inputValue && errors.inputValue}
                   sx={{
                     marginBottom: "285px",
-                  }}
-                ></Field>
+                  }}></Field>
                 <Button
                   onClick={(e) => {
                     e.preventDefault();
@@ -190,8 +185,7 @@ const PasswordForm = () => {
                       color: "#ffffff",
                       cursor: "not-allowed",
                     },
-                  }}
-                >
+                  }}>
                   Next
                 </Button>
               </Form>
@@ -204,8 +198,7 @@ const PasswordForm = () => {
         open={open2}
         onClose={handleClose2}
         aria-labelledby="modal-modal-title2"
-        aria-describedby="modal-modal-description2"
-      >
+        aria-describedby="modal-modal-description2">
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose2}>
             <CloseButton style={{ height: "30px" }} />
@@ -221,8 +214,7 @@ const PasswordForm = () => {
           <Formik
             initialValues={initialValue2}
             onSubmit={onSubmit}
-            validationSchema={validationSchema2}
-          >
+            validationSchema={validationSchema2}>
             {({ errors, touched, isValid, submitForm }) => (
               <Form className={styles.form}>
                 <TextField
@@ -234,8 +226,7 @@ const PasswordForm = () => {
                   disabled
                   sx={{
                     marginBottom: "20px",
-                  }}
-                ></TextField>
+                  }}></TextField>
                 <Field
                   className={styles.textField}
                   as={TextField}
@@ -257,25 +248,20 @@ const PasswordForm = () => {
                         <IconButton
                           onClick={handleTogglePasswordVisibility}
                           edge="end"
-                          aria-label="toggle password visibility"
-                        >
+                          aria-label="toggle password visibility">
                           {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>
                     ),
-                  }}
-                ></Field>
+                  }}></Field>
                 <Typography
                   sx={{
                     marginBottom: "230px",
-                  }}
-                >
+                  }}>
                   <Link
                     className={styles.link}
                     color="primary"
-                    onClick={handleForgotPasswordClick}
-                    
-                  >
+                    onClick={handleForgotPasswordClick}>
                     Forgot password?
                   </Link>
                 </Typography>
@@ -298,8 +284,7 @@ const PasswordForm = () => {
                       color: "#ffffff",
                       cursor: "not-allowed",
                     },
-                  }}
-                >
+                  }}>
                   Log in
                 </Button>
               </Form>
@@ -312,15 +297,13 @@ const PasswordForm = () => {
               sx={{
                 mt: 2,
                 color: "#536471",
-              }}
-            >
+              }}>
               Don't have an account?{" "}
               <Link
                 className={styles.link}
                 href="/signUpForm" // actual URL or route to  "Sign Up" page
                 color="primary"
-                onClick={handleSignUpClick}
-              >
+                onClick={handleSignUpClick}>
                 Sign Up
               </Link>
             </Typography>

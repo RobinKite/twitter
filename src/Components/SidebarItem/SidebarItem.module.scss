@@ -8,7 +8,6 @@
     margin-top: 0;
     margin-bottom: 0;
     .listLink {
-      
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -17,7 +16,7 @@
       color: #000;
       border-radius: 25px;
       font-size: 20px;
-      
+
       &:hover {
         background-color: rgb(221, 217, 217);
         width: fit-content;
@@ -39,7 +38,7 @@
     }
   }
 }
-@media (max-width: 1280px)  {
+@media (max-width: 1280px) {
   .hideText {
     display: none;
   }

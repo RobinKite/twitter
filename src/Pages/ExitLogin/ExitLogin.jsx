@@ -7,10 +7,7 @@ import { ReactComponent as TwiterLogo } from "./svg/twiterLogo.svg";
 import { ReactComponent as Apple } from "./svg/apple.svg";
 import { ReactComponent as Google } from "./svg/google.svg";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setModal,
-  setCreateProfileModal,
-} from "../../redux/actions/modalLogin";
+import { setModal, setCreateProfileModal } from "../../redux/actions/modalLogin";
 import ButtonStyled from "../../Components/Button/Button";
 
 const ExitLogin = ({ setIsLog, isLog }) => {
@@ -18,10 +15,9 @@ const ExitLogin = ({ setIsLog, isLog }) => {
   const toggleModal = () => {
     dispatch(setModal());
   };
- 
+
   const handleCreateElementClick = () => {
     dispatch(setCreateProfileModal());
-   
   };
 
   return (
@@ -43,13 +39,10 @@ const ExitLogin = ({ setIsLog, isLog }) => {
               color: "white",
               backgroundColor: "rgb(8, 139, 226)",
               "&:hover": { backgroundColor: "rgb(26, 26, 172)" },
-            }}
-          >
+            }}>
             Create a profile
           </ButtonStyled>
-          <p className={classNames(styles.titleProfile)}>
-            Already have a profile?
-          </p>
+          <p className={classNames(styles.titleProfile)}>Already have a profile?</p>
 
           <ButtonStyled onClick={toggleModal}>Sign in</ButtonStyled>
         </div>
@@ -58,7 +51,6 @@ const ExitLogin = ({ setIsLog, isLog }) => {
         <Footer />
       </div>
       {/* {firstModalOpen && <LoginForm open={firstModalOpen} />} */}
-
     </div>
   );
 };

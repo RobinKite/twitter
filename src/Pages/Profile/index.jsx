@@ -4,14 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ModalEdit from "../../Components/ModalEdit";
 import ItemPost from "../../Components/ItemPost/ItemPost";
 import { compareByDate } from "../../utils/function";
-import {
-  Box,styled,
-  Typography,
-  Container,
-  Button,
-  Modal,
-  
-} from "@mui/material";
+import { Box, styled, Typography, Container, Button, Modal } from "@mui/material";
 import LabTabs from "../../Components/ProfileTabs";
 import TabPanel from "@mui/lab/TabPanel";
 import UserFoto from "../../Components/UserFoto";
@@ -61,8 +54,6 @@ const EditButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-
-
 export default function Profile() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -73,7 +64,7 @@ export default function Profile() {
   const posts = useSelector((state) => state.posts.posts);
 
   // Скрол постів infinite scroll   //////////////////////////////////////////////////////////////
- 
+
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -85,7 +76,7 @@ export default function Profile() {
           setCurrentPage((prevPage) => prevPage + 1);
         })
         .catch((error) => {
-          console.error('Error loading more posts:', error);
+          console.error("Error loading more posts:", error);
         })
         .finally(() => {
           setLoading(false);
@@ -102,10 +93,10 @@ export default function Profile() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [loading, currentPage]);
 
@@ -115,10 +106,6 @@ export default function Profile() {
     }
   }, [isAuthenticated]);
 
-
-
-
-
   if (!isAuthenticated) return "Not authenticated...";
 
   return (
@@ -127,8 +114,7 @@ export default function Profile() {
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <ModalEdit onClose={handleClose} />
       </Modal>
 
@@ -158,8 +144,7 @@ export default function Profile() {
             variant="body1"
             sx={{
               padding: "10px 0",
-            }}
-          >
+            }}>
             {"some bio"}
           </Typography>
           <Typography variant="body2">Joined September 2023</Typography>
@@ -172,8 +157,7 @@ export default function Profile() {
             variant="body1"
             sx={{
               paddingLeft: "10px",
-            }}
-          >
+            }}>
             0 Followers
           </Typography>
         </ContainerUserInfo>
@@ -185,9 +169,23 @@ export default function Profile() {
             "& .MuiTabs-flexContainer": {
               justifyContent: "space-around",
             },
-          }}
-        >
-          <TabPanel value="1">  {posts?.sort(compareByDate).map(p => <ItemPost avatarUrl={p.user.avatarUrl} fullName={p.user.fullName}  key={p.id} replyCount={p.replyCount} id ={p.id} content={p.body} likeCount ={p.likeCount } liked={p.liked} imageUrls={p.imageUrls}/>)}</TabPanel>
+          }}>
+          <TabPanel value="1">
+            {" "}
+            {posts?.sort(compareByDate).map((p) => (
+              <ItemPost
+                avatarUrl={p.user.avatarUrl}
+                fullName={p.user.fullName}
+                key={p.id}
+                replyCount={p.replyCount}
+                id={p.id}
+                content={p.body}
+                likeCount={p.likeCount}
+                liked={p.liked}
+                imageUrls={p.imageUrls}
+              />
+            ))}
+          </TabPanel>
           <TabPanel value="2">Peplies</TabPanel>
           <TabPanel value="3">Likes</TabPanel>
         </LabTabs>

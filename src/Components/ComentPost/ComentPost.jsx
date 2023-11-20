@@ -37,8 +37,14 @@ const InputFieldCostum = styled(TextField)({
   },
 });
 
-const ComentPost = ({ id, closeModal, updateComment, setPostComments ,avatarUrl, 
-  fullName,}) => {
+const ComentPost = ({
+  id,
+  closeModal,
+  updateComment,
+  setPostComments,
+  avatarUrl,
+  fullName,
+}) => {
   const [commentList, setCommentList] = useState([]);
   // console.log(dataComent);
   const [files, setFiles] = useState([]);
@@ -120,10 +126,7 @@ const ComentPost = ({ id, closeModal, updateComment, setPostComments ,avatarUrl,
           />
 
           {showEmojiPicker && (
-            <EmojiPicker
-              pickerStyle={{ width: "100%" }}
-              onEmojiClick={onEmojiClick}
-            />
+            <EmojiPicker pickerStyle={{ width: "100%" }} onEmojiClick={onEmojiClick} />
           )}
 
           {files.map((file, index) => (
@@ -133,9 +136,7 @@ const ComentPost = ({ id, closeModal, updateComment, setPostComments ,avatarUrl,
               src={URL.createObjectURL(file)}
               alt=""
               onClick={() => {
-                setFiles((prevState) =>
-                  prevState.filter((_, i) => i !== index)
-                );
+                setFiles((prevState) => prevState.filter((_, i) => i !== index));
               }}
             />
           ))}
@@ -158,7 +159,7 @@ const ComentPost = ({ id, closeModal, updateComment, setPostComments ,avatarUrl,
                 setFiles(
                   Array(e.target.files.length)
                     .fill({})
-                    .map((_, i) => e.target.files[i])
+                    .map((_, i) => e.target.files[i]),
                 );
               }}
             />
@@ -187,8 +188,7 @@ const ComentPost = ({ id, closeModal, updateComment, setPostComments ,avatarUrl,
             backgroundColor: "rgb(8, 139, 226)",
             width: "17%",
             "&:hover": { backgroundColor: "rgb(26, 26, 172)" },
-          }}
-        >
+          }}>
           Reply
         </ButtonStyled>
       </div>

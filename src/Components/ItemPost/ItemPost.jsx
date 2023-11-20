@@ -125,9 +125,7 @@ const ItemPost = ({
               src={avatarUrl}
             />
             <div className={classNames(styles.tweetUserInfo)}>
-              <span className={classNames(styles.tweetUsername)}>
-                {fullName}
-              </span>
+              <span className={classNames(styles.tweetUsername)}>{fullName}</span>
             </div>
           </div>
           <div>
@@ -141,8 +139,7 @@ const ItemPost = ({
               onClose={handleClose}
               MenuListProps={{
                 "aria-labelledby": "basic-button",
-              }}
-            >
+              }}>
               <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
                 <Delete />
                 Delete

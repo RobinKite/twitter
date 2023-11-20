@@ -1,4 +1,4 @@
-import {GET_USER_INFO, LOGIN_USER} from "../types/userInfo";
+import { GET_USER_INFO, LOGIN_USER } from "../types/userInfo";
 
 const initialState = {
   isAuthenticated: false,
@@ -11,7 +11,7 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, user: { ...payload } };
 
     case LOGIN_USER:
-      return {...state, isAuthenticated: true }
+      return { ...state, isAuthenticated: true };
     default:
       return state;
   }

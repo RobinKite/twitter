@@ -14,10 +14,7 @@ import { ReactComponent as CloseButton } from "../LoginFormsModal/svg/Clos.svg";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  setModal,
-  setCreateProfileModal,
-} from "../../redux/actions/modalLogin";
+import { setModal, setCreateProfileModal } from "../../redux/actions/modalLogin";
 
 const style = {
   position: "absolute",
@@ -94,8 +91,7 @@ const RegistrationForm = () => {
         open={isActiveProfileModal}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose}>
             <CloseButton style={{ height: "30px" }} />
@@ -108,8 +104,7 @@ const RegistrationForm = () => {
               marginBottom: "50px",
               fontSize: "30px",
               fontWeight: "700",
-            }}
-          >
+            }}>
             Create your account
           </Typography>
           <Formik
@@ -117,8 +112,7 @@ const RegistrationForm = () => {
             onDataChange={handleRegistrationDataChange}
             initialValues={initialValues}
             onSubmit={onSubmit}
-            validationSchema={validationSchema}
-          >
+            validationSchema={validationSchema}>
             {({ errors, touched, isValid, submitForm }) => (
               <Form>
                 <Field
@@ -135,8 +129,7 @@ const RegistrationForm = () => {
                   helperText={touched.firstName && errors.firstName}
                   sx={{
                     marginBottom: "35px",
-                  }}
-                ></Field>
+                  }}></Field>
                 <Field
                   className={styles.textField}
                   as={TextField}
@@ -151,8 +144,7 @@ const RegistrationForm = () => {
                   helperText={touched.lastName && errors.lastName}
                   sx={{
                     marginBottom: "35px",
-                  }}
-                ></Field>
+                  }}></Field>
                 <Field
                   className={styles.textField}
                   as={TextField}
@@ -167,8 +159,7 @@ const RegistrationForm = () => {
                   helperText={touched.email && errors.email}
                   sx={{
                     marginBottom: "35px",
-                  }}
-                ></Field>
+                  }}></Field>
                 <Field
                   className={styles.textField}
                   as={TextField}
@@ -189,8 +180,7 @@ const RegistrationForm = () => {
                         <IconButton
                           onClick={handleTogglePasswordVisibility}
                           edge="end"
-                          aria-label="toggle password visibility"
-                        >
+                          aria-label="toggle password visibility">
                           {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>
@@ -198,8 +188,7 @@ const RegistrationForm = () => {
                   }}
                   sx={{
                     marginBottom: "35px",
-                  }}
-                ></Field>
+                  }}></Field>
 
                 <Button //роут, куда ведет кнопка некст??????
                   type="submit"
@@ -227,8 +216,7 @@ const RegistrationForm = () => {
                       color: "#ffffff",
                       cursor: "not-allowed",
                     },
-                  }}
-                >
+                  }}>
                   Next
                 </Button>
               </Form>

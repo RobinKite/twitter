@@ -59,14 +59,10 @@ export default function ModalComentPost({
         open={isOpen}
         onClose={fonnClick}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <ModalBody>
           <div className={classNames(styles.close)}>
-            <Close
-              onClick={closeModal}
-              className={classNames(styles.clossvg)}
-            />
+            <Close onClick={closeModal} className={classNames(styles.clossvg)} />
           </div>
           <div className={classNames(styles.postInput)}>
             <ItemPost

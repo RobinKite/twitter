@@ -1,17 +1,17 @@
 import React from "react";
-import styles from "./Footer.module.scss"
+import styles from "./Footer.module.scss";
 import classNames from "classnames";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className={classNames(styles.footer)}
-    //   className={`p-3 flex flex-col justify-center text-lightText w-full text-xs
- 
+    <footer
+      className={classNames(styles.footer)}
+      //   className={`p-3 flex flex-col justify-center text-lightText w-full text-xs
     >
       <ul className={classNames(styles.footer)}>
-        <li >
+        <li>
           <a href="#">About the community</a>
         </li>
         <li>
@@ -62,9 +62,8 @@ const Footer = () => {
         <li>
           <a href="#">Settings</a>
         </li>
-      <span className={classNames(styles.XCorp) }>&copy; {currentYear} X Corp.</span>
+        <span className={classNames(styles.XCorp)}>&copy; {currentYear} X Corp.</span>
       </ul>
-      
     </footer>
   );
 };

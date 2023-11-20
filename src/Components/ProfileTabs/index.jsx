@@ -15,11 +15,7 @@ export default function LabTabs({ children, tabs, style }) {
     <Box sx={{ width: "100%", typography: "body1" }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList
-            onChange={handleChange}
-            sx={style}
-            aria-label="lab API tabs example"
-          >
+          <TabList onChange={handleChange} sx={style} aria-label="lab API tabs example">
             {tabs.map((tab) => (
               <Tab label={tab.label} value={tab.value} key={tab.value} />
             ))}

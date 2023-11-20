@@ -17,10 +17,6 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import { ReactComponent as MoreIcon } from "../../assets/svg/more.svg";
 
-
-
-
-
 // const Sidebar = () => {
 //   const posts = useSelector((state) => state.posts.posts);
 //   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
@@ -29,15 +25,12 @@ import { ReactComponent as MoreIcon } from "../../assets/svg/more.svg";
 //   );
 //   const dispatch = useDispatch();
 
-
 // import { ReactComponent as MoreIconFilled } from "../../assets/svg/more-filled.svg";
 
 const Sidebar = () => {
   const posts = useSelector((state) => state.posts.posts);
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
-  const isActiveModal = useSelector(
-    (state) => state.postModal.isActiveSetModal
-  );
+  const isActiveModal = useSelector((state) => state.postModal.isActiveSetModal);
   const dispatch = useDispatch();
 
   const isMobile = useMediaQuery("(max-width: 1280px)");
@@ -67,7 +60,6 @@ const Sidebar = () => {
       <SidebarItem />
 
       <Button
-    
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
@@ -97,15 +89,14 @@ const Sidebar = () => {
           "& .css-1d6wzja-MuiButton-startIcon": {
             margin: 0,
           },
-        }}
-      >
+        }}>
         {isMobile ? ( // Conditionally hide the text for mobile view
           <span className={styles.hideText}>More</span>
         ) : (
           "More"
         )}
       </Button>
-     
+
       <Select
         sx={{
           position: "relative",
@@ -149,8 +140,7 @@ const Sidebar = () => {
               },
             },
           },
-        }}
-      >
+        }}>
         <MenuItem component={Link} to="/bookmarks">
           <BookmarkBorderIcon />
           Bookmarks
@@ -176,30 +166,26 @@ const Sidebar = () => {
             "&:hover": {
               backgroundColor: "#1a8cd8",
             },
-          }}
-        >
+          }}>
           <svg
             style={{ height: "24px", width: "24px" }}
             viewBox="0 0 24 24"
             aria-hidden="true"
-            class="r-jwli3a r-4qtqp9 r-yyyyoo r-1472mwg r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-lrsllp"
-          >
+            class="r-jwli3a r-4qtqp9 r-yyyyoo r-1472mwg r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-lrsllp">
             <g>
               <path
                 className={`${styles.whiteSvg} white-svg`}
-                d="M23 3c-6.62-.1-10.38 2.421-13.05 6.03C7.29 12.61 6 17.331 6 22h2c0-1.007.07-2.012.19-3H12c4.1 0 7.48-3.082 7.94-7.054C22.79 10.147 23.17 6.359 23 3zm-7 8h-1.5v2H16c.63-.016 1.2-.08 1.72-.188C16.95 15.24 14.68 17 12 17H8.55c.57-2.512 1.57-4.851 3-6.78 2.16-2.912 5.29-4.911 9.45-5.187C20.95 8.079 19.9 11 16 11zM4 9V6H1V4h3V1h2v3h3v2H6v3H4z"
-              ></path>
+                d="M23 3c-6.62-.1-10.38 2.421-13.05 6.03C7.29 12.61 6 17.331 6 22h2c0-1.007.07-2.012.19-3H12c4.1 0 7.48-3.082 7.94-7.054C22.79 10.147 23.17 6.359 23 3zm-7 8h-1.5v2H16c.63-.016 1.2-.08 1.72-.188C16.95 15.24 14.68 17 12 17H8.55c.57-2.512 1.57-4.851 3-6.78 2.16-2.912 5.29-4.911 9.45-5.187C20.95 8.079 19.9 11 16 11zM4 9V6H1V4h3V1h2v3h3v2H6v3H4z"></path>
             </g>
           </svg>
         </Button>
       ) : (
         // For desktop version
         <Button
-        
-        onClick={() => {
-          dispatch(setModalPost(true));
-          dispatch(setContent(<Post avatarUrl={avatarUrl} />));
-        }}
+          onClick={() => {
+            dispatch(setModalPost(true));
+            dispatch(setContent(<Post avatarUrl={avatarUrl} />));
+          }}
           sx={{
             color: "#ffffff",
             boxShadow: "none",
@@ -215,16 +201,13 @@ const Sidebar = () => {
               boxShadow: "none",
               backgroundColor: "#1a8cd8",
             },
-          }}
-        >
+          }}>
           Post
         </Button>
       )}
-       {isActiveModal && (
-        <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />)}
+      {isActiveModal && <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />}
     </div>
   );
 };
-
 
 export default Sidebar;

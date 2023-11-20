@@ -4,7 +4,6 @@ import { NavLink, useLocation } from "react-router-dom";
 import styles from "./SidebarItem.module.scss";
 import classNames from "classnames";
 
-
 import { ReactComponent as HomeIcon } from "../../assets/svg/home.svg";
 import { ReactComponent as HomeIconFilled } from "../../assets/svg/home-filled.svg";
 import { ReactComponent as SearchIcon } from "../../assets/svg/search.svg";
@@ -28,7 +27,6 @@ const SidebarItem = () => {
     return location.pathname === path ? "active-link" : "";
   };
 
-  
   return (
     <div className={styles.sidebar}>
       <ul className={styles.sidebarList}>
@@ -42,8 +40,7 @@ const SidebarItem = () => {
             to="/"
             className={({ isActive }) =>
               classNames(styles.listLink, { [styles.active]: isActive })
-            }
-          >
+            }>
             {isActive("/") ? <HomeIconFilled /> : <HomeIcon />}
             <span className={styles.hideText}>Home</span>
           </NavLink>
@@ -53,8 +50,7 @@ const SidebarItem = () => {
             to="explore"
             className={({ isActive }) =>
               classNames(styles.listLink, { [styles.active]: isActive })
-            }
-          >
+            }>
             {isActive("/explore") ? <SearchIconFilled /> : <SearchIcon />}
             <span className={styles.hideText}>Explore</span>
           </NavLink>
@@ -64,8 +60,7 @@ const SidebarItem = () => {
             to="notifications"
             className={({ isActive }) =>
               classNames(styles.listLink, { [styles.active]: isActive })
-            }
-          >
+            }>
             {isActive("/notifications") ? (
               <NotificationIconFilled />
             ) : (
@@ -79,8 +74,7 @@ const SidebarItem = () => {
             to="messages"
             className={({ isActive }) =>
               classNames(styles.listLink, { [styles.active]: isActive })
-            }
-          >
+            }>
             {isActive("/messages") ? <MessageIconFilled /> : <MessageIcon />}
             <span className={styles.hideText}>Messages</span>
           </NavLink>
@@ -90,8 +84,7 @@ const SidebarItem = () => {
             to="lists"
             className={({ isActive }) =>
               classNames(styles.listLink, { [styles.active]: isActive })
-            }
-          >
+            }>
             {isActive("/lists") ? <ListIconFilled /> : <ListIcon />}
             <span className={styles.hideText}>Lists</span>
           </NavLink>
@@ -102,13 +95,8 @@ const SidebarItem = () => {
             to="communities"
             className={({ isActive }) =>
               classNames(styles.listLink, { [styles.active]: isActive })
-            }
-          >
-            {isActive("/communities") ? (
-              <CommunitiesIconFilled />
-            ) : (
-              <CommunitiesIcon />
-            )}
+            }>
+            {isActive("/communities") ? <CommunitiesIconFilled /> : <CommunitiesIcon />}
             <span className={styles.hideText}>Communities</span>
           </NavLink>
         </li>
@@ -117,8 +105,7 @@ const SidebarItem = () => {
             to="verified"
             className={({ isActive }) =>
               classNames(styles.listLink, { [styles.active]: isActive })
-            }
-          >
+            }>
             <TwitterIcon />
             <span className={styles.hideText}>Verified</span>
           </NavLink>
@@ -128,8 +115,7 @@ const SidebarItem = () => {
             to="profile"
             className={({ isActive }) =>
               classNames(styles.listLink, { [styles.active]: isActive })
-            }
-          >
+            }>
             {isActive("/profile") ? <ProfileIconFilled /> : <ProfileIcon />}
             <span className={styles.hideText}>Profile</span>
           </NavLink>

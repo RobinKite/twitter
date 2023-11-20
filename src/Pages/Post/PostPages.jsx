@@ -9,8 +9,7 @@ import Post from "../../Components/Post/Post";
 import ComentPost from "../../Components/ComentPost/ComentPost";
 import { useNavigate } from "react-router-dom";
 
-
-import { api, } from "../../service/api";
+import { api } from "../../service/api";
 import { compareByDate } from "../../utils/function";
 const HeaderPage = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -107,7 +106,6 @@ const PostPages = ({}) => {
     navigate(`/`, { replace: true });
   };
 
-  
   // Оновлення  додавання коментаря
   const updateComment = (newComment) => {
     setPostComments([...postComments, newComment]);
@@ -119,12 +117,7 @@ const PostPages = ({}) => {
     setPostComments(updatedComments);
   };
 
-
-  
-
-
-  
-// Код для сторінки PegesPost 
+  // Код для сторінки PegesPost
   useEffect(() => {
     if (isAuthenticated) {
       api
@@ -157,7 +150,6 @@ const PostPages = ({}) => {
         });
     }
   }, [isAuthenticated, id]);
-
 
   return (
     <>

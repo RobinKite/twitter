@@ -1,6 +1,6 @@
-import {GET_USER_INFO, LOGIN_USER} from "../types/userInfo";
-import {api} from "../../service/api";
-import {setAuthToken, setRefreshToken} from "../../utils/tokens";
+import { GET_USER_INFO, LOGIN_USER } from "../types/userInfo";
+import { api } from "../../service/api";
+import { setAuthToken, setRefreshToken } from "../../utils/tokens";
 export function getUser(data) {
   return {
     type: GET_USER_INFO,
@@ -24,7 +24,7 @@ export function GetUserAsync() {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      }
+      },
     );
     const userInfo = await response.json();
     console.log(userInfo);
@@ -33,17 +33,14 @@ export function GetUserAsync() {
   };
 }
 
-
 export const loginUser = (email, password) => (dispatch) => {
   const data = {
     email,
-    password
-  }
-  api.post('/auth/login', data)
-      .then(r => {
-        setAuthToken(r.data.access_token);
-        setRefreshToken(r.data.refresh_token);
-        dispatch(loginUserAction(r.data));
-      })
-}
-
+    password,
+  };
+  api.post("/auth/login", data).then((r) => {
+    setAuthToken(r.data.access_token);
+    setRefreshToken(r.data.refresh_token);
+    dispatch(loginUserAction(r.data));
+  });
+};

@@ -65,16 +65,13 @@ const ForgotPasswordForm = () => {
         (value) => {
           const phoneRegex = /^\+\d{1,3}[- ]?\d{6,}$/;
           const usernameRegex = /^[a-zA-Z\s]+$/;
-          const emailRegex =
-            /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+          const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 
           // Test if the value matches any of the allowed formats
           return (
-            phoneRegex.test(value) ||
-            usernameRegex.test(value) ||
-            emailRegex.test(value)
+            phoneRegex.test(value) || usernameRegex.test(value) || emailRegex.test(value)
           );
-        }
+        },
       ),
   });
 
@@ -84,8 +81,7 @@ const ForgotPasswordForm = () => {
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose}>
             <CloseButton style={{ height: "30px" }} />
@@ -100,8 +96,7 @@ const ForgotPasswordForm = () => {
             sx={{
               fontSize: 30,
               fontWeighta: 700,
-            }}
-          >
+            }}>
             Find your X account
           </Typography>
 
@@ -111,18 +106,16 @@ const ForgotPasswordForm = () => {
               mt: 2,
               color: "#536471",
               fontSize: 15,
-             marginBottom:5,
-            }}
-          >
-            Enter the email, phone number, or username associated with your
-            account to change your password.
+              marginBottom: 5,
+            }}>
+            Enter the email, phone number, or username associated with your account to
+            change your password.
           </Typography>
 
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
-            validationSchema={validationSchema}
-          >
+            validationSchema={validationSchema}>
             {({ errors, touched, isValid, submitForm }) => (
               <Form className={styles.form}>
                 <Field
@@ -135,9 +128,7 @@ const ForgotPasswordForm = () => {
                   fullWidth
                   required
                   error={touched.inputValue && Boolean(errors.inputValue)}
-                  helperText={touched.inputValue && errors.inputValue}
-                 
-                ></Field>
+                  helperText={touched.inputValue && errors.inputValue}></Field>
                 <Button
                   type="submit"
                   onClick={submitForm}
@@ -157,8 +148,7 @@ const ForgotPasswordForm = () => {
                       color: "#ffffff",
                       cursor: "not-allowed",
                     },
-                  }}
-                >
+                  }}>
                   Next
                 </Button>
               </Form>

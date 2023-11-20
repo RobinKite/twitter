@@ -29,8 +29,7 @@ function AppRoutes() {
           ) : (
             <Navigate to="/login" />
           )
-        }
-      >
+        }>
         <Route index element={<Home />} />
         <Route path="/explore" element={<div>Explore</div>} />
 
@@ -78,16 +77,9 @@ function AppRoutes() {
             <ExitLogin />
             <SignUpForm />
           </>
-        }
-      ></Route>
-      <Route
-        path="/forgotPasswordForm"
-        element={<ForgotPasswordForm />}
-      ></Route>
-      <Route
-        path="/login"
-        element={isLog ? <Navigate to="/" /> : <ExitLogin />}
-      />
+        }></Route>
+      <Route path="/forgotPasswordForm" element={<ForgotPasswordForm />}></Route>
+      <Route path="/login" element={isLog ? <Navigate to="/" /> : <ExitLogin />} />
     </Routes>
   );
 }

@@ -20,14 +20,13 @@ const createPostReducer = (state = initialState, action) => {
     case DELETE_COMMENT:
       const commentIdToDelete = action.payload;
       const updatedComments = state.postComments.filter(
-        (comment) => comment.id !== commentIdToDelete
+        (comment) => comment.id !== commentIdToDelete,
       );
       return {
         ...state,
         postComments: updatedComments,
       };
 
-    
     case DELETE_FROM_POST: {
       const postIdToDelete = action.payload; //  це id поста
       const newPosts = state.posts.filter((post) => post.id !== postIdToDelete);
@@ -43,16 +42,16 @@ const createPostReducer = (state = initialState, action) => {
         posts: [...state.posts, action.payload],
       };
 
-      case SET_POSTS:
-        const newPosts = action.payload;
-        const filteredNewPosts = newPosts.filter((newPost) => {
-          return !state.posts.some((existingPost) => existingPost.id === newPost.id);
-        });
-      
-        return {
-          ...state,
-          posts: [...state.posts, ...filteredNewPosts],
-        };
+    case SET_POSTS:
+      const newPosts = action.payload;
+      const filteredNewPosts = newPosts.filter((newPost) => {
+        return !state.posts.some((existingPost) => existingPost.id === newPost.id);
+      });
+
+      return {
+        ...state,
+        posts: [...state.posts, ...filteredNewPosts],
+      };
 
     // case SET_POSTS:
     //   const newPosts = action.payload;
@@ -86,34 +85,33 @@ const createPostReducer = (state = initialState, action) => {
 
 export default createPostReducer;
 
-
 // case LIKE_POST:
-    //   const { postId, likeCount } = action.payload;
-    //   const updatedPosts = state.posts.map((post) => {
-    //     if (post.id === postId) {
-    //       return {
-    //         ...post,
-    //         likeCount: likeCount,
-    //        liked:true
-    //       };
-    //     }
-    //     return post;
-    //   });
-    //   return {
-    //     ...state,
-    //     posts: updatedPosts,
-    //   };
-    //   case DISLIKE_POST:
-    //     return {
-    //       ...state,
-    //       posts: state.posts.map((post) => {
-    //         if (post.id === action.payload.postId) {
-    //           return {
-    //             ...post,
-    //             likeCount: action.payload.likeCount,
-    //             liked: action.payload.liked,
-    //           };
-    //         }
-    //         return post;
-    //       }),
-    //     };
+//   const { postId, likeCount } = action.payload;
+//   const updatedPosts = state.posts.map((post) => {
+//     if (post.id === postId) {
+//       return {
+//         ...post,
+//         likeCount: likeCount,
+//        liked:true
+//       };
+//     }
+//     return post;
+//   });
+//   return {
+//     ...state,
+//     posts: updatedPosts,
+//   };
+//   case DISLIKE_POST:
+//     return {
+//       ...state,
+//       posts: state.posts.map((post) => {
+//         if (post.id === action.payload.postId) {
+//           return {
+//             ...post,
+//             likeCount: action.payload.likeCount,
+//             liked: action.payload.liked,
+//           };
+//         }
+//         return post;
+//       }),
+//     };
