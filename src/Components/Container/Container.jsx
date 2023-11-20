@@ -1,20 +1,15 @@
-import classNames from "classnames";
-import Sidebar from "../Sidebar/Sidebar";
-import Main from "../Main/Main";
-import RightSideBar from "../RightSideBar/RightSideBar";
-import styles from "./Container.module.scss";
 import { Outlet } from "react-router-dom";
+import { Main, Header, Sidebar } from "../../components";
+import styles from "./Container.module.scss";
 
-const Container = () => {
+export const Container = () => {
   return (
-    <div className={classNames(styles.container)}>
-      <Sidebar />
+    <div className={styles.container}>
+      <Header />
       <Main>
         <Outlet />
       </Main>
-      <RightSideBar />
+      <Sidebar />
     </div>
   );
 };
-
-export default Container;

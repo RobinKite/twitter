@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import ModalUnFollow from "../ModalUnFollow/ModalUnFollow";
+import { useState } from "react";
+import { ModalUnFollow } from "../../components";
 import { FollowButtonStyled } from "./styleSX";
 
-const FollowButton = ({ initialIsFollowing, id }) => {
+export const FollowButton = ({ initialIsFollowing, id }) => {
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
   const [showModal, setShowModal] = useState(false);
 
@@ -17,10 +17,7 @@ const FollowButton = ({ initialIsFollowing, id }) => {
 
   return (
     <>
-      <FollowButtonStyled
-        variant="contained"
-        onClick={handleFollow}
-        isFollowing={isFollowing}>
+      <FollowButtonStyled variant="contained" onClick={handleFollow}>
         <p>{isFollowing ? "Following" : "Follow"}</p>
       </FollowButtonStyled>
 
@@ -34,5 +31,3 @@ const FollowButton = ({ initialIsFollowing, id }) => {
     </>
   );
 };
-
-export default FollowButton;

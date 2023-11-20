@@ -1,18 +1,24 @@
-import LabTabs from "../../Components/ProfileTabs";
 import TabPanel from "@mui/lab/TabPanel";
-import Post from "../../Components/Post/Post";
-import ItemPost from "../../Components/ItemPost/ItemPost";
-import React, { useState, useEffect } from "react";
-import { compareByDate } from "../../utils/function";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { Post, ProfileTabs, ItemPost } from "../../components";
 import { getPosts } from "../../redux/slices/postsSlice";
-import { useDispatch, shallowEqual } from "react-redux";
+import { compareByDate } from "../../utils";
+
+// import LabTabs from "../../Components/ProfileTabs";
+// import Post from "../../Components/Post/Post";
+// import ItemPost from "../../Components/ItemPost/ItemPost";
+// import React, { useState, useEffect } from "react";
+// import { compareByDate } from "../../utils/function";
+// import { useSelector } from "react-redux";
+// import { getPosts } from "../../redux/slices/postsSlice";
+// import { useDispatch, shallowEqual } from "react-redux";
 
 const tabs = [
   { label: "Following", value: "1" },
   // { label: "Following", value: "2" },
 ];
-const Home = () => {
+export const Home = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
@@ -74,7 +80,7 @@ const Home = () => {
     <>
       <h1>Home</h1>
       {/* <button onClick={addPost}></button> */}
-      <LabTabs
+      <ProfileTabs
         tabs={tabs}
         variant="scrollable"
         scrollButtons="auto"
@@ -105,8 +111,7 @@ const Home = () => {
           ))}
         </TabPanel>
         {/* <TabPanel value="2"></TabPanel> */}
-      </LabTabs>
+      </ProfileTabs>
     </>
   );
 };
-export default Home;

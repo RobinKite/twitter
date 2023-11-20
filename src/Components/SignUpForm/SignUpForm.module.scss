@@ -17,11 +17,13 @@
   height: 30px;
   padding-bottom: 30px;
 }
+
 .signUpBtn {
   display: "flex";
   gap: 15px;
   width: 320px;
 }
+
 .separator {
   display: flex;
   justify-content: space-between;
@@ -30,6 +32,7 @@
   color: #0f1419;
   font-size: 17px;
 }
+
 .separator::before {
   content: "";
   min-width: 130px;

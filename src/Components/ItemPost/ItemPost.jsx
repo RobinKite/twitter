@@ -1,26 +1,25 @@
-import React, { useState } from "react";
-import classNames from "classnames";
-import styles from "./ItemPost.module.scss";
+import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { IconButton } from "@mui/material";
-import { ReactComponent as View } from "./svg/view.svg";
-import { ReactComponent as Reply } from "./svg/reply.svg";
-import { ReactComponent as LikeFalse } from "./svg/likeFalse.svg";
-import { ReactComponent as Repost } from "./svg/repost.svg";
-import { ReactComponent as Share } from "./svg/share.svg";
-import { ReactComponent as Like } from "./svg/like.svg";
-import { ReactComponent as Delete } from "./svg/delete.svg";
-import PropTypes from "prop-types";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
-import ModalComentPost from "../ModalComentPost/ModalComentPost";
-import { api } from "../../service/api";
+import PropTypes from "prop-types";
+import { ModalCommentPost } from "../../components";
 import { deletePost } from "../../redux/slices/postsSlice";
+import { api } from "../../service/api";
+import { ReactComponent as View } from "../../assets/icons/view.svg";
+import { ReactComponent as Reply } from "../../assets/icons/reply.svg";
+import { ReactComponent as LikeFalse } from "../../assets/icons/likeFalse.svg";
+import { ReactComponent as Repost } from "../../assets/icons/repost.svg";
+import { ReactComponent as Share } from "../../assets/icons/share.svg";
+import { ReactComponent as Like } from "../../assets/icons/like.svg";
+import { ReactComponent as Delete } from "../../assets/icons/delete.svg";
+import styles from "./ItemPost.module.scss";
 
-const ItemPost = ({
+export function ItemPost({
   content,
   imageUrls,
   id,
@@ -32,9 +31,8 @@ const ItemPost = ({
   updateComment,
   avatarUrl,
   fullName,
-}) => {
+}) {
   const dispatch = useDispatch();
-  /////////////////Модалка коментаря поста
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -44,8 +42,7 @@ const ItemPost = ({
   const closeModal = () => {
     setModalIsOpen(false);
   };
-  // меню видалення з material.ui
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -53,7 +50,6 @@ const ItemPost = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // Видалення поста
   const handleDeletePost = () => {
     dispatch(deletePost(id));
     if (onPostDeleted) {
@@ -61,7 +57,6 @@ const ItemPost = ({
     }
   };
 
-  // /////////Навігація на роут поста
   const navigate = useNavigate();
 
   const redirectToPost = () => {
@@ -72,7 +67,6 @@ const ItemPost = ({
       redirectToPost();
     }
   };
-  ///////////// Передача Лайка
   const [isLiked, setIsLiked] = useState(liked);
   const [likeCountState, setLikeCount] = useState(likeCount);
 
@@ -111,9 +105,9 @@ const ItemPost = ({
 
   return (
     <div>
-      <div className={classNames(styles.tweet)} onClick={fonnClick}>
-        <div className={classNames(styles.tweetHeader)}>
-          <div className={classNames(styles.tweetAvatar)}>
+      <div className={styles.tweet} onClick={fonnClick}>
+        <div className={styles.tweetHeader}>
+          <div className={styles.tweetAvatar}>
             <Avatar
               sx={{
                 mt: 0,
@@ -124,8 +118,8 @@ const ItemPost = ({
               }}
               src={avatarUrl}
             />
-            <div className={classNames(styles.tweetUserInfo)}>
-              <span className={classNames(styles.tweetUsername)}>{fullName}</span>
+            <div className={styles.tweetUserInfo}>
+              <span className={styles.tweetUsername}>{fullName}</span>
             </div>
           </div>
           <div>
@@ -147,8 +141,8 @@ const ItemPost = ({
             </Menu>
           </div>
         </div>
-        <p className={classNames(styles.tweetContent)}>{content}</p>
-        <div className={classNames(styles.tweetImg)}>
+        <p className={styles.tweetContent}>{content}</p>
+        <div className={styles.tweetImg}>
           {imageUrls.map((imageUrl, index) => (
             <img
               key={index}
@@ -159,7 +153,7 @@ const ItemPost = ({
           ))}
         </div>
 
-        <div className={classNames(styles.tweetActions)}>
+        <div className={styles.tweetActions}>
           {!disable && (
             <>
               <div>
@@ -171,35 +165,31 @@ const ItemPost = ({
                   //     dispatch(setContent(<ComentPost id={id}/>));
                   // }}
                 >
-                  <Reply className={classNames(styles.tweetReply)} />
+                  <Reply className={styles.tweetReply} />
                 </IconButton>
                 <span>{replyCount}</span>
               </div>
               <IconButton>
-                <Repost className={classNames(styles.tweetRepost)} />
+                <Repost className={styles.tweetRepost} />
               </IconButton>
               <div>
                 <IconButton onClick={isLiked ? handleUnlike : handleLike}>
-                  {isLiked ? (
-                    <LikeFalse />
-                  ) : (
-                    <Like className={classNames(styles.tweetLike)} />
-                  )}
+                  {isLiked ? <LikeFalse /> : <Like className={styles.tweetLike} />}
                 </IconButton>
                 <span>{likeCountState}</span>
               </div>
               <IconButton>
-                <View className={classNames(styles.tweetReply)} />
+                <View className={styles.tweetReply} />
               </IconButton>
               <IconButton>
-                <Share className={classNames(styles.tweetReply)} />
+                <Share className={styles.tweetReply} />
               </IconButton>
             </>
           )}
         </div>
       </div>
 
-      <ModalComentPost
+      <ModalCommentPost
         isOpen={modalIsOpen}
         closeModal={closeModal}
         content={content}
@@ -213,7 +203,7 @@ const ItemPost = ({
       />
     </div>
   );
-};
+}
 
 ItemPost.propTypes = {
   content: PropTypes.string,
@@ -228,5 +218,3 @@ ItemPost.defaultProps = {
   avatarUrl: "",
   fullName: "",
 };
-
-export default ItemPost;

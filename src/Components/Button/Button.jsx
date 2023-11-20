@@ -1,10 +1,7 @@
-import React from "react";
-
-import PropTypes from "prop-types";
-import Button from "@mui/material/Button";
+import MuiButton from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 
-const ButtonStyled = styled(Button)(({ theme }) => ({
+export const Button = styled(MuiButton)(({ theme }) => ({
   height: "3em",
   minWidth: "20%",
   margin: 15,
@@ -17,20 +14,7 @@ const ButtonStyled = styled(Button)(({ theme }) => ({
   "&:hover": {
     backgroundColor: "#dadce0",
   },
-
-  // Медиазапрос для ширин меньше 480px
   [theme.breakpoints.down("sm")]: {
     fontSize: 14,
   },
 }));
-export default ButtonStyled;
-// Button.propTypes = {
-//   backgroundColor: PropTypes.string,
-//   text: PropTypes.string,
-//   onClick: PropTypes.func,
-// };
-
-// Button.defaultProps = {
-//   type: "button",
-//   onClick: () => {},
-// };

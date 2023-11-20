@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import { ReactComponent as TwiterLogo } from "../../Pages/ExitLogin/svg/twiterLogo.svg";
-import { ReactComponent as Apple } from "../../Pages/ExitLogin/svg/apple.svg";
-import { ReactComponent as Google } from "../../Pages/ExitLogin/svg/google.svg";
-import { ReactComponent as CloseButton } from "../LoginFormsModal/svg/Clos.svg";
-import { object, string } from "yup";
-
-import Button from "../Button/Button";
-
+import Box from "@mui/material/Box";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { object, string } from "yup";
+import { Button } from "../../components";
+import { ReactComponent as TwiterLogo } from "../../assets/icons/twiterLogo.svg";
+import { ReactComponent as Apple } from "../../assets/icons/apple.svg";
+import { ReactComponent as Google } from "../../assets/icons/google.svg";
+import { ReactComponent as CloseButton } from "../../assets/icons/close.svg";
 import styles from "./SignUpForm.module.scss";
 
 const style = {
@@ -22,7 +19,6 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "23%",
   height: "80%",
-
   bgcolor: "background.paper",
   border: 0,
   boxShadow: 24,
@@ -36,7 +32,7 @@ const style = {
   minHeight: "650px",
 };
 
-const SignUpForm = () => {
+export const SignUpForm = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -57,7 +53,7 @@ const SignUpForm = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    setOpen(false); // Close the current modal
+    setOpen(false);
     navigate("/registration");
   };
 
@@ -139,9 +135,7 @@ const SignUpForm = () => {
               color: "#536471",
             }}>
             Have an account already?{" "}
-            <Link
-              href="/login" // actual URL or route to  "Sign Up" page
-              color="primary">
+            <Link href="/login" color="primary">
               Log in
             </Link>
           </Typography>
@@ -150,4 +144,3 @@ const SignUpForm = () => {
     </div>
   );
 };
-export default SignUpForm;

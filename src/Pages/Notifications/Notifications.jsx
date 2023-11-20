@@ -1,8 +1,6 @@
-import classNames from "classnames";
-import styles from "./Notifications.module.scss";
-import LabTabs from "../../Components/ProfileTabs";
 import TabPanel from "@mui/lab/TabPanel";
-import AllNotifications from "../../Components/AllNotifications/AllNotifications";
+import { ProfileTabs, AllNotifications } from "../../components";
+import styles from "./Notifications.module.scss";
 
 const tabs = [
   { label: "All", value: "1" },
@@ -10,11 +8,11 @@ const tabs = [
   { label: "Mentions", value: "3" },
 ];
 
-const Notifications = () => {
+export const Notifications = () => {
   return (
-    <div className={classNames()}>
-      <h2 className={classNames(styles.title)}>Notifications</h2>
-      <LabTabs
+    <div>
+      <h2 className={styles.title}>Notifications</h2>
+      <ProfileTabs
         tabs={tabs}
         variant="scrollable"
         scrollButtons="auto"
@@ -28,9 +26,7 @@ const Notifications = () => {
         </TabPanel>
         <TabPanel value="2">Verified</TabPanel>
         <TabPanel value="3">Mentions</TabPanel>
-      </LabTabs>
+      </ProfileTabs>
     </div>
   );
 };
-
-export default Notifications;

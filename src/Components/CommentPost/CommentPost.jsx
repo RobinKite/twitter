@@ -1,16 +1,15 @@
 import { Avatar } from "@mui/material";
-import PermMediaIcon from "@mui/icons-material/PermMedia";
-import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
+import PermMediaIcon from "@mui/icons-material/PermMedia";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import EmojiPicker from "emoji-picker-react";
-import { Button } from "../../components";
-// import { addPosts } from "../../redux/slices/postsSlice";
-import { setModalPost } from "../../redux/slices/appSlice";
-import styles from "./Post.module.scss";
+import PropTypes from "prop-types";
+import { Button } from "..";
+import { api } from "../../service/api";
+import styles from "./CommentPost.module.scss";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -25,7 +24,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 const InputFieldCostum = styled(TextField)({
-  marginLeft: "70px",
+  marginLeft: "15px",
   width: "100%",
   height: "70%",
   cursor: "text",
@@ -36,35 +35,42 @@ const InputFieldCostum = styled(TextField)({
   },
 });
 
-export const Post = ({ avatarUrl }) => {
+export const CommentPost = ({
+  id,
+  closeModal,
+  updateComment,
+  setPostComments,
+  avatarUrl,
+  fullName,
+}) => {
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-
-  const dispatch = useDispatch();
-
-  // Створення обєкта з даними поста
-
   const formData = new FormData();
 
   const submit = () => {
     formData.append("body", inputStr);
-
-    formData.append("type", "TWEET");
+    formData.append("type", "REPLY");
+    formData.append("parentPostId", id);
 
     files.forEach((file) => {
       formData.append(`images`, file);
     });
 
-    // dispatch(addPosts(formData));
-
-    setInputStr("");
-    setFiles([]);
-
-    dispatch(setModalPost(false));
+    api
+      .post("posts/create", formData)
+      .then((response) => {
+        const responseDataComent = response.data;
+        updateComment(responseDataComent);
+        setInputStr("");
+        setFiles([]);
+        closeModal();
+      })
+      .catch((error) => {
+        console.error("Помилка отримання деталей поста:", error);
+      });
   };
 
-  // Відмалювання смайлів
   const onEmojiClick = (event, emojiObject) => {
     setInputStr((prevInput) => {
       return (prevInput += event.emoji);
@@ -76,20 +82,20 @@ export const Post = ({ avatarUrl }) => {
   return (
     <>
       <div>
-        <Avatar
-          sx={{
-            mt: 0,
-            ml: 1,
-            bgcolor: "rgb(8, 139, 226)",
-            width: 50,
-            height: 50,
-          }}
-          alt="Remy Sharp"
-          src={avatarUrl}
-        />
         <div className={styles.conteinerPost}>
+          <Avatar
+            sx={{
+              mt: 0,
+              ml: 1,
+              bgcolor: "rgb(8, 139, 226)",
+              width: 56,
+              height: 56,
+            }}
+            alt="Remy Sharp"
+            src={avatarUrl}
+          />
           <InputFieldCostum
-            placeholder="What is happening ?!"
+            placeholder="Post your reply "
             variant="standard"
             InputProps={{
               disableUnderline: true,
@@ -125,7 +131,7 @@ export const Post = ({ avatarUrl }) => {
               id="svg-element"
               color="primary"
               fontSize="large"
-              sx={{ "&:hover": { transform: "scale(1.3)" } }}
+              sx={{ height: "30px", "&:hover": { transform: "scale(1.3)" } }}
             />
             <VisuallyHiddenInput
               multiple
@@ -141,7 +147,11 @@ export const Post = ({ avatarUrl }) => {
             />
           </IconButton>
 
-          <IconButton component="label" onClick={() => setShowEmojiPicker((val) => !val)}>
+          <IconButton
+            component="label"
+            onClick={() => setShowEmojiPicker((val) => !val)}
+            // onChange={(e) => setInputStr(e.target.value)}
+          >
             <InsertEmoticonIcon
               color="primary"
               fontSize="large"
@@ -161,9 +171,19 @@ export const Post = ({ avatarUrl }) => {
             width: "17%",
             "&:hover": { backgroundColor: "rgb(26, 26, 172)" },
           }}>
-          Post
+          Reply
         </Button>
       </div>
     </>
   );
+};
+
+CommentPost.propTypes = {
+  closeModal: PropTypes.func,
+  updateComment: PropTypes.func,
+};
+
+CommentPost.defaultProps = {
+  closeModal: () => {},
+  updateComment: () => {},
 };

@@ -1,9 +1,6 @@
-import classNames from "classnames";
-import styles from "./Main.module.scss";
-import AppRoutes from "../../AppRoutes";
-const Main = ({ children }) => {
+export const Main = ({ children }) => {
   return (
-    <div className={classNames(styles.main)}>
+    <div>
       {/* <AppRoutes /> */}
       {children}
       {/* <h2>MAIN SECTION</h2>
@@ -11,5 +8,3 @@ const Main = ({ children }) => {
     </div>
   );
 };
-
-export default Main;

@@ -1,6 +1,5 @@
-import React from "react";
 import Avatar from "@mui/material/Avatar";
-import FollowButton from "../FollowButton/FollowButton";
+import { FollowButton } from "../../components";
 import { Stack, Typography } from "@mui/material";
 import {
   recommendedUserCardSX,
@@ -13,19 +12,19 @@ const usersToFollow = [
     id: "1",
     fullName: "Taras Karas",
     userTag: "tkaras",
-    avatarUrl: "https://example.com/avatar1.jpg",
+    avatarUrl: "/",
   },
   {
     id: "2",
     fullName: "Upra Kupra",
     userTag: "ukupra",
-    avatarUrl: "https://example.com/avatar2.jpg",
+    avatarUrl: "/",
   },
   {
     id: "3",
     fullName: "Dar bar",
     userTag: "dbar",
-    avatarUrl: "https://example.com/avatar3.jpg",
+    avatarUrl: "/",
   },
 ];
 
@@ -46,7 +45,7 @@ const RecommendedUserCard = ({ id, fullName, userTag, avatarUrl }) => {
   );
 };
 
-const RecommendedUsers = () => {
+export const RecommendedUsers = () => {
   return (
     <Stack sx={authorsContainerSX}>
       {usersToFollow.map((user, index) => (
@@ -55,5 +54,3 @@ const RecommendedUsers = () => {
     </Stack>
   );
 };
-
-export default RecommendedUsers;

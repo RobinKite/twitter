@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import RecommendedUsers from "../RecommendedUsers/RecommendedUsers";
 import { Link, Stack, Typography } from "@mui/material";
+import { RecommendedUsers } from "../../components";
 import { containerSX, showMoreSX, titleSX } from "./styleSX";
 
-const WhoToFollow = () => {
+export const WhoToFollow = () => {
   return (
     <Stack sx={containerSX}>
       <Typography variant="h2" sx={titleSX}>
@@ -16,5 +15,3 @@ const WhoToFollow = () => {
     </Stack>
   );
 };
-
-export default WhoToFollow;

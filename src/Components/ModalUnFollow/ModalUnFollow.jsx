@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Modal, Button, Typography } from "@mui/material";
+import { useState } from "react";
 import {
   ButtonCancell,
   ButtonContainer,
@@ -8,7 +8,7 @@ import {
   ModalContent,
 } from "./styleSX";
 
-const ModalUnFollow = ({ userTag }) => {
+export const ModalUnFollow = ({ userTag }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -20,17 +20,14 @@ const ModalUnFollow = ({ userTag }) => {
   };
 
   const handleUnfollow = () => {
-    // Add unfollow
     handleClose();
   };
 
   return (
     <>
-      {/* Delete after fix */}
       <Button variant="contained" color="primary" onClick={handleOpen}>
         Unfollow Modal
       </Button>
-      {/* ----------------------------- */}
 
       <Modal open={open} onClose={handleClose}>
         <ModalContainer>
@@ -59,5 +56,3 @@ const ModalUnFollow = ({ userTag }) => {
     </>
   );
 };
-
-export default ModalUnFollow;

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { Stack, TextField } from "@mui/material";
+import { useState } from "react";
 import { searchBarSX } from "./styleSX";
 
-const SearchBar = () => {
+export const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (e) => {
@@ -37,5 +37,3 @@ const SearchBar = () => {
     </Stack>
   );
 };
-
-export default SearchBar;

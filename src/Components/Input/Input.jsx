@@ -1,11 +1,9 @@
-import React from "react";
-import { useField } from "formik";
-import styles from "./input.module.scss";
 import { TextField } from "@mui/material";
+import { useField } from "formik";
+import styles from "./Input.module.scss";
 
-const Input = (props) => {
+export const Input = (props) => {
   const [fild, meta] = useField(props.name);
-  const { error, touched } = meta;
   return (
     <>
       <div className={styles.orderForm}>
@@ -20,5 +18,3 @@ const Input = (props) => {
     </>
   );
 };
-
-export default Input;

@@ -1,12 +1,10 @@
-import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Modal from "@mui/material/Modal";
-import { ReactComponent as Close } from "../LoginFormsModal/svg/Clos.svg";
-import classNames from "classnames";
-import styles from "./PostModal.module.scss";
-import { Box } from "@mui/system";
 import { styled } from "@mui/material";
+import { Box } from "@mui/system";
 import { setModalPost } from "../../redux/slices/appSlice";
+import { ReactComponent as Close } from "../../assets/icons/close.svg";
+import styles from "./PostModal.module.scss";
 
 export const ModalBody = styled(Box)(() => ({
   position: "absolute",
@@ -27,12 +25,14 @@ export const ModalBody = styled(Box)(() => ({
   borderRadius: 24,
   paddingLeft: 16,
   paddingRight: 16,
+
   "@media(max-width: 700px)": {
     minWidth: "100%",
     minHeight: "100%",
   },
 }));
-export default function PostModal(props) {
+
+export function PostModal(props) {
   const { isOpen } = props;
   const dispatch = useDispatch();
   const content = useSelector((state) => state.app.postModalContent);
@@ -44,17 +44,17 @@ export default function PostModal(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
         <ModalBody>
-          <div className={classNames(styles.close)}>
+          <div className={styles.close}>
             <Close
               onClick={() => {
                 if (isOpen) {
                   dispatch(setModalPost());
                 }
               }}
-              className={classNames(styles.clossvg)}
+              className={styles.clossvg}
             />
           </div>
-          <div className={classNames(styles.postInput)}>{content}</div>
+          <div className={styles.postInput}>{content}</div>
         </ModalBody>
       </Modal>
     </div>

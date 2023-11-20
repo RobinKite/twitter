@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
+import { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Box from "@mui/material/Box";
 import { Form, Formik, Field } from "formik";
-import Button from "../Button/Button";
-import { ReactComponent as TwiterLogo } from "../../Pages/ExitLogin/svg/twiterLogo.svg";
-import { ReactComponent as CloseButton } from "../LoginFormsModal/svg/Clos.svg";
-import styles from "./ForgotPassword.module.scss";
-import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { Button } from "../../components";
+import { ReactComponent as TwiterLogo } from "../../assets/icons/twiterLogo.svg";
+import { ReactComponent as CloseButton } from "../../assets/icons/close.svg";
+import styles from "./ForgotPasswordForm.module.scss";
 
 const style = {
   position: "absolute",
@@ -22,7 +17,6 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "30%",
   height: "80%",
-
   bgcolor: "background.paper",
   border: "0",
   boxShadow: 24,
@@ -36,7 +30,7 @@ const style = {
   minHeight: "650px",
 };
 
-const ForgotPasswordForm = () => {
+export const ForgotPasswordForm = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -159,4 +153,3 @@ const ForgotPasswordForm = () => {
     </div>
   );
 };
-export default ForgotPasswordForm;

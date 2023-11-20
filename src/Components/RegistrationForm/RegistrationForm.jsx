@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Button from "../Button/Button";
-import styles from "./RegistrationForm.module.scss";
-import TextField from "@mui/material/TextField";
-import { Form, Formik, Field } from "formik";
-import { ReactComponent as CloseButton } from "../LoginFormsModal/svg/Clos.svg";
-import * as Yup from "yup";
+import Box from "@mui/material/Box";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Form, Formik, Field } from "formik";
+import * as Yup from "yup";
+import { Button } from "../../components";
 import { setCreateProfileModal } from "../../redux/slices/appSlice";
+import { ReactComponent as CloseButton } from "../../assets/icons/close.svg";
+import styles from "./RegistrationForm.module.scss";
 
 const style = {
   position: "absolute",
@@ -37,7 +37,7 @@ const style = {
   minHeight: "650px",
 };
 
-const RegistrationForm = () => {
+export const RegistrationForm = () => {
   const isProfileModalActive = useSelector((state) => state.app.isProfileModalActive);
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
@@ -227,4 +227,3 @@ const RegistrationForm = () => {
     </div>
   );
 };
-export default RegistrationForm;
