@@ -2,6 +2,7 @@
   "name": "twitter",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -14,6 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.5.1",
     "classnames": "^2.3.2",
+    "clsx": "^2.0.0",
     "emoji-picker-react": "^4.5.2",
     "formik": "^2.4.5",
     "react": "^18.2.0",
@@ -21,18 +23,15 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.16.0",
-    "react-scripts": "^5.0.1",
     "redux": "^4.2.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.4.2",
-    "web-vitals": "^2.1.4",
     "yup": "^1.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build"
   },
   "eslintConfig": {
     "extends": [
@@ -53,7 +52,12 @@
     ]
   },
   "devDependencies": {
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@vitejs/plugin-react": "^4.2.0",
     "prettier": "^3.1.0",
-    "sass": "^1.68.0"
+    "sass": "^1.68.0",
+    "vite": "^5.0.0",
+    "vite-plugin-svgr": "^4.2.0"
   }
 }
