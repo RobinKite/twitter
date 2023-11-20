@@ -18,7 +18,7 @@ import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import ModalComentPost from "../ModalComentPost/ModalComentPost";
 import { api } from "../../service/api";
-import { deletePost } from "../../reduxToolkit/slices/postsSlice";
+import { deletePost } from "../../redux/slices/postsSlice";
 
 const ItemPost = ({
   content,

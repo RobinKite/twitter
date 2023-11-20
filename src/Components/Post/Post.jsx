@@ -10,7 +10,7 @@ import { styled } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import EmojiPicker from "emoji-picker-react";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
-import { setModalPost } from "../../reduxToolkit/slices/appSlice";
+import { setModalPost } from "../../redux/slices/appSlice";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",

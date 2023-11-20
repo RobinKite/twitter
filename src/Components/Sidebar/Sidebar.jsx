@@ -11,7 +11,7 @@ import { Select, MenuItem } from "@mui/material";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import { ReactComponent as MoreIcon } from "../../assets/svg/more.svg";
-import { setContent, setModalPost } from "../../reduxToolkit/slices/appSlice";
+import { setContent, setModalPost } from "../../redux/slices/appSlice";
 
 // const Sidebar = () => {
 //   const posts = useSelector((state) => state.posts.posts);

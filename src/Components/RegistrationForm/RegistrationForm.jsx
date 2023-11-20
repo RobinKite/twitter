@@ -14,7 +14,7 @@ import { ReactComponent as CloseButton } from "../LoginFormsModal/svg/Clos.svg";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setCreateProfileModal } from "../../reduxToolkit/slices/appSlice";
+import { setCreateProfileModal } from "../../redux/slices/appSlice";
 
 const style = {
   position: "absolute",

@@ -6,7 +6,7 @@ import classNames from "classnames";
 import styles from "./PostModal.module.scss";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material";
-import { setModalPost } from "../../reduxToolkit/slices/appSlice";
+import { setModalPost } from "../../redux/slices/appSlice";
 
 export const ModalBody = styled(Box)(() => ({
   position: "absolute",

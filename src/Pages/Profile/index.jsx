@@ -8,7 +8,7 @@ import { Box, styled, Typography, Container, Button, Modal } from "@mui/material
 import LabTabs from "../../Components/ProfileTabs";
 import TabPanel from "@mui/lab/TabPanel";
 import UserFoto from "../../Components/UserFoto";
-import { getPosts } from "../../reduxToolkit/slices/postsSlice";
+import { getPosts } from "../../redux/slices/postsSlice";
 
 const tabs = [
   { label: "Post", value: "1" },

@@ -16,7 +16,7 @@ import classNames from "classnames";
 import ButtonStyled from "../Button/Button";
 import Button from "../Button/Button";
 import { useDispatch } from "react-redux";
-import { setModal } from "../../reduxToolkit/slices/appSlice";
+import { setModal } from "../../redux/slices/appSlice";
 
 import { useNavigate } from "react-router";
 

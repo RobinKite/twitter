@@ -5,7 +5,7 @@ import ItemPost from "../../Components/ItemPost/ItemPost";
 import React, { useState, useEffect } from "react";
 import { compareByDate } from "../../utils/function";
 import { useSelector } from "react-redux";
-import { getPosts } from "../../reduxToolkit/slices/postsSlice";
+import { getPosts } from "../../redux/slices/postsSlice";
 import { useDispatch, shallowEqual } from "react-redux";
 
 const tabs = [

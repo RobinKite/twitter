@@ -3,7 +3,7 @@ import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import BasicModal from "./Components/LoginFormsModal/LoginForm";
 import AppRoutes from "./AppRoutes";
-import { loginUser } from "./reduxToolkit/slices/userSlice";
+import { loginUser } from "./redux/slices/userSlice";
 
 function App() {
   const isLoginModalOpen = useSelector((state) => state.app.isLoginModalActive);

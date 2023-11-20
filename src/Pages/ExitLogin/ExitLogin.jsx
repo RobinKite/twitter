@@ -9,7 +9,7 @@ import { ReactComponent as Google } from "./svg/google.svg";
 import { useDispatch } from "react-redux";
 
 import ButtonStyled from "../../Components/Button/Button";
-import { setCreateProfileModal, setModal } from "../../reduxToolkit/slices/appSlice";
+import { setCreateProfileModal, setModal } from "../../redux/slices/appSlice";
 
 const ExitLogin = ({ setIsLog, isLog }) => {
   const dispatch = useDispatch();
