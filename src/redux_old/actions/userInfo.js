@@ -15,7 +15,7 @@ export function loginUserAction(data) {
   };
 }
 
-export function GetUserAsync() {
+export function getUserAsync() {
   return async function (dispatch) {
     const response = await fetch(
       `https://danit-final-twitter-8f32e99a3dec.herokuapp.com/users/profile`,
@@ -34,13 +34,17 @@ export function GetUserAsync() {
 }
 
 export const loginUser = (email, password) => (dispatch) => {
-  const data = {
-    email,
-    password,
-  };
-  api.post("/auth/login", data).then((r) => {
-    setAuthToken(r.data.access_token);
-    setRefreshToken(r.data.refresh_token);
-    dispatch(loginUserAction(r.data));
-  });
+  api
+    .post(
+      "/auth/login",
+      JSON.stringify({
+        email,
+        password,
+      }),
+    )
+    .then((r) => {
+      setAuthToken(r.data.access_token);
+      setRefreshToken(r.data.refresh_token);
+      dispatch(loginUserAction(r.data));
+    });
 };

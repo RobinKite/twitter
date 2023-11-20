@@ -4,23 +4,16 @@ import Modal from "@mui/material/Modal";
 
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import { Form, Formik } from "formik";
-import Input from "../Input/Input";
 import { ReactComponent as TwiterLogo } from "../../Pages/ExitLogin/svg/twiterLogo.svg";
 import { ReactComponent as Apple } from "../../Pages/ExitLogin/svg/apple.svg";
 import { ReactComponent as Google } from "../../Pages/ExitLogin/svg/google.svg";
 import { ReactComponent as CloseButton } from "../LoginFormsModal/svg/Clos.svg";
 import { object, string } from "yup";
 
-import classNames from "classnames";
-
 import Button from "../Button/Button";
-import { useSelector, useDispatch } from "react-redux";
-import { setModal } from "../../redux/actions/modalLogin";
 
 import { useNavigate } from "react-router";
 import styles from "./SignUpForm.module.scss";
-import { display } from "@mui/system";
 
 const style = {
   position: "absolute",

@@ -21,7 +21,7 @@ const HeaderPage = styled(Box)(({ theme }) => ({
 const PostPages = ({}) => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const [postDetails, setPostDetails] = useState(null);
   const [postComments, setPostComments] = useState([]);
   // console.log(postComments);
@@ -57,7 +57,7 @@ const PostPages = ({}) => {
   //     api
   //       .get(`posts/replies?postId=${id}&page=${currentPage + 1}&pageSize=${5}`)
   //       .then((response) => {
-  //         const newComments = response.data.content;
+  //         const newComments = response.data.;
 
   //         if (newComments.length > 0) {
   //           setPostComments((prevComments) => [...prevComments, ...newComments]);

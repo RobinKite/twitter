@@ -1,24 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
-
-import { useSelector, useDispatch } from "react-redux";
-import LoginForm from "./Components/LoginFormsModal/LoginForm";
+import { useDispatch, useSelector } from "react-redux";
 import BasicModal from "./Components/LoginFormsModal/LoginForm";
-import Container from "./Components/Container/Container";
 import AppRoutes from "./AppRoutes";
+import { loginUser } from "./reduxToolkit/slices/userSlice";
 
 function App() {
+  const isLoginModalOpen = useSelector((state) => state.app.isLoginModalActive);
   const dispatch = useDispatch();
-  const firstModalOpen = useSelector((state) => state.loginModal.isActive);
 
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
+  useEffect(() => {
+    // dispatch(loginUser("user2@gmail.com", "2222"));
+  }, []);
   return (
     <div className="App">
       <AppRoutes />
 
-      {firstModalOpen && <BasicModal open={firstModalOpen} />}
+      {isLoginModalOpen && <BasicModal open={isLoginModalOpen} />}
     </div>
   );
 }

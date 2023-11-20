@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
@@ -14,7 +14,7 @@ import { ReactComponent as CloseButton } from "../LoginFormsModal/svg/Clos.svg";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setModal, setCreateProfileModal } from "../../redux/actions/modalLogin";
+import { setCreateProfileModal } from "../../reduxToolkit/slices/appSlice";
 
 const style = {
   position: "absolute",
@@ -38,7 +38,7 @@ const style = {
 };
 
 const RegistrationForm = () => {
-  const { isActiveProfileModal } = useSelector((state) => state.loginModal);
+  const isProfileModalActive = useSelector((state) => state.app.isProfileModalActive);
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -88,7 +88,7 @@ const RegistrationForm = () => {
   return (
     <div>
       <Modal
-        open={isActiveProfileModal}
+        open={isProfileModalActive}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">

@@ -15,8 +15,8 @@ import { object, string } from "yup";
 import classNames from "classnames";
 import ButtonStyled from "../Button/Button";
 import Button from "../Button/Button";
-import { useSelector, useDispatch } from "react-redux";
-import { setModal } from "../../redux/actions/modalLogin";
+import { useDispatch } from "react-redux";
+import { setModal } from "../../reduxToolkit/slices/appSlice";
 
 import { useNavigate } from "react-router";
 

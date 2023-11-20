@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
 import styles from "./ItemPost.module.scss";
 import Avatar from "@mui/material/Avatar";
@@ -13,12 +13,12 @@ import { ReactComponent as Share } from "./svg/share.svg";
 import { ReactComponent as Like } from "./svg/like.svg";
 import { ReactComponent as Delete } from "./svg/delete.svg";
 import PropTypes from "prop-types";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useDispatch } from "react-redux";
 import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
-import { deletePost, getPosts } from "../../redux/actions/createPost";
 import ModalComentPost from "../ModalComentPost/ModalComentPost";
 import { api } from "../../service/api";
+import { deletePost } from "../../reduxToolkit/slices/postsSlice";
 
 const ItemPost = ({
   content,
@@ -153,7 +153,7 @@ const ItemPost = ({
             <img
               key={index}
               src={imageUrl}
-              alt={`Image ${index}`}
+              alt={`${index}`}
               style={{ width: "220px", objectFit: "cover" }}
             />
           ))}
@@ -169,7 +169,6 @@ const ItemPost = ({
                   //   // const postId = id;
                   //     dispatch(setModalComent());
                   //     dispatch(setContent(<ComentPost id={id}/>));
-
                   // }}
                 >
                   <Reply className={classNames(styles.tweetReply)} />

@@ -1,4 +1,3 @@
-import styles from "./Home.module.scss";
 import LabTabs from "../../Components/ProfileTabs";
 import TabPanel from "@mui/lab/TabPanel";
 import Post from "../../Components/Post/Post";
@@ -6,7 +5,7 @@ import ItemPost from "../../Components/ItemPost/ItemPost";
 import React, { useState, useEffect } from "react";
 import { compareByDate } from "../../utils/function";
 import { useSelector } from "react-redux";
-import { getPosts } from "../../redux/actions/createPost";
+import { getPosts } from "../../reduxToolkit/slices/postsSlice";
 import { useDispatch, shallowEqual } from "react-redux";
 
 const tabs = [
@@ -15,7 +14,7 @@ const tabs = [
 ];
 const Home = () => {
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
 
@@ -70,7 +69,7 @@ const Home = () => {
   //   }
   // }, [isAuthenticated]);
 
-  if (!isAuthenticated) return "Завантаження";
+  if (!isAuthenticated) return "Loading posts";
   return (
     <>
       <h1>Home</h1>

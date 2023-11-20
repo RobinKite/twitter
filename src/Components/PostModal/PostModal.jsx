@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setModalPost } from "../../redux/actions/modalPost";
 import Modal from "@mui/material/Modal";
 import { ReactComponent as Close } from "../LoginFormsModal/svg/Clos.svg";
 import classNames from "classnames";
 import styles from "./PostModal.module.scss";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material";
+import { setModalPost } from "../../reduxToolkit/slices/appSlice";
 
 export const ModalBody = styled(Box)(() => ({
   position: "absolute",
@@ -35,7 +35,7 @@ export const ModalBody = styled(Box)(() => ({
 export default function PostModal(props) {
   const { isOpen } = props;
   const dispatch = useDispatch();
-  const content = useSelector((state) => state.postModal.content);
+  const content = useSelector((state) => state.app.postModalContent);
 
   return (
     <div>

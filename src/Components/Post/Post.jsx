@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import { useSelector, useDispatch } from "react-redux";
-import { addPost, addPosts, updateTweet } from "../../redux/actions/createPost";
-import { closeModal, setModal, setModalPost } from "../../redux/actions/modalPost";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Avatar } from "@mui/material";
 import styles from "./Post.module.scss";
 import classNames from "classnames";
@@ -13,7 +10,7 @@ import { styled } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import EmojiPicker from "emoji-picker-react";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
-import { api } from "../../service/api";
+import { setModalPost } from "../../reduxToolkit/slices/appSlice";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -59,7 +56,7 @@ const Post = ({ avatarUrl }) => {
       formData.append(`images`, file);
     });
 
-    dispatch(addPosts(formData));
+    // dispatch(addPosts(formData));
 
     setInputStr("");
     setFiles([]);

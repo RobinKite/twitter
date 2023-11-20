@@ -6,9 +6,10 @@ import classNames from "classnames";
 import { ReactComponent as TwiterLogo } from "./svg/twiterLogo.svg";
 import { ReactComponent as Apple } from "./svg/apple.svg";
 import { ReactComponent as Google } from "./svg/google.svg";
-import { useSelector, useDispatch } from "react-redux";
-import { setModal, setCreateProfileModal } from "../../redux/actions/modalLogin";
+import { useDispatch } from "react-redux";
+
 import ButtonStyled from "../../Components/Button/Button";
+import { setCreateProfileModal, setModal } from "../../reduxToolkit/slices/appSlice";
 
 const ExitLogin = ({ setIsLog, isLog }) => {
   const dispatch = useDispatch();

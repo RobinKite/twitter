@@ -50,7 +50,7 @@ const ComentPost = ({
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const { isAuthenticated } = useSelector((state) => state.user);
+  // const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   const dispatch = useDispatch();
 

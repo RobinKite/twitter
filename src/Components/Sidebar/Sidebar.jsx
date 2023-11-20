@@ -2,20 +2,16 @@ import React, { useState } from "react";
 import styles from "./Sidebar.module.scss";
 import PostModal from "../PostModal/PostModal";
 import { useSelector, useDispatch } from "react-redux";
-import { setModalPost, setContent } from "../../redux/actions/modalPost";
 import Button from "@mui/material/Button";
 import Post from "../Post/Post";
-// import { useState } from "react";
 import { Link } from "react-router-dom";
 import SidebarItem from "../SidebarItem/SidebarItem";
-// import Button from "../Button/Button";
 import { useMediaQuery } from "@mui/material";
-
 import { Select, MenuItem } from "@mui/material";
-
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import { ReactComponent as MoreIcon } from "../../assets/svg/more.svg";
+import { setContent, setModalPost } from "../../reduxToolkit/slices/appSlice";
 
 // const Sidebar = () => {
 //   const posts = useSelector((state) => state.posts.posts);
@@ -30,7 +26,7 @@ import { ReactComponent as MoreIcon } from "../../assets/svg/more.svg";
 const Sidebar = () => {
   const posts = useSelector((state) => state.posts.posts);
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
-  const isActiveModal = useSelector((state) => state.postModal.isActiveSetModal);
+  const isActiveModal = useSelector((state) => state.app.isPostModalActive);
   const dispatch = useDispatch();
 
   const isMobile = useMediaQuery("(max-width: 1280px)");

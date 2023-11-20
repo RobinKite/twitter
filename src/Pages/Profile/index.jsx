@@ -8,7 +8,8 @@ import { Box, styled, Typography, Container, Button, Modal } from "@mui/material
 import LabTabs from "../../Components/ProfileTabs";
 import TabPanel from "@mui/lab/TabPanel";
 import UserFoto from "../../Components/UserFoto";
-import { getPosts } from "../../redux/actions/createPost";
+import { getPosts } from "../../reduxToolkit/slices/postsSlice";
+
 const tabs = [
   { label: "Post", value: "1" },
   { label: "Replies", value: "2" },
@@ -60,7 +61,7 @@ export default function Profile() {
   const handleClose = () => setOpen(false);
   // const [content, setContent] = useState(null);
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const posts = useSelector((state) => state.posts.posts);
 
   // Скрол постів infinite scroll   //////////////////////////////////////////////////////////////
@@ -129,7 +130,7 @@ export default function Profile() {
             {/* <button onClick={() => dispatch(PostAuthorizationAsync(formData))}>
               test
             </button>
-            <button onClick={() => dispatch(GetUserAsync())}>test2</button> */}
+            <button onClick={() => dispatch(getUserAsync())}>test2</button> */}
           </ContainerHederText>
         </HeaderPage>
         <UserFoto changeIcon={false} />
