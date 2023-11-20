@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 import { Button } from "..";
-import { ReactComponent as TwiterLogo } from "../../assets/icons/twiterLogo.svg";
-import { ReactComponent as CloseButton } from "../../assets/icons/close.svg";
+import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
+import CloseButton from "../../assets/icons/close.svg?react";
 import styles from "./PasswordFormModal.module.scss";
 
 const style = {

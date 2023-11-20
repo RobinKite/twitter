@@ -10,13 +10,13 @@ import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
 import { deletePost } from "../../redux/slices/postsSlice";
 import { api } from "../../service/api";
-import { ReactComponent as View } from "../../assets/icons/view.svg";
-import { ReactComponent as Reply } from "../../assets/icons/reply.svg";
-import { ReactComponent as LikeFalse } from "../../assets/icons/likeFalse.svg";
-import { ReactComponent as Repost } from "../../assets/icons/repost.svg";
-import { ReactComponent as Share } from "../../assets/icons/share.svg";
-import { ReactComponent as Like } from "../../assets/icons/like.svg";
-import { ReactComponent as Delete } from "../../assets/icons/delete.svg";
+import View from "../../assets/icons/view.svg?react";
+import Reply from "../../assets/icons/reply.svg?react";
+import LikeFalse from "../../assets/icons/likeFalse.svg?react";
+import Repost from "../../assets/icons/repost.svg?react";
+import Share from "../../assets/icons/share.svg?react";
+import Like from "../../assets/icons/like.svg?react";
+import Delete from "../../assets/icons/delete.svg?react";
 import styles from "./ItemPost.module.scss";
 
 export function ItemPost({

@@ -6,8 +6,8 @@ import Box from "@mui/material/Box";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 import { Button } from "../../components";
-import { ReactComponent as TwiterLogo } from "../../assets/icons/twiterLogo.svg";
-import { ReactComponent as CloseButton } from "../../assets/icons/close.svg";
+import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
+import CloseButton from "../../assets/icons/close.svg?react";
 import styles from "./ForgotPasswordForm.module.scss";
 
 const style = {

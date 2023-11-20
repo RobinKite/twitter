@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Post, PostModal, Navigation } from "../../components";
 import { setModalPost, setContent } from "../../redux/slices/appSlice";
-import { ReactComponent as MoreIcon } from "../../assets/icons/more.svg";
+import MoreIcon from "../../assets/icons/more.svg?react";
 import styles from "./Header.module.scss";
 
 // const Sidebar = () => {
@@ -19,7 +19,7 @@ import styles from "./Header.module.scss";
 //   );
 //   const dispatch = useDispatch();
 
-// import { ReactComponent as MoreIconFilled } from "../../assets/svg/more-filled.svg";
+// import MoreIconFilled from "../../assets/svg/more-filled.svg?react";
 
 export const Header = () => {
   const posts = useSelector((state) => state.posts.posts);

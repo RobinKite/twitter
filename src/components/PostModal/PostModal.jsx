@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import { styled } from "@mui/material";
 import { Box } from "@mui/system";
 import { setModalPost } from "../../redux/slices/appSlice";
-import { ReactComponent as Close } from "../../assets/icons/close.svg";
+import Close from "../../assets/icons/close.svg?react";
 import styles from "./PostModal.module.scss";
 
 export const ModalBody = styled(Box)(() => ({

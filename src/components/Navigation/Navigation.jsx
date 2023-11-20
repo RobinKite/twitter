@@ -1,20 +1,20 @@
 import { NavLink, useLocation } from "react-router-dom";
 import classNames from "classnames";
-import { ReactComponent as TwitterIcon } from "../../assets/icons/twitter.svg";
-import { ReactComponent as HomeIcon } from "../../assets/icons/home.svg";
-import { ReactComponent as HomeIconFilled } from "../../assets/icons/home-filled.svg";
-import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
-import { ReactComponent as SearchIconFilled } from "../../assets/icons/search-filled.svg";
-import { ReactComponent as ProfileIcon } from "../../assets/icons/profile.svg";
-import { ReactComponent as ProfileIconFilled } from "../../assets/icons/profile-filled.svg";
-import { ReactComponent as NotificationIcon } from "../../assets/icons/notifications.svg";
-import { ReactComponent as NotificationIconFilled } from "../../assets/icons/notifications-filled.svg";
-import { ReactComponent as MessageIcon } from "../../assets/icons/message.svg";
-import { ReactComponent as MessageIconFilled } from "../../assets/icons/message-filled.svg";
-import { ReactComponent as ListIcon } from "../../assets/icons/list.svg";
-import { ReactComponent as ListIconFilled } from "../../assets/icons/list-filled.svg";
-import { ReactComponent as CommunitiesIcon } from "../../assets/icons/communities.svg";
-import { ReactComponent as CommunitiesIconFilled } from "../../assets/icons/communities-filled.svg";
+import TwitterIcon from "../../assets/icons/twitter.svg?react";
+import HomeIcon from "../../assets/icons/home.svg?react";
+import HomeIconFilled from "../../assets/icons/home-filled.svg?react";
+import SearchIcon from "../../assets/icons/search.svg?react";
+import SearchIconFilled from "../../assets/icons/search-filled.svg?react";
+import ProfileIcon from "../../assets/icons/profile.svg?react";
+import ProfileIconFilled from "../../assets/icons/profile-filled.svg?react";
+import NotificationIcon from "../../assets/icons/notifications.svg?react";
+import NotificationIconFilled from "../../assets/icons/notifications-filled.svg?react";
+import MessageIcon from "../../assets/icons/message.svg?react";
+import MessageIconFilled from "../../assets/icons/message-filled.svg?react";
+import ListIcon from "../../assets/icons/list.svg?react";
+import ListIconFilled from "../../assets/icons/list-filled.svg?react";
+import CommunitiesIcon from "../../assets/icons/communities.svg?react";
+import CommunitiesIconFilled from "../../assets/icons/communities-filled.svg?react";
 import styles from "./Navigation.module.scss";
 
 export const Navigation = () => {

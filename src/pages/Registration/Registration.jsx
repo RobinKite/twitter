@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
 import { Footer, Button } from "../../components";
 import { setCreateProfileModal, setModal } from "../../redux/slices/appSlice";
-import { ReactComponent as TwiterLogo } from "../../assets/icons/twiterLogo.svg";
-import { ReactComponent as Apple } from "../../assets/icons/apple.svg";
-import { ReactComponent as Google } from "../../assets/icons/google.svg";
+import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
+import Apple from "../../assets/icons/apple.svg?react";
+import Google from "../../assets/icons/google.svg?react";
 import styles from "./Registration.module.scss";
 
 export const Registration = ({ setIsLog, isLog }) => {

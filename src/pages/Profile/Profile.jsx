@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "../../components";
 import { getPosts } from "../../redux/slices/postsSlice";
 import { compareByDate } from "../../utils";
-import { ReactComponent as ArrowBack } from "../../assets/icons/arrow.svg";
+import ArrowBack from "../../assets/icons/arrow.svg?react";
 
 const tabs = [
   { label: "Post", value: "1" },

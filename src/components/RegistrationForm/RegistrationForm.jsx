@@ -13,7 +13,7 @@ import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 import { Button } from "../../components";
 import { setCreateProfileModal } from "../../redux/slices/appSlice";
-import { ReactComponent as CloseButton } from "../../assets/icons/close.svg";
+import CloseButton from "../../assets/icons/close.svg?react";
 import styles from "./RegistrationForm.module.scss";
 
 const style = {

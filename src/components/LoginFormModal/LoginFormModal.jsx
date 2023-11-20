@@ -9,10 +9,10 @@ import { Form, Formik } from "formik";
 import { object, string } from "yup";
 import { Button, Input } from "../../components";
 import { setModal } from "../../redux/slices/appSlice";
-import { ReactComponent as TwiterLogo } from "../../assets/icons/twiterLogo.svg";
-import { ReactComponent as Apple } from "../../assets/icons/apple.svg";
-import { ReactComponent as Google } from "../../assets/icons/google.svg";
-import { ReactComponent as Close } from "../../assets/icons/close.svg";
+import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
+import Apple from "../../assets/icons/apple.svg?react";
+import Google from "../../assets/icons/google.svg?react";
+import Close from "../../assets/icons/close.svg?react";
 import styles from "./LoginFormModal.module.scss";
 
 const style = {

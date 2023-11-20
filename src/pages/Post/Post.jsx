@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CommentPost, ItemPost } from "../../components";
 import { api } from "../../service/api";
 import { compareByDate } from "../../utils";
-import { ReactComponent as ArrowBack } from "../../assets/icons/arrow.svg";
+import ArrowBack from "../../assets/icons/arrow.svg?react";
 
 const HeaderPage = styled(Box)(({ theme }) => ({
   display: "flex",

@@ -6,10 +6,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { object, string } from "yup";
 import { Button } from "../../components";
-import { ReactComponent as TwiterLogo } from "../../assets/icons/twiterLogo.svg";
-import { ReactComponent as Apple } from "../../assets/icons/apple.svg";
-import { ReactComponent as Google } from "../../assets/icons/google.svg";
-import { ReactComponent as CloseButton } from "../../assets/icons/close.svg";
+import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
+import Apple from "../../assets/icons/apple.svg?react";
+import Google from "../../assets/icons/google.svg?react";
+import CloseButton from "../../assets/icons/close.svg?react";
 import styles from "./SignUpForm.module.scss";
 
 const style = {

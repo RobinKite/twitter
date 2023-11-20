@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
 import { CommentPost, ItemPost } from "..";
-import { ReactComponent as Close } from "../../assets/icons/close.svg";
+import Close from "../../assets/icons/close.svg?react";
 import styles from "../PostModal/PostModal.module.scss";
 
 export const ModalBody = styled(Box)(() => ({
