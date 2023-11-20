@@ -1,9 +1,12 @@
 import React from "react";
 import Avatar from "@mui/material/Avatar";
 import FollowButton from "../FollowButton/FollowButton";
-import Typography from "@mui/material/Typography";
-import classNames from "classnames";
-import styles from "./RecommendedUsers.module.scss";
+import { Stack, Typography } from "@mui/material";
+import {
+  recommendedUserCardSX,
+  recommendedUserInfoSX,
+  authorsContainerSX,
+} from "./styleSX";
 
 const usersToFollow = [
   {
@@ -28,28 +31,28 @@ const usersToFollow = [
 
 const RecommendedUserCard = ({ id, fullName, userTag, avatarUrl }) => {
   return (
-    <div className={classNames(styles.RecommendedUserCard)}>
+    <Stack sx={recommendedUserCardSX}>
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
-      <div className={classNames(styles.RecommendedUserInfo)}>
+      <Stack sx={recommendedUserInfoSX}>
         <Typography variant="subtitle1" component="div">
           {fullName}
         </Typography>
         <Typography variant="body2" color="textSecondary">
           @{userTag}
         </Typography>
-      </div>
+      </Stack>
       <FollowButton id={id} />
-    </div>
+    </Stack>
   );
 };
 
 const RecommendedUsers = () => {
   return (
-    <div className={classNames(styles.authorsContainer)}>
+    <Stack sx={authorsContainerSX}>
       {usersToFollow.map((user, index) => (
         <RecommendedUserCard key={index} {...user} id={user.id} />
       ))}
-    </div>
+    </Stack>
   );
 };
 

@@ -1,14 +1,14 @@
-import classNames from "classnames";
 import SearchBar from "../SearchBar/SearchBar";
 import WhoToFollow from "../WhoToFollow/WhoToFollow";
-import styles from "./RightSideBar.module.scss";
+import { Stack } from "@mui/material";
+import { rightSideBarSX } from "./styleSX";
 
 const RightSideBar = () => {
   return (
-    <div className={classNames(styles.rightSideBar)}>
+    <Stack sx={rightSideBarSX}>
       <SearchBar />
       <WhoToFollow />
-    </div>
+    </Stack>
   );
 };
 
