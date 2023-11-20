@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import classNames from "classnames";
-import styles from "./WhoToFollow.module.scss";
 import RecommendedUsers from "../RecommendedUsers/RecommendedUsers";
+import { Link, Stack, Typography } from "@mui/material";
+import { containerSX, showMoreSX, titleSX } from "./styleSX";
 
 const WhoToFollow = () => {
   return (
-    <div className={classNames(styles.container)}>
-      <h2 className={classNames(styles.title)}>Who to follow</h2>
+    <Stack sx={containerSX}>
+      <Typography variant="h2" sx={titleSX}>
+        Who to follow
+      </Typography>
       <RecommendedUsers />
-      <div className={classNames(styles.showMore)}>
-        <a href="#">Show more</a>
-      </div>
-    </div>
+      <Stack sx={showMoreSX}>
+        <Link href="#">Show more</Link>
+      </Stack>
+    </Stack>
   );
 };
 

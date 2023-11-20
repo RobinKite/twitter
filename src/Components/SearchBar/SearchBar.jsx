@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import classNames from "classnames";
-import styles from "./SearchBar.module.scss";
-import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
+import { Stack, TextField } from "@mui/material";
+import { searchBarSX } from "./styleSX";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,7 +17,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className={classNames(styles.searchbar)}>
+    <Stack sx={searchBarSX}>
       <form onSubmit={handleSearch}>
         <TextField
           variant="outlined"
@@ -35,7 +34,7 @@ const SearchBar = () => {
           inputProps={{ style: inputStyle }}
         />
       </form>
-    </div>
+    </Stack>
   );
 };
 
