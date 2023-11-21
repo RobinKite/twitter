@@ -83,8 +83,6 @@ export function Profile() {
     }
   };
 
-  console.log(currentPage);
-
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
 

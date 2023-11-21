@@ -36,11 +36,8 @@ export const Home = () => {
     }
   };
 
-  console.log(currentPage);
-
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-    console.log(scrollTop + clientHeight, scrollHeight);
 
     // TODO: 10 - magic number, so that if condition would better work on smaller screens
     if (scrollTop + clientHeight + 10 >= scrollHeight && !loading) {
