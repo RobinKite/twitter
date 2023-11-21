@@ -23,6 +23,7 @@
         background-color: rgb(221, 217, 217);
         width: fit-content;
       }
+
       &.active {
         font-weight: 700;
         cursor: pointer;
@@ -32,7 +33,7 @@
   }
 
   .icon {
-    padding: 12px;
+    margin-left: 0.75rem;
 
     &:hover {
       background-color: rgb(221, 217, 217);
