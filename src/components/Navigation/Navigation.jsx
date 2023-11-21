@@ -1,34 +1,33 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { clsx } from "clsx";
-import TwitterIcon from "../../assets/icons/twitter.svg?react";
-import HomeIcon from "../../assets/icons/home.svg?react";
-import HomeIconFilled from "../../assets/icons/home-filled.svg?react";
-import SearchIcon from "../../assets/icons/search.svg?react";
-import SearchIconFilled from "../../assets/icons/search-filled.svg?react";
-import ProfileIcon from "../../assets/icons/profile.svg?react";
-import ProfileIconFilled from "../../assets/icons/profile-filled.svg?react";
-import NotificationIcon from "../../assets/icons/notifications.svg?react";
-import NotificationIconFilled from "../../assets/icons/notifications-filled.svg?react";
-import MessageIcon from "../../assets/icons/message.svg?react";
-import MessageIconFilled from "../../assets/icons/message-filled.svg?react";
-import ListIcon from "../../assets/icons/list.svg?react";
-import ListIconFilled from "../../assets/icons/list-filled.svg?react";
-import CommunitiesIcon from "../../assets/icons/communities.svg?react";
-import CommunitiesIconFilled from "../../assets/icons/communities-filled.svg?react";
+import { RiTwitterXFill as TwitterIcon } from "react-icons/ri";
+import { GoHome as HomeIcon } from "react-icons/go";
+import { GoHomeFill as HomeIconFilled } from "react-icons/go";
+import { IoSearchOutline as SearchIcon } from "react-icons/io5";
+import { IoSearch as SearchIconFilled } from "react-icons/io5";
+import { HiOutlineUser as ProfileIcon } from "react-icons/hi2";
+import { HiUser as ProfileIconFilled } from "react-icons/hi2";
+import { PiBellFill as NotificationIconFilled } from "react-icons/pi";
+import { PiBell as NotificationIcon } from "react-icons/pi";
+import { IoMail as MessageIconFilled } from "react-icons/io5";
+import { IoMailOutline as MessageIcon } from "react-icons/io5";
+import { IoListOutline as ListIcon } from "react-icons/io5";
+import { IoList as ListIconFilled } from "react-icons/io5";
+import { PiUsers as CommunitiesIcon } from "react-icons/pi";
+import { PiUsersFill as CommunitiesIconFilled } from "react-icons/pi";
+import AppLogo from "../../assets/icons/twitter.svg?react";
 import styles from "./Navigation.module.scss";
 
 export const Navigation = () => {
   const location = useLocation();
-  const isActive = (path) => {
-    return location.pathname === path ? "active-link" : "";
-  };
+  const isActive = (path) => location.pathname === path;
 
   return (
     <nav className={styles.sidebar}>
       <ul className={styles.sidebarList}>
         <li>
           <NavLink to="/" className={styles.logo}>
-            <TwitterIcon className={styles.icon} />
+            <AppLogo className={styles.icon} />
           </NavLink>
         </li>
         <li className={styles.sidebarListLink}>
@@ -37,7 +36,7 @@ export const Navigation = () => {
             className={({ isActive }) =>
               clsx(styles.listLink, { [styles.active]: isActive })
             }>
-            {isActive("/") ? <HomeIconFilled /> : <HomeIcon />}
+            {isActive("/") ? <HomeIconFilled size={26} /> : <HomeIcon size={26} />}
             <span className={styles.hideText}>Home</span>
           </NavLink>
         </li>
@@ -47,7 +46,11 @@ export const Navigation = () => {
             className={({ isActive }) =>
               clsx(styles.listLink, { [styles.active]: isActive })
             }>
-            {isActive("/explore") ? <SearchIconFilled /> : <SearchIcon />}
+            {isActive("/explore") ? (
+              <SearchIconFilled size={26} />
+            ) : (
+              <SearchIcon size={26} />
+            )}
             <span className={styles.hideText}>Explore</span>
           </NavLink>
         </li>
@@ -58,9 +61,9 @@ export const Navigation = () => {
               clsx(styles.listLink, { [styles.active]: isActive })
             }>
             {isActive("/notifications") ? (
-              <NotificationIconFilled />
+              <NotificationIconFilled size={26} />
             ) : (
-              <NotificationIcon />
+              <NotificationIcon size={26} />
             )}
             <span className={styles.hideText}>Notification</span>
           </NavLink>
@@ -71,7 +74,11 @@ export const Navigation = () => {
             className={({ isActive }) =>
               clsx(styles.listLink, { [styles.active]: isActive })
             }>
-            {isActive("/messages") ? <MessageIconFilled /> : <MessageIcon />}
+            {isActive("/messages") ? (
+              <MessageIconFilled size={26} />
+            ) : (
+              <MessageIcon size={26} />
+            )}
             <span className={styles.hideText}>Messages</span>
           </NavLink>
         </li>
@@ -81,7 +88,7 @@ export const Navigation = () => {
             className={({ isActive }) =>
               clsx(styles.listLink, { [styles.active]: isActive })
             }>
-            {isActive("/lists") ? <ListIconFilled /> : <ListIcon />}
+            {isActive("/lists") ? <ListIconFilled size={26} /> : <ListIcon size={26} />}
             <span className={styles.hideText}>Lists</span>
           </NavLink>
         </li>
@@ -92,7 +99,11 @@ export const Navigation = () => {
             className={({ isActive }) =>
               clsx(styles.listLink, { [styles.active]: isActive })
             }>
-            {isActive("/communities") ? <CommunitiesIconFilled /> : <CommunitiesIcon />}
+            {isActive("/communities") ? (
+              <CommunitiesIconFilled size={26} />
+            ) : (
+              <CommunitiesIcon size={26} />
+            )}
             <span className={styles.hideText}>Communities</span>
           </NavLink>
         </li>
@@ -112,7 +123,11 @@ export const Navigation = () => {
             className={({ isActive }) =>
               clsx(styles.listLink, { [styles.active]: isActive })
             }>
-            {isActive("/profile") ? <ProfileIconFilled /> : <ProfileIcon />}
+            {isActive("/profile") ? (
+              <ProfileIconFilled size={26} />
+            ) : (
+              <ProfileIcon size={26} />
+            )}
             <span className={styles.hideText}>Profile</span>
           </NavLink>
         </li>
