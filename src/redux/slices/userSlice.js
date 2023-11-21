@@ -9,7 +9,7 @@ const userSlice = createSlice({
     user: {},
   },
   reducers: {
-    loginUserAction: (state, action) => {
+    loginUserAction: (state) => {
       state.isAuthenticated = true;
     },
     getUser: (state, action) => {
