@@ -1,7 +1,7 @@
 import TabPanel from "@mui/lab/TabPanel";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { Post, ProfileTabs, ItemPost } from "../../components";
+import { CreatePost, ProfileTabs, ItemPost } from "../../components";
 import { getPosts } from "../../redux/slices/postsSlice";
 
 const tabs = [
@@ -22,7 +22,6 @@ export const Home = () => {
   const loadMorePosts = () => {
     if (!loading) {
       setLoading(true);
-      // TODO: Add current user id to getPosts func
       dispatch(getPosts(currentPage))
         .then(() => {
           // TODO: Stop currentPage from infinitely increasing
@@ -41,14 +40,15 @@ export const Home = () => {
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+    console.log(scrollTop + clientHeight, scrollHeight);
 
-    if (scrollTop + clientHeight >= scrollHeight && !loading) {
+    // TODO: 10 - magic number, so that if condition would better work on smaller screens
+    if (scrollTop + clientHeight + 10 >= scrollHeight && !loading) {
       loadMorePosts();
     }
   };
 
   useEffect(() => {
-    // TODO: Fix error when upon component's first mounting posts are not fetching
     dispatch(getPosts(currentPage));
 
     window.addEventListener("scroll", handleScroll);
@@ -57,6 +57,9 @@ export const Home = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [currentPage]);
+
+  // TODO: Remove tabs completely (leave only "following")
+  // TODO: Profile and Home components have the same implementation of showing posts, thus should be used only one reusable component
 
   return (
     <>
@@ -76,7 +79,7 @@ export const Home = () => {
           },
         }}>
         <TabPanel value="0" index={0}>
-          <Post avatarUrl={avatarUrl} />
+          <CreatePost avatarUrl={avatarUrl} />
           {posts.map((p) => (
             <ItemPost
               key={p.id}

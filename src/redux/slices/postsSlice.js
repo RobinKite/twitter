@@ -18,7 +18,7 @@ const postsSlice = createSlice({
       state.posts = uniquePostsArray;
     },
     addPost: (state, action) => {
-      state.posts.push(action.payload);
+      state.posts.unshift(action.payload);
     },
     deleteComment: (state, action) => {
       state.postComments.filter((comment) => comment.id !== action.payload);

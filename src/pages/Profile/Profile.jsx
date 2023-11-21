@@ -69,7 +69,6 @@ export function Profile() {
   const loadMorePosts = () => {
     if (!loading) {
       setLoading(true);
-      // TODO: Add current user id to getPosts func
       dispatch(getPosts(currentPage))
         .then(() => {
           // TODO: Stop currentPage from infinitely increasing
@@ -89,13 +88,13 @@ export function Profile() {
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
 
-    if (scrollTop + clientHeight >= scrollHeight && !loading) {
+    // TODO: 10 - magic number, so that if condition would better work on smaller screens
+    if (scrollTop + clientHeight + 10 >= scrollHeight && !loading) {
       loadMorePosts();
     }
   };
 
   useEffect(() => {
-    // TODO: Fix error when upon component's first mounting posts are not fetching
     dispatch(getPosts(currentPage));
 
     window.addEventListener("scroll", handleScroll);
@@ -108,6 +107,7 @@ export function Profile() {
   return (
     <>
       <Modal open={open} onClose={handleClose}>
+        {/* TODO: Next line causes issue "Failed prop type: Invalid prop `children` supplied to `ForwardRef(Modal2)`. Expected an element that can hold a ref." */}
         <ModalEdit onClose={handleClose} />
       </Modal>
 

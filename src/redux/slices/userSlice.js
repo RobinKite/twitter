@@ -9,8 +9,9 @@ const userSlice = createSlice({
     user: {},
   },
   reducers: {
-    loginUserAction: (state) => {
+    loginUserAction: (state, action) => {
       state.isAuthenticated = true;
+      state.user = action.payload;
     },
     getUser: (state, action) => {
       state.user = action.payload;
@@ -45,6 +46,6 @@ export const loginUser = (email, password) => (dispatch) => {
     console.log(response);
     setAuthToken(response.data.access_token);
     setRefreshToken(response.data.refresh_token);
-    dispatch(loginUserAction(response.data));
+    dispatch(loginUserAction(response.data.user));
   });
 };
