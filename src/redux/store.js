@@ -1,19 +1,14 @@
-import { createStore, applyMiddleware } from "redux";
-import { rootReducer } from "./rootReducer";
-import { composeEnhancers, middleware } from "./middleware";
-import {loginUser} from "./actions/userInfo";
+import { configureStore } from "@reduxjs/toolkit";
+import appSliceReducer from "./slices/appSlice";
+import postsSliceReducer from "./slices/postsSlice";
+import userSliceReducer from "./slices/userSlice";
 
-export const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(...middleware))
-);
+const store = configureStore({
+  reducer: { app: appSliceReducer, posts: postsSliceReducer, user: userSliceReducer },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
 
-export const storeCreator = () => {
-    const store = createStore(
-        rootReducer,
-        composeEnhancers(applyMiddleware(...middleware))
-    );
-
-    store.dispatch(loginUser("user2@gmail.com", "2222"));
-    return store;
-}
+export default store;

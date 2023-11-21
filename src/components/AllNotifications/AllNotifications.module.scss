@@ -1,0 +1,15 @@
+.notificationContainer {
+  display: flex;
+  flex-direction: row;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: rgb(248, 248, 248);
+    cursor: pointer;
+    transition: 0.3s;
+  }
+}
+
+.mainNotification {
+  padding-left: 30px;
+}

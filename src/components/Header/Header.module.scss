@@ -1,0 +1,15 @@
+.whiteSvg {
+  fill: #ffffff;
+}
+
+@media (max-width: 1280px) {
+  .hideText {
+    display: none;
+  }
+
+  .moreBtn {
+    display: flex;
+    justify-content: flex-start;
+    padding: 23px 12px;
+  }
+}
