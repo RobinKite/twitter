@@ -6,7 +6,7 @@ import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Post, PostModal, Navigation } from "../../components";
+import { CreatePost, PostModal, Navigation } from "../../components";
 import { setModalPost, setContent } from "../../redux/slices/appSlice";
 import MoreIcon from "../../assets/icons/more.svg?react";
 import styles from "./Header.module.scss";
@@ -175,7 +175,7 @@ export const Header = () => {
         <Button
           onClick={() => {
             dispatch(setModalPost(true));
-            dispatch(setContent(<Post avatarUrl={avatarUrl} />));
+            dispatch(setContent(<CreatePost avatarUrl={avatarUrl} />));
           }}
           sx={{
             color: "#ffffff",
