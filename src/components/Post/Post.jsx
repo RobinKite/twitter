@@ -8,9 +8,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import EmojiPicker from "emoji-picker-react";
 import { Button } from "../../components";
-// import { addPosts } from "../../redux/slices/postsSlice";
 import { setModalPost } from "../../redux/slices/appSlice";
 import styles from "./Post.module.scss";
+import PropTypes from "prop-types";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -65,7 +65,7 @@ export const Post = ({ avatarUrl }) => {
   };
 
   // Відмалювання смайлів
-  const onEmojiClick = (event, emojiObject) => {
+  const onEmojiClick = (event) => {
     setInputStr((prevInput) => {
       return (prevInput += event.emoji);
     });
@@ -166,4 +166,8 @@ export const Post = ({ avatarUrl }) => {
       </div>
     </>
   );
+};
+
+Post.propTypes = {
+  avatarUrl: PropTypes.string,
 };

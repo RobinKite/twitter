@@ -5,7 +5,7 @@ import { setAuthToken, setRefreshToken } from "../../utils/tokens";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    isAuthenticated: true,
+    isAuthenticated: false,
     user: {},
   },
   reducers: {

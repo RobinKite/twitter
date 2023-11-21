@@ -176,7 +176,6 @@ export const Post = () => {
         <div>Loading...</div>
       )}
 
-      {/* */}
       <CommentPost id={id} updateComment={updateComment} />
 
       {postComments?.sort(compareByDate).map((e) => (

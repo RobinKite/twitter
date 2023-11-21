@@ -8,6 +8,7 @@ const tabs = [
   { label: "Following", value: "0" },
   // { label: "Following", value: 1 },
 ];
+
 export const Home = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
@@ -59,7 +60,6 @@ export const Home = () => {
 
   return (
     <>
-      <h1>Home</h1>
       {/* <button onClick={addPost}></button> */}
       <ProfileTabs
         tabs={tabs}
