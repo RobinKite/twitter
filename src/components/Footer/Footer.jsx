@@ -26,7 +26,7 @@ export const Footer = () => {
       <ul className={styles.footer}>
         {items.map((item) => (
           <li key={item}>
-            <a href="#">{item}</a>
+            <button>{item}</button>
           </li>
         ))}
         <span className={styles.XCorp}>&copy; {currentYear} X Corp.</span>

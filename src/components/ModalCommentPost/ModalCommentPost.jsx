@@ -4,6 +4,7 @@ import { Box } from "@mui/system";
 import { CommentPost, ItemPost } from "..";
 import Close from "../../assets/icons/close.svg?react";
 import styles from "../PostModal/PostModal.module.scss";
+import PropTypes from "prop-types";
 
 export const ModalBody = styled(Box)(() => ({
   position: "absolute",
@@ -43,18 +44,13 @@ export function ModalCommentPost({
   avatarUrl,
   fullName,
 }) {
-  const onClose = (event) => {
-    if (event.currentTarget === event.target) {
-    }
-  };
+  // const onClose = (event) => {
+  //   if (event.currentTarget === event.target) {}
+  // };
 
   return (
     <div>
-      <Modal
-        open={isOpen}
-        onClose={onClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
+      <Modal open={isOpen} onClose={() => {}}>
         <ModalBody>
           <div className={styles.close}>
             <Close onClick={closeModal} className={styles.clossvg} />
@@ -84,3 +80,16 @@ export function ModalCommentPost({
     </div>
   );
 }
+
+ModalCommentPost.propTypes = {
+  isOpen: PropTypes.bool,
+  closeModal: PropTypes.func,
+  content: PropTypes.string,
+  imageUrls: PropTypes.array,
+  id: PropTypes.string,
+  likeCount: PropTypes.number,
+  liked: PropTypes.bool,
+  updateComment: PropTypes.func,
+  avatarUrl: PropTypes.string,
+  fullName: PropTypes.string,
+};

@@ -7,15 +7,16 @@ import {
   PasswordFormModal,
 } from "./components";
 import { Registration, Home, Notifications, Post, Profile } from "./pages";
+import { useSelector } from "react-redux";
 
 export default function AppRoutes() {
-  const isAuthorized = true;
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   return (
     <Routes>
       <Route
         path="/"
         element={
-          isAuthorized ? (
+          isAuthenticated ? (
             <Container>
               <Outlet />
             </Container>
@@ -74,7 +75,7 @@ export default function AppRoutes() {
       <Route path="/forgotPasswordForm" element={<ForgotPasswordForm />}></Route>
       <Route
         path="/login"
-        element={isAuthorized ? <Navigate to="/" /> : <Registration />}
+        element={isAuthenticated ? <Navigate to="/" /> : <Registration />}
       />
     </Routes>
   );

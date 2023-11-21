@@ -3,9 +3,10 @@ import TabList from "@mui/lab/TabList";
 import TabContext from "@mui/lab/TabContext";
 import Box from "@mui/material/Box";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 export function ProfileTabs({ children, tabs, style }) {
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState("0");
   if (!tabs) return;
 
   const handleChange = (event, newValue) => {
@@ -13,12 +14,12 @@ export function ProfileTabs({ children, tabs, style }) {
   };
 
   return (
-    <Box sx={{ width: "100%", typography: "body1" }}>
+    <Box sx={{ width: "100%" }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} sx={style} aria-label="lab API tabs example">
+          <TabList onChange={handleChange} sx={style}>
             {tabs.map((tab) => (
-              <Tab label={tab.label} value={tab.value} key={tab.value} />
+              <Tab key={tab.value} label={tab.label} value={tab.value} />
             ))}
           </TabList>
         </Box>
@@ -27,3 +28,9 @@ export function ProfileTabs({ children, tabs, style }) {
     </Box>
   );
 }
+
+ProfileTabs.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  tabs: PropTypes.array,
+  style: PropTypes.object,
+};

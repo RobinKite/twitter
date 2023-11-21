@@ -4,27 +4,26 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "../../components";
 import { getPosts } from "../../redux/slices/postsSlice";
-import { compareByDate } from "../../utils";
 import ArrowBack from "../../assets/icons/arrow.svg?react";
 
 const tabs = [
-  { label: "Post", value: "1" },
-  { label: "Replies", value: "2" },
-  { label: "Likes", value: "3" },
+  { label: "Post", value: "0" },
+  { label: "Replies", value: "1" },
+  { label: "Likes", value: "2" },
 ];
 
-const HeaderPage = styled(Box)(({ theme }) => ({
+const HeaderPage = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
   padding: "10px 0 5px 20px",
 }));
 
-const ContainerUserInfo = styled(Box)(({ theme }) => ({
+const ContainerUserInfo = styled(Box)(() => ({
   padding: "60px 0 25px 20px",
   position: "relative",
 }));
 
-const ArrowSvg = styled(Box)(({ theme }) => ({
+const ArrowSvg = styled(Box)(() => ({
   backgroundColor: "white",
   borderRadius: "50%",
   display: "flex",
@@ -38,12 +37,12 @@ const ArrowSvg = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ContainerHederText = styled(Box)(({ theme }) => ({
+const ContainerHederText = styled(Box)(() => ({
   paddingLeft: "20px",
   color: "black",
 }));
 
-const EditButton = styled(Button)(({ theme }) => ({
+const EditButton = styled(Button)(() => ({
   position: "absolute",
   borderRadius: "50px",
   right: "20px",
@@ -61,16 +60,19 @@ export function Profile() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const posts = useSelector((state) => state.posts.posts);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(false);
 
+  // TODO: Move most code inside new hook to get rid of duplication
+
   const loadMorePosts = () => {
     if (!loading) {
       setLoading(true);
+      // TODO: Add current user id to getPosts func
       dispatch(getPosts(currentPage))
         .then(() => {
+          // TODO: Stop currentPage from infinitely increasing
           setCurrentPage((prevPage) => prevPage + 1);
         })
         .catch((error) => {
@@ -82,37 +84,30 @@ export function Profile() {
     }
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+  console.log(currentPage);
 
-      if (scrollTop + clientHeight >= scrollHeight && !loading) {
-        loadMorePosts();
-      }
-    };
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+    if (scrollTop + clientHeight >= scrollHeight && !loading) {
+      loadMorePosts();
+    }
+  };
+
+  useEffect(() => {
+    // TODO: Fix error when upon component's first mounting posts are not fetching
+    dispatch(getPosts(currentPage));
 
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [loading, currentPage]);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      loadMorePosts();
-    }
-  }, [isAuthenticated]);
-
-  if (!isAuthenticated) return "Not authenticated...";
+  }, [currentPage]);
 
   return (
     <>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
+      <Modal open={open} onClose={handleClose}>
         <ModalEdit onClose={handleClose} />
       </Modal>
 
@@ -122,7 +117,9 @@ export function Profile() {
             <ArrowBack />
           </ArrowSvg>
           <ContainerHederText>
-            <Typography variant="h6">go flex</Typography>
+            <Typography variant="h6">
+              {/* TODO: change to user object */}go flex
+            </Typography>
             <div>post</div>
             {/* <button onClick={() => dispatch(PostAuthorizationAsync(formData))}>
               test
@@ -135,8 +132,10 @@ export function Profile() {
           <EditButton onClick={handleOpen} variant="outlined">
             Edit profile
           </EditButton>
-          <Typography variant="h6">go flex</Typography>
-          <Typography variant="body1">@goflex175802</Typography>
+          <Typography variant="h6">{/* TODO: change to user object */}go flex</Typography>
+          <Typography variant="body1">
+            {/* TODO: change to user object */}@goflex175802
+          </Typography>
           <Typography
             component="div"
             variant="body1"
@@ -145,10 +144,12 @@ export function Profile() {
             }}>
             {"some bio"}
           </Typography>
-          <Typography variant="body2">Joined September 2023</Typography>
+          <Typography variant="body2">
+            Joined {/* TODO: change to user object */}September 2023
+          </Typography>
 
           <Typography component="span" variant="body1">
-            1 Following
+            {/* TODO: change to user object */}1 Following
           </Typography>
           <Typography
             component="span"
@@ -156,7 +157,7 @@ export function Profile() {
             sx={{
               paddingLeft: "10px",
             }}>
-            0 Followers
+            {/* TODO: change to user object */}0 Followers
           </Typography>
         </ContainerUserInfo>
         <ProfileTabs
@@ -168,12 +169,12 @@ export function Profile() {
               justifyContent: "space-around",
             },
           }}>
-          <TabPanel value="1">
-            {posts?.sort(compareByDate).map((p) => (
+          <TabPanel value="0">
+            {posts.map((p) => (
               <ItemPost
+                key={p.id}
                 avatarUrl={p.user.avatarUrl}
                 fullName={p.user.fullName}
-                key={p.id}
                 replyCount={p.replyCount}
                 id={p.id}
                 content={p.body}
@@ -183,8 +184,8 @@ export function Profile() {
               />
             ))}
           </TabPanel>
-          <TabPanel value="2">Replies</TabPanel>
-          <TabPanel value="3">Likes</TabPanel>
+          <TabPanel value="1">Replies</TabPanel>
+          <TabPanel value="2">Likes</TabPanel>
         </ProfileTabs>
       </Container>
     </>

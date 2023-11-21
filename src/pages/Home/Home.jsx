@@ -3,37 +3,28 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { Post, ProfileTabs, ItemPost } from "../../components";
 import { getPosts } from "../../redux/slices/postsSlice";
-import { compareByDate } from "../../utils";
-
-// import LabTabs from "../../Components/ProfileTabs";
-// import Post from "../../Components/Post/Post";
-// import ItemPost from "../../Components/ItemPost/ItemPost";
-// import React, { useState, useEffect } from "react";
-// import { compareByDate } from "../../utils/function";
-// import { useSelector } from "react-redux";
-// import { getPosts } from "../../redux/slices/postsSlice";
-// import { useDispatch, shallowEqual } from "react-redux";
 
 const tabs = [
-  { label: "Following", value: "1" },
-  // { label: "Following", value: "2" },
+  { label: "Following", value: "0" },
+  // { label: "Following", value: 1 },
 ];
 export const Home = () => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
-
-  // Скрол постів infinite scroll   //////////////////////////////////////////////////////////////
 
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(false);
 
+  // TODO: Move most code inside new hook to get rid of duplication
+
   const loadMorePosts = () => {
     if (!loading) {
       setLoading(true);
+      // TODO: Add current user id to getPosts func
       dispatch(getPosts(currentPage))
         .then(() => {
+          // TODO: Stop currentPage from infinitely increasing
           setCurrentPage((prevPage) => prevPage + 1);
         })
         .catch((error) => {
@@ -45,37 +36,27 @@ export const Home = () => {
     }
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+  console.log(currentPage);
 
-      if (scrollTop + clientHeight >= scrollHeight && !loading) {
-        loadMorePosts();
-      }
-    };
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+    if (scrollTop + clientHeight >= scrollHeight && !loading) {
+      loadMorePosts();
+    }
+  };
+
+  useEffect(() => {
+    // TODO: Fix error when upon component's first mounting posts are not fetching
+    dispatch(getPosts(currentPage));
 
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [loading, currentPage]);
+  }, [currentPage]);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      // Початкове завантаження постів
-      loadMorePosts();
-    }
-  }, [isAuthenticated]);
-
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     dispatch(getPosts());
-
-  //   }
-  // }, [isAuthenticated]);
-
-  if (!isAuthenticated) return "Loading posts";
   return (
     <>
       <h1>Home</h1>
@@ -94,13 +75,13 @@ export const Home = () => {
             },
           },
         }}>
-        <TabPanel value="1">
+        <TabPanel value="0" index={0}>
           <Post avatarUrl={avatarUrl} />
-          {posts?.sort(compareByDate).map((p) => (
+          {posts.map((p) => (
             <ItemPost
+              key={p.id}
               avatarUrl={p.user.avatarUrl}
               fullName={p.user.fullName}
-              key={p.id}
               content={p.body}
               replyCount={p.replyCount}
               imageUrls={p.imageUrls}
@@ -110,7 +91,7 @@ export const Home = () => {
             />
           ))}
         </TabPanel>
-        {/* <TabPanel value="2"></TabPanel> */}
+        {/* <TabPanel value={1}></TabPanel> */}
       </ProfileTabs>
     </>
   );

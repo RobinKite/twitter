@@ -10,9 +10,19 @@ const postsSlice = createSlice({
   },
   reducers: {
     setPosts: (state, action) => {
-      state.posts = action.payload.filter(
-        (newPost) => !state.posts.some((existingPost) => existingPost.id === newPost.id),
+      // Combine the existing posts with the new posts
+      const combinedPosts = [...state.posts, ...action.payload];
+
+      // Use a Set to efficiently check for unique posts based on some identifier (e.g., post ID)
+      const uniquePostsSet = new Set(combinedPosts.map((post) => post.id));
+
+      // Convert the Set back to an array
+      const uniquePostsArray = Array.from(uniquePostsSet, (postId) =>
+        combinedPosts.find((post) => post.id === postId),
       );
+
+      // Update the state with the unique posts array
+      state.posts = uniquePostsArray;
     },
     addPost: (state, action) => {
       state.posts.push(action.payload);
@@ -31,7 +41,8 @@ export default postsSlice.reducer;
 
 export const getPosts = (currentPage) => async (dispatch) => {
   try {
-    const response = await api.get(`posts/home?&page=${currentPage}&pageSize=${10}`);
+    const response = await api.get(`posts?id=${2}&page=${currentPage}&pageSize=${10}`);
+    console.log(response);
 
     dispatch(setPosts(response.data.content));
   } catch (error) {

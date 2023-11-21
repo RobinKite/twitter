@@ -47,8 +47,6 @@ export const Header = () => {
   //   setIsButtonActive(false); // Activate the button
   // };
 
-  const [isButtonActive, setIsButtonActive] = useState(false);
-
   return (
     <div>
       <Navigation />
@@ -70,7 +68,7 @@ export const Header = () => {
           display: "flex",
           gap: "15px",
           position: "relative",
-          fontWeight: isButtonActive ? "bold" : "normal",
+          fontWeight: "normal",
           // padding: 0,
           margin: "0 0 20px 0",
           "&:hover": {

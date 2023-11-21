@@ -69,10 +69,9 @@ export const RegistrationForm = () => {
   };
 
   const navigate = useNavigate();
-  const handleNextButtonClick = () => {
-    // Use the navigate function to change the route
-    navigate("/signUpForm");
-  };
+  // const handleNextButtonClick = () => {
+  //   navigate("/signUpForm");
+  // };
 
   const [registrationData, setRegistrationData] = useState({
     firstName: "",
@@ -87,11 +86,7 @@ export const RegistrationForm = () => {
 
   return (
     <div>
-      <Modal
-        open={isProfileModalActive}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
+      <Modal open={isProfileModalActive} onClose={handleClose}>
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose}>
             <CloseButton style={{ height: "30px" }} />
@@ -177,10 +172,7 @@ export const RegistrationForm = () => {
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton
-                          onClick={handleTogglePasswordVisibility}
-                          edge="end"
-                          aria-label="toggle password visibility">
+                        <IconButton onClick={handleTogglePasswordVisibility} edge="end">
                           {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>

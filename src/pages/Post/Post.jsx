@@ -7,7 +7,7 @@ import { api } from "../../service/api";
 import { compareByDate } from "../../utils";
 import ArrowBack from "../../assets/icons/arrow.svg?react";
 
-const HeaderPage = styled(Box)(({ theme }) => ({
+const HeaderPage = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
   padding: "10px 0 5px 20px",
@@ -115,6 +115,7 @@ export const Post = () => {
   // Код для сторінки PegesPost
   useEffect(() => {
     if (isAuthenticated) {
+      // TODO: Move function to postsSlice
       api
         .get(`posts/post?id=${id}`)
         .then((response) => {
@@ -131,6 +132,7 @@ export const Post = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
+      // TODO: Move function to postsSlice
       api
         .get(`posts/replies?postId=${id}&page=${0}&pageSize=${5}`)
         .then((response) => {

@@ -104,11 +104,7 @@ export const PasswordFormModal = () => {
   };
   return (
     <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
+      <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose}>
             <CloseButton style={{ height: "30px" }} />
@@ -184,11 +180,7 @@ export const PasswordFormModal = () => {
         </Box>
       </Modal>
 
-      <Modal
-        open={open2}
-        onClose={handleClose2}
-        aria-labelledby="modal-modal-title2"
-        aria-describedby="modal-modal-description2">
+      <Modal open={open2} onClose={handleClose2}>
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose2}>
             <CloseButton style={{ height: "30px" }} />
@@ -205,7 +197,7 @@ export const PasswordFormModal = () => {
             initialValues={initialValue2}
             onSubmit={onSubmit}
             validationSchema={validationSchema2}>
-            {({ errors, touched, isValid, submitForm }) => (
+            {({ errors, touched, isValid }) => (
               <Form className={styles.form}>
                 <TextField
                   className={styles.textField}
@@ -235,10 +227,7 @@ export const PasswordFormModal = () => {
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton
-                          onClick={handleTogglePasswordVisibility}
-                          edge="end"
-                          aria-label="toggle password visibility">
+                        <IconButton onClick={handleTogglePasswordVisibility} edge="end">
                           {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>
@@ -288,7 +277,7 @@ export const PasswordFormModal = () => {
                 mt: 2,
                 color: "#536471",
               }}>
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 className={styles.link}
                 href="/signUpForm"

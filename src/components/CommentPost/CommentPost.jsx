@@ -8,7 +8,6 @@ import { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import PropTypes from "prop-types";
 import { Button } from "..";
-import { api } from "../../service/api";
 import styles from "./CommentPost.module.scss";
 
 const VisuallyHiddenInput = styled("input")({
@@ -37,11 +36,11 @@ const InputFieldCostum = styled(TextField)({
 
 export const CommentPost = ({
   id,
-  closeModal,
-  updateComment,
-  setPostComments,
+  // closeModal,
+  // updateComment,
+  // setPostComments,
   avatarUrl,
-  fullName,
+  // fullName,
 }) => {
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
@@ -57,21 +56,22 @@ export const CommentPost = ({
       formData.append(`images`, file);
     });
 
-    api
-      .post("posts/create", formData)
-      .then((response) => {
-        const responseDataComent = response.data;
-        updateComment(responseDataComent);
-        setInputStr("");
-        setFiles([]);
-        closeModal();
-      })
-      .catch((error) => {
-        console.error("Помилка отримання деталей поста:", error);
-      });
+    // TODO: add function from postsSlice
+    // api
+    //   .post("posts/create", formData)
+    //   .then((response) => {
+    //     const responseDataComent = response.data;
+    //     updateComment(responseDataComent);
+    //     setInputStr("");
+    //     setFiles([]);
+    //     closeModal();
+    //   })
+    //   .catch((error) => {
+    //     console.error("Помилка отримання деталей поста:", error);
+    //   });
   };
 
-  const onEmojiClick = (event, emojiObject) => {
+  const onEmojiClick = (event) => {
     setInputStr((prevInput) => {
       return (prevInput += event.emoji);
     });
@@ -179,11 +179,13 @@ export const CommentPost = ({
 };
 
 CommentPost.propTypes = {
-  closeModal: PropTypes.func,
-  updateComment: PropTypes.func,
+  // closeModal: PropTypes.func,
+  // updateComment: PropTypes.func,
+  avatarUrl: PropTypes.string,
+  id: PropTypes.string,
 };
 
-CommentPost.defaultProps = {
-  closeModal: () => {},
-  updateComment: () => {},
-};
+// CommentPost.defaultProps = {
+//   closeModal: () => {},
+//   updateComment: () => {},
+// };

@@ -75,6 +75,7 @@ export function ItemPost({
       const requestData = {
         postId: id,
       };
+      // TODO: Move this function to corresponding slice
       const response = await api.post(`likes/like`, requestData);
 
       if (response.status === 200) {
@@ -89,6 +90,7 @@ export function ItemPost({
   };
   const handleUnlike = async () => {
     try {
+      // TODO: Move this function to corresponding slice
       const response = await api.delete(`likes/unlike?id=${id}`);
 
       if (response.status === 200) {
@@ -126,14 +128,7 @@ export function ItemPost({
             <IconButton id="basic-button" onClick={handleClick}>
               <MoreHorizIcon fontSize="large" />
             </IconButton>
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}>
+            <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
               <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
                 <Delete />
                 Delete
@@ -210,6 +205,13 @@ ItemPost.propTypes = {
   imageUrls: PropTypes.array,
   avatarUrl: PropTypes.string,
   fullName: PropTypes.string,
+  id: PropTypes.string,
+  likeCount: PropTypes.number,
+  liked: PropTypes.bool,
+  disable: PropTypes.bool,
+  onPostDeleted: PropTypes.func,
+  replyCount: PropTypes.number,
+  updateComment: PropTypes.func,
 };
 
 ItemPost.defaultProps = {

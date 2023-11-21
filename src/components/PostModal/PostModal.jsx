@@ -5,6 +5,7 @@ import { Box } from "@mui/system";
 import { setModalPost } from "../../redux/slices/appSlice";
 import Close from "../../assets/icons/close.svg?react";
 import styles from "./PostModal.module.scss";
+import PropTypes from "prop-types";
 
 export const ModalBody = styled(Box)(() => ({
   position: "absolute",
@@ -32,17 +33,13 @@ export const ModalBody = styled(Box)(() => ({
   },
 }));
 
-export function PostModal(props) {
-  const { isOpen } = props;
+export function PostModal({ isOpen }) {
   const dispatch = useDispatch();
   const content = useSelector((state) => state.app.postModalContent);
 
   return (
     <div>
-      <Modal
-        open={isOpen}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
+      <Modal open={isOpen}>
         <ModalBody>
           <div className={styles.close}>
             <Close
@@ -60,3 +57,7 @@ export function PostModal(props) {
     </div>
   );
 }
+
+PostModal.propTypes = {
+  isOpen: PropTypes.bool,
+};

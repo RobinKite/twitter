@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { ModalUnFollow } from "../../components";
 import { FollowButtonStyled } from "./styleSX";
+import PropTypes from "prop-types";
 
-export const FollowButton = ({ initialIsFollowing, id }) => {
+export const FollowButton = ({ initialIsFollowing }) => {
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
   const [showModal, setShowModal] = useState(false);
 
@@ -11,9 +12,9 @@ export const FollowButton = ({ initialIsFollowing, id }) => {
     setShowModal(false);
   };
 
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
+  // const handleOpenModal = () => {
+  //   setShowModal(true);
+  // };
 
   return (
     <>
@@ -30,4 +31,8 @@ export const FollowButton = ({ initialIsFollowing, id }) => {
       )}
     </>
   );
+};
+
+FollowButton.propTypes = {
+  initialIsFollowing: PropTypes.bool,
 };

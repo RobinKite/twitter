@@ -4,7 +4,7 @@ import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { object, string } from "yup";
+// import { object, string } from "yup";
 import { Button } from "../../components";
 import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
 import Apple from "../../assets/icons/apple.svg?react";
@@ -36,15 +36,16 @@ export const SignUpForm = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const schema = object().shape({
-    email: string().required("Email is required").email("Email is not valid"),
-  });
+  // TODO: Move to separate schema file
+  // const schema = object().shape({
+  //   email: string().required("Email is required").email("Email is not valid"),
+  // });
 
-  const onSubmit = (values) => {
-    console.log(values);
+  // const onSubmit = (values) => {
+  //   console.log(values);
 
-    handleClose();
-  };
+  //   handleClose();
+  // };
 
   useEffect(() => {
     handleOpen();
@@ -59,11 +60,7 @@ export const SignUpForm = () => {
 
   return (
     <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
+      <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose}>
             <CloseButton style={{ height: "30px" }} />

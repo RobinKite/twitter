@@ -3,9 +3,9 @@ import { ProfileTabs, AllNotifications } from "../../components";
 import styles from "./Notifications.module.scss";
 
 const tabs = [
-  { label: "All", value: "1" },
-  { label: "Verified", value: "2" },
-  { label: "Mentions", value: "3" },
+  { label: "All", value: "0" },
+  { label: "Verified", value: "1" },
+  { label: "Mentions", value: "2" },
 ];
 
 export const Notifications = () => {
@@ -21,11 +21,11 @@ export const Notifications = () => {
             justifyContent: "space-around",
           },
         }}>
-        <TabPanel value="1">
+        <TabPanel value="0">
           <AllNotifications />
         </TabPanel>
-        <TabPanel value="2">Verified</TabPanel>
-        <TabPanel value="3">Mentions</TabPanel>
+        <TabPanel value="1">Verified</TabPanel>
+        <TabPanel value="2">Mentions</TabPanel>
       </ProfileTabs>
     </div>
   );

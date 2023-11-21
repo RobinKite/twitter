@@ -37,7 +37,7 @@ const style = {
   },
 };
 
-export function LoginFormModal(props) {
+export function LoginFormModal() {
   const [open, setOpen] = useState(true);
   const schema = object().shape({
     email: string().required("Email is required").email("Email is not valid"),
@@ -78,11 +78,7 @@ export function LoginFormModal(props) {
   };
   return (
     <div>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
+      <Modal open={open} onClose={() => setOpen(false)}>
         <Box sx={style}>
           <div className={styles.clossvg} onClick={toggleModal}>
             <Close />
