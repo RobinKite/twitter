@@ -7,7 +7,7 @@ export { RegistrationForm } from "./RegistrationForm/RegistrationForm";
 export { RecommendedUsers } from "./RecommendedUsers/RecommendedUsers";
 export { ProfileTabs } from "./ProfileTabs/ProfileTabs";
 export { PostModal } from "./PostModal/PostModal";
-export { Post } from "./Post/Post";
+export { CreatePost } from "./CreatePost/CreatePost";
 export { Navigation } from "./Navigation/Navigation";
 export { ModalUnFollow } from "./ModalUnFollow/ModalUnFollow";
 export { ModalEdit } from "./ModalEdit/ModalEdit";
