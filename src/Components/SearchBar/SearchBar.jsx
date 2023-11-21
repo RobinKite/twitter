@@ -24,7 +24,7 @@ const SearchBar = () => {
   };
 
   return (
-    <Stack sx={searchBarSX}>
+    <Stack component="form" sx={searchBarSX}>
       <Input
         sx={inputSX}
         placeholder="Search"
@@ -33,6 +33,7 @@ const SearchBar = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         onKeyDown={handleKeyDown}
       />
+
       <SearchIcon sx={searchIconSX} />
       {searchTerm.trim() && (
         <CancelIcon sx={closeIconSX} onClick={handleInputClear} />
