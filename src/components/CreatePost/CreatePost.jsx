@@ -7,10 +7,11 @@ import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import EmojiPicker from "emoji-picker-react";
-import { Button } from "../../components";
+import { Button } from "..";
 import { setModalPost } from "../../redux/slices/appSlice";
-import styles from "./Post.module.scss";
+import styles from "./CreatePost.module.scss";
 import PropTypes from "prop-types";
+import { addPosts } from "@/redux/slices/postsSlice";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -24,7 +25,7 @@ const VisuallyHiddenInput = styled("input")({
   width: 30,
 });
 
-const InputFieldCostum = styled(TextField)({
+const InputField = styled(TextField)({
   marginLeft: "70px",
   width: "100%",
   height: "70%",
@@ -36,7 +37,7 @@ const InputFieldCostum = styled(TextField)({
   },
 });
 
-export const Post = ({ avatarUrl }) => {
+export const CreatePost = ({ avatarUrl }) => {
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -56,7 +57,7 @@ export const Post = ({ avatarUrl }) => {
       formData.append(`images`, file);
     });
 
-    // dispatch(addPosts(formData));
+    dispatch(addPosts(formData));
 
     setInputStr("");
     setFiles([]);
@@ -88,13 +89,14 @@ export const Post = ({ avatarUrl }) => {
           src={avatarUrl}
         />
         <div className={styles.conteinerPost}>
-          <InputFieldCostum
-            placeholder="What is happening ?!"
+          <InputField
+            placeholder="What is happening?!"
             variant="standard"
             InputProps={{
               disableUnderline: true,
             }}
-            multiline
+            // TODO: next line causes issues by rerendering infinitely whole app (it is known issue: https://github.com/mui/material-ui/issues/33081)
+            // multiline
             fullWidth
             maxRows={18}
             onChange={(e) => setInputStr(e.target.value)}
@@ -168,6 +170,6 @@ export const Post = ({ avatarUrl }) => {
   );
 };
 
-Post.propTypes = {
+CreatePost.propTypes = {
   avatarUrl: PropTypes.string,
 };
