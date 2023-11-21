@@ -1,17 +1,36 @@
 @import "fonts.css";
 
-body {
+*,
+*::before,
+*::after {
   margin: 0;
-  font-family: "Montserrat", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-y: auto;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+body {
+  font-family: Montserrat, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ul {
   list-style: none;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background-color: transparent;
+}
+
+a {
+  font-family: inherit;
+  text-decoration: none;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
