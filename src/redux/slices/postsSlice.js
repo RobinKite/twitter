@@ -41,7 +41,7 @@ export default postsSlice.reducer;
 
 export const getPosts = (currentPage) => async (dispatch) => {
   try {
-    const response = await api.get(`posts?id=${2}&page=${currentPage}&pageSize=${10}`);
+    const response = await api.get(`posts/home?page=${currentPage}&pageSize=${12}`);
     console.log(response);
 
     dispatch(setPosts(response.data.content));
