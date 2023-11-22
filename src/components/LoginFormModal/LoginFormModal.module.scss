@@ -1,45 +1,11 @@
-.conteiner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgb(150, 146, 146);
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.container {
+  width: 500px;
 
-  @media (max-width: 700px) {
-    background-color: white;
-  }
-}
-
-.modalConteiner {
-  width: 46%;
-  height: 80%;
-  border-radius: 20px;
-  margin-top: 3%;
-  background-color: white;
-
-  @media (max-width: 700px) {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.loginConteiner {
-  padding: 4%;
-  padding-left: 20%;
-  padding-right: 20%;
   display: flex;
   flex-direction: column;
-  text-align: center;
-  position: relative;
-
-  @media (max-width: 700px) {
-    padding: 0;
-  }
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .titleJoin {
@@ -50,26 +16,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   position: absolute;
-  top: 0%;
-  left: 0%;
+  top: 1%;
+  left: 1%;
 
   &:hover {
-    background-color: #878383;
+    background-color: #dce0dc;
+  }
+  @media (max-width: 700px) {
+    top: 2%;
+    left: 5%;
   }
 }
+
 .svgX {
-  max-width: 7%;
-  margin-left: 50%;
+  width: 28px;
 }
 .retreat {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 31px 0 12px;
+  width: 60%;
   color: #848484;
 }
 
@@ -84,15 +54,16 @@
   min-width: 45%;
   border: 1px solid #878383;
 }
-
+.conteinerForm {
+  width: 70%;
+}
 .textProfile {
   font-size: 22px;
   font-weight: 500;
-
   a {
     color: rgb(21, 17, 218);
-    text-decoration: none;
 
+    text-decoration: none;
     &:hover {
       text-decoration: underline;
     }
