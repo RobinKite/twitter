@@ -1,6 +1,6 @@
 import { Link, Stack, Typography } from "@mui/material";
-import { RecommendedUsers } from "../../components";
 import { containerSX, showMoreSX, titleSX } from "./styleSX";
+import { RecommendedUsers } from "..";
 
 export const WhoToFollow = () => {
   return (
@@ -8,7 +8,7 @@ export const WhoToFollow = () => {
       <Typography variant="h2" sx={titleSX}>
         Who to follow
       </Typography>
-      <RecommendedUsers />
+      <RecommendedUsers useButton={true} />
       <Stack sx={showMoreSX}>
         <Link href="#">Show more</Link>
       </Stack>
