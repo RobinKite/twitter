@@ -1,5 +1,6 @@
 .container {
   width: 500px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,9 +40,7 @@
   justify-content: space-between;
   align-items: center;
   width: 60%;
-  // margin: 31px 0 12px;
   color: #848484;
-  // margin: 10px;
 }
 
 .retreat::before {
