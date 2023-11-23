@@ -18,6 +18,11 @@ ul {
   list-style: none;
 }
 
+svg,
+img {
+  display: block;
+}
+
 button {
   font-family: inherit;
   border: none;
@@ -26,6 +31,7 @@ button {
 
 a {
   font-family: inherit;
+  color: inherit;
   text-decoration: none;
 }
 
