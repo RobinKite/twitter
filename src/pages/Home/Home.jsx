@@ -36,9 +36,6 @@ export const Home = () => {
           liked={p.liked}
         />
       ))}
-      {/* </TabPanel> */}
-      {/* <TabPanel value={1}></TabPanel> */}
-      {/* </ProfileTabs> */}
     </>
   );
 };

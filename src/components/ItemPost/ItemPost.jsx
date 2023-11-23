@@ -8,8 +8,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
-import { deletePost } from "../../redux/slices/postsSlice";
-import { api } from "../../service/api";
+import { deletePost, handleLike, handleUnlike } from "../../redux/slices/postsSlice";
 import View from "../../assets/icons/view.svg?react";
 import Reply from "../../assets/icons/reply.svg?react";
 import LikeFalse from "../../assets/icons/likeFalse.svg?react";
@@ -67,43 +66,6 @@ export function ItemPost({
       redirectToPost();
     }
   };
-  const [isLiked, setIsLiked] = useState(liked);
-  const [likeCountState, setLikeCount] = useState(likeCount);
-
-  const handleLike = async () => {
-    try {
-      const requestData = {
-        postId: id,
-      };
-      // TODO: Move this function to corresponding slice
-      const response = await api.post(`likes/like`, requestData);
-
-      if (response.status === 200) {
-        setIsLiked(true);
-
-        setLikeCount((prevCount) => prevCount + 1);
-        // dispatch(getPosts());
-      }
-    } catch (error) {
-      console.error("Error liking the post:", error);
-    }
-  };
-  const handleUnlike = async () => {
-    try {
-      // TODO: Move this function to corresponding slice
-      const response = await api.delete(`likes/unlike?id=${id}`);
-
-      if (response.status === 200) {
-        setIsLiked(false);
-
-        setLikeCount((prevCount) => prevCount - 1);
-
-        // dispatch(getPosts());
-      }
-    } catch (error) {
-      console.error("Error liking the post:", error);
-    }
-  };
 
   return (
     <div>
@@ -152,14 +114,7 @@ export function ItemPost({
           {!disable && (
             <>
               <div>
-                <IconButton
-                  onClick={openModal}
-                  // onClick={() => {
-                  //   // const postId = id;
-                  //     dispatch(setModalComent());
-                  //     dispatch(setContent(<ComentPost id={id}/>));
-                  // }}
-                >
+                <IconButton onClick={openModal}>
                   <Reply className={styles.tweetReply} />
                 </IconButton>
                 <span>{replyCount}</span>
@@ -168,10 +123,13 @@ export function ItemPost({
                 <Repost className={styles.tweetRepost} />
               </IconButton>
               <div>
-                <IconButton onClick={isLiked ? handleUnlike : handleLike}>
-                  {isLiked ? <LikeFalse /> : <Like className={styles.tweetLike} />}
+                <IconButton
+                  onClick={() => {
+                    liked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
+                  }}>
+                  {liked ? <LikeFalse /> : <Like className={styles.tweetLike} />}
                 </IconButton>
-                <span>{likeCountState}</span>
+                <span>{likeCount}</span>
               </div>
               <IconButton>
                 <View className={styles.tweetReply} />

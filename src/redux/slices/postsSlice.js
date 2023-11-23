@@ -18,7 +18,23 @@ const postsSlice = createSlice({
       state.posts = uniquePostsArray;
     },
     addPost: (state, action) => {
-      state.posts.unshift(action.payload);
+      const newPost = action.payload;
+      if (newPost.type === "TWEET") {
+        state.posts.unshift(newPost);
+      }
+      if (newPost.type === "REPLY") {
+        state.postComments.unshift(newPost);
+
+        if (newPost.parentPost && newPost.parentPost.id) {
+          const parentPost = state.posts.find(
+            (post) => post.id === newPost.parentPost.id,
+          );
+
+          if (parentPost) {
+            parentPost.replyCount = (parentPost.replyCount || 0) + 1;
+          }
+        }
+      }
     },
     deleteComment: (state, action) => {
       state.postComments.filter((comment) => comment.id !== action.payload);
@@ -27,16 +43,53 @@ const postsSlice = createSlice({
       state.posts.filter((post) => post.id !== action.payload);
     },
     getPostId: (state, action) => {
-      const postId = action.payload;
-      // const selectedPost = state.posts.find((post) => post.id === postId);
-      state.selectedPost = postId;
-      // console.log(state);
-      // console.log(action);
+      const post = action.payload;
+
+      state.selectedPost = post;
     },
     getPostComents: (state, action) => {
-      const coment = action.payload;
+      const comments = action.payload;
+      state.postComments = comments;
 
-      state.postComments = coment;
+      // Оновлюємо replyCount для кожного батьківського поста
+      comments.forEach((comment) => {
+        if (comment.parentPost && comment.parentPost.id) {
+          const parentPost = state.posts.find(
+            (post) => post.id === comment.parentPost.id,
+          );
+          if (parentPost) {
+            parentPost.replyCount = (parentPost.replyCount || 0) + 1;
+          }
+        }
+      });
+    },
+
+    like: (state, action) => {
+      const { postId } = action.payload;
+      state.posts = state.posts.map((post) =>
+        post.id === postId
+          ? { ...post, likeCount: post.likeCount + 1, liked: true }
+          : post,
+      );
+      state.postComments = state.postComments.map((post) =>
+        post.id === postId
+          ? { ...post, likeCount: post.likeCount + 1, liked: true }
+          : post,
+      );
+    },
+
+    unlike: (state, action) => {
+      const { id } = action.payload;
+      state.posts = state.posts.map((post) =>
+        post.id === id && post.likeCount > 0
+          ? { ...post, likeCount: post.likeCount - 1, liked: false }
+          : post,
+      );
+      state.postComments = state.postComments.map((post) =>
+        post.id === id && post.likeCount > 0
+          ? { ...post, likeCount: post.likeCount - 1, liked: false }
+          : post,
+      );
     },
   },
 });
@@ -48,14 +101,45 @@ export const {
   deleteFromPost,
   getPostId,
   getPostComents,
+  like,
+  unlike,
 } = postsSlice.actions;
 export default postsSlice.reducer;
+
+export const handleUnlike = (id) => async (dispatch) => {
+  try {
+    const response = await api.delete(`likes/unlike?id=${id}`);
+
+    if (response.status === 200) {
+      const { likeCount, liked } = response.data;
+      dispatch(unlike({ id, likeCount, liked }));
+    }
+  } catch (error) {
+    console.error("Error unliking the post:", error);
+  }
+};
+
+export const handleLike = (id) => async (dispatch) => {
+  const requestData = {
+    postId: id,
+  };
+  try {
+    const response = await api.post(`likes/like`, requestData);
+
+    if (response.status === 200) {
+      const { likeCount, liked } = response.data;
+      dispatch(like({ postId: id, likeCount, liked }));
+    }
+  } catch (error) {
+    console.error("Error liking the post:", error);
+  }
+};
 
 export const axiosPostComments = (id) => async (dispatch) => {
   try {
     const response = await api.get(`posts/replies?postId=${id}&page=${0}&pageSize=${5}`);
     const comments = response.data.content;
-    console.log(comments);
+    // console.log(comments);
     dispatch(getPostComents(comments));
   } catch (error) {
     console.error("Error fetching posts:", error);

@@ -9,6 +9,8 @@ import { Button } from "..";
 import Media from "../../assets/icons/media.svg?react";
 import Emoji from "@/assets/icons/emoji.svg?react";
 import styles from "./CommentPost.module.scss";
+import { useDispatch } from "react-redux";
+import { addPosts } from "@/redux/slices/postsSlice";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -36,9 +38,6 @@ const InputFieldCostum = styled(TextField)({
 
 export const CommentPost = ({
   id,
-  // closeModal,
-  // updateComment,
-  // setPostComments,
   avatarUrl,
   // fullName,
 }) => {
@@ -46,29 +45,18 @@ export const CommentPost = ({
   const [inputStr, setInputStr] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const formData = new FormData();
-
+  const dispatch = useDispatch();
   const submit = () => {
     formData.append("body", inputStr);
     formData.append("type", "REPLY");
     formData.append("parentPostId", id);
-
     files.forEach((file) => {
       formData.append(`images`, file);
     });
 
-    // TODO: add function from postsSlice
-    // api
-    //   .post("posts/create", formData)
-    //   .then((response) => {
-    //     const responseDataComent = response.data;
-    //     updateComment(responseDataComent);
-    //     setInputStr("");
-    //     setFiles([]);
-    //     closeModal();
-    //   })
-    //   .catch((error) => {
-    //     console.error("Помилка отримання деталей поста:", error);
-    //   });
+    dispatch(addPosts(formData));
+    setInputStr("");
+    setFiles([]);
   };
 
   const onEmojiClick = (event) => {
