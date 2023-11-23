@@ -1,58 +1,48 @@
-import { Modal, Button, Typography } from "@mui/material";
-import { useState } from "react";
+import { Dialog, Stack, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 import {
   ButtonCancell,
   ButtonContainer,
   ButtonUnfollow,
-  ModalContainer,
+  ModalContainerSX,
   ModalContent,
 } from "./styleSX";
 
-export const ModalUnFollow = ({ userTag }) => {
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+export const ModalUnFollow = ({ userTag, onClose, showModal }) => {
   const handleUnfollow = () => {
-    handleClose();
+    // Add unfollow
+    console.log("Hello world!");
+    onClose();
   };
-
   return (
-    <>
-      <Button variant="contained" color="primary" onClick={handleOpen}>
-        Unfollow Modal
-      </Button>
-
-      <Modal open={open} onClose={handleClose}>
-        <ModalContainer>
-          <ModalContent>
-            <Typography variant="h6" padding={"15px 15px 0 15px"}>
-              Unfollow {userTag}?
-            </Typography>
-            <Typography padding={"15px 15px 0 15px"}>
-              Their posts will no longer show up in your For You timeline. You can still
-              view their profile unless their posts are protected.
-            </Typography>
-            <ButtonContainer>
-              <ButtonUnfollow
-                variant="contained"
-                color="primary"
-                onClick={handleUnfollow}>
-                Unfollow
-              </ButtonUnfollow>
-              <ButtonCancell variant="contained" color="secondary" onClick={handleClose}>
-                Cancel
-              </ButtonCancell>
-            </ButtonContainer>
-          </ModalContent>
-        </ModalContainer>
-      </Modal>
-    </>
+    <Dialog
+      onClose={onClose}
+      aria-labelledby="simple-dialog-title"
+      open={showModal}
+      sx={ModalContainerSX}>
+      <Stack sx={ModalContent}>
+        <Typography variant="h6" sx={{ marginBottom: "8px", fontSize: "20px" }}>
+          Unfollow {userTag}?
+        </Typography>
+        <Typography sx={{ fontSize: "15px" }}>
+          Their posts will no longer show up in your For You timeline. You can still view
+          their profile unless their posts are protected.
+        </Typography>
+        <ButtonContainer>
+          <ButtonUnfollow variant="contained" color="primary" onClick={handleUnfollow}>
+            Unfollow
+          </ButtonUnfollow>
+          <ButtonCancell variant="contained" color="secondary" onClick={onClose}>
+            Cancel
+          </ButtonCancell>
+        </ButtonContainer>
+      </Stack>
+    </Dialog>
   );
+};
+
+ModalUnFollow.propTypes = {
+  userTag: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  showModal: PropTypes.bool.isRequired,
 };

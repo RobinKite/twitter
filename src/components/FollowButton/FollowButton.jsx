@@ -1,32 +1,61 @@
 import { useState } from "react";
-import { ModalUnFollow } from "../../components";
-import { FollowButtonStyled } from "./styleSX";
 import PropTypes from "prop-types";
+import { FollowButtonStyled } from "./styleSX";
+import { ModalUnFollow } from "..";
 
-export const FollowButton = ({ initialIsFollowing }) => {
-  const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
+export const FollowButton = ({ id }) => {
+  const [isFollowing, setIsFollowing] = useState(null);
+  const [isHovering, setIsHovering] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  console.log(id);
 
   const handleFollow = () => {
     setIsFollowing(!isFollowing);
     setShowModal(false);
   };
 
-  // const handleOpenModal = () => {
-  //   setShowModal(true);
-  // };
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const onMouseEnterHandler = () => {
+    setIsHovering(true);
+  };
+  const onMouseLeaveHandler = () => {
+    setIsHovering(false);
+  };
 
   return (
     <>
-      <FollowButtonStyled variant="contained" onClick={handleFollow}>
-        <p>{isFollowing ? "Following" : "Follow"}</p>
-      </FollowButtonStyled>
+      {isFollowing ? (
+        <FollowButtonStyled
+          variant="contained"
+          onClick={handleOpenModal}
+          isFollowing={isFollowing}
+          onMouseEnter={onMouseEnterHandler}
+          onMouseLeave={onMouseLeaveHandler}
+          sx={{ minWidth: "110px" }}>
+          {isHovering ? <p>Unfollow </p> : <p>Following</p>}
+        </FollowButtonStyled>
+      ) : (
+        <FollowButtonStyled
+          variant="contained"
+          onClick={handleFollow}
+          isFollowing={isFollowing}>
+          <p>Follow</p>
+        </FollowButtonStyled>
+      )}
 
-      {isFollowing && (
+      {showModal && (
         <ModalUnFollow
           userTag="UserTag"
-          open={showModal}
-          onClose={() => setShowModal(false)}
+          showModal={showModal}
+          onClose={handleCloseModal}
         />
       )}
     </>
@@ -35,4 +64,5 @@ export const FollowButton = ({ initialIsFollowing }) => {
 
 FollowButton.propTypes = {
   initialIsFollowing: PropTypes.bool,
+  id: PropTypes.string,
 };

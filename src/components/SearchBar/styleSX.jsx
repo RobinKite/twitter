@@ -6,7 +6,7 @@ export const searchBarSX = {
   paddingTop: "6px",
   paddingBottom: "6px",
   color: "rgb(83, 100, 113)",
-  overflow: "hidden",
+  // overflow: "hidden",
   backgroundColor: "#ffffff",
   zIndex: 1,
 
@@ -32,7 +32,7 @@ export const inputSX = {
     borderRadius: "25px",
     border: "2px solid transparent",
     padding: "9px",
-    paddingLeft: "50px",
+    paddingLeft: "58px",
   },
 };
 

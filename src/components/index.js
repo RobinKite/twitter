@@ -25,3 +25,4 @@ export { Button } from "./Button/Button";
 export { AllNotifications } from "./AllNotifications/AllNotifications";
 export { LoginFormModal } from "./LoginFormModal/LoginFormModal";
 export { PasswordFormModal } from "./PasswordFormModal/PasswordFormModal";
+export { SearchProgressBar } from "./SearchProgressBar/SearchProgressBar";
