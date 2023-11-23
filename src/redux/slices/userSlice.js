@@ -43,7 +43,7 @@ export default userSlice.reducer;
 export const loginUser = (email, password) => (dispatch) => {
   const data = { email, password };
   api.post("/auth/login", data).then((response) => {
-    console.log(response);
+    // console.log(response);
     setAuthToken(response.data.access_token);
     setRefreshToken(response.data.refresh_token);
     dispatch(loginUserAction(response.data.user));

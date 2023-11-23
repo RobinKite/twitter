@@ -2,12 +2,12 @@ import { Avatar } from "@mui/material";
 import { styled } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
-import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
-import PermMediaIcon from "@mui/icons-material/PermMedia";
 import { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import PropTypes from "prop-types";
 import { Button } from "..";
+import Media from "../../assets/icons/media.svg?react";
+import Emoji from "@/assets/icons/emoji.svg?react";
 import styles from "./CommentPost.module.scss";
 
 const VisuallyHiddenInput = styled("input")({
@@ -81,98 +81,91 @@ export const CommentPost = ({
 
   return (
     <>
-      <div>
-        <div className={styles.conteinerPost}>
-          <Avatar
+      <div className={styles.wraper}>
+        <div>
+          <div className={styles.conteinerPost}>
+            <Avatar
+              sx={{
+                mt: 0,
+                ml: 1,
+                bgcolor: "rgb(8, 139, 226)",
+                width: 40,
+                height: 40,
+              }}
+              alt="Remy Sharp"
+              src={avatarUrl}
+            />
+            <InputFieldCostum
+              placeholder="Post your reply "
+              variant="standard"
+              InputProps={{
+                disableUnderline: true,
+              }}
+              multiline
+              fullWidth
+              maxRows={18}
+              onChange={(e) => setInputStr(e.target.value)}
+              value={inputStr}
+            />
+
+            {showEmojiPicker && (
+              <EmojiPicker pickerStyle={{ width: "100%" }} onEmojiClick={onEmojiClick} />
+            )}
+
+            {files.map((file, index) => (
+              <img
+                key={index}
+                style={{ width: "240px", objectFit: "cover" }}
+                src={URL.createObjectURL(file)}
+                alt=""
+                onClick={() => {
+                  setFiles((prevState) => prevState.filter((_, i) => i !== index));
+                }}
+              />
+            ))}
+          </div>
+        </div>
+        <div className={styles.conteinerFooterPost}>
+          <div className={styles.conteinerSvgPost}>
+            <IconButton component="label">
+              <Media />
+              <VisuallyHiddenInput
+                multiple
+                accept="image/*"
+                type="file"
+                onChange={(e) => {
+                  setFiles(
+                    Array(e.target.files.length)
+                      .fill({})
+                      .map((_, i) => e.target.files[i]),
+                  );
+                }}
+              />
+            </IconButton>
+
+            <IconButton
+              component="label"
+              onClick={() => setShowEmojiPicker((val) => !val)}
+              // onChange={(e) => setInputStr(e.target.value)}
+            >
+              <Emoji />
+            </IconButton>
+          </div>
+          <Button
+            type="submit"
+            onClick={submit}
             sx={{
-              mt: 0,
-              ml: 1,
-              bgcolor: "rgb(8, 139, 226)",
-              width: 56,
-              height: 56,
-            }}
-            alt="Remy Sharp"
-            src={avatarUrl}
-          />
-          <InputFieldCostum
-            placeholder="Post your reply "
-            variant="standard"
-            InputProps={{
-              disableUnderline: true,
-            }}
-            multiline
-            fullWidth
-            maxRows={18}
-            onChange={(e) => setInputStr(e.target.value)}
-            value={inputStr}
-          />
-
-          {showEmojiPicker && (
-            <EmojiPicker pickerStyle={{ width: "100%" }} onEmojiClick={onEmojiClick} />
-          )}
-
-          {files.map((file, index) => (
-            <img
-              key={index}
-              style={{ width: "240px", objectFit: "cover" }}
-              src={URL.createObjectURL(file)}
-              alt=""
-              onClick={() => {
-                setFiles((prevState) => prevState.filter((_, i) => i !== index));
-              }}
-            />
-          ))}
+              color: "white",
+              fontSize: "20px",
+              margin: 0,
+              height: "40px",
+              backgroundColor: "rgb(8, 139, 226)",
+              width: "17%",
+              "&:hover": { backgroundColor: "rgb(26, 26, 172)" },
+            }}>
+            Reply
+          </Button>
         </div>
-      </div>
-      <div className={styles.conteinerFooterPost}>
-        <div className={styles.conteinerSvgPost}>
-          <IconButton component="label">
-            <PermMediaIcon
-              id="svg-element"
-              color="primary"
-              fontSize="large"
-              sx={{ height: "30px", "&:hover": { transform: "scale(1.3)" } }}
-            />
-            <VisuallyHiddenInput
-              multiple
-              accept="image/*"
-              type="file"
-              onChange={(e) => {
-                setFiles(
-                  Array(e.target.files.length)
-                    .fill({})
-                    .map((_, i) => e.target.files[i]),
-                );
-              }}
-            />
-          </IconButton>
-
-          <IconButton
-            component="label"
-            onClick={() => setShowEmojiPicker((val) => !val)}
-            // onChange={(e) => setInputStr(e.target.value)}
-          >
-            <InsertEmoticonIcon
-              color="primary"
-              fontSize="large"
-              sx={{ "&:hover": { transform: "scale(1.3)" } }}
-            />
-          </IconButton>
-        </div>
-        <Button
-          type="submit"
-          onClick={submit}
-          sx={{
-            color: "white",
-            fontSize: "20px",
-            margin: 0,
-            height: "50px",
-            backgroundColor: "rgb(8, 139, 226)",
-            width: "17%",
-            "&:hover": { backgroundColor: "rgb(26, 26, 172)" },
-          }}>
-          Reply
-        </Button>
       </div>
     </>
   );

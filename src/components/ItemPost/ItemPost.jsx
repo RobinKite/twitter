@@ -115,8 +115,8 @@ export function ItemPost({
                 mt: 0,
                 ml: 1,
                 bgcolor: "rgb(8, 139, 226)",
-                width: 50,
-                height: 50,
+                width: 40,
+                height: 40,
               }}
               src={avatarUrl}
             />

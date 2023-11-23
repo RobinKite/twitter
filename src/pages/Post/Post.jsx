@@ -1,11 +1,12 @@
 import { IconButton, Typography, styled, Box } from "@mui/material";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { CommentPost, ItemPost } from "../../components";
-import { api } from "../../service/api";
-import { compareByDate } from "../../utils";
+
 import ArrowBack from "../../assets/icons/arrow.svg?react";
+import { axiosPostComments, getPostById } from "@/redux/slices/postsSlice";
+// import { compareByDate } from "@/utils";
 
 const HeaderPage = styled(Box)(() => ({
   display: "flex",
@@ -16,11 +17,15 @@ const HeaderPage = styled(Box)(() => ({
 
 export const Post = () => {
   const { id } = useParams();
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const [postDetails, setPostDetails] = useState(null);
-  const [postComments, setPostComments] = useState([]);
-  // console.log(postComments);
+  const post = useSelector((state) => state.posts.selectedPost);
+  console.log(post);
+  const postComments = useSelector((state) => state.posts.postComments);
 
+  // const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  // const [postDetails, setPostDetails] = useState(null);
+  // const [postComments, setPostComments] = useState([]);
+  // console.log(postComments);
+  const dispatch = useDispatch();
   // Налаштування infinity Scrol покищо не дуже працює
   // const [currentPage, setCurrentPage] = useState(0);
   // const [loadingComments, setLoadingComments] = useState(false);
@@ -102,51 +107,52 @@ export const Post = () => {
   };
 
   // Оновлення  додавання коментаря
-  const updateComment = (newComment) => {
-    setPostComments([...postComments, newComment]);
-  };
-  // Оновлення, видаляючи пост
-  const handlePostDeleted = (id) => {
-    const updatedComments = postComments.filter((comment) => comment.id !== id);
+  // const updateComment = (newComment) => {
+  //   setPostComments([...postComments, newComment]);
+  // };
+  // // Оновлення, видаляючи пост
+  // const handlePostDeleted = (id) => {
+  //   const updatedComments = postComments.filter((comment) => comment.id !== id);
 
-    setPostComments(updatedComments);
-  };
+  //   setPostComments(updatedComments);
+  // };
 
   // Код для сторінки PegesPost
   useEffect(() => {
-    if (isAuthenticated) {
-      // TODO: Move function to postsSlice
-      api
-        .get(`posts/post?id=${id}`)
-        .then((response) => {
-          const postDetails = response.data;
+    dispatch(getPostById(id));
+    // if (isAuthenticated) {
+    //   // TODO: Move function to postsSlice
+    //   api
+    //     .get(`posts/post?id=${id}`)
+    //     .then((response) => {
+    //       const postDetails = response.data;
 
-          // console.log(response)
-          setPostDetails(postDetails);
-        })
-        .catch((error) => {
-          console.error("Помилка отримання деталей поста:", error);
-        });
-    }
-  }, [isAuthenticated, id]);
+    //       // console.log(response)
+    //       setPostDetails(postDetails);
+    //     })
+    //     .catch((error) => {
+    //       console.error("Помилка отримання деталей поста:", error);
+    //     });
+    // }
+  }, [dispatch, id]);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      // TODO: Move function to postsSlice
-      api
-        .get(`posts/replies?postId=${id}&page=${0}&pageSize=${5}`)
-        .then((response) => {
-          const newComments = response.data.content;
-          // setPostComments(newComments);
-          setPostComments(newComments);
-
-          // console.log(newComments);
-        })
-        .catch((error) => {
-          console.error("Помилка отримання деталей поста:", error);
-        });
-    }
-  }, [isAuthenticated, id]);
+    // if (isAuthenticated) {
+    //   // TODO: Move function to postsSlice
+    //   api
+    //     .get(`posts/replies?postId=${id}&page=${0}&pageSize=${5}`)
+    //     .then((response) => {
+    //       const newComments = response.data.content;
+    //       // setPostComments(newComments);
+    //       setPostComments(newComments);
+    dispatch(axiosPostComments(id));
+    //       // console.log(newComments);
+    //     })
+    //     .catch((error) => {
+    //       console.error("Помилка отримання деталей поста:", error);
+    //     });
+    // }
+  }, [dispatch, id]);
 
   return (
     <>
@@ -157,28 +163,28 @@ export const Post = () => {
 
         <Typography variant="h6">POST</Typography>
       </HeaderPage>
-      {postDetails ? (
+      {post ? (
         <div>
           <ItemPost
-            avatarUrl={postDetails.user.avatarUrl}
-            fullName={postDetails.user.fullName}
-            key={postDetails.id}
-            content={postDetails.body}
-            imageUrls={postDetails.imageUrls}
-            id={postDetails.id}
-            likeCount={postDetails.likeCount}
-            liked={postDetails.liked}
-            replyCount={postDetails.replyCount}
-            updateComment={updateComment}
+            avatarUrl={post.user.avatarUrl}
+            fullName={post.user.fullName}
+            key={post.id}
+            content={post.body}
+            imageUrls={post.imageUrls}
+            id={post.id}
+            likeCount={post.likeCount}
+            liked={post.liked}
+            replyCount={post.replyCount}
+            // updateComment={updateComment}
           />
         </div>
       ) : (
         <div>Loading...</div>
       )}
-
-      <CommentPost id={id} updateComment={updateComment} />
-
-      {postComments?.sort(compareByDate).map((e) => (
+      {/* updateComment={updateComment} */}
+      <CommentPost id={id} />
+      {/* .sort(compareByDate) */}
+      {postComments?.map((e) => (
         <ItemPost
           replyCount={e.replyCount}
           key={e.id}
@@ -189,7 +195,7 @@ export const Post = () => {
           liked={e.liked}
           avatarUrl={e.user.avatarUrl}
           fullName={e.user.fullName}
-          onPostDeleted={handlePostDeleted}
+          // onPostDeleted={handlePostDeleted}
         />
       ))}
 
