@@ -13,10 +13,9 @@ const userListSlice = createSlice({
 
 export const fetchUsers = (numberOfUsers) => {
   try {
-    return async (dispatch) => {
+    return (dispatch) => {
       api.get(`/users/recommended?page=0&pageSize=${numberOfUsers}`).then((response) => {
         const data = response.data.content;
-        console.log(response.data.content);
 
         dispatch(setUsers(data));
       });

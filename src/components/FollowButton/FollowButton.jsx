@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { FollowButtonStyled } from "./styleSX";
 import { ModalUnFollow } from "..";
 import { useDispatch } from "react-redux";
-import { postSubcribeToUser } from "@/redux/slices/friendsSlice";
+import { deleteSubcribeToUser, postSubcribeToUser } from "@/redux/slices/friendsSlice";
 
 export const FollowButton = ({ id, userName }) => {
   const [isFollowing, setIsFollowing] = useState(null);
@@ -11,12 +11,15 @@ export const FollowButton = ({ id, userName }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
 
-  console.log(id);
-
   const handleFollow = () => {
     setIsFollowing(!isFollowing);
-    console.log(dispatch(postSubcribeToUser(id)));
+    dispatch(postSubcribeToUser(id));
     setShowModal(false);
+  };
+
+  const handleUnfollow = () => {
+    setIsFollowing(!isFollowing);
+    dispatch(deleteSubcribeToUser(id));
   };
 
   const handleOpenModal = () => {
@@ -30,6 +33,7 @@ export const FollowButton = ({ id, userName }) => {
   const onMouseEnterHandler = () => {
     setIsHovering(true);
   };
+
   const onMouseLeaveHandler = () => {
     setIsHovering(false);
   };
@@ -60,6 +64,7 @@ export const FollowButton = ({ id, userName }) => {
           userTag={userName}
           showModal={showModal}
           onClose={handleCloseModal}
+          handleUnfollow={handleUnfollow}
         />
       )}
     </>
@@ -69,7 +74,7 @@ export const FollowButton = ({ id, userName }) => {
 FollowButton.propTypes = {
   initialIsFollowing: PropTypes.bool,
   userName: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 FollowButton.defaultProps = {

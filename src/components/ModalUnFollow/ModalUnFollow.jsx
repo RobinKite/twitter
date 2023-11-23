@@ -8,12 +8,7 @@ import {
   ModalContent,
 } from "./styleSX";
 
-export const ModalUnFollow = ({ userTag, onClose, showModal }) => {
-  const handleUnfollow = () => {
-    // Add unfollow
-    console.log("Hello world!");
-    onClose();
-  };
+export const ModalUnFollow = ({ userTag, onClose, showModal, handleUnfollow }) => {
   return (
     <Dialog
       onClose={onClose}
@@ -45,4 +40,5 @@ ModalUnFollow.propTypes = {
   userTag: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   showModal: PropTypes.bool.isRequired,
+  handleUnfollow: PropTypes.func.isRequired,
 };

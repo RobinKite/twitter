@@ -11,13 +11,19 @@ const friendsSlice = createSlice({
     sendFriendRequest: (state, action) => {
       state.friendRequests.push(action.payload);
     },
+    removeFriend: (state, action) => {
+      state.friendsList = state.friendsList.filter(
+        (friend) => friend.id !== action.payload,
+      );
+    },
   },
 });
 
 export const postSubcribeToUser = (id) => {
+  console.log("send POST Subscription");
   try {
-    return async (dispatch) => {
-      api.post("/subscriptions", `${id}`).then((response) => {
+    return (dispatch) => {
+      api.post("/subscriptions", id).then((response) => {
         const data = response.data;
         console.log(response);
 
@@ -30,5 +36,21 @@ export const postSubcribeToUser = (id) => {
   }
 };
 
-export const { sendFriendRequest } = friendsSlice.actions;
+export const deleteSubcribeToUser = (id) => {
+  try {
+    return (dispatch) => {
+      console.log("send DELETE Subscription");
+      api.delete("/subscriptions", id).then((response) => {
+        const data = response.data;
+        dispatch(removeFriend(id));
+        return data;
+      });
+    };
+    // eslint-disable-next-line no-unreachable
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const { sendFriendRequest, removeFriend } = friendsSlice.actions;
 export default friendsSlice.reducer;

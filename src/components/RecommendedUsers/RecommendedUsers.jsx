@@ -24,15 +24,21 @@ export const RecommendedUserCard = ({ id, fullName, userTag, avatarUrl, useButto
 
 export const RecommendedUsers = ({ useButton }) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchUsers(3));
-  }, []);
+  }, [dispatch]);
   const usersList = useSelector((state) => state.usersList.users);
-  console.log(usersList);
+
   return (
     <Stack>
       {usersList.map((user, index) => (
-        <RecommendedUserCard key={index} {...user} id={user.id} useButton={useButton} />
+        <RecommendedUserCard
+          key={index}
+          {...user}
+          id={`${user.id}`}
+          useButton={useButton}
+        />
       ))}
     </Stack>
   );
@@ -41,14 +47,15 @@ export const RecommendedUsers = ({ useButton }) => {
 RecommendedUserCard.propTypes = {
   fullName: PropTypes.string.isRequired,
   userTag: PropTypes.string,
-  avatarUrl: PropTypes.string.isRequired,
+  avatarUrl: PropTypes.string,
   useButton: PropTypes.bool,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 RecommendedUserCard.defaultProps = {
   useButton: false,
   userTag: "",
+  avatarUrl: "",
 };
 
 RecommendedUsers.propTypes = {
