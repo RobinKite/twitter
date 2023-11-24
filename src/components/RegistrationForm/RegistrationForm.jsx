@@ -1,41 +1,18 @@
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Box from "@mui/material/Box";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
-import { Button } from "../../components";
 import { setCreateProfileModal } from "../../redux/slices/appSlice";
-import CloseButton from "../../assets/icons/close.svg?react";
 import styles from "./RegistrationForm.module.scss";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "30%",
-  height: "80%",
-
-  bgcolor: "background.paper",
-  border: "0",
-  boxShadow: 24,
-  p: 4,
-  padding: "10px 80px",
-  borderRadius: "15px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "flex-start",
-  flexDirection: "column",
-  minHeight: "650px",
-};
+import { CloseButton, FormBox, FormTitle, SubmitButton } from "./RagistrationFormStyles";
+import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 
 export const RegistrationForm = () => {
   const isProfileModalActive = useSelector((state) => state.app.isProfileModalActive);
@@ -87,21 +64,11 @@ export const RegistrationForm = () => {
   return (
     <div>
       <Modal open={isProfileModalActive} onClose={handleClose}>
-        <Box sx={style}>
-          <button className={styles.closeBtn} onClick={handleClose}>
-            <CloseButton style={{ height: "30px" }} />
-          </button>
-          <Typography
-            id="modal-modal-title"
-            variant="h6"
-            component="h2"
-            sx={{
-              marginBottom: "50px",
-              fontSize: "30px",
-              fontWeight: "700",
-            }}>
-            Create your account
-          </Typography>
+        <FormBox>
+          <CloseButton onClick={handleClose}>
+            <CloseSharpIcon />
+          </CloseButton>
+          <FormTitle variant="h2">Create your account</FormTitle>
           <Formik
             data={registrationData}
             onDataChange={handleRegistrationDataChange}
@@ -113,7 +80,7 @@ export const RegistrationForm = () => {
                 <Field
                   className={styles.textField}
                   as={TextField}
-                  // id='outlined-basic'
+                  id="outlined-basic"
                   name="firstName"
                   label="First name"
                   placeholder="First name"
@@ -128,7 +95,7 @@ export const RegistrationForm = () => {
                 <Field
                   className={styles.textField}
                   as={TextField}
-                  // id='outlined-basic'
+                  id="outlined-basic"
                   name="lastName"
                   label="Last name"
                   placeholder="Last name"
@@ -182,7 +149,7 @@ export const RegistrationForm = () => {
                     marginBottom: "35px",
                   }}></Field>
 
-                <Button //роут, куда ведет кнопка некст??????
+                <SubmitButton //роут, куда ведет кнопка некст??????
                   type="submit"
                   onClick={(e) => {
                     e.preventDefault();
@@ -191,30 +158,13 @@ export const RegistrationForm = () => {
                       navigate("/");
                     }
                   }}
-                  disabled={!isValid}
-                  sx={{
-                    backgroundColor: "#000000",
-                    color: "#FFFFFF",
-                    padding: "0 32px",
-                    width: "100%",
-                    height: "4rem",
-                    margin: "0",
-                    marginTop: "40px",
-                    "&:hover": {
-                      backgroundColor: "#0f1419",
-                    },
-                    "&:disabled": {
-                      backgroundColor: "#6d6d6d",
-                      color: "#ffffff",
-                      cursor: "not-allowed",
-                    },
-                  }}>
+                  disabled={!isValid}>
                   Next
-                </Button>
+                </SubmitButton>
               </Form>
             )}
           </Formik>
-        </Box>
+        </FormBox>
       </Modal>
     </div>
   );
