@@ -1,18 +1,20 @@
-import { RiTwitterXFill as TwitterIcon } from "react-icons/ri";
-import { GoHome as HomeIcon } from "react-icons/go";
-import { GoHomeFill as HomeIconFilled } from "react-icons/go";
-import { IoSearchOutline as SearchIcon } from "react-icons/io5";
-import { IoSearch as SearchIconFilled } from "react-icons/io5";
-import { HiOutlineUser as ProfileIcon } from "react-icons/hi2";
-import { HiUser as ProfileIconFilled } from "react-icons/hi2";
-import { PiBellFill as NotificationIconFilled } from "react-icons/pi";
-import { PiBell as NotificationIcon } from "react-icons/pi";
-import { IoMail as MessageIconFilled } from "react-icons/io5";
-import { IoMailOutline as MessageIcon } from "react-icons/io5";
-import { IoListOutline as ListIcon } from "react-icons/io5";
-import { IoList as ListIconFilled } from "react-icons/io5";
-import { PiUsers as CommunitiesIcon } from "react-icons/pi";
-import { PiUsersFill as CommunitiesIconFilled } from "react-icons/pi";
+import {
+  TwitterIcon,
+  HomeIcon,
+  HomeIconFilled,
+  SearchIcon,
+  SearchIconFilled,
+  ProfileIcon,
+  ProfileIconFilled,
+  NotificationIcon,
+  NotificationIconFilled,
+  MessageIcon,
+  MessageIconFilled,
+  ListIcon,
+  ListIconFilled,
+  CommunitiesIcon,
+  CommunitiesIconFilled,
+} from "@/icons";
 import { capitalize } from "@/utils";
 
 class Item {

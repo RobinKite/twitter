@@ -11,13 +11,7 @@ import { ModalCommentPost } from "../../components";
 import { deletePost } from "../../redux/slices/postsSlice";
 import { Endpoint } from "@/constants";
 import { client } from "@/services";
-import View from "../../assets/icons/view.svg?react";
-import Reply from "../../assets/icons/reply.svg?react";
-import LikeFalse from "../../assets/icons/likeFalse.svg?react";
-import Repost from "../../assets/icons/repost.svg?react";
-import Share from "../../assets/icons/share.svg?react";
-import Like from "../../assets/icons/like.svg?react";
-import Delete from "../../assets/icons/delete.svg?react";
+import { View, Reply, LikeFalse, Repost, Share, Like, Delete } from "@/icons";
 import styles from "./ItemPost.module.scss";
 
 export function ItemPost({

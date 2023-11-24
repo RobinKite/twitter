@@ -6,8 +6,7 @@ import Box from "@mui/material/Box";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 import { Button } from "../../components";
-import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
-import CloseButton from "../../assets/icons/close.svg?react";
+import { Cross, TwitterIcon } from "@/icons";
 import styles from "./ForgotPasswordForm.module.scss";
 
 const style = {
@@ -74,10 +73,10 @@ export const ForgotPasswordForm = () => {
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose}>
-            <CloseButton style={{ height: "30px" }} />
+            <Cross size={30} />
           </button>
           <div className={styles.twitterLogo}>
-            <TwiterLogo />
+            <TwitterIcon size={32} />
           </div>
           <Typography
             id="modal-modal-title"

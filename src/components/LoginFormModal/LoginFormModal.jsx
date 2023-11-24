@@ -9,10 +9,8 @@ import { Form, Formik } from "formik";
 import { object, string } from "yup";
 import { Button, Input } from "../../components";
 import { setModal } from "../../redux/slices/appSlice";
-import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
-import Apple from "../../assets/icons/apple.svg?react";
-import Google from "../../assets/icons/google.svg?react";
-import Close from "../../assets/icons/close.svg?react";
+import { TwitterIcon, Apple, Google, Cross } from "@/icons";
+
 import styles from "./LoginFormModal.module.scss";
 
 const style = {
@@ -83,23 +81,23 @@ export function LoginFormModal() {
         <Box sx={style}>
           <div className={styles.container}>
             <div className={styles.clossvg} onClick={toggleModal}>
-              <Close />
+              <Cross size={30} />
             </div>
             <div className={styles.svgX}>
-              <TwiterLogo />
+              <TwitterIcon size={28} />
             </div>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Sign in to X
             </Typography>
             <Button
-              endIcon={<Google />}
+              startIcon={<Google size={22} />}
               sx={{
                 width: "60%",
               }}>
               Sign in with Google
             </Button>
             <Button
-              startIcon={<Apple />}
+              startIcon={<Apple size={22} />}
               sx={{
                 width: "60%",
               }}>

@@ -13,7 +13,7 @@ import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 import { Button } from "../../components";
 import { setCreateProfileModal } from "../../redux/slices/appSlice";
-import CloseButton from "../../assets/icons/close.svg?react";
+import { Cross } from "@/icons";
 import styles from "./RegistrationForm.module.scss";
 
 const style = {
@@ -89,7 +89,7 @@ export const RegistrationForm = () => {
       <Modal open={isProfileModalActive} onClose={handleClose}>
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose}>
-            <CloseButton style={{ height: "30px" }} />
+            <Cross size={30} />
           </button>
           <Typography
             id="modal-modal-title"

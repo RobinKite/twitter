@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { RiTwitterXFill as TwitterIcon } from "react-icons/ri";
+import { TwitterIcon } from "@/icons";
 import { clsx } from "clsx";
 import PropTypes from "prop-types";
 import { items } from "@/constants/navigation";

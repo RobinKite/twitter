@@ -6,9 +6,9 @@ import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { MoreIcon } from "@/icons";
 import { CreatePost, PostModal, Navigation } from "../../components";
 import { setModalPost, setContent } from "../../redux/slices/appSlice";
-import MoreIcon from "../../assets/icons/more.svg?react";
 import styles from "./Header.module.scss";
 
 // const Sidebar = () => {
@@ -18,8 +18,6 @@ import styles from "./Header.module.scss";
 //     (state) => state.postModal.isActiveSetModal
 //   );
 //   const dispatch = useDispatch();
-
-// import MoreIconFilled from "../../assets/svg/more-filled.svg?react";
 
 export const Header = () => {
   const posts = useSelector((state) => state.posts.posts);
@@ -57,20 +55,19 @@ export const Header = () => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        startIcon={<MoreIcon />}
+        startIcon={<MoreIcon size={30} />}
         className={styles.moreBtn}
         sx={{
-          border: 0,
-          padding: "25px 12px ",
-          height: 0,
-          minWidth: 0,
-          fontSize: "20px",
+          color: "black",
+          fontSize: "1.25rem",
+          borderRadius: "2rem",
           display: "flex",
-          gap: "15px",
+          gap: "1rem",
           position: "relative",
-          fontWeight: "normal",
-          // padding: 0,
-          margin: "0 0 20px 0",
+          fontWeight: 400,
+          padding: "0.5rem 0.75rem",
+          textTransform: "capitalize",
+          margin: "0 0 1.25rem 0",
           "&:hover": {
             backgroundColor: "rgb(221, 217, 217)",
           },
@@ -82,11 +79,7 @@ export const Header = () => {
             margin: 0,
           },
         }}>
-        {isMobile ? ( // Conditionally hide the text for mobile view
-          <span className={styles.hideText}>More</span>
-        ) : (
-          "More"
-        )}
+        {isMobile ? <span className={styles.hideText}>More</span> : "More"}
       </Button>
 
       <Select

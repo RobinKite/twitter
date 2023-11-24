@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CommentPost, ItemPost } from "../../components";
 import { client } from "@/services";
 import { compareByDate } from "../../utils";
-import ArrowBack from "../../assets/icons/arrow.svg?react";
+import { ArrowBack } from "@/icons";
 import { Endpoint } from "@/constants";
 
 const HeaderPage = styled(Box)(() => ({
@@ -153,7 +153,7 @@ export const Post = () => {
     <>
       <HeaderPage>
         <IconButton onClick={redirectToPost}>
-          <ArrowBack />
+          <ArrowBack size={25} />
         </IconButton>
 
         <Typography variant="h6">POST</Typography>

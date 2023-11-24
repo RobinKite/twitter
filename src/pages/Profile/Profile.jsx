@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "../../components";
 import { getPosts } from "../../redux/slices/postsSlice";
-import ArrowBack from "../../assets/icons/arrow.svg?react";
+import { ArrowBack } from "@/icons";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -100,6 +100,7 @@ export function Profile() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   return (
@@ -112,7 +113,7 @@ export function Profile() {
       <Container maxWidth="sm" disableGutters={true}>
         <HeaderPage>
           <ArrowSvg>
-            <ArrowBack />
+            <ArrowBack size={25} />
           </ArrowSvg>
           <ContainerHederText>
             <Typography variant="h6">

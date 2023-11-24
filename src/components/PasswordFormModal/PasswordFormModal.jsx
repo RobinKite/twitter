@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 import { Button } from "..";
-import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
-import CloseButton from "../../assets/icons/close.svg?react";
+import { TwitterIcon, Cross } from "@/icons";
 import styles from "./PasswordFormModal.module.scss";
 
 const style = {
@@ -107,10 +106,10 @@ export const PasswordFormModal = () => {
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose}>
-            <CloseButton style={{ height: "30px" }} />
+            <Cross size={30} />
           </button>
           <div className={styles.twitterLogo}>
-            <TwiterLogo />
+            <TwitterIcon size={30} />
           </div>
 
           <div className={styles.textContainer}>
@@ -183,10 +182,10 @@ export const PasswordFormModal = () => {
       <Modal open={open2} onClose={handleClose2}>
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose2}>
-            <CloseButton style={{ height: "30px" }} />
+            <Cross size={30} />
           </button>
           <div className={styles.twitterLogo}>
-            <TwiterLogo />
+            <TwitterIcon size={30} />
           </div>
           <div className={styles.textContainer}>
             <Typography id="modal-modal-title2" variant="h6" component="h2">
