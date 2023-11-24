@@ -24,10 +24,8 @@ const postsSlice = createSlice({
         state.posts.unshift(newPost);
       }
       if (newPost.type === "REPLY") {
-        // Виправлено орфографічну помилку тут
         state.postComments.unshift(newPost);
 
-        // Оновлення replyCount в батьківському пості
         const parentPost = state.posts.find((post) => post.id === newPost.parentPost.id);
         if (parentPost) {
           parentPost.replyCount = (parentPost.replyCount || 0) + 1;
