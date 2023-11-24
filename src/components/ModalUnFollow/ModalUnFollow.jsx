@@ -9,12 +9,17 @@ import {
 } from "./styleSX";
 
 export const ModalUnFollow = ({ userTag, onClose, showModal, handleUnfollow }) => {
+  const handleConfirmUnsubscription = () => {
+    handleUnfollow();
+    onClose();
+  };
+
   return (
     <Dialog
       onClose={onClose}
-      aria-labelledby="simple-dialog-title"
       open={showModal}
-      sx={ModalContainerSX}>
+      sx={ModalContainerSX}
+      aria-labelledby="modal for confirm unsubscription">
       <Stack sx={ModalContent}>
         <Typography variant="h6" sx={{ marginBottom: "8px", fontSize: "20px" }}>
           Unfollow {userTag}?
@@ -24,7 +29,10 @@ export const ModalUnFollow = ({ userTag, onClose, showModal, handleUnfollow }) =
           their profile unless their posts are protected.
         </Typography>
         <ButtonContainer>
-          <ButtonUnfollow variant="contained" color="primary" onClick={handleUnfollow}>
+          <ButtonUnfollow
+            variant="contained"
+            color="primary"
+            onClick={handleConfirmUnsubscription}>
             Unfollow
           </ButtonUnfollow>
           <ButtonCancell variant="contained" color="secondary" onClick={onClose}>

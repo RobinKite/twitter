@@ -7,7 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchUsers } from "@/redux/slices/usersListSlice";
 
-export const RecommendedUserCard = ({ id, fullName, userTag, avatarUrl, useButton }) => {
+export const RecommendedUserCard = ({
+  id,
+  fullName,
+  userTag,
+  avatarUrl,
+  useButton,
+  isFollowedByUser,
+}) => {
   return (
     <Stack sx={recommendedUserCardSX}>
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
@@ -17,7 +24,13 @@ export const RecommendedUserCard = ({ id, fullName, userTag, avatarUrl, useButto
           {userTag ? `@${userTag}` : fullName}
         </Typography>
       </Stack>
-      {useButton && <FollowButton id={id} userName={userTag || fullName} />}
+      {useButton && (
+        <FollowButton
+          id={id}
+          userName={userTag || fullName}
+          isFollowedByUser={isFollowedByUser}
+        />
+      )}
     </Stack>
   );
 };
@@ -38,6 +51,7 @@ export const RecommendedUsers = ({ useButton }) => {
           {...user}
           id={`${user.id}`}
           useButton={useButton}
+          isFollowedByUser={user.isFollowedByUser}
         />
       ))}
     </Stack>
@@ -50,6 +64,7 @@ RecommendedUserCard.propTypes = {
   avatarUrl: PropTypes.string,
   useButton: PropTypes.bool,
   id: PropTypes.string.isRequired,
+  isFollowedByUser: PropTypes.bool.isRequired,
 };
 
 RecommendedUserCard.defaultProps = {

@@ -20,13 +20,10 @@ const friendsSlice = createSlice({
 });
 
 export const postSubcribeToUser = (id) => {
-  console.log("send POST Subscription");
   try {
     return (dispatch) => {
-      api.post("/subscriptions", { id: `${id}` }).then((response) => {
+      api.post("/subscriptions", { id }).then((response) => {
         const data = response.data;
-        console.log(response);
-
         dispatch(sendFriendRequest(data));
       });
     };
@@ -39,11 +36,8 @@ export const postSubcribeToUser = (id) => {
 export const deleteSubscribeToUser = (id) => {
   try {
     return (dispatch) => {
-      console.log("send DELETE Subscription");
       api.delete(`/subscriptions?id=${id}`).then((response) => {
         const data = response.data;
-        console.log(response);
-
         dispatch(removeFriend(id));
         return data;
       });
