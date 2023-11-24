@@ -1,10 +1,18 @@
 import { useDispatch } from "react-redux";
 import { Footer, Button } from "../../components";
 import { setCreateProfileModal, setModal } from "../../redux/slices/appSlice";
-import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
-import Apple from "../../assets/icons/apple.svg?react";
 import Google from "../../assets/icons/google.svg?react";
-import styles from "./Registration.module.scss";
+import { Stack } from "@mui/material";
+import {
+  AskingSpan,
+  Container,
+  ContentStack,
+  IconBox,
+  MainSpan,
+  OrSpan,
+  TextSpan,
+  TwitterX,
+} from "./StyledElements";
 
 export const Registration = ({ setIsLog, isLog }) => {
   const dispatch = useDispatch();
@@ -17,35 +25,38 @@ export const Registration = ({ setIsLog, isLog }) => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.conteiner}>
-        <div className={styles.svgX}>
-          <TwiterLogo />
-        </div>
-
-        <div className={styles.exitLogin}>
-          <h1 className={styles.titleLogin}>Here and now</h1>
-          <h5 className={styles.titleJoin}>Join today.</h5>
-          <Button endIcon={<Google />}>Sign up with Google</Button>
-          <Button startIcon={<Apple />}>Sign up with Apple</Button>
-          <span className={styles.retreat}>or</span>
+    <Stack sx={{ height: "100vh", padding: "16px" }}>
+      <Container direction="row">
+        <IconBox>
+          <TwitterX />
+        </IconBox>
+        <ContentStack>
+          <MainSpan variant="span">Happening now</MainSpan>
+          <TextSpan variant="span">Join today.</TextSpan>
+          <Button startIcon={<Google />}>Sign up with Google</Button>
+          <OrSpan variant="span">or</OrSpan>
           <Button
             onClick={handleCreateElementClick}
             sx={{
               color: "white",
-              backgroundColor: "rgb(8, 139, 226)",
-              "&:hover": { backgroundColor: "rgb(26, 26, 172)" },
+              backgroundColor: "#1d9bf0",
+              "&:hover": { backgroundColor: "#1a8cd8" },
             }}>
             Create a profile
           </Button>
-          <p className={styles.titleProfile}>Already have a profile?</p>
-          <Button onClick={toggleModal}>Sign in</Button>
-        </div>
-      </div>
-      <div>
-        <Footer />
-      </div>
+          <AskingSpan variant="span">Already have an account?</AskingSpan>
+          <Button
+            onClick={toggleModal}
+            sx={{
+              margin: "0 0 8px",
+              color: "#1d9bf0",
+            }}>
+            Sign in
+          </Button>
+        </ContentStack>
+      </Container>
+      <Footer />
       {/* {firstModalOpen && <LoginForm open={firstModalOpen} />} */}
-    </div>
+    </Stack>
   );
 };
