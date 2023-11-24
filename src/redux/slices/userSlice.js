@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { api } from "../../service/api";
-import { setAuthToken, setRefreshToken } from "../../utils/tokens";
+// import { client } from "@/services";
+// import { setAuthToken, setRefreshToken } from "../../utils/tokens";
+import { client, storage } from "@/services";
+import { Endpoint } from "@/constants";
 
 const userSlice = createSlice({
   name: "user",
@@ -41,11 +43,12 @@ export default userSlice.reducer;
 // }
 
 export const loginUser = (email, password) => (dispatch) => {
-  const data = { email, password };
-  api.post("/auth/login", data).then((response) => {
+  const payload = { email, password };
+  client.post(Endpoint.LOGIN, payload).then((response) => {
     console.log(response);
-    setAuthToken(response.data.access_token);
-    setRefreshToken(response.data.refresh_token);
+    const { access_token: accessToken, refresh_token: refreshToken } = response.data;
+    storage.setTokens(accessToken, refreshToken);
+    client.setAccessToken(accessToken);
     dispatch(loginUserAction(response.data.user));
   });
 };

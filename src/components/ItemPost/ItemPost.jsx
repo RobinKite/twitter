@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
 import { deletePost } from "../../redux/slices/postsSlice";
-import { api } from "../../service/api";
+import { Endpoint } from "@/constants";
+import { client } from "@/services";
 import View from "../../assets/icons/view.svg?react";
 import Reply from "../../assets/icons/reply.svg?react";
 import LikeFalse from "../../assets/icons/likeFalse.svg?react";
@@ -72,11 +73,8 @@ export function ItemPost({
 
   const handleLike = async () => {
     try {
-      const requestData = {
-        postId: id,
-      };
       // TODO: Move this function to corresponding slice
-      const response = await api.post(`likes/like`, requestData);
+      const response = await client.post(Endpoint.LIKE, { postId: id });
 
       if (response.status === 200) {
         setIsLiked(true);
@@ -91,11 +89,10 @@ export function ItemPost({
   const handleUnlike = async () => {
     try {
       // TODO: Move this function to corresponding slice
-      const response = await api.delete(`likes/unlike?id=${id}`);
+      const response = await client.delete(Endpoint.UNLIKE, { params: { id } });
 
       if (response.status === 200) {
         setIsLiked(false);
-
         setLikeCount((prevCount) => prevCount - 1);
 
         // dispatch(getPosts());
