@@ -4,7 +4,6 @@ import { FollowButtonStyled } from "./styleSX";
 import { ModalUnFollow } from "..";
 import { useDispatch } from "react-redux";
 import { deleteSubscribeToUser, postSubcribeToUser } from "@/redux/slices/userSlice";
-// import { deleteSubscribeToUser, postSubcribeToUser } from "@/redux/slices/friendsSlice";
 
 export const FollowButton = ({ id, userName, isFollowedByUser }) => {
   const [isFollowing, setIsFollowing] = useState(isFollowedByUser);
@@ -13,13 +12,13 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
   const dispatch = useDispatch();
 
   const handleFollow = () => {
-    setIsFollowing(!isFollowing);
+    setIsFollowing(true);
     dispatch(postSubcribeToUser(id));
     setShowModal(false);
   };
 
   const handleUnfollow = () => {
-    setIsFollowing(!isFollowing);
+    setIsFollowing(false);
     dispatch(deleteSubscribeToUser(id));
   };
 
@@ -41,24 +40,19 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
 
   return (
     <>
-      {isFollowing ? (
-        <FollowButtonStyled
-          variant="contained"
-          onClick={handleOpenModal}
-          isFollowing={isFollowing}
-          onMouseEnter={onMouseEnterHandler}
-          onMouseLeave={onMouseLeaveHandler}
-          sx={{ minWidth: "110px" }}>
-          {isHovering ? <p>Unfollow </p> : <p>Following</p>}
-        </FollowButtonStyled>
-      ) : (
-        <FollowButtonStyled
-          variant="contained"
-          onClick={handleFollow}
-          isFollowing={isFollowing}>
-          <p>Follow</p>
-        </FollowButtonStyled>
-      )}
+      <FollowButtonStyled
+        variant="contained"
+        onClick={isFollowing ? handleOpenModal : handleFollow}
+        isFollowing={isFollowing}
+        onMouseEnter={onMouseEnterHandler}
+        onMouseLeave={onMouseLeaveHandler}
+        sx={{ minWidth: "110px" }}>
+        {isHovering ? (
+          <p>{isFollowing ? "Unfollow" : "Follow"}</p>
+        ) : (
+          <p>{isFollowing ? "Following" : "Follow"}</p>
+        )}
+      </FollowButtonStyled>
 
       {showModal && (
         <ModalUnFollow
@@ -73,12 +67,7 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
 };
 
 FollowButton.propTypes = {
-  initialIsFollowing: PropTypes.bool,
   userName: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   isFollowedByUser: PropTypes.bool.isRequired,
-};
-
-FollowButton.defaultProps = {
-  initialIsFollowing: false,
 };
