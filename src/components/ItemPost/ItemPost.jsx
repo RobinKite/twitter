@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
 import { deletePost, handleLike, handleUnlike } from "../../redux/slices/postsSlice";
-import View from "../../assets/icons/view.svg?react";
+// import View from "../../assets/icons/view.svg?react";
 import Reply from "../../assets/icons/reply.svg?react";
 import LikeFalse from "../../assets/icons/likeFalse.svg?react";
 import Repost from "../../assets/icons/repost.svg?react";
@@ -117,7 +117,9 @@ export function ItemPost({
                 <IconButton onClick={openModal}>
                   <Reply className={styles.tweetReply} />
                 </IconButton>
-                <span>{replyCount}</span>
+                <span style={{ color: "rgb(83, 100, 113)", fontSize: "15px" }}>
+                  {replyCount}
+                </span>
               </div>
               <IconButton>
                 <Repost className={styles.tweetRepost} />
@@ -129,11 +131,13 @@ export function ItemPost({
                   }}>
                   {liked ? <LikeFalse /> : <Like className={styles.tweetLike} />}
                 </IconButton>
-                <span>{likeCount}</span>
+                <span style={{ color: "rgb(83, 100, 113) ", fontSize: "15px" }}>
+                  {likeCount}
+                </span>
               </div>
-              <IconButton>
+              {/* <IconButton>
                 <View className={styles.tweetReply} />
-              </IconButton>
+              </IconButton> */}
               <IconButton>
                 <Share className={styles.tweetReply} />
               </IconButton>

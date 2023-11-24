@@ -7,6 +7,7 @@ const postsSlice = createSlice({
     posts: [],
     selectedPost: null,
     postComments: [],
+    // coments:[],
   },
   reducers: {
     setPosts: (state, action) => {
@@ -23,45 +24,45 @@ const postsSlice = createSlice({
         state.posts.unshift(newPost);
       }
       if (newPost.type === "REPLY") {
+        // Виправлено орфографічну помилку тут
         state.postComments.unshift(newPost);
 
-        if (newPost.parentPost && newPost.parentPost.id) {
-          const parentPost = state.posts.find(
-            (post) => post.id === newPost.parentPost.id,
-          );
+        // Оновлення replyCount в батьківському пості
+        const parentPost = state.posts.find((post) => post.id === newPost.parentPost.id);
+        if (parentPost) {
+          parentPost.replyCount = (parentPost.replyCount || 0) + 1;
+        }
 
-          if (parentPost) {
-            parentPost.replyCount = (parentPost.replyCount || 0) + 1;
-          }
+        const parentPostComent = state.postComments.find(
+          (post) => post.id === newPost.parentPost.id,
+        );
+        if (parentPostComent) {
+          parentPostComent.replyCount = (parentPostComent.replyCount || 0) + 1;
         }
       }
     },
-    deleteComment: (state, action) => {
-      state.postComments.filter((comment) => comment.id !== action.payload);
+
+    addComent: (state, action) => {
+      const newComent = action.payload;
+      state.postComments.unshift(newComent);
     },
+    // deleteComment: (state, action) => {
+    //   state.postComments = state.postComments.filter((comment) => comment.id !== action.payload);
+    // },
+
     deleteFromPost: (state, action) => {
-      state.posts.filter((post) => post.id !== action.payload);
+      state.posts = state.posts.filter((post) => post.id !== action.payload);
+      state.postComments = state.postComments.filter(
+        (post) => post.id !== action.payload,
+      );
     },
     getPostId: (state, action) => {
       const post = action.payload;
-
       state.selectedPost = post;
     },
     getPostComents: (state, action) => {
       const comments = action.payload;
-      state.postComments = comments;
-
-      // Оновлюємо replyCount для кожного батьківського поста
-      comments.forEach((comment) => {
-        if (comment.parentPost && comment.parentPost.id) {
-          const parentPost = state.posts.find(
-            (post) => post.id === comment.parentPost.id,
-          );
-          if (parentPost) {
-            parentPost.replyCount = (parentPost.replyCount || 0) + 1;
-          }
-        }
-      });
+      state.postComments = [...comments];
     },
 
     like: (state, action) => {
@@ -102,6 +103,7 @@ export const {
   getPostId,
   getPostComents,
   like,
+  addComent,
   unlike,
 } = postsSlice.actions;
 export default postsSlice.reducer;
@@ -137,7 +139,7 @@ export const handleLike = (id) => async (dispatch) => {
 
 export const axiosPostComments = (id) => async (dispatch) => {
   try {
-    const response = await api.get(`posts/replies?postId=${id}&page=${0}&pageSize=${5}`);
+    const response = await api.get(`posts/replies?postId=${id}&page=${0}&pageSize=${10}`);
     const comments = response.data.content;
     // console.log(comments);
     dispatch(getPostComents(comments));
@@ -172,6 +174,15 @@ export const addPosts = (formData) => async (dispatch) => {
     const response = await api.post("posts/create", formData);
     const data = response.data;
     dispatch(addPost(data));
+  } catch (error) {
+    console.log("ERROR", error);
+  }
+};
+export const addToComent = (formData) => async (dispatch) => {
+  try {
+    const response = await api.post("posts/create", formData);
+    const data = response.data;
+    dispatch(addComent(data));
   } catch (error) {
     console.log("ERROR", error);
   }
