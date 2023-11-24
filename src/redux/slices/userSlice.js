@@ -7,6 +7,9 @@ const userSlice = createSlice({
   initialState: {
     isAuthenticated: false,
     user: {},
+    usersList: [],
+    friendsList: [],
+    friendRequests: [],
   },
   reducers: {
     loginUserAction: (state, action) => {
@@ -16,10 +19,22 @@ const userSlice = createSlice({
     getUser: (state, action) => {
       state.user = action.payload;
     },
+    setUsers: (state, action) => {
+      state.usersList = action.payload;
+    },
+    sendFriendRequest: (state, action) => {
+      state.friendRequests.push(action.payload);
+    },
+    removeFriend: (state, action) => {
+      state.friendsList = state.friendsList.filter(
+        (friend) => friend.id !== action.payload,
+      );
+    },
   },
 });
 
-export const { loginUserAction, getUser } = userSlice.actions;
+export const { loginUserAction, getUser, setUsers, sendFriendRequest, removeFriend } =
+  userSlice.actions;
 export default userSlice.reducer;
 
 // export function getUserAsync() {
@@ -48,4 +63,48 @@ export const loginUser = (email, password) => (dispatch) => {
     setRefreshToken(response.data.refresh_token);
     dispatch(loginUserAction(response.data.user));
   });
+};
+
+export const fetchUsers = (numberOfUsers) => {
+  try {
+    return (dispatch) => {
+      api.get(`/users/recommended?page=0&pageSize=${numberOfUsers}`).then((response) => {
+        const data = response.data.content;
+
+        dispatch(setUsers(data));
+      });
+    };
+    // eslint-disable-next-line no-unreachable
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const postSubcribeToUser = (id) => {
+  try {
+    return (dispatch) => {
+      api.post("/subscriptions", { id }).then((response) => {
+        const data = response.data;
+        dispatch(sendFriendRequest(data));
+      });
+    };
+    // eslint-disable-next-line no-unreachable
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteSubscribeToUser = (id) => {
+  try {
+    return (dispatch) => {
+      api.delete(`/subscriptions?id=${id}`).then((response) => {
+        const data = response.data;
+        dispatch(removeFriend(id));
+        return data;
+      });
+    };
+    // eslint-disable-next-line no-unreachable
+  } catch (error) {
+    console.error(error);
+  }
 };

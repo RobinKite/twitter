@@ -5,7 +5,8 @@ import { recommendedUserCardSX, recommendedUserInfoSX } from "./styleSX";
 import { FollowButton } from "..";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchUsers } from "@/redux/slices/usersListSlice";
+import { fetchUsers } from "@/redux/slices/userSlice";
+// import { fetchUsers } from "@/redux/slices/usersListSlice";
 
 export const RecommendedUserCard = ({
   id,
@@ -41,7 +42,7 @@ export const RecommendedUsers = ({ useButton }) => {
   useEffect(() => {
     dispatch(fetchUsers(3));
   }, [dispatch]);
-  const usersList = useSelector((state) => state.usersList.users);
+  const usersList = useSelector((state) => state.user.usersList);
 
   return (
     <Stack>
