@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { FollowButtonStyled } from "./styleSX";
 import { ModalUnFollow } from "..";
 import { useDispatch } from "react-redux";
-import { deleteSubcribeToUser, postSubcribeToUser } from "@/redux/slices/friendsSlice";
+import { deleteSubscribeToUser, postSubcribeToUser } from "@/redux/slices/friendsSlice";
 
 export const FollowButton = ({ id, userName }) => {
   const [isFollowing, setIsFollowing] = useState(null);
@@ -19,7 +19,7 @@ export const FollowButton = ({ id, userName }) => {
 
   const handleUnfollow = () => {
     setIsFollowing(!isFollowing);
-    dispatch(deleteSubcribeToUser(id));
+    dispatch(deleteSubscribeToUser(id));
   };
 
   const handleOpenModal = () => {

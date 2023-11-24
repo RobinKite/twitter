@@ -23,7 +23,7 @@ export const postSubcribeToUser = (id) => {
   console.log("send POST Subscription");
   try {
     return (dispatch) => {
-      api.post("/subscriptions", id).then((response) => {
+      api.post("/subscriptions", { id: `${id}` }).then((response) => {
         const data = response.data;
         console.log(response);
 
@@ -32,23 +32,25 @@ export const postSubcribeToUser = (id) => {
     };
     // eslint-disable-next-line no-unreachable
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
-export const deleteSubcribeToUser = (id) => {
+export const deleteSubscribeToUser = (id) => {
   try {
     return (dispatch) => {
       console.log("send DELETE Subscription");
-      api.delete("/subscriptions", id).then((response) => {
+      api.delete(`/subscriptions?id=${id}`).then((response) => {
         const data = response.data;
+        console.log(response);
+
         dispatch(removeFriend(id));
         return data;
       });
     };
     // eslint-disable-next-line no-unreachable
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
