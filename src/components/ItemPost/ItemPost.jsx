@@ -121,7 +121,7 @@ export function ItemPost({
             </IconButton>
             <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
               <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
-                <Delete />
+                <Delete fill="red" />
                 Delete
               </MenuItem>
             </Menu>
@@ -160,7 +160,11 @@ export function ItemPost({
               </IconButton>
               <div>
                 <IconButton onClick={isLiked ? handleUnlike : handleLike}>
-                  {isLiked ? <LikeFalse /> : <Like className={styles.tweetLike} />}
+                  {isLiked ? (
+                    <LikeFalse fill="hsla(325, 72%, 58%, 0.688)" />
+                  ) : (
+                    <Like className={styles.tweetLike} />
+                  )}
                 </IconButton>
                 <span>{likeCountState}</span>
               </div>

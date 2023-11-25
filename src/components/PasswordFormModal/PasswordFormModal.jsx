@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 import { Button } from "..";
-import { TwitterIcon, Cross } from "@/icons";
+import { Twitter, Cross } from "@/icons";
 import styles from "./PasswordFormModal.module.scss";
 
 const style = {
@@ -109,7 +109,7 @@ export const PasswordFormModal = () => {
             <Cross size={30} />
           </button>
           <div className={styles.twitterLogo}>
-            <TwitterIcon size={30} />
+            <Twitter size={30} />
           </div>
 
           <div className={styles.textContainer}>
@@ -185,7 +185,7 @@ export const PasswordFormModal = () => {
             <Cross size={30} />
           </button>
           <div className={styles.twitterLogo}>
-            <TwitterIcon size={30} />
+            <Twitter size={30} />
           </div>
           <div className={styles.textContainer}>
             <Typography id="modal-modal-title2" variant="h6" component="h2">

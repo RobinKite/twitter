@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { TwitterIcon } from "@/icons";
+import { Twitter } from "@/icons";
 import { clsx } from "clsx";
 import PropTypes from "prop-types";
 import { items } from "@/constants/navigation";
@@ -32,7 +32,7 @@ export const Navigation = () => {
       <ul className={styles.list}>
         <li>
           <NavLink to="/" className={styles.logoLink}>
-            <TwitterIcon size={32} />
+            <Twitter size={32} />
           </NavLink>
         </li>
         {items.map((item) => {

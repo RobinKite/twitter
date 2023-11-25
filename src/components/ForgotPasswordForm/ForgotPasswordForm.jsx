@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 import { Button } from "../../components";
-import { Cross, TwitterIcon } from "@/icons";
+import { Cross, Twitter } from "@/icons";
 import styles from "./ForgotPasswordForm.module.scss";
 
 const style = {
@@ -76,7 +76,7 @@ export const ForgotPasswordForm = () => {
             <Cross size={30} />
           </button>
           <div className={styles.twitterLogo}>
-            <TwitterIcon size={32} />
+            <Twitter size={32} />
           </div>
           <Typography
             id="modal-modal-title"

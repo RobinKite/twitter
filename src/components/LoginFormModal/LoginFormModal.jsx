@@ -9,7 +9,7 @@ import { Form, Formik } from "formik";
 import { object, string } from "yup";
 import { Button, Input } from "../../components";
 import { setModal } from "../../redux/slices/appSlice";
-import { TwitterIcon, Apple, Google, Cross } from "@/icons";
+import { Twitter, Apple, Google, Cross } from "@/icons";
 
 import styles from "./LoginFormModal.module.scss";
 
@@ -84,7 +84,7 @@ export function LoginFormModal() {
               <Cross size={30} />
             </div>
             <div className={styles.svgX}>
-              <TwitterIcon size={28} />
+              <Twitter size={28} />
             </div>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Sign in to X
