@@ -10,10 +10,10 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Formik, Field } from "formik";
-import * as Yup from "yup";
-import { Button } from "../../components";
-import { setCreateProfileModal } from "../../redux/slices/appSlice";
+import { Button } from "@/components";
 import { Cross } from "@/icons";
+import { registrationFormSchema } from "@/schemas";
+import { setCreateProfileModal } from "@/redux/slices/appSlice";
 import styles from "./RegistrationForm.module.scss";
 
 const style = {
@@ -57,12 +57,6 @@ export const RegistrationForm = () => {
     console.log(values);
     handleClose(setCreateProfileModal());
   };
-  const validationSchema = Yup.object({
-    firstName: Yup.string().required("First name is required"),
-    lastName: Yup.string().required("Last name is required"),
-    email: Yup.string().required("Email is required").email("Invalid email"),
-    password: Yup.string().required("Password is required"),
-  });
 
   const handleClose = () => {
     dispatch(setCreateProfileModal());
@@ -107,7 +101,7 @@ export const RegistrationForm = () => {
             onDataChange={handleRegistrationDataChange}
             initialValues={initialValues}
             onSubmit={onSubmit}
-            validationSchema={validationSchema}>
+            validationSchema={registrationFormSchema}>
             {({ errors, touched, isValid, submitForm }) => (
               <Form>
                 <Field

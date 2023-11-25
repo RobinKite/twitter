@@ -6,11 +6,10 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { Form, Formik } from "formik";
-import { object, string } from "yup";
-import { Button, Input } from "../../components";
-import { setModal } from "../../redux/slices/appSlice";
+import { loginFormSchema } from "@/schemas";
+import { Button, Input } from "@/components";
+import { setModal } from "@/redux/slices/appSlice";
 import { Twitter, Apple, Google, Cross } from "@/icons";
-
 import styles from "./LoginFormModal.module.scss";
 
 const style = {
@@ -38,9 +37,7 @@ const style = {
 
 export function LoginFormModal() {
   const [open, setOpen] = useState(true);
-  const schema = object().shape({
-    email: string().required("Email is required").email("Email is not valid"),
-  });
+
   const initialValues = {
     email: "",
   };
@@ -108,7 +105,7 @@ export function LoginFormModal() {
               <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}
-                validationSchema={schema}>
+                validationSchema={loginFormSchema}>
                 <Form>
                   <Input name="email" type="email" label="email@" variant="email@" />
                 </Form>

@@ -4,8 +4,8 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { Form, Formik, Field } from "formik";
-import * as Yup from "yup";
-import { Button } from "../../components";
+import { forgotPasswordSchema } from "@/schemas";
+import { Button } from "@/components";
 import { Cross, Twitter } from "@/icons";
 import styles from "./ForgotPasswordForm.module.scss";
 
@@ -49,25 +49,6 @@ export const ForgotPasswordForm = () => {
     inputValue: "",
   };
 
-  const validationSchema = Yup.object().shape({
-    inputValue: Yup.string()
-      .required("This field is required")
-      .test(
-        "phone-or-username-or-email",
-        "Enter a valid phone number, username, or email",
-        (value) => {
-          const phoneRegex = /^\+\d{1,3}[- ]?\d{6,}$/;
-          const usernameRegex = /^[a-zA-Z\s]+$/;
-          const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
-
-          // Test if the value matches any of the allowed formats
-          return (
-            phoneRegex.test(value) || usernameRegex.test(value) || emailRegex.test(value)
-          );
-        },
-      ),
-  });
-
   return (
     <div>
       <Modal open={open} onClose={handleClose}>
@@ -104,7 +85,7 @@ export const ForgotPasswordForm = () => {
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
-            validationSchema={validationSchema}>
+            validationSchema={forgotPasswordSchema}>
             {({ errors, touched, isValid, submitForm }) => (
               <Form className={styles.form}>
                 <Field

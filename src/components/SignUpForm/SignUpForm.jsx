@@ -4,8 +4,7 @@ import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-// import { object, string } from "yup";
-import { Button } from "../../components";
+import { Button } from "@/components";
 import { Twitter, Apple, Cross, Google } from "@/icons";
 import styles from "./SignUpForm.module.scss";
 

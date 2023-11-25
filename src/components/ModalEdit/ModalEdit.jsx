@@ -8,10 +8,11 @@ import {
   Box,
 } from "@mui/material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { useState, React } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
-import { UserPhoto } from "../../components";
-import { editProfileschema } from "../../schemas/index.js";
+import { UserPhoto } from "@/components";
+import { editProfileSchema } from "@/schemas";
+import PropTypes from "prop-types";
 import { formFields, configDateForm } from "./configForm.js";
 
 const ModalContainer = styled(Box)(({ theme }) => ({
@@ -30,7 +31,7 @@ const ModalContainer = styled(Box)(({ theme }) => ({
   overflow: "hidden",
 }));
 
-const CustomButton = styled(Button)(({ theme }) => ({
+const CustomButton = styled(Button)(() => ({
   backgroundColor: "black",
   borderRadius: "15px",
   "&:hover": {
@@ -38,19 +39,19 @@ const CustomButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const ContainerDate = styled(Box)(({ theme }) => ({
+const ContainerDate = styled(Box)(() => ({
   display: "flex",
   justifyContent: "space-between",
   paddingTop: "20px",
 }));
 
-const ModalContent = styled(Box)(({ theme }) => ({
+const ModalContent = styled(Box)(() => ({
   height: "600px",
   overflow: "auto",
   padding: " 0",
 }));
 
-const ModalHeader = styled(Toolbar)(({ theme }) => ({
+const ModalHeader = styled(Toolbar)(() => ({
   backgroundColor: "rgb(255, 255, 255)",
   position: "sticky",
   top: 0,
@@ -82,7 +83,7 @@ export function ModalEdit({ onClose }) {
       day: "",
       year: "",
     },
-    validationSchema: editProfileschema,
+    validationSchema: editProfileSchema,
     onSubmit: (values) => {
       onClose();
       values = { ...values, avatar, image };
@@ -213,3 +214,7 @@ export function ModalEdit({ onClose }) {
     </ModalContainer>
   );
 }
+
+ModalEdit.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
