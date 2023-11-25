@@ -20,7 +20,7 @@ export const Post = () => {
   const post = useSelector((state) => state.posts.selectedPost);
 
   const postComments = useSelector((state) => state.posts.postComments);
-  console.log(postComments);
+  // console.log(postComments);
   const dispatch = useDispatch();
   // Налаштування infinity Scrol покищо не дуже працює
 

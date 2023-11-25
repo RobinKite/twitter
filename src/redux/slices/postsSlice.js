@@ -24,11 +24,12 @@ const postsSlice = createSlice({
         state.posts.unshift(newPost);
       }
       if (newPost.type === "REPLY") {
-        state.postComments.unshift(newPost);
+        // state.postComments.unshift(newPost);
 
         const parentPost = state.posts.find((post) => post.id === newPost.parentPost.id);
         if (parentPost) {
           parentPost.replyCount = (parentPost.replyCount || 0) + 1;
+          state.postComments.unshift(newPost);
         }
 
         const parentPostComent = state.postComments.find(
@@ -37,6 +38,12 @@ const postsSlice = createSlice({
         if (parentPostComent) {
           parentPostComent.replyCount = (parentPostComent.replyCount || 0) + 1;
         }
+
+        // Перевірка, чи має state.selectedPost властивість replyCount
+      }
+      if (state.selectedPost) {
+        // Збільшення значення replyCount у state.selectedPost
+        state.selectedPost.replyCount = (state.selectedPost.replyCount || 0) + 1;
       }
     },
 
@@ -53,6 +60,13 @@ const postsSlice = createSlice({
       state.postComments = state.postComments.filter(
         (post) => post.id !== action.payload,
       );
+      if (state.selectedPost && state.selectedPost.id === action.payload) {
+        state.selectedPost = null; // або виберіть інше значення відповідно до логіки додатка
+        if (state.selectedPost) {
+          // Збільшення значення replyCount у state.selectedPost
+          state.selectedPost.replyCount = (state.selectedPost.replyCount || 0) + 1;
+        }
+      }
     },
     getPostId: (state, action) => {
       const post = action.payload;
@@ -70,11 +84,21 @@ const postsSlice = createSlice({
           ? { ...post, likeCount: post.likeCount + 1, liked: true }
           : post,
       );
+
       state.postComments = state.postComments.map((post) =>
         post.id === postId
           ? { ...post, likeCount: post.likeCount + 1, liked: true }
           : post,
       );
+      if (state.selectedPost && state.selectedPost.id === postId) {
+        state.selectedPost = {
+          ...state.selectedPost,
+          likeCount: state.selectedPost.likeCount + 1,
+          liked: true,
+        };
+      }
+
+      console.log(state.selectedPost);
     },
 
     unlike: (state, action) => {
@@ -89,6 +113,13 @@ const postsSlice = createSlice({
           ? { ...post, likeCount: post.likeCount - 1, liked: false }
           : post,
       );
+      if (state.selectedPost && state.selectedPost.id === id) {
+        state.selectedPost = {
+          ...state.selectedPost,
+          likeCount: state.selectedPost.likeCount - 1,
+          liked: false,
+        };
+      }
     },
   },
 });
