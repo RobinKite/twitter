@@ -59,7 +59,7 @@ export function ItemPost({
   const navigate = useNavigate();
 
   const redirectToPost = () => {
-    navigate(`/inshyy-post/${id}`);
+    navigate(`/post/${id}`);
   };
   const fonnClick = (event) => {
     if (event.currentTarget === event.target) {

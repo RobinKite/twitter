@@ -107,10 +107,6 @@ export const CreatePost = ({ avatarUrl }) => {
               value={inputStr}
             />
 
-            {showEmojiPicker && (
-              <EmojiPicker pickerStyle={{ width: "100%" }} onEmojiClick={onEmojiClick} />
-            )}
-
             {files.map((file, index) => (
               <img
                 key={index}
@@ -123,6 +119,9 @@ export const CreatePost = ({ avatarUrl }) => {
               />
             ))}
           </div>
+          {showEmojiPicker && (
+            <EmojiPicker pickerStyle={{ width: "100%" }} onEmojiClick={onEmojiClick} />
+          )}
         </div>
         <div className={styles.conteinerFooterPost}>
           <div className={styles.conteinerSvgPost}>

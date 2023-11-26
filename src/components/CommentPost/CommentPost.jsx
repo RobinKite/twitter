@@ -39,6 +39,7 @@ const InputFieldCostum = styled(TextField)({
 export const CommentPost = ({
   id,
   avatarUrl,
+  closeModal,
   // fullName,
 }) => {
   const [files, setFiles] = useState([]);
@@ -57,6 +58,7 @@ export const CommentPost = ({
     dispatch(addPosts(formData));
     setInputStr("");
     setFiles([]);
+    closeModal();
   };
 
   const onEmojiClick = (event) => {
@@ -96,10 +98,6 @@ export const CommentPost = ({
               value={inputStr}
             />
 
-            {showEmojiPicker && (
-              <EmojiPicker pickerStyle={{ width: "100%" }} onEmojiClick={onEmojiClick} />
-            )}
-
             {files.map((file, index) => (
               <img
                 key={index}
@@ -112,6 +110,9 @@ export const CommentPost = ({
               />
             ))}
           </div>
+          {showEmojiPicker && (
+            <EmojiPicker pickerStyle={{ width: "100%" }} onEmojiClick={onEmojiClick} />
+          )}
         </div>
         <div className={styles.conteinerFooterPost}>
           <div className={styles.conteinerSvgPost}>
@@ -160,13 +161,13 @@ export const CommentPost = ({
 };
 
 CommentPost.propTypes = {
-  // closeModal: PropTypes.func,
+  closeModal: PropTypes.func,
   // updateComment: PropTypes.func,
   avatarUrl: PropTypes.string,
   id: PropTypes.string,
 };
 
-// CommentPost.defaultProps = {
-//   closeModal: () => {},
-//   updateComment: () => {},
-// };
+CommentPost.defaultProps = {
+  closeModal: () => {},
+  // updateComment: () => {},
+};

@@ -50,7 +50,7 @@ export function ModalCommentPost({
 
   return (
     <div>
-      <Modal open={isOpen} onClose={() => {}}>
+      <Modal open={isOpen}>
         <ModalBody>
           <div className={styles.close}>
             <Close onClick={closeModal} className={styles.clossvg} />

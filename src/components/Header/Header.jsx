@@ -196,7 +196,7 @@ export const Header = () => {
           Post
         </Button>
       )}
-      {isActiveModal && <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />}
+      <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />
     </div>
   );
 };

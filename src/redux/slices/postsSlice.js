@@ -38,11 +38,8 @@ const postsSlice = createSlice({
         if (parentPostComent) {
           parentPostComent.replyCount = (parentPostComent.replyCount || 0) + 1;
         }
-
-        // Перевірка, чи має state.selectedPost властивість replyCount
       }
       if (state.selectedPost) {
-        // Збільшення значення replyCount у state.selectedPost
         state.selectedPost.replyCount = (state.selectedPost.replyCount || 0) + 1;
       }
     },
@@ -60,12 +57,14 @@ const postsSlice = createSlice({
       state.postComments = state.postComments.filter(
         (post) => post.id !== action.payload,
       );
+
       if (state.selectedPost && state.selectedPost.id === action.payload) {
-        state.selectedPost = null; // або виберіть інше значення відповідно до логіки додатка
-        if (state.selectedPost) {
-          // Збільшення значення replyCount у state.selectedPost
-          state.selectedPost.replyCount = (state.selectedPost.replyCount || 0) + 1;
-        }
+        state.selectedPost = null;
+      } else if (state.selectedPost) {
+        state.selectedPost.replyCount = Math.max(
+          (state.selectedPost.replyCount || 0) - 1,
+          0,
+        );
       }
     },
     getPostId: (state, action) => {
