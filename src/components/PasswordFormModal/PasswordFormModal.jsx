@@ -35,6 +35,7 @@ const style = {
   minHeight: "650px",
 };
 
+// TODO: 👉 Rewrite the component
 export const PasswordFormModal = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);

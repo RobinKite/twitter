@@ -1,5 +1,5 @@
 import TabPanel from "@mui/lab/TabPanel";
-import { styled, Typography, Container, Button, Modal, Box } from "@mui/material";
+import { styled, Typography, Container, Button, Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "../../components";
@@ -56,9 +56,7 @@ const EditButton = styled(Button)(() => ({
 }));
 
 export function Profile() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
   const [currentPage, setCurrentPage] = useState(0);
@@ -105,10 +103,7 @@ export function Profile() {
 
   return (
     <>
-      <Modal open={open} onClose={handleClose}>
-        {/* TODO: Next line causes issue "Failed prop type: Invalid prop `children` supplied to `ForwardRef(Modal2)`. Expected an element that can hold a ref." */}
-        <ModalEdit onClose={handleClose} />
-      </Modal>
+      <ModalEdit isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       <Container maxWidth="sm" disableGutters={true}>
         <HeaderPage>
@@ -128,7 +123,7 @@ export function Profile() {
         </HeaderPage>
         <UserPhoto changeIcon={false} />
         <ContainerUserInfo>
-          <EditButton onClick={handleOpen} variant="outlined">
+          <EditButton onClick={() => setIsModalOpen(true)} variant="outlined">
             Edit profile
           </EditButton>
           <Typography variant="h6">{/* TODO: change to user object */}go flex</Typography>
@@ -141,7 +136,7 @@ export function Profile() {
             sx={{
               padding: "10px 0",
             }}>
-            {"some bio"}
+            some bio
           </Typography>
           <Typography variant="body2">
             Joined {/* TODO: change to user object */}September 2023

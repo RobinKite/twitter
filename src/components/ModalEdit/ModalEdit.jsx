@@ -6,6 +6,7 @@ import {
   styled,
   MenuItem,
   Box,
+  Modal,
 } from "@mui/material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useState } from "react";
@@ -60,7 +61,8 @@ const ModalHeader = styled(Toolbar)(() => ({
   padding: "0 15px",
 }));
 
-export function ModalEdit({ onClose }) {
+// TODO: 👉 Rewrite the component
+export function ModalEdit({ isOpen, onClose }) {
   const [image, setImage] = useState("");
   const [avatar, setAvatar] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
@@ -92,129 +94,134 @@ export function ModalEdit({ onClose }) {
   });
 
   return (
-    <ModalContainer>
-      <ModalContent>
-        <ModalHeader disableGutters={true}>
-          <Typography variant="h5" sx={{ display: "flex", alignItems: "center" }}>
-            <CloseOutlinedIcon sx={{ marginRight: "20px" }} onClick={onClose} /> Edit
-            profile
-          </Typography>
+    <Modal open={isOpen} onClose={onClose}>
+      <ModalContainer>
+        <ModalContent>
+          <ModalHeader disableGutters={true}>
+            <Typography variant="h5" sx={{ display: "flex", alignItems: "center" }}>
+              <CloseOutlinedIcon sx={{ marginRight: "20px" }} onClick={onClose} /> Edit
+              profile
+            </Typography>
 
-          <CustomButton
-            variant="contained"
-            type="submit"
-            onClick={formik.handleSubmit}
-            size="small">
-            save
-          </CustomButton>
-        </ModalHeader>
-        <UserPhoto
-          changeIcon={true}
-          image={image}
-          avatar={avatar}
-          setImage={setImage}
-          setAvatar={setAvatar}
-        />
-        <Box
-          component="form"
-          noValidate
-          autoComplete="off"
-          sx={{ padding: "70px 15px" }}
-          onSubmit={formik.handleSubmit}>
-          {formFields.map((field) => (
-            <div key={field.name}>
-              <TextField
-                name={field.name}
-                id={`outlined-start-adornment`}
-                label={field.label}
-                multiline
-                rows={field.rows}
-                value={formik.values[field.name]}
-                onChange={formik.handleChange}
-                onFocus={() => {
-                  formik.setFieldTouched(field.name, true);
-                }}
-                sx={{
-                  width: "100%",
-                  marginTop: "25px",
-                  "& .MuiOutlinedInput-input": {
-                    paddingTop: "5px",
-                  },
-                }}
-                error={formik.touched[field.name] && Boolean(formik.errors[field.name])}
-                helperText={formik.touched[field.name] && formik.errors[field.name]}
-                InputProps={{
-                  sx: {
-                    padding: "16px 10px",
-                  },
-                  endAdornment:
-                    formik.touched[field.name] && field.maxLength ? (
-                      <div
-                        style={{
-                          alignSelf: "flex-start",
-                          fontSize: "14px",
-                          position: "relative",
-                          bottom: "15px",
-                        }}>
-                        {(formik.values[field.name] || "").length}/{field.maxLength}
-                      </div>
-                    ) : null,
-                }}
-                InputLabelProps={{
-                  shrink: false,
-                  sx: {
-                    transform: formik.values[field.name] ? "translate(10px, 4px)" : null,
-                    fontSize: formik.values[field.name] ? "14px" : "16px",
-                    transition: "transform 0.3s, font-size 0.3s",
-                    "&.Mui-focused": {
-                      transform: "translate(10px, 4px)",
-                      fontSize: "14px",
+            <CustomButton
+              variant="contained"
+              type="submit"
+              onClick={formik.handleSubmit}
+              size="small">
+              save
+            </CustomButton>
+          </ModalHeader>
+          <UserPhoto
+            changeIcon={true}
+            image={image}
+            avatar={avatar}
+            setImage={setImage}
+            setAvatar={setAvatar}
+          />
+          <Box
+            component="form"
+            noValidate
+            autoComplete="off"
+            sx={{ padding: "70px 15px" }}
+            onSubmit={formik.handleSubmit}>
+            {formFields.map((field) => (
+              <div key={field.name}>
+                <TextField
+                  name={field.name}
+                  id={`outlined-start-adornment`}
+                  label={field.label}
+                  multiline
+                  rows={field.rows}
+                  value={formik.values[field.name]}
+                  onChange={formik.handleChange}
+                  onFocus={() => {
+                    formik.setFieldTouched(field.name, true);
+                  }}
+                  sx={{
+                    width: "100%",
+                    marginTop: "25px",
+                    "& .MuiOutlinedInput-input": {
+                      paddingTop: "5px",
                     },
-                  },
-                }}
-              />
-            </div>
-          ))}
-          <ContainerDate>
-            {configDateForm.map((field) => (
-              <TextField
-                sx={{ width: "150px" }}
-                key={field.name}
-                name={field.name}
-                id={`outlined-start-adornment`}
-                label={field.label}
-                select
-                value={formik.values[field.name]}
-                onChange={(event) => {
-                  const value = event.target.value;
-                  if (field.name === "month") {
-                    setSelectedMonth(value);
-                    formik.setFieldValue(field.name, value);
-                    formik.setFieldValue("day", "");
-                  } else {
-                    formik.setFieldValue(field.name, value);
-                  }
-                }}>
-                {field.name === "day"
-                  ? getDaysInMonth(selectedMonth).map((option) => (
-                      <MenuItem key={option} value={option}>
-                        {option}
-                      </MenuItem>
-                    ))
-                  : field.options.map((option) => (
-                      <MenuItem key={option} value={option}>
-                        {option}
-                      </MenuItem>
-                    ))}
-              </TextField>
+                  }}
+                  error={formik.touched[field.name] && Boolean(formik.errors[field.name])}
+                  helperText={formik.touched[field.name] && formik.errors[field.name]}
+                  InputProps={{
+                    sx: {
+                      padding: "16px 10px",
+                    },
+                    endAdornment:
+                      formik.touched[field.name] && field.maxLength ? (
+                        <div
+                          style={{
+                            alignSelf: "flex-start",
+                            fontSize: "14px",
+                            position: "relative",
+                            bottom: "15px",
+                          }}>
+                          {(formik.values[field.name] || "").length}/{field.maxLength}
+                        </div>
+                      ) : null,
+                  }}
+                  InputLabelProps={{
+                    shrink: false,
+                    sx: {
+                      transform: formik.values[field.name]
+                        ? "translate(10px, 4px)"
+                        : null,
+                      fontSize: formik.values[field.name] ? "14px" : "16px",
+                      transition: "transform 0.3s, font-size 0.3s",
+                      "&.Mui-focused": {
+                        transform: "translate(10px, 4px)",
+                        fontSize: "14px",
+                      },
+                    },
+                  }}
+                />
+              </div>
             ))}
-          </ContainerDate>
-        </Box>
-      </ModalContent>
-    </ModalContainer>
+            <ContainerDate>
+              {configDateForm.map((field) => (
+                <TextField
+                  sx={{ width: "150px" }}
+                  key={field.name}
+                  name={field.name}
+                  id={`outlined-start-adornment`}
+                  label={field.label}
+                  select
+                  value={formik.values[field.name]}
+                  onChange={(event) => {
+                    const value = event.target.value;
+                    if (field.name === "month") {
+                      setSelectedMonth(value);
+                      formik.setFieldValue(field.name, value);
+                      formik.setFieldValue("day", "");
+                    } else {
+                      formik.setFieldValue(field.name, value);
+                    }
+                  }}>
+                  {field.name === "day"
+                    ? getDaysInMonth(selectedMonth).map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))
+                    : field.options.map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
+                </TextField>
+              ))}
+            </ContainerDate>
+          </Box>
+        </ModalContent>
+      </ModalContainer>
+    </Modal>
   );
 }
 
 ModalEdit.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };

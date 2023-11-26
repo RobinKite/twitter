@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 
 export default function AppRoutes() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
   return (
     <Routes>
       <Route
