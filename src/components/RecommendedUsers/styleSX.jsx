@@ -1,16 +1,11 @@
 export const recommendedUserCardSX = {
+  cursor: "pointer",
   flexDirection: "row",
   alignItems: "center",
-  padding: "15px",
-  transition: "0.25s",
+  padding: "1rem",
+  transition: "background-color 200ms",
+
   "&:hover": {
-    cursor: "pointer",
     backgroundColor: "rgb(240, 240, 240)",
   },
 };
-
-export const recommendedUserInfoSX = {
-  marginLeft: "16px",
-};
-
-export const authorsContainerSX = {};

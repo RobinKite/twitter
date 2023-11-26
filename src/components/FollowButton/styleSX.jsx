@@ -1,8 +1,9 @@
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 
-export const FollowButtonStyled = styled(Button)(({ isFollowing }) => ({
-  marginLeft: "auto",
+export const FollowButtonStyled = styled(Button, {
+  shouldForwardProp: (prop) => prop !== "isFollowing",
+})(({ isFollowing }) => ({
   border: isFollowing ? "1px solid rgb(207, 217, 222)" : "1px solid transparent",
   borderRadius: 25,
   padding: "0 16px",
@@ -18,7 +19,7 @@ export const FollowButtonStyled = styled(Button)(({ isFollowing }) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    fontWeight: "bold",
+    fontWeight: 500,
   },
 
   "&:hover": {

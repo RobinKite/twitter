@@ -1,12 +1,22 @@
-import { Stack } from "@mui/material";
-import { SearchBar, WhoToFollow } from "../../components";
-import { rightSideBarSX } from "./styleSX";
+import { SearchBar } from "../../components";
+import {} from "./styleSX";
+import { Link, Stack, Typography } from "@mui/material";
+import { RecommendedUsers } from "@/components";
+import { sidebarSX, containerSX, showMoreSX, titleSX } from "./styleSX";
 
 export const Sidebar = () => {
   return (
-    <Stack sx={rightSideBarSX}>
+    <Stack sx={sidebarSX}>
       <SearchBar />
-      <WhoToFollow />
+      <Stack sx={containerSX}>
+        <Typography variant="h2" sx={titleSX}>
+          Who to follow
+        </Typography>
+        <RecommendedUsers useButton={true} />
+        <Stack sx={showMoreSX}>
+          <Link href="#">Show more</Link>
+        </Stack>
+      </Stack>
     </Stack>
   );
 };

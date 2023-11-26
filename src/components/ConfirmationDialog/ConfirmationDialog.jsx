@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Dialog, styled } from "@mui/material";
+import { Dialog as MuiDialog, Button as MuiButton } from "@mui/material";
+import { styled } from "@mui/material";
 import PropTypes from "prop-types";
 
-const StyledDialog = styled(Dialog)({
+const Dialog = styled(MuiDialog)({
   fontSize: "0.9375rem",
 
   "& .MuiDialog-paper": {
@@ -32,11 +33,9 @@ const Actions = styled("div")({
   rowGap: "0.75rem",
 });
 
-const Button = styled("button")({
-  cursor: "pointer",
+const Button = styled(MuiButton)({
   minHeight: 44,
   border: "1px solid #cfd9de",
-  borderRadius: "1.5rem",
   fontWeight: 600,
   transition: "background-color 200ms",
 
@@ -74,14 +73,14 @@ export const ConfirmationDialog = ({ title, description, actionButton, closeButt
   };
 
   return (
-    <StyledDialog open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={handleClose}>
       <Title>{title}</Title>
       <Description>{description}</Description>
       <Actions>
         <ActionButton onClick={handleAction}>{actionButton.title}</ActionButton>
         <Button onClick={handleClose}>{closeButton.title}</Button>
       </Actions>
-    </StyledDialog>
+    </Dialog>
   );
 };
 
