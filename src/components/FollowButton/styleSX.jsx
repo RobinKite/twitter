@@ -1,4 +1,5 @@
 import Button from "@mui/material/Button";
+import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 
 export const FollowButtonStyled = styled(Button, {
@@ -34,3 +35,11 @@ export const FollowButtonStyled = styled(Button, {
     boxShadow: "none",
   },
 }));
+
+FollowButtonStyled.propTypes = {
+  isFollowing: PropTypes.bool,
+};
+
+FollowButtonStyled.defaultProps = {
+  isFollowing: false,
+};

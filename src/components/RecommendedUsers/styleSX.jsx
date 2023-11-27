@@ -1,4 +1,4 @@
-export const recommendedUserCardSX = {
+export const userCardSX = {
   cursor: "pointer",
   flexDirection: "row",
   alignItems: "center",
