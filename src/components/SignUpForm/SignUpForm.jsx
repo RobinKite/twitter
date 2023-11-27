@@ -4,12 +4,8 @@ import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-// import { object, string } from "yup";
-import { Button } from "../../components";
-import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
-import Apple from "../../assets/icons/apple.svg?react";
-import Google from "../../assets/icons/google.svg?react";
-import CloseButton from "../../assets/icons/close.svg?react";
+import { Button } from "@/components";
+import { Twitter, Apple, Cross, Google } from "@/icons";
 import styles from "./SignUpForm.module.scss";
 
 const style = {
@@ -63,10 +59,10 @@ export const SignUpForm = () => {
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose}>
-            <CloseButton style={{ height: "30px" }} />
+            <Cross size={30} />
           </button>
           <div className={styles.twitterLogo}>
-            <TwiterLogo />
+            <Twitter />
           </div>
           <Typography
             id="modal-modal-title"

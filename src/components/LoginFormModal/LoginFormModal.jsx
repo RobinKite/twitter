@@ -5,14 +5,10 @@ import Link from "@mui/material/Link";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { Form, Formik } from "formik";
-import { object, string } from "yup";
-import { Button, Input } from "../../components";
-import { setModal } from "../../redux/slices/appSlice";
-import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
-import Apple from "../../assets/icons/apple.svg?react";
-import Google from "../../assets/icons/google.svg?react";
-import Close from "../../assets/icons/close.svg?react";
+import { Button } from "@/components";
+import { setModal } from "@/redux/slices/appSlice";
+import { Twitter, Apple, Google, Cross } from "@/icons";
+import { LoginForm } from "../../forms";
 import styles from "./LoginFormModal.module.scss";
 
 const style = {
@@ -40,15 +36,6 @@ const style = {
 
 export function LoginFormModal() {
   const [open, setOpen] = useState(true);
-  const schema = object().shape({
-    email: string().required("Email is required").email("Email is not valid"),
-  });
-  const initialValues = {
-    email: "",
-  };
-  const onSubmit = (values) => {
-    console.log(values);
-  };
 
   const dispatch = useDispatch();
   const toggleModal = () => {
@@ -83,38 +70,23 @@ export function LoginFormModal() {
         <Box sx={style}>
           <div className={styles.container}>
             <div className={styles.clossvg} onClick={toggleModal}>
-              <Close />
+              <Cross size={30} />
             </div>
             <div className={styles.svgX}>
-              <TwiterLogo />
+              <Twitter size={28} />
             </div>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Sign in to X
             </Typography>
-            <Button
-              endIcon={<Google />}
-              sx={{
-                width: "60%",
-              }}>
+            <Button startIcon={<Google size={22} />} sx={{ width: "60%" }}>
               Sign in with Google
             </Button>
-            <Button
-              startIcon={<Apple />}
-              sx={{
-                width: "60%",
-              }}>
+            <Button startIcon={<Apple size={22} />} sx={{ width: "60%" }}>
               Sign in with Apple
             </Button>
             <span className={styles.retreat}>or</span>
             <div className={styles.conteinerForm}>
-              <Formik
-                initialValues={initialValues}
-                onSubmit={onSubmit}
-                validationSchema={schema}>
-                <Form>
-                  <Input name="email" type="email" label="email@" variant="email@" />
-                </Form>
-              </Formik>
+              <LoginForm />
             </div>
             <Button
               onClick={handleButtonClick}
@@ -126,12 +98,7 @@ export function LoginFormModal() {
               }}>
               Next
             </Button>
-            <Button
-              sx={{
-                width: "60%",
-                mt: "10px",
-              }}
-              onClick={handleForgotPasswordClick}>
+            <Button sx={{ width: "60%", mt: "10px" }} onClick={handleForgotPasswordClick}>
               Forgot your password
             </Button>
             <Typography
@@ -145,7 +112,7 @@ export function LoginFormModal() {
                   textDecoration: "underline",
                 },
               }}>
-              Dont have an account?{" "}
+              Dont have an account?
               <Link
                 href="/SignUpForm" // actual URL or route to  "Sign Up" page
                 color="primary">

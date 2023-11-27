@@ -10,3 +10,8 @@ export const compareByDate = (a, b) => {
     return 0;
   }
 };
+
+export function capitalize(text) {
+  if (text.length <= 1) return text.toUpperCase();
+  return text[0].toUpperCase() + text.substr(1).toLowerCase();
+}

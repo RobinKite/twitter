@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { api } from "../../service/api";
-import { setAuthToken, setRefreshToken } from "../../utils/tokens";
+import { client, storage } from "@/services";
+import { Endpoint } from "@/constants";
 
 const userSlice = createSlice({
   name: "user",
@@ -45,6 +45,7 @@ export const {
   removeFriend,
   setFriendSearches,
 } = userSlice.actions;
+
 export default userSlice.reducer;
 
 // export function getUserAsync() {
@@ -66,70 +67,54 @@ export default userSlice.reducer;
 // }
 
 export const loginUser = (email, password) => (dispatch) => {
-  const data = { email, password };
-  api.post("/auth/login", data).then((response) => {
+  const payload = { email, password };
+  client.post(Endpoint.LOGIN, payload).then((response) => {
     console.log(response);
-    setAuthToken(response.data.access_token);
-    setRefreshToken(response.data.refresh_token);
+    const { access_token: accessToken, refresh_token: refreshToken } = response.data;
+    storage.setTokens(accessToken, refreshToken);
+    client.setAccessToken(accessToken);
     dispatch(loginUserAction(response.data.user));
   });
 };
 
 export const fetchUsers = (numberOfUsers) => {
-  try {
-    return (dispatch) => {
-      api.get(`/users/recommended?page=0&pageSize=${numberOfUsers}`).then((response) => {
+  return (dispatch) => {
+    client
+      .get(Endpoint.USERS_RECOMMENDED, { params: { page: 0, pageSize: numberOfUsers } })
+      .then((response) => {
         const data = response.data.content;
-
         dispatch(setUsers(data));
       });
-    };
-    // eslint-disable-next-line no-unreachable
-  } catch (error) {
-    console.log(error);
-  }
+  };
 };
 
 export const postSubcribeToUser = (id) => {
-  try {
-    return (dispatch) => {
-      api.post("/subscriptions", { id }).then((response) => {
-        const data = response.data;
-        dispatch(sendFriendRequest(data));
-      });
-    };
-    // eslint-disable-next-line no-unreachable
-  } catch (error) {
-    console.error(error);
-  }
+  return (dispatch) => {
+    client.post(Endpoint.SUBSCRIPTIONS, { id }).then((response) => {
+      const data = response.data;
+      dispatch(sendFriendRequest(data));
+    });
+  };
 };
 
 export const deleteSubscribeToUser = (id) => {
-  try {
-    return (dispatch) => {
-      api.delete(`/subscriptions?id=${id}`).then((response) => {
-        const data = response.data;
-        dispatch(removeFriend(id));
-        return data;
-      });
-    };
-    // eslint-disable-next-line no-unreachable
-  } catch (error) {
-    console.error(error);
-  }
+  return (dispatch) => {
+    client.delete(Endpoint.SUBSCRIPTIONS, { params: { id } }).then((response) => {
+      const data = response.data;
+      dispatch(removeFriend(id));
+      return data;
+    });
+  };
 };
 
 export const fetchFriedsSearch = (query) => {
-  try {
-    return (dispatch) => {
-      api.get(`/users/search?query=${query}&page=0&pageSize=12`).then((response) => {
+  return (dispatch) => {
+    client
+      .get(Endpoint.USERS_SEARCH, { params: { query, page: 0, pageSize: 12 } })
+      .then((response) => {
         const data = response.data.content;
         dispatch(setFriendSearches(data));
         return data;
       });
-    };
-    // eslint-disable-next-line no-unreachable
-  } catch (error) {
-    console.error(error);
-  }
+  };
 };

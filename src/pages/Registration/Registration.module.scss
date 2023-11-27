@@ -4,7 +4,8 @@
   // right: 0;
   background-color: white;
 }
-.conteiner {
+
+.container {
   display: flex;
   justify-content: space-evenly;
   padding: 4px;
@@ -15,20 +16,23 @@
   }
 }
 
-.svgX {
-  width: 300px;
-  height: 270px;
-  // min-width: 22%;
-  margin-top: 200px;
-  padding: 16px;
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 380px;
+  width: auto;
+  margin-top: 2rem;
+
   @media (max-width: 900px) {
-    // min-width: 7%;
-    width: 40px;
-    height: 40px;
+    height: 45px;
+    width: auto;
     margin-top: 20px;
     position: absolute;
-    top: -3%;
-    left: 18%;
+    top: -0.5rem;
+    left: 22.5%;
   }
 }
 

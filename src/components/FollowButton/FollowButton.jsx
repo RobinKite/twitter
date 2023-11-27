@@ -1,51 +1,45 @@
+import { Box } from "@mui/material";
+import { styled } from "@mui/material";
 import { useState } from "react";
-import PropTypes from "prop-types";
-import { FollowButtonStyled } from "./styleSX";
-import { ModalUnFollow } from "..";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+import { ConfirmationDialog } from "@/components";
 import { deleteSubscribeToUser, postSubcribeToUser } from "@/redux/slices/userSlice";
+import { FollowButtonStyled } from "./styleSX";
+
+const Container = styled(Box)({
+  minWidth: 110,
+  display: "flex",
+  justifyContent: "end",
+  marginLeft: "auto",
+});
 
 export const FollowButton = ({ id, userName, isFollowedByUser }) => {
+  const dispatch = useDispatch();
   const [isFollowing, setIsFollowing] = useState(isFollowedByUser);
   const [isHovering, setIsHovering] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const dispatch = useDispatch();
+  const [openDialog, setOpenDialog] = useState(false);
 
   const handleFollow = () => {
     setIsFollowing(true);
     dispatch(postSubcribeToUser(id));
-    setShowModal(false);
+    setOpenDialog(false);
   };
 
-  const handleUnfollow = () => {
+  const handleConfirmation = () => {
+    setOpenDialog(false);
     setIsFollowing(false);
     dispatch(deleteSubscribeToUser(id));
   };
 
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const onMouseEnterHandler = () => {
-    setIsHovering(true);
-  };
-
-  const onMouseLeaveHandler = () => {
-    setIsHovering(false);
-  };
-
   return (
-    <>
+    <Container>
       <FollowButtonStyled
         variant="contained"
-        onClick={isFollowing ? handleOpenModal : handleFollow}
+        onClick={isFollowing ? () => setOpenDialog(true) : handleFollow}
         isFollowing={isFollowing}
-        onMouseEnter={onMouseEnterHandler}
-        onMouseLeave={onMouseLeaveHandler}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
         sx={{ minWidth: "110px" }}>
         {isHovering ? (
           <p>{isFollowing ? "Unfollow" : "Follow"}</p>
@@ -53,16 +47,16 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
           <p>{isFollowing ? "Following" : "Follow"}</p>
         )}
       </FollowButtonStyled>
-
-      {showModal && (
-        <ModalUnFollow
-          userTag={userName}
-          showModal={showModal}
-          onClose={handleCloseModal}
-          handleUnfollow={handleUnfollow}
+      {openDialog && (
+        <ConfirmationDialog
+          title={`Unfollow @${userName}`}
+          description="Their posts will no longer show up in your For You timeline. You can still view
+          their profile unless their posts are protected."
+          actionButton={{ title: "Unfollow", callback: handleConfirmation }}
+          closeButton={{ title: "Cancel", callback: () => setOpenDialog(false) }}
         />
       )}
-    </>
+    </Container>
   );
 };
 

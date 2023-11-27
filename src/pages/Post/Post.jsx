@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { CommentPost, ItemPost } from "../../components";
-import { api } from "../../service/api";
+import { client } from "@/services";
 import { compareByDate } from "../../utils";
-import ArrowBack from "../../assets/icons/arrow.svg?react";
+import { ArrowBack } from "@/icons";
+import { Endpoint } from "@/constants";
 
 const HeaderPage = styled(Box)(() => ({
   display: "flex",
@@ -116,8 +117,8 @@ export const Post = () => {
   useEffect(() => {
     if (isAuthenticated) {
       // TODO: Move function to postsSlice
-      api
-        .get(`posts/post?id=${id}`)
+      client
+        .get(Endpoint.GET_POST, { params: { id } })
         .then((response) => {
           const postDetails = response.data;
 
@@ -133,8 +134,8 @@ export const Post = () => {
   useEffect(() => {
     if (isAuthenticated) {
       // TODO: Move function to postsSlice
-      api
-        .get(`posts/replies?postId=${id}&page=${0}&pageSize=${5}`)
+      client
+        .get(Endpoint.GET_POST_REPLIES, { params: { postId: id, page: 0, pageSize: 5 } })
         .then((response) => {
           const newComments = response.data.content;
           // setPostComments(newComments);
@@ -152,7 +153,7 @@ export const Post = () => {
     <>
       <HeaderPage>
         <IconButton onClick={redirectToPost}>
-          <ArrowBack />
+          <ArrowBack size={25} />
         </IconButton>
 
         <Typography variant="h6">POST</Typography>

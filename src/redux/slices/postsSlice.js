@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { api } from "../../service/api";
+import { client } from "@/services";
+import { Endpoint } from "@/constants";
 
 const postsSlice = createSlice({
   name: "posts",
@@ -32,9 +33,11 @@ const postsSlice = createSlice({
 export const { setPosts, addPost, deleteComment, deleteFromPost } = postsSlice.actions;
 export default postsSlice.reducer;
 
-export const getPosts = (currentPage) => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
   try {
-    const response = await api.get(`posts/home?page=${currentPage}&pageSize=${12}`);
+    const response = await client.get(Endpoint.GET_MY_POSTS, {
+      params: { page: page, pageSize: 12 },
+    });
     console.log(response);
 
     dispatch(setPosts(response.data.content));
@@ -45,7 +48,7 @@ export const getPosts = (currentPage) => async (dispatch) => {
 
 export const addPosts = (formData) => async (dispatch) => {
   try {
-    const response = await api.post("posts/create", formData);
+    const response = await client.post(Endpoint.CREATE_POST, formData);
     const data = response.data;
     dispatch(addPost(data));
   } catch (error) {
@@ -55,7 +58,7 @@ export const addPosts = (formData) => async (dispatch) => {
 
 export const deletePost = (id) => async (dispatch) => {
   try {
-    await api.delete(`posts/delete?id=${id}`);
+    await client.delete(Endpoint.DELETE_POST, { params: { id } });
     await dispatch(deleteFromPost(id));
     // dispatch(getPosts());
   } catch (error) {

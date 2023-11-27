@@ -1,12 +1,10 @@
-import PropTypes from "prop-types";
-import Avatar from "@mui/material/Avatar";
-import { Stack, Typography } from "@mui/material";
-import { recommendedUserCardSX, recommendedUserInfoSX } from "./styleSX";
-import { FollowButton } from "..";
-import { useDispatch } from "react-redux";
+import { Avatar, Stack, Typography } from "@mui/material";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+import { FollowButton } from "@/components";
 import { fetchUsers } from "@/redux/slices/userSlice";
-// import { fetchUsers } from "@/redux/slices/usersListSlice";
+import { userCardSX } from "./styleSX";
 
 export const RecommendedUserCard = ({
   id,
@@ -17,10 +15,12 @@ export const RecommendedUserCard = ({
   isFollowedByUser,
 }) => {
   return (
-    <Stack sx={recommendedUserCardSX}>
+    <Stack sx={userCardSX}>
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
-      <Stack sx={recommendedUserInfoSX}>
-        <Typography variant="subtitle1">{fullName}</Typography>
+      <Stack marginLeft="0.75rem">
+        <Typography fontWeight={500} variant="subtitle1">
+          {fullName}
+        </Typography>
         <Typography variant="body2" color="textSecondary">
           {userTag ? `@${userTag}` : fullName}
         </Typography>
@@ -34,6 +34,21 @@ export const RecommendedUserCard = ({
       )}
     </Stack>
   );
+};
+
+RecommendedUserCard.propTypes = {
+  fullName: PropTypes.string.isRequired,
+  userTag: PropTypes.string,
+  avatarUrl: PropTypes.string,
+  useButton: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  isFollowedByUser: PropTypes.bool.isRequired,
+};
+
+RecommendedUserCard.defaultProps = {
+  useButton: false,
+  userTag: "",
+  avatarUrl: "",
 };
 
 export const RecommendedUsers = ({ useButton, usersList }) => {
@@ -56,21 +71,6 @@ export const RecommendedUsers = ({ useButton, usersList }) => {
       ))}
     </Stack>
   );
-};
-
-RecommendedUserCard.propTypes = {
-  fullName: PropTypes.string.isRequired,
-  userTag: PropTypes.string,
-  avatarUrl: PropTypes.string,
-  useButton: PropTypes.bool,
-  id: PropTypes.string.isRequired,
-  isFollowedByUser: PropTypes.bool.isRequired,
-};
-
-RecommendedUserCard.defaultProps = {
-  useButton: false,
-  userTag: "",
-  avatarUrl: "",
 };
 
 RecommendedUsers.propTypes = {

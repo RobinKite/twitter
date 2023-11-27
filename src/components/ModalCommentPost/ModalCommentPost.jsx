@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
 import { CommentPost, ItemPost } from "..";
-import Close from "../../assets/icons/close.svg?react";
+import { Cross } from "@/icons";
 import styles from "../PostModal/PostModal.module.scss";
 import PropTypes from "prop-types";
 
@@ -53,7 +53,9 @@ export function ModalCommentPost({
       <Modal open={isOpen} onClose={() => {}}>
         <ModalBody>
           <div className={styles.close}>
-            <Close onClick={closeModal} className={styles.clossvg} />
+            <button onClick={closeModal} className={styles.clossvg}>
+              <Cross size={26} />
+            </button>
           </div>
           <div className={styles.postInput}>
             <ItemPost

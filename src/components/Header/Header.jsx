@@ -6,9 +6,9 @@ import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { More, Bookmark } from "@/icons";
 import { CreatePost, PostModal, Navigation } from "../../components";
 import { setModalPost, setContent } from "../../redux/slices/appSlice";
-import MoreIcon from "../../assets/icons/more.svg?react";
 import styles from "./Header.module.scss";
 
 // const Sidebar = () => {
@@ -18,8 +18,6 @@ import styles from "./Header.module.scss";
 //     (state) => state.postModal.isActiveSetModal
 //   );
 //   const dispatch = useDispatch();
-
-// import MoreIconFilled from "../../assets/svg/more-filled.svg?react";
 
 export const Header = () => {
   const posts = useSelector((state) => state.posts.posts);
@@ -57,20 +55,19 @@ export const Header = () => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        startIcon={<MoreIcon />}
+        startIcon={<More size={30} />}
         className={styles.moreBtn}
         sx={{
-          border: 0,
-          padding: "25px 12px ",
-          height: 0,
-          minWidth: 0,
-          fontSize: "20px",
+          color: "black",
+          fontSize: "1.25rem",
+          borderRadius: "2rem",
           display: "flex",
-          gap: "15px",
+          gap: "1rem",
           position: "relative",
-          fontWeight: "normal",
-          // padding: 0,
-          margin: "0 0 20px 0",
+          fontWeight: 400,
+          padding: "0.5rem 0.75rem",
+          textTransform: "capitalize",
+          margin: "0 0 1.25rem 0",
           "&:hover": {
             backgroundColor: "rgb(221, 217, 217)",
           },
@@ -82,11 +79,7 @@ export const Header = () => {
             margin: 0,
           },
         }}>
-        {isMobile ? ( // Conditionally hide the text for mobile view
-          <span className={styles.hideText}>More</span>
-        ) : (
-          "More"
-        )}
+        {isMobile ? <span className={styles.hideText}>More</span> : "More"}
       </Button>
 
       <Select
@@ -159,16 +152,7 @@ export const Header = () => {
               backgroundColor: "#1a8cd8",
             },
           }}>
-          <svg
-            style={{ height: "24px", width: "24px" }}
-            viewBox="0 0 24 24"
-            aria-hidden="true">
-            <g>
-              <path
-                className={`${styles.whiteSvg} white-svg`}
-                d="M23 3c-6.62-.1-10.38 2.421-13.05 6.03C7.29 12.61 6 17.331 6 22h2c0-1.007.07-2.012.19-3H12c4.1 0 7.48-3.082 7.94-7.054C22.79 10.147 23.17 6.359 23 3zm-7 8h-1.5v2H16c.63-.016 1.2-.08 1.72-.188C16.95 15.24 14.68 17 12 17H8.55c.57-2.512 1.57-4.851 3-6.78 2.16-2.912 5.29-4.911 9.45-5.187C20.95 8.079 19.9 11 16 11zM4 9V6H1V4h3V1h2v3h3v2H6v3H4z"></path>
-            </g>
-          </svg>
+          <Bookmark />
         </Button>
       ) : (
         // For desktop version
