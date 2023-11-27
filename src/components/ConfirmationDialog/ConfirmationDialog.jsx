@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Box, Typography } from "@mui/material";
 import { Dialog as MuiDialog, Button as MuiButton } from "@mui/material";
 import { styled } from "@mui/material";
 import PropTypes from "prop-types";
@@ -15,18 +16,19 @@ const Dialog = styled(MuiDialog)({
   },
 });
 
-const Title = styled("h1")({
+const Title = styled(Typography)({
   fontSize: "1.25rem",
   fontWeight: 600,
   marginBottom: "0.5rem",
 });
 
-const Description = styled("p")({
+const Description = styled(Typography)({
   lineHeight: "1.25rem",
   color: "#536471",
+  fontSize: "inherit",
 });
 
-const Actions = styled("div")({
+const Actions = styled(Box)({
   marginTop: "1.5rem",
   display: "flex",
   flexDirection: "column",
