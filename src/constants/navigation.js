@@ -1,5 +1,4 @@
 import {
-  TwitterIcon,
   HomeIcon,
   HomeIconFilled,
   SearchIcon,
@@ -10,12 +9,17 @@ import {
   NotificationIconFilled,
   MessageIcon,
   MessageIconFilled,
-  ListIcon,
-  ListIconFilled,
-  CommunitiesIcon,
-  CommunitiesIconFilled,
+  TwitterIcon,
 } from "@/icons";
+
+// import {ReactComponent as
+// TwitterIcon
+// } from "../assets/icons/......."
+
 import { capitalize } from "@/utils";
+// import { SettingsRoundedIcon } from "@mui/icons-material";
+import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+import SettingsSharpIcon from "@mui/icons-material/SettingsSharp";
 
 class Item {
   constructor(name, activeIcon, inactiveIcon, path = null) {
@@ -28,11 +32,22 @@ class Item {
 
 export const items = [
   new Item("home", HomeIconFilled, HomeIcon, "/"),
-  new Item("explore", SearchIconFilled, SearchIcon),
-  new Item("notifications", NotificationIconFilled, NotificationIcon),
-  new Item("messages", MessageIconFilled, MessageIcon),
-  new Item("lists", ListIconFilled, ListIcon),
-  new Item("communities", CommunitiesIconFilled, CommunitiesIcon),
-  new Item("verified", TwitterIcon, TwitterIcon),
-  new Item("profile", ProfileIconFilled, ProfileIcon),
+  new Item("explore", SearchIconFilled, SearchIcon, "/explore"),
+  new Item("notifications", NotificationIconFilled, NotificationIcon, "/notifications"),
+  new Item("messages", MessageIconFilled, MessageIcon, "/messages"),
+  new Item("profile", ProfileIconFilled, ProfileIcon, "/profile"),
+  // new Item ("bookmarks", "/bookmarks"),
+];
+
+export const headerItems = [
+  new Item("user", AccountCircleTwoToneIcon, AccountCircleTwoToneIcon, ""),
+  new Item("home", TwitterIcon, TwitterIcon, "/"),
+  new Item("settings", SettingsSharpIcon, SettingsSharpIcon, "/settings"),
+];
+
+export const footerItems = [
+  new Item("home", HomeIconFilled, HomeIcon, "/"),
+  new Item("explore", SearchIconFilled, SearchIcon, "/explore"),
+  new Item("notifications", NotificationIconFilled, NotificationIcon, "/notifications"),
+  new Item("messages", MessageIconFilled, MessageIcon, "/messages"),
 ];

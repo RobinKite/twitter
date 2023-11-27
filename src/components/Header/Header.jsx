@@ -10,6 +10,10 @@ import { MoreIcon } from "@/icons";
 import { CreatePost, PostModal, Navigation } from "../../components";
 import { setModalPost, setContent } from "../../redux/slices/appSlice";
 import styles from "./Header.module.scss";
+import { moreButtonSX, postButtonSX } from "./styledSX";
+import FooterMobile from "../FooterMobile/FooterMobile";
+import HeaderMobile from "../HeaderMobile/HeaderMobile";
+// import { ReactComponent as ButtonPostRounded } from '../../assets/icons/post-rounded'
 
 // const Sidebar = () => {
 //   const posts = useSelector((state) => state.posts.posts);
@@ -24,7 +28,9 @@ export const Header = () => {
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
   const isActiveModal = useSelector((state) => state.app.isPostModalActive);
   const dispatch = useDispatch();
-  const isMobile = useMediaQuery("(max-width: 1280px)");
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const isTablet = useMediaQuery("(max-width: 1023px)");
+  const isDesktop = !isMobile && !isTablet;
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -35,123 +41,88 @@ export const Header = () => {
     setAnchorEl(null);
   };
 
-  // const handleOpenMenu = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  //   setIsButtonActive(true); // Activate the button
-  // };
-
-  // const handleCloseMenu = () => {
-  //   setAnchorEl(null);
-  //   setIsButtonActive(false); // Activate the button
-  // };
-
   return (
     <div>
-      <Navigation />
+      {isMobile && <HeaderMobile />}
+      {!isMobile && <Navigation />}
 
-      <Button
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-        startIcon={<MoreIcon size={30} />}
-        className={styles.moreBtn}
-        sx={{
-          color: "black",
-          fontSize: "1.25rem",
-          borderRadius: "2rem",
-          display: "flex",
-          gap: "1rem",
-          position: "relative",
-          fontWeight: 400,
-          padding: "0.5rem 0.75rem",
-          textTransform: "capitalize",
-          margin: "0 0 1.25rem 0",
-          "&:hover": {
-            backgroundColor: "rgb(221, 217, 217)",
-          },
+      {!isMobile && (
+        <>
+          <Button
+            id="basic-button"
+            onClick={handleClick}
+            startIcon={<MoreIcon size={30} />}
+            className={styles.moreBtn}
+            sx={moreButtonSX}>
+            {isDesktop && "More"}
+          </Button>
 
-          "& .css-1tnmhci-MuiButtonBase-root-MuiButton-root": {
-            justifyContent: "flex-start",
-          },
-          "& .css-1d6wzja-MuiButton-startIcon": {
-            margin: 0,
-          },
-        }}>
-        {isMobile ? <span className={styles.hideText}>More</span> : "More"}
-      </Button>
-
-      <Select
-        sx={{
-          position: "relative",
-          "& .MuiSelect-select": {
-            display: "none",
-          },
-        }}
-        id="basic-menu"
-        // anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        inputProps={{ IconComponent: () => null }}
-        MenuProps={{
-          anchorOrigin: {
-            vertical: "bottom",
-            horizontal: "left",
-          },
-          transformOrigin: {
-            vertical: "bottom",
-            horizontal: "left", // Match the end of the menu with the end of the button
-          },
-          PaperProps: {
-            sx: {
-              position: "absolute",
-              borderRadius: 5,
-              "& .css-6hp17o-MuiList-root-MuiMenu-list": {
-                paddingTop: 0,
-                paddingBottom: 0,
-                backgroundColor: "#ffffff",
+          <Select
+            sx={{
+              position: "relative",
+              "& .MuiSelect-select": {
+                display: "none",
               },
-              "& .MuiMenuItem-root": {
-                padding: 2,
-                fontSize: 20,
-                fontWeight: 700,
-                minWidth: 318,
+            }}
+            id="basic-menu"
+            // anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            inputProps={{ IconComponent: () => null }}
+            MenuProps={{
+              anchorOrigin: {
+                vertical: "bottom",
+                horizontal: "left",
+              },
+              transformOrigin: {
+                vertical: "bottom",
+                horizontal: "left", // Match the end of the menu with the end of the button
+              },
+              PaperProps: {
+                sx: {
+                  position: "absolute",
+                  borderRadius: 5,
+                  "& .css-6hp17o-MuiList-root-MuiMenu-list": {
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                    backgroundColor: "#ffffff",
+                  },
+                  "& .MuiMenuItem-root": {
+                    padding: 2,
+                    fontSize: 20,
+                    fontWeight: 700,
+                    minWidth: 318,
 
-                gap: 3,
-                "&:hover": {
-                  backgroundColor: "#eff3f4",
+                    gap: 3,
+                    "&:hover": {
+                      backgroundColor: "#eff3f4",
+                    },
+                  },
                 },
               },
-            },
-          },
-        }}>
-        <MenuItem component={Link} to="/bookmarks">
-          <BookmarkBorderIcon />
-          Bookmarks
-        </MenuItem>
-        <MenuItem>
-          <DisplaySettingsIcon />
-          Display
-        </MenuItem>
-      </Select>
-      {isMobile ? (
-        // For mobile version
-        <Button
-          sx={{
-            margin: 0,
-            backgroundColor: "#1d9bf0",
-            color: "#ffffff",
-            // width: 50,
-            // height: 60,
-            height: 0,
-            minWidth: 0,
+            }}>
+            <MenuItem component={Link} to="/bookmarks">
+              <BookmarkBorderIcon />
+              Bookmarks
+            </MenuItem>
+            <MenuItem>
+              <DisplaySettingsIcon />
+              Display
+            </MenuItem>
+          </Select>
+        </>
+      )}
 
-            padding: "26px 14px",
-            "&:hover": {
-              backgroundColor: "#1a8cd8",
-            },
-          }}>
+      <Button
+        onClick={() => {
+          dispatch(setModalPost(true));
+          dispatch(setContent(<CreatePost avatarUrl={avatarUrl} />));
+        }}
+        sx={isDesktop ? postButtonSX.desktop : postButtonSX.mobile}>
+        {isDesktop ? (
+          "Post"
+        ) : (
+          // <ButtonPostRounded/>
           <svg
             style={{ height: "24px", width: "24px" }}
             viewBox="0 0 24 24"
@@ -162,33 +133,10 @@ export const Header = () => {
                 d="M23 3c-6.62-.1-10.38 2.421-13.05 6.03C7.29 12.61 6 17.331 6 22h2c0-1.007.07-2.012.19-3H12c4.1 0 7.48-3.082 7.94-7.054C22.79 10.147 23.17 6.359 23 3zm-7 8h-1.5v2H16c.63-.016 1.2-.08 1.72-.188C16.95 15.24 14.68 17 12 17H8.55c.57-2.512 1.57-4.851 3-6.78 2.16-2.912 5.29-4.911 9.45-5.187C20.95 8.079 19.9 11 16 11zM4 9V6H1V4h3V1h2v3h3v2H6v3H4z"></path>
             </g>
           </svg>
-        </Button>
-      ) : (
-        // For desktop version
-        <Button
-          onClick={() => {
-            dispatch(setModalPost(true));
-            dispatch(setContent(<CreatePost avatarUrl={avatarUrl} />));
-          }}
-          sx={{
-            color: "#ffffff",
-            boxShadow: "none",
-            backgroundColor: " #1d9bf0",
-            borderRadius: "45px",
-            // height: "52px",
-            fontWeight: 700,
-            minWidth: "233px",
-            fontSize: "17px",
-            margin: 0,
+        )}
+      </Button>
 
-            "&:hover": {
-              boxShadow: "none",
-              backgroundColor: "#1a8cd8",
-            },
-          }}>
-          Post
-        </Button>
-      )}
+      {isMobile && <FooterMobile />}
       {isActiveModal && <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />}
     </div>
   );

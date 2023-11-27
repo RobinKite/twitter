@@ -77,6 +77,7 @@ export default function AppRoutes() {
         path="/login"
         element={isAuthenticated ? <Navigate to="/" /> : <Registration />}
       />
+      <Route path="/settings" element={<div>Settings</div>} />
     </Routes>
   );
 }
