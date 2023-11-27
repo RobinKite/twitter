@@ -20,50 +20,108 @@ const postsSlice = createSlice({
     },
     addPost: (state, action) => {
       const newPost = action.payload;
+
       if (newPost.type === "TWEET") {
         state.posts.unshift(newPost);
       }
-      if (newPost.type === "REPLY") {
-        // state.postComments.unshift(newPost);
 
-        const parentPost = state.posts.find((post) => post.id === newPost.parentPost.id);
+      if (newPost.type === "REPLY") {
+        state.postComments.unshift(newPost);
+        const parentPost = state.posts.find((post) => post.id === newPost.parentPost?.id);
         if (parentPost) {
           parentPost.replyCount = (parentPost.replyCount || 0) + 1;
-          state.postComments.unshift(newPost);
         }
-
-        const parentPostComent = state.postComments.find(
-          (post) => post.id === newPost.parentPost.id,
+        const parentComment = state.postComments.find(
+          (comment) => comment.id === newPost.parentPost?.id,
         );
-        if (parentPostComent) {
-          parentPostComent.replyCount = (parentPostComent.replyCount || 0) + 1;
+        if (parentComment) {
+          parentComment.replyCount = (parentComment.replyCount || 0) + 1;
         }
       }
-      if (state.selectedPost) {
+      if (state.selectedPost && state.selectedPost.id === newPost.parentPost?.id) {
         state.selectedPost.replyCount = (state.selectedPost.replyCount || 0) + 1;
       }
     },
-
     addComent: (state, action) => {
       const newComent = action.payload;
       state.postComments.unshift(newComent);
     },
     // deleteComment: (state, action) => {
-    //   state.postComments = state.postComments.filter((comment) => comment.id !== action.payload);
+    // state.postComments = state.postComments.filter((comment) => comment.id !== action.payload);
     // },
 
-    deleteFromPost: (state, action) => {
-      state.posts = state.posts.filter((post) => post.id !== action.payload);
-      state.postComments = state.postComments.filter(
-        (post) => post.id !== action.payload,
-      );
+    // deleteFromPost: (state, action) => {
+    //   const postIdToDelete = action.payload;
 
-      if (state.selectedPost && state.selectedPost.id === action.payload) {
+    //   if (state.selectedPost && state.selectedPost.id === postIdToDelete) {
+    //     state.selectedPost = null;
+    //   } else if (state.selectedPost) {
+    //     state.selectedPost.replyCount = Math.max(
+    //       (state.selectedPost.replyCount || 0) - 1,
+    //       0,
+    //     );
+    //   }
+
+    //   const parentPostId = state.postComments.find((post) => post.id === postIdToDelete)
+    //     ?.parentPost?.id;
+
+    //   if (parentPostId) {
+    //     const parentPost = state.posts.find((post) => post.id === parentPostId);
+
+    //     if (parentPost) {
+    //       parentPost.replyCount = Math.max((parentPost.replyCount || 0) - 1, 0);
+    //     }
+    //   }
+
+    //   state.posts = state.posts.filter((post) => post.id !== postIdToDelete);
+
+    //   state.postComments = state.postComments.filter(
+    //     (post) => post.id !== postIdToDelete,
+    //   );
+    // },
+    deleteFromPost: (state, action) => {
+      const postIdToDelete = action.payload;
+
+      // Оновлення replyCount для selectedPost, якщо він вибраний і має збільшене replyCount
+      if (state.selectedPost && state.selectedPost.id === postIdToDelete) {
+        // Знаходження всіх коментарів до вибраного поста
+        const commentsToDelete = state.postComments.filter(
+          (comment) => comment.parentPost.id === postIdToDelete,
+        );
+
+        // Видалення коментарів до вибраного поста зі списку коментарів
+        state.postComments = state.postComments.filter(
+          (comment) => comment.parentPost.id !== postIdToDelete,
+        );
+
+        // Зменшення replyCount у вибраного поста на кількість видалених коментарів
+        state.selectedPost.replyCount = Math.max(
+          (state.selectedPost.replyCount || 0) - commentsToDelete.length,
+          0,
+        );
+
+        // Саме видалення вибраного поста
         state.selectedPost = null;
       } else if (state.selectedPost) {
-        state.selectedPost.replyCount = Math.max(
-          (state.selectedPost.replyCount || 0) - 1,
-          0,
+        // Зменшення replyCount для інших постів, якщо вони мають взаємодію з видаленим постом
+        const parentPostId = state.postComments.find(
+          (comment) => comment.id === postIdToDelete,
+        )?.parentPost?.id;
+
+        if (parentPostId) {
+          const parentPost = state.posts.find((post) => post.id === parentPostId);
+
+          if (parentPost) {
+            parentPost.replyCount = Math.max((parentPost.replyCount || 0) - 1, 0);
+          }
+        }
+
+        // Видалення поста зі списку постів
+        state.posts = state.posts.filter((post) => post.id !== postIdToDelete);
+
+        // Видалення коментарів до видаленого поста зі списку коментарів
+        state.postComments = state.postComments.filter(
+          (comment) => comment.parentPost.id !== postIdToDelete,
         );
       }
     },

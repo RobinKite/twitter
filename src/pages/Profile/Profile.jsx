@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "../../components";
 import ArrowBack from "../../assets/icons/arrow.svg?react";
-import { useLoadPost } from "@/hook/useLoadPost";
+import { useLoadPost } from "@/hooks/useLoadPost";
 
 const tabs = [
   { label: "Post", value: "0" },

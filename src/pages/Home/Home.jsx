@@ -1,4 +1,4 @@
-import { useLoadPost } from "@/hook/useLoadPost";
+import { useLoadPost } from "@/hooks/useLoadPost";
 import { Typography } from "@mui/material";
 import { useSelector, shallowEqual } from "react-redux";
 import { CreatePost, ItemPost } from "../../components";
@@ -16,7 +16,7 @@ export const Home = () => {
         component="h2"
         sx={{
           fontSize: 25,
-          marginLeft: "35%",
+          marginLeft: "37%",
           marginTop: "20px",
           fontWeight: "700",
         }}>

@@ -105,7 +105,11 @@ export function ItemPost({
               key={index}
               src={imageUrl}
               alt={`${index}`}
-              style={{ width: "220px", objectFit: "cover" }}
+              style={{
+                maxWidth: imageUrls.length > 1 ? "49%" : "90%",
+
+                objectFit: "cover",
+              }}
             />
           ))}
         </div>
@@ -113,25 +117,24 @@ export function ItemPost({
         <div className={styles.tweetActions}>
           {!disable && (
             <>
-              <div>
+              <div className={styles.replyCount}>
                 <IconButton onClick={openModal}>
                   <Reply className={styles.tweetReply} />
                 </IconButton>
-                <span style={{ color: "rgb(83, 100, 113)", fontSize: "15px" }}>
-                  {replyCount}
-                </span>
+                <span>{replyCount}</span>
               </div>
               <IconButton>
                 <Repost className={styles.tweetRepost} />
               </IconButton>
-              <div>
+              <div className={styles.likeCount}>
                 <IconButton
                   onClick={() => {
                     liked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
                   }}>
                   {liked ? <LikeFalse /> : <Like className={styles.tweetLike} />}
                 </IconButton>
-                <span style={{ color: "rgb(83, 100, 113) ", fontSize: "15px" }}>
+
+                <span className={`likeCount ${liked ? styles.red : ""}`}>
                   {likeCount}
                 </span>
               </div>

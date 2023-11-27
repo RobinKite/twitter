@@ -15,7 +15,7 @@ export const ModalBody = styled(Box)(() => ({
   maxWidth: "700px",
   width: "100%",
   minHeight: "30em",
-  maxHeight: "55em",
+  maxHeight: "40em",
   overflowY: "auto",
   overflowX: "hidden",
   backgroundColor: "white",
