@@ -1,45 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { FormControl, Input, Stack, debounce } from "@mui/material";
 import { closeIconSX, inputSX, searchBarSX, searchIconSX } from "./styleSX";
 import { SearchProgressBar } from "..";
+import { fetchFriedsSearch } from "@/redux/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 export const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const dispatch = useDispatch();
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // TODO: add fetch
-    console.log(searchTerm);
-    console.log(debounce);
-    // export default function debounce(func, wait = 166) {
-    // let timeout;
-    // function debounced(...args) {
-    //   const later = () => {
-    //     // @ts-ignore
-    //     func.apply(this, args);
-    //   };
-    //   clearTimeout(timeout);
-    //   timeout = setTimeout(later, wait);
-    // }
-    // debounced.clear = () => {
-    //   clearTimeout(timeout);
-    // };
-    // return debounced;
+    setSearchTerm(e.target.value);
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter" && searchTerm.trim() !== "") {
-      handleSearch();
+  const debouncedSearch = debounce((term) => {
+    dispatch(fetchFriedsSearch(term));
+  }, 500);
+
+  useEffect(() => {
+    if (searchTerm.trim() !== "") {
+      debouncedSearch(searchTerm);
     }
-  };
+  }, [searchTerm, debouncedSearch]);
 
   const handleInputClear = () => {
     setSearchTerm("");
   };
-
-  // const debouncedOnChange = debounce(handleSearch, 500);
 
   return (
     <Stack sx={searchBarSX}>
@@ -49,8 +38,7 @@ export const SearchBar = () => {
           placeholder="Search"
           disableUnderline
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={handleKeyDown}
+          onChange={handleSearch}
         />
         <SearchIcon sx={searchIconSX} />
         {searchTerm.trim() && <CancelIcon sx={closeIconSX} onClick={handleInputClear} />}

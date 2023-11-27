@@ -2,17 +2,24 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { FollowButtonStyled } from "./styleSX";
 import { ModalUnFollow } from "..";
+import { useDispatch } from "react-redux";
+import { deleteSubscribeToUser, postSubcribeToUser } from "@/redux/slices/userSlice";
 
-export const FollowButton = ({ id }) => {
-  const [isFollowing, setIsFollowing] = useState(null);
+export const FollowButton = ({ id, userName, isFollowedByUser }) => {
+  const [isFollowing, setIsFollowing] = useState(isFollowedByUser);
   const [isHovering, setIsHovering] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
-  console.log(id);
+  const dispatch = useDispatch();
 
   const handleFollow = () => {
-    setIsFollowing(!isFollowing);
+    setIsFollowing(true);
+    dispatch(postSubcribeToUser(id));
     setShowModal(false);
+  };
+
+  const handleUnfollow = () => {
+    setIsFollowing(false);
+    dispatch(deleteSubscribeToUser(id));
   };
 
   const handleOpenModal = () => {
@@ -26,36 +33,33 @@ export const FollowButton = ({ id }) => {
   const onMouseEnterHandler = () => {
     setIsHovering(true);
   };
+
   const onMouseLeaveHandler = () => {
     setIsHovering(false);
   };
 
   return (
     <>
-      {isFollowing ? (
-        <FollowButtonStyled
-          variant="contained"
-          onClick={handleOpenModal}
-          isFollowing={isFollowing}
-          onMouseEnter={onMouseEnterHandler}
-          onMouseLeave={onMouseLeaveHandler}
-          sx={{ minWidth: "110px" }}>
-          {isHovering ? <p>Unfollow </p> : <p>Following</p>}
-        </FollowButtonStyled>
-      ) : (
-        <FollowButtonStyled
-          variant="contained"
-          onClick={handleFollow}
-          isFollowing={isFollowing}>
-          <p>Follow</p>
-        </FollowButtonStyled>
-      )}
+      <FollowButtonStyled
+        variant="contained"
+        onClick={isFollowing ? handleOpenModal : handleFollow}
+        isFollowing={isFollowing}
+        onMouseEnter={onMouseEnterHandler}
+        onMouseLeave={onMouseLeaveHandler}
+        sx={{ minWidth: "110px" }}>
+        {isHovering ? (
+          <p>{isFollowing ? "Unfollow" : "Follow"}</p>
+        ) : (
+          <p>{isFollowing ? "Following" : "Follow"}</p>
+        )}
+      </FollowButtonStyled>
 
       {showModal && (
         <ModalUnFollow
-          userTag="UserTag"
+          userTag={userName}
           showModal={showModal}
           onClose={handleCloseModal}
+          handleUnfollow={handleUnfollow}
         />
       )}
     </>
@@ -63,6 +67,7 @@ export const FollowButton = ({ id }) => {
 };
 
 FollowButton.propTypes = {
-  initialIsFollowing: PropTypes.bool,
-  id: PropTypes.string,
+  userName: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  isFollowedByUser: PropTypes.bool.isRequired,
 };
