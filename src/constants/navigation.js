@@ -12,12 +12,8 @@ import {
   TwitterIcon,
 } from "@/icons";
 
-// import {ReactComponent as
-// TwitterIcon
-// } from "../assets/icons/......."
-
 import { capitalize } from "@/utils";
-// import { SettingsRoundedIcon } from "@mui/icons-material";
+
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import SettingsSharpIcon from "@mui/icons-material/SettingsSharp";
 

@@ -25,3 +25,4 @@ export { Repost } from "./Repost/Repost";
 export { Share } from "./Share/Share";
 export { Like } from "./Like/Like";
 export { Delete } from "./Delete/Delete";
+export { PostRoundedButton } from "./PostRoundedButton/PostRoundedButton";
