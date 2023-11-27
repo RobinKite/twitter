@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import { Stack, Typography } from "@mui/material";
 import { recommendedUserCardSX, recommendedUserInfoSX } from "./styleSX";
 import { FollowButton } from "..";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchUsers } from "@/redux/slices/userSlice";
 // import { fetchUsers } from "@/redux/slices/usersListSlice";
@@ -36,13 +36,12 @@ export const RecommendedUserCard = ({
   );
 };
 
-export const RecommendedUsers = ({ useButton }) => {
+export const RecommendedUsers = ({ useButton, usersList }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUsers(3));
   }, [dispatch]);
-  const usersList = useSelector((state) => state.user.usersList);
 
   return (
     <Stack>
@@ -76,6 +75,7 @@ RecommendedUserCard.defaultProps = {
 
 RecommendedUsers.propTypes = {
   useButton: PropTypes.bool,
+  usersList: PropTypes.arrayOf(PropTypes.object),
 };
 
 RecommendedUsers.defaultProps = {

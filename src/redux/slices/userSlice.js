@@ -10,6 +10,7 @@ const userSlice = createSlice({
     usersList: [],
     friendsList: [],
     friendRequests: [],
+    friendSearches: [],
   },
   reducers: {
     loginUserAction: (state, action) => {
@@ -30,11 +31,20 @@ const userSlice = createSlice({
         (friend) => friend.id !== action.payload,
       );
     },
+    setFriendSearches: (state, action) => {
+      state.friendSearches = action.payload;
+    },
   },
 });
 
-export const { loginUserAction, getUser, setUsers, sendFriendRequest, removeFriend } =
-  userSlice.actions;
+export const {
+  loginUserAction,
+  getUser,
+  setUsers,
+  sendFriendRequest,
+  removeFriend,
+  setFriendSearches,
+} = userSlice.actions;
 export default userSlice.reducer;
 
 // export function getUserAsync() {
@@ -100,6 +110,21 @@ export const deleteSubscribeToUser = (id) => {
       api.delete(`/subscriptions?id=${id}`).then((response) => {
         const data = response.data;
         dispatch(removeFriend(id));
+        return data;
+      });
+    };
+    // eslint-disable-next-line no-unreachable
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchFriedsSearch = (query) => {
+  try {
+    return (dispatch) => {
+      api.get(`/users/search?query=${query}&page=0&pageSize=12`).then((response) => {
+        const data = response.data.content;
+        dispatch(setFriendSearches(data));
         return data;
       });
     };
