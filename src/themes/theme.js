@@ -13,6 +13,14 @@ export const theme = createTheme({
           color: "inherit",
           textTransform: "inherit",
           borderRadius: "1.5rem",
+          boxShadow: "none",
+
+          ":hover": {
+            boxShadow: "none",
+          },
+          ":active": {
+            boxShadow: "none",
+          },
         },
       },
     },

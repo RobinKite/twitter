@@ -1,10 +1,10 @@
+import { Stack } from "@mui/material";
+import PropTypes from "prop-types";
+
 export const Main = ({ children }) => {
-  return (
-    <div>
-      {/* <AppRoutes /> */}
-      {children}
-      {/* <h2>MAIN SECTION</h2>
-      <AppRoutes/> */}
-    </div>
-  );
+  return <Stack>{children}</Stack>;
+};
+
+Main.propTypes = {
+  children: PropTypes.node.isRequired,
 };

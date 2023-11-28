@@ -46,7 +46,7 @@ export const Header = () => {
   // };
 
   return (
-    <div>
+    <div style={{ marginRight: "2rem" }}>
       <Navigation />
 
       <Button

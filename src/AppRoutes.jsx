@@ -1,47 +1,29 @@
 import { Route, Routes, Outlet, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
-  Container,
   SignUpForm,
   ForgotPasswordForm,
   RegistrationForm,
   PasswordFormModal,
-} from "./components";
-import { Registration, Home, Notifications, Post, Profile } from "./pages";
-import { useSelector } from "react-redux";
+  Container,
+} from "@/components";
+import { Registration, Home, Notifications, Post, Profile, Messages } from "@/pages";
 
 export default function AppRoutes() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          isAuthenticated ? (
-            <Container>
-              <Outlet />
-            </Container>
-          ) : (
-            <Navigate to="/login" />
-          )
-        }>
+      <Route path="/" element={isAuthenticated ? <Outlet /> : <Navigate to="/login" />}>
         <Route index element={<Home />} />
-        <Route path="/explore" element={<div>Explore</div>} />
-
+        <Route path="/explore" element={<Container>Explore</Container>} />
         <Route path="/notifications" element={<Notifications />} />
-        <Route path="/messages" element={<div>Messages</div>} />
-        <Route path="/lists" element={<div>Lists</div>} />
-        <Route path="/communities" element={<div>Communities</div>} />
-        <Route path="/verified" element={<div>Verified</div>} />
-        <Route
-          path="/profile"
-          element={
-            <div>
-              <Profile />
-            </div>
-          }
-        />
-        <Route path="/more" element={<div>More</div>} />
+        <Route path="/messages" element={<Messages />} />
+        <Route path="/lists" element={<Container>Lists</Container>} />
+        <Route path="/communities" element={<Container>Communities</Container>} />
+        <Route path="/verified" element={<Container>Verified</Container>} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/more" element={<Container>More</Container>} />
         <Route path="/inshyy-post/:id" element={<Post />} />
 
         <Route
@@ -62,9 +44,9 @@ export default function AppRoutes() {
             </>
           }
         />
-
-        <Route path="/bookmarks" element={<div>Bookmarks</div>} />
+        <Route path="/bookmarks" element={<Container>Bookmarks</Container>} />
       </Route>
+
       <Route
         path="/signUpForm"
         element={

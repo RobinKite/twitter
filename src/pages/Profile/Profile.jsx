@@ -2,8 +2,14 @@ import TabPanel from "@mui/lab/TabPanel";
 import { styled, Typography, Container, Button, Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "../../components";
-import { getPosts } from "../../redux/slices/postsSlice";
+import {
+  UserPhoto,
+  ProfileTabs,
+  ItemPost,
+  ModalEdit,
+  Container as AppContainer,
+} from "@/components";
+import { getPosts } from "@/redux/slices/postsSlice";
 import { ArrowBack } from "@/icons";
 
 const tabs = [
@@ -102,7 +108,7 @@ export function Profile() {
   }, [currentPage]);
 
   return (
-    <>
+    <AppContainer>
       <ModalEdit isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       <Container maxWidth="sm" disableGutters={true}>
@@ -182,6 +188,6 @@ export function Profile() {
           <TabPanel value="2">Likes</TabPanel>
         </ProfileTabs>
       </Container>
-    </>
+    </AppContainer>
   );
 }

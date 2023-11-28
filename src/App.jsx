@@ -15,11 +15,9 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <AppRoutes />
-        {isLoginModalOpen && <LoginFormModal open={isLoginModalOpen} />}
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme}>
+      <AppRoutes />
+      {isLoginModalOpen && <LoginFormModal open={isLoginModalOpen} />}
+    </ThemeProvider>
   );
 }

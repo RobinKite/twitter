@@ -26,3 +26,5 @@ export { LikeFalse } from "./custom/LikeFalse";
 export { Like } from "./custom/Like";
 export { Repost } from "./custom/Repost";
 export { Bookmark } from "./custom/Bookmark";
+export { Gear } from "./custom/Gear";
+export { MessagePlus } from "./custom/MessagePlus";

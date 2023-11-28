@@ -1,8 +1,8 @@
 import TabPanel from "@mui/lab/TabPanel";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { CreatePost, ProfileTabs, ItemPost } from "../../components";
-import { getPosts } from "../../redux/slices/postsSlice";
+import { CreatePost, ProfileTabs, ItemPost, Container } from "@/components";
+import { getPosts } from "@/redux/slices/postsSlice";
 
 const tabs = [
   { label: "Following", value: "0" },
@@ -13,7 +13,6 @@ export const Home = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
-
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -53,13 +52,14 @@ export const Home = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   // TODO: Remove tabs completely (leave only "following")
   // TODO: Profile and Home components have the same implementation of showing posts, thus should be used only one reusable component
 
   return (
-    <>
+    <Container>
       {/* <button onClick={addPost}></button> */}
       <ProfileTabs
         tabs={tabs}
@@ -93,6 +93,6 @@ export const Home = () => {
         </TabPanel>
         {/* <TabPanel value={1}></TabPanel> */}
       </ProfileTabs>
-    </>
+    </Container>
   );
 };

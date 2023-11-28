@@ -2,9 +2,9 @@ import { IconButton, Typography, styled, Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { CommentPost, ItemPost } from "../../components";
+import { CommentPost, ItemPost, Container } from "@/components";
 import { client } from "@/services";
-import { compareByDate } from "../../utils";
+import { compareByDate } from "@/utils";
 import { ArrowBack } from "@/icons";
 import { Endpoint } from "@/constants";
 
@@ -150,7 +150,7 @@ export const Post = () => {
   }, [isAuthenticated, id]);
 
   return (
-    <>
+    <Container>
       <HeaderPage>
         <IconButton onClick={redirectToPost}>
           <ArrowBack size={25} />
@@ -199,6 +199,6 @@ export const Post = () => {
 
       {/* Intersection Observer target for infinite scroll */}
       {/* <div ref={lastCommentRef}></div> */}
-    </>
+    </Container>
   );
 };

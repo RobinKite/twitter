@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { Footer, Button } from "../../components";
-import { setCreateProfileModal, setModal } from "../../redux/slices/appSlice";
+import { Footer, Button } from "@/components";
+import { setCreateProfileModal, setModal } from "@/redux/slices/appSlice";
 import { Twitter, Apple, Google } from "@/icons";
 import styles from "./Registration.module.scss";
 
