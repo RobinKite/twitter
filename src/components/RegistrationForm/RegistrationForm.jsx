@@ -1,7 +1,4 @@
-import Modal from "@mui/material/Modal";
-import TextField from "@mui/material/TextField";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
+import { TextField, IconButton, InputAdornment, Modal } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
@@ -9,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 // import { setCreateProfileModal } from "../../redux/slices/appSlice";
-import styles from "./RegistrationForm.module.scss";
 import { CloseButton, FormBox, FormTitle, SubmitButton } from "./styleSX";
 import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 import { registerUser } from "@/redux/slices/userSlice";
@@ -162,10 +158,7 @@ export const RegistrationForm = ({ handleRegModalClose, handleRegModalOpen }) =>
                 yearLabel="Year"
                 required={true}
               />
-              <SubmitButton //роут, куда ведет кнопка некст??????
-                type="submit"
-                // onClick={onRegFormSubmit}
-                disabled={!isValid}>
+              <SubmitButton type="submit" disabled={!isValid}>
                 Sign up
               </SubmitButton>
             </Form>

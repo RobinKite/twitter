@@ -15,10 +15,16 @@ export const FormBox = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   minHeight: "650px",
   width: "600px",
+  [theme.breakpoints.down("1023")]: {
+    top: "32%",
+  },
   [theme.breakpoints.down("767")]: {
+    top: "50%",
     width: "100%",
-    height: "100%",
-    padding: "10px 32px",
+    height: "100lvh",
+    padding: "70px 32px",
+    borderRadius: 0,
+    justifyContent: "flex-start",
   },
 }));
 
