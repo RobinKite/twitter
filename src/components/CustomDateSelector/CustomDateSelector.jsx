@@ -1,32 +1,8 @@
-import {
-  Box,
-  Typography,
-  MenuItem,
-  Select,
-  FormControl,
-  Stack,
-  styled,
-} from "@mui/material";
+import { Box, Typography, MenuItem, FormControl, Stack } from "@mui/material";
 import PropTypes from "prop-types";
 import { useField } from "formik";
 import { getDaysArray, getYearsArray, monthsArray } from "@/utils/date";
-
-const CustomSelect = styled(Select)(({ theme }) => ({
-  "&": {
-    borderRadius: 4,
-    border: "1px solid #00000099",
-    color: "#00000099",
-    height: "50px",
-    padding: "10px",
-    width: "140px",
-  },
-  // "& .MuiInputBase": {
-  // },
-  "& .MuiSelect-icon": {
-    fontSize: "24px",
-    color: "#b5bac1",
-  },
-}));
+import { CustomSelect, Legend, Text } from "./styleSX";
 
 export const CustomDateSelector = ({
   required,
@@ -48,32 +24,20 @@ export const CustomDateSelector = ({
   const daysArray = getDaysArray(chosenYear, chosenMonth);
 
   return (
-    <Box
-      component="fieldset"
-      sx={{
-        border: "none",
-      }}>
-      <Typography
-        component="legend"
-        sx={{ fontSize: "15px", color: "#0f1419", fontweight: 900, marginBottom: "8px" }}>
+    <Box component="fieldset" sx={{ border: "none" }}>
+      <Legend component="legend">
         Date of birth
         {required && (
           <Typography component="span" sx={{ whiteSpace: "nowrap" }}>
             *
           </Typography>
         )}
-      </Typography>
-      <Typography
-        sx={{
-          color: "#536471",
-          fontSize: "14px",
-          lineHeight: "16px",
-          marginBottom: "8px",
-        }}>
+      </Legend>
+      <Text>
         This will not be shown publicly. Confirm your own age, even if this account is for
         a business, a pet, or something else.
-      </Typography>
-      <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+      </Text>
+      <Stack direction="row" spacing={2}>
         <DateSelect
           id={monthId}
           label={monthLabel}
