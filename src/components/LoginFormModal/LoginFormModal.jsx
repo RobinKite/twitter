@@ -81,9 +81,7 @@ export function LoginFormModal({ handleLoginModalClose, handleLoginModalOpen }) 
               </Form>
             </Formik>
           </Stack>
-          <MainButton onClick={handleForgotPasswordClick}>
-            Forgot your password
-          </MainButton>
+          <MainButton onClick={handleForgotPasswordClick}>Forgot password?</MainButton>
           <Typography
             id="modal-modal-description"
             sx={{

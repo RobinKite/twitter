@@ -1,6 +1,6 @@
 import { Box, Button, IconButton, Stack, Typography, styled } from "@mui/material";
 
-export const Container = styled(Box)({
+export const Container = styled(Box)(({ theme }) => ({
   position: "absolute",
   display: "flex",
   flexDirection: "column",
@@ -15,15 +15,27 @@ export const Container = styled(Box)({
   borderRadius: 14,
   boxShadow: 24,
   padding: " 20px 20px 130px ",
-});
+  [theme.breakpoints.down("1023")]: {
+    top: "32%",
+  },
+  [theme.breakpoints.down("767")]: {
+    top: "50%",
+    width: "100%",
+    height: "100%",
+    borderRadius: 0,
+  },
+}));
 
-export const LoginForm = styled(Stack)({
+export const LoginForm = styled(Stack)(({ theme }) => ({
   width: "364px",
   gap: "12px",
   padding: "0 32px 48px",
   alignItems: "flex-start",
   justifyContent: "center",
-});
+  [theme.breakpoints.down("767")]: {
+    margin: "173px 33px",
+  },
+}));
 
 export const CloseButton = styled(IconButton)({
   position: "absolute",
