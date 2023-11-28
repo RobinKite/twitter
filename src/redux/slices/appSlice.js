@@ -7,6 +7,7 @@ const appSlice = createSlice({
     isProfileModalActive: false,
     isPostModalActive: false,
     postModalContent: null,
+    isModalActive: false,
   },
   reducers: {
     setModal: (state) => {

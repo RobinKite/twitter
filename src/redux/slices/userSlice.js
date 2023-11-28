@@ -9,6 +9,10 @@ const userSlice = createSlice({
     user: {},
   },
   reducers: {
+    registerUserAction: (state, action) => {
+      state.isAuthenticated = true;
+      state.user = action.payload;
+    },
     loginUserAction: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload;
@@ -19,33 +23,34 @@ const userSlice = createSlice({
   },
 });
 
-export const { loginUserAction, getUser } = userSlice.actions;
+export const { loginUserAction, getUser, registerUserAction } = userSlice.actions;
 export default userSlice.reducer;
-
-// export function getUserAsync() {
-//   return async function (dispatch) {
-//     const response = await fetch(
-//       `https://danit-final-twitter-8f32e99a3dec.herokuapp.com/users/profile`,
-//       {
-//         method: "GET",
-//         headers: {
-//           Authorization: `Bearer ${localStorage.getItem("token")}`,
-//         },
-//       },
-//     );
-//     const userInfo = await response.json();
-//     console.log(userInfo);
-
-//     dispatch(getUser(userInfo));
-//   };
-// }
 
 export const loginUser = (email, password) => (dispatch) => {
   const data = { email, password };
+  console.log(data);
   api.post("/auth/login", data).then((response) => {
     console.log(response);
     setAuthToken(response.data.access_token);
     setRefreshToken(response.data.refresh_token);
     dispatch(loginUserAction(response.data.user));
   });
+};
+
+export const registerUser = (user) => {
+  const data = {
+    fullName: `${user.firstName} ${user.lastName}`,
+    email: user.email,
+    password: user.password,
+    birthdate: `${user.day}.${user.month}.${user.year}`,
+    userTag: user.userName,
+  };
+  return (dispatch) => {
+    api.post("/auth/register", data).then((response) => {
+      console.log(response);
+      setAuthToken(response.data.access_token);
+      setRefreshToken(response.data.refresh_token);
+      dispatch(registerUserAction(data));
+    });
+  };
 };

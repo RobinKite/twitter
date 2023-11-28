@@ -1,7 +1,7 @@
 import { Stack, Typography, styled } from "@mui/material";
 import { BsTwitterX } from "react-icons/bs";
 
-export const MainSpan = styled(Typography)(({ theme }) => ({
+export const Title = styled(Typography)(({ theme }) => ({
   fontSize: "64px",
   fontWeight: 700,
   color: "#0f1419",
@@ -12,7 +12,7 @@ export const MainSpan = styled(Typography)(({ theme }) => ({
   },
 }));
 
-export const TextSpan = styled(Typography)(({ theme }) => ({
+export const Text = styled(Typography)(({ theme }) => ({
   fontSize: "31px",
   fontWeight: 700,
   color: "#0f1419",
@@ -23,7 +23,7 @@ export const TextSpan = styled(Typography)(({ theme }) => ({
   },
 }));
 
-export const OrSpan = styled(Typography)({
+export const LinesSpan = styled(Typography)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
@@ -35,7 +35,7 @@ export const OrSpan = styled(Typography)({
   "&::after": { content: "''", border: "1px solid #eff3f4", width: "45%" },
 });
 
-export const AskingSpan = styled(Typography)({
+export const AccountSpan = styled(Typography)({
   fontSize: "17px",
   fontWeight: 700,
   color: "#0f1419",

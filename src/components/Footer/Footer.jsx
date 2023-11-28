@@ -1,5 +1,5 @@
 import { Link } from "@mui/material";
-import { FooterContainer, FooterLink } from "./FooterStyles";
+import { FooterContainer, FooterLink } from "./styleSX";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();

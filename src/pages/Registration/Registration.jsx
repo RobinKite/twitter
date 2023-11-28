@@ -1,28 +1,21 @@
-import { useDispatch } from "react-redux";
-import { Footer, Button } from "../../components";
-import { setCreateProfileModal, setModal } from "../../redux/slices/appSlice";
+import { Footer, Button, RegistrationForm, LoginFormModal } from "../../components";
 import Google from "../../assets/icons/google.svg?react";
 import { Stack } from "@mui/material";
 import {
-  AskingSpan,
+  AccountSpan,
   Container,
   ContentStack,
   IconBox,
-  MainSpan,
-  OrSpan,
-  TextSpan,
+  LinesSpan,
+  Text,
+  Title,
   TwitterX,
-} from "./StyledElements";
+} from "./styleSX";
+import { useState } from "react";
 
-export const Registration = ({ setIsLog, isLog }) => {
-  const dispatch = useDispatch();
-  const toggleModal = () => {
-    dispatch(setModal());
-  };
-
-  const handleCreateElementClick = () => {
-    dispatch(setCreateProfileModal());
-  };
+export const Registration = () => {
+  const [showRegModal, setShowRegModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   return (
     <Stack sx={{ height: "100vh", padding: "16px" }}>
@@ -31,12 +24,12 @@ export const Registration = ({ setIsLog, isLog }) => {
           <TwitterX />
         </IconBox>
         <ContentStack>
-          <MainSpan variant="span">Happening now</MainSpan>
-          <TextSpan variant="span">Join today.</TextSpan>
+          <Title variant="span">Happening now</Title>
+          <Text variant="span">Join today.</Text>
           <Button startIcon={<Google />}>Sign up with Google</Button>
-          <OrSpan variant="span">or</OrSpan>
+          <LinesSpan variant="span">or</LinesSpan>
           <Button
-            onClick={handleCreateElementClick}
+            onClick={() => setShowRegModal(true)}
             sx={{
               color: "white",
               backgroundColor: "#1d9bf0",
@@ -44,9 +37,9 @@ export const Registration = ({ setIsLog, isLog }) => {
             }}>
             Create a profile
           </Button>
-          <AskingSpan variant="span">Already have an account?</AskingSpan>
+          <AccountSpan variant="span">Already have an account?</AccountSpan>
           <Button
-            onClick={toggleModal}
+            onClick={() => setShowLoginModal(true)}
             sx={{
               margin: "0 0 8px",
               color: "#1d9bf0",
@@ -56,7 +49,20 @@ export const Registration = ({ setIsLog, isLog }) => {
         </ContentStack>
       </Container>
       <Footer />
-      {/* {firstModalOpen && <LoginForm open={firstModalOpen} />} */}
+      {showRegModal && (
+        <RegistrationForm
+          handleRegModalClose={() => {
+            setShowRegModal(false);
+          }}
+          handleRegModalOpen={showRegModal}
+        />
+      )}
+      {showLoginModal && (
+        <LoginFormModal
+          handleLoginModalClose={() => setShowLoginModal(false)}
+          handleLoginModalOpen={showLoginModal}
+        />
+      )}
     </Stack>
   );
 };

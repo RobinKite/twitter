@@ -5,10 +5,9 @@ export const FormBox = styled(Box)(({ theme }) => ({
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  border: "3px solid red",
+  backgroundColor: "#fff",
   boxShadow: 24,
-  padding: "10px 80px",
+  padding: "16px 80px 20px",
   borderRadius: "15px",
   display: "flex",
   justifyContent: "center",
@@ -16,7 +15,6 @@ export const FormBox = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   minHeight: "650px",
   width: "600px",
-  height: "80%",
   [theme.breakpoints.down("767")]: {
     width: "100%",
     height: "100%",
@@ -25,7 +23,7 @@ export const FormBox = styled(Box)(({ theme }) => ({
 }));
 
 export const FormTitle = styled(Box)(({ theme }) => ({
-  marginBottom: "50px",
+  marginBottom: "20px",
   fontSize: "30px",
   fontWeight: "700",
   color: "#0f1419",
@@ -43,6 +41,7 @@ export const SubmitButton = styled(Button)({
   margin: "0",
   marginTop: "40px",
   borderRadius: 150,
+  textTransform: "none",
   "&:hover": {
     backgroundColor: "#272c30",
   },

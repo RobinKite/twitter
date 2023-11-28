@@ -7,16 +7,18 @@ import {
   PasswordFormModal,
 } from "./components";
 import { Registration, Home, Notifications, Post, Profile } from "./pages";
+import { getTokens } from "./utils/tokens";
 import { useSelector } from "react-redux";
 
 export default function AppRoutes() {
+  const hasToken = Boolean(getTokens().access_token);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   return (
     <Routes>
       <Route
         path="/"
         element={
-          isAuthenticated ? (
+          hasToken || isAuthenticated ? (
             <Container>
               <Outlet />
             </Container>
@@ -26,7 +28,6 @@ export default function AppRoutes() {
         }>
         <Route index element={<Home />} />
         <Route path="/explore" element={<div>Explore</div>} />
-
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/messages" element={<div>Messages</div>} />
         <Route path="/lists" element={<div>Lists</div>} />
@@ -42,7 +43,6 @@ export default function AppRoutes() {
         />
         <Route path="/more" element={<div>More</div>} />
         <Route path="/inshyy-post/:id" element={<Post />} />
-
         <Route
           path="/registration"
           element={
@@ -61,7 +61,6 @@ export default function AppRoutes() {
             </>
           }
         />
-
         <Route path="/bookmarks" element={<div>Bookmarks</div>} />
       </Route>
       <Route
@@ -75,7 +74,7 @@ export default function AppRoutes() {
       <Route path="/forgotPasswordForm" element={<ForgotPasswordForm />}></Route>
       <Route
         path="/login"
-        element={isAuthenticated ? <Navigate to="/" /> : <Registration />}
+        element={hasToken || isAuthenticated ? <Navigate to="/" /> : <Registration />}
       />
     </Routes>
   );
