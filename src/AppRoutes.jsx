@@ -42,7 +42,7 @@ export default function AppRoutes() {
           }
         />
         <Route path="/more" element={<div>More</div>} />
-        <Route path="/inshyy-post/:id" element={<Post />} />
+        <Route path="/post/:id" element={<Post />} />
 
         <Route
           path="/registration"

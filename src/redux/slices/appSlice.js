@@ -10,7 +10,7 @@ const appSlice = createSlice({
   },
   reducers: {
     setModal: (state) => {
-      state.isLoginModalActive = !state.isModalActive;
+      state.isLoginModalActive = !state.isLoginModalActive;
     },
     setCreateProfileModal: (state) => {
       state.isProfileModalActive = !state.isProfileModalActive;
