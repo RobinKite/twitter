@@ -11,11 +11,34 @@ import {
   Title,
   TwitterX,
 } from "./styleSX";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { api } from "@/service/api";
 
 export const Registration = () => {
   const [showRegModal, setShowRegModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handleGoogleButtonClick = () => {
+    window.location.href =
+      "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/oauth2/authorization/google?redirect_uri=http://localhost:5173/login";
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    const state = urlParams.get("state");
+
+    if (code && state) {
+      api
+        .post("/oauth2/exchange-code/google", { code, state })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
 
   return (
     <Stack sx={{ height: "100vh", padding: "16px" }}>
@@ -26,7 +49,9 @@ export const Registration = () => {
         <ContentStack>
           <Title variant="span">Happening now</Title>
           <Text variant="span">Join today.</Text>
-          <Button startIcon={<Google />}>Sign up with Google</Button>
+          <Button startIcon={<Google />} onClick={handleGoogleButtonClick}>
+            Sign up with Google
+          </Button>
           <LinesSpan variant="span">or</LinesSpan>
           <Button
             onClick={() => setShowRegModal(true)}
