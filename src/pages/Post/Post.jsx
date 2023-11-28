@@ -3,8 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { CommentPost, ItemPost } from "../../components";
-
-import ArrowBack from "../../assets/icons/arrow.svg?react";
+import { ArrowBack } from "@/icons";
 import { axiosPostComments, getPostById } from "@/redux/slices/postsSlice";
 // import { compareByDate } from "@/utils";
 
@@ -46,7 +45,7 @@ export const Post = () => {
     <>
       <HeaderPage>
         <IconButton onClick={redirectToPost}>
-          <ArrowBack />
+          <ArrowBack size={25} />
         </IconButton>
 
         <Typography variant="h6">POST</Typography>

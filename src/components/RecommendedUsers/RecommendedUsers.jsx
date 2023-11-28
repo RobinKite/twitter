@@ -1,56 +1,83 @@
-import Avatar from "@mui/material/Avatar";
-import { FollowButton } from "../../components";
-import { Stack, Typography } from "@mui/material";
-import {
-  recommendedUserCardSX,
-  recommendedUserInfoSX,
-  authorsContainerSX,
-} from "./styleSX";
+import { Avatar, Stack, Typography } from "@mui/material";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+import { FollowButton } from "@/components";
+import { fetchUsers } from "@/redux/slices/userSlice";
+import { userCardSX } from "./styleSX";
 
-const usersToFollow = [
-  {
-    id: "1",
-    fullName: "Taras Karas",
-    userTag: "tkaras",
-    avatarUrl: "/",
-  },
-  {
-    id: "2",
-    fullName: "Upra Kupra",
-    userTag: "ukupra",
-    avatarUrl: "/",
-  },
-  {
-    id: "3",
-    fullName: "Dar bar",
-    userTag: "dbar",
-    avatarUrl: "/",
-  },
-];
-
-const RecommendedUserCard = ({ id, fullName, userTag, avatarUrl }) => {
+export const RecommendedUserCard = ({
+  id,
+  fullName,
+  userTag,
+  avatarUrl,
+  useButton,
+  isFollowedByUser,
+}) => {
   return (
-    <Stack sx={recommendedUserCardSX}>
+    <Stack sx={userCardSX}>
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
-      <Stack sx={recommendedUserInfoSX}>
-        <Typography variant="subtitle1" component="div">
+      <Stack marginLeft="0.75rem">
+        <Typography fontWeight={500} variant="subtitle1">
           {fullName}
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          @{userTag}
+          {userTag ? `@${userTag}` : fullName}
         </Typography>
       </Stack>
-      <FollowButton id={id} />
+      {useButton && (
+        <FollowButton
+          id={id}
+          userName={userTag || fullName}
+          isFollowedByUser={isFollowedByUser}
+        />
+      )}
     </Stack>
   );
 };
 
-export const RecommendedUsers = () => {
+RecommendedUserCard.propTypes = {
+  fullName: PropTypes.string.isRequired,
+  userTag: PropTypes.string,
+  avatarUrl: PropTypes.string,
+  useButton: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  isFollowedByUser: PropTypes.bool.isRequired,
+};
+
+RecommendedUserCard.defaultProps = {
+  useButton: false,
+  userTag: "",
+  avatarUrl: "",
+};
+
+export const RecommendedUsers = ({ useButton, usersList }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUsers(3));
+  }, [dispatch]);
+
   return (
-    <Stack sx={authorsContainerSX}>
-      {usersToFollow.map((user, index) => (
-        <RecommendedUserCard key={index} {...user} id={user.id} />
+    <Stack>
+      {usersList.map((user, index) => (
+        <RecommendedUserCard
+          key={index}
+          {...user}
+          id={`${user.id}`}
+          useButton={useButton}
+          isFollowedByUser={user.isFollowedByUser}
+        />
       ))}
     </Stack>
   );
+};
+
+RecommendedUsers.propTypes = {
+  useButton: PropTypes.bool,
+  usersList: PropTypes.arrayOf(PropTypes.object),
+};
+
+RecommendedUsers.defaultProps = {
+  useButton: false,
 };

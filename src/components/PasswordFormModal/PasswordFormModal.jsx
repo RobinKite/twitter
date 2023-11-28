@@ -10,10 +10,9 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Formik, Field } from "formik";
-import * as Yup from "yup";
-import { Button } from "..";
-import TwiterLogo from "../../assets/icons/twiterLogo.svg?react";
-import CloseButton from "../../assets/icons/close.svg?react";
+import { Button } from "@/components";
+import { Twitter, Cross } from "@/icons";
+import { passwordFormSchema, passwordFormSchema2 } from "@/schemas";
 import styles from "./PasswordFormModal.module.scss";
 
 const style = {
@@ -36,6 +35,7 @@ const style = {
   minHeight: "650px",
 };
 
+// TODO: 👉 Rewrite the component
 export const PasswordFormModal = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -48,15 +48,13 @@ export const PasswordFormModal = () => {
   const initialValues = {
     inputValue: "",
   };
+
   const initialValue2 = {
     password: "",
     email: "",
   };
-  const [email, setEmail] = useState("");
 
-  const validationSchema2 = Yup.object({
-    password: Yup.string().required("Required"),
-  });
+  const [email, setEmail] = useState("");
 
   const onSubmit = (values) => {
     console.log(values);
@@ -64,16 +62,6 @@ export const PasswordFormModal = () => {
     handleClose();
     handleOpen2();
   };
-
-  const validationSchema = Yup.object().shape({
-    inputValue: Yup.string()
-      .required("This field is required")
-      .test("phone-or-username", "Enter phone number or name", (value) => {
-        const phoneRegex = /^\+\d{1,3}[- ]?\d{6,}$/;
-        const usernameRegex = /^[a-zA-Z\s]+$/;
-        return phoneRegex.test(value) || usernameRegex.test(value);
-      }),
-  });
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -107,10 +95,10 @@ export const PasswordFormModal = () => {
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose}>
-            <CloseButton style={{ height: "30px" }} />
+            <Cross size={30} />
           </button>
           <div className={styles.twitterLogo}>
-            <TwiterLogo />
+            <Twitter size={30} />
           </div>
 
           <div className={styles.textContainer}>
@@ -130,7 +118,7 @@ export const PasswordFormModal = () => {
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
-            validationSchema={validationSchema}>
+            validationSchema={passwordFormSchema}>
             {({ errors, touched, isValid, submitForm }) => (
               <Form className={styles.form}>
                 <Field
@@ -183,10 +171,10 @@ export const PasswordFormModal = () => {
       <Modal open={open2} onClose={handleClose2}>
         <Box sx={style}>
           <button className={styles.closeBtn} onClick={handleClose2}>
-            <CloseButton style={{ height: "30px" }} />
+            <Cross size={30} />
           </button>
           <div className={styles.twitterLogo}>
-            <TwiterLogo />
+            <Twitter size={30} />
           </div>
           <div className={styles.textContainer}>
             <Typography id="modal-modal-title2" variant="h6" component="h2">
@@ -196,7 +184,7 @@ export const PasswordFormModal = () => {
           <Formik
             initialValues={initialValue2}
             onSubmit={onSubmit}
-            validationSchema={validationSchema2}>
+            validationSchema={passwordFormSchema2}>
             {({ errors, touched, isValid }) => (
               <Form className={styles.form}>
                 <TextField

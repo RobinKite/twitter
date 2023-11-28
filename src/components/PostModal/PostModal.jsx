@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import { styled } from "@mui/material";
 import { Box } from "@mui/system";
 import { setModalPost } from "../../redux/slices/appSlice";
-import Close from "../../assets/icons/close.svg?react";
+import { Cross } from "@/icons";
 import styles from "./PostModal.module.scss";
 import PropTypes from "prop-types";
 
@@ -41,15 +41,12 @@ export function PostModal({ isOpen }) {
     <div>
       <Modal open={isOpen}>
         <ModalBody>
-          <div className={styles.close}>
-            <Close
-              onClick={() => {
-                if (isOpen) {
-                  dispatch(setModalPost());
-                }
-              }}
-              className={styles.clossvg}
-            />
+          <div>
+            <button
+              onClick={() => isOpen && dispatch(setModalPost())}
+              className={styles.close}>
+              <Cross size={30} />
+            </button>
           </div>
           <div className={styles.postInput}>{content}</div>
         </ModalBody>

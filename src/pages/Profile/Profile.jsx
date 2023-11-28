@@ -1,10 +1,10 @@
 import TabPanel from "@mui/lab/TabPanel";
-import { styled, Typography, Container, Button, Modal, Box } from "@mui/material";
+import { styled, Typography, Container, Button, Box } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "../../components";
-import ArrowBack from "../../assets/icons/arrow.svg?react";
+import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "@/components";
 import { useLoadPost } from "@/hooks/useLoadPost";
+import { ArrowBack } from "@/icons";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -56,25 +56,19 @@ const EditButton = styled(Button)(() => ({
 }));
 
 export function Profile() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const posts = useSelector((state) => state.posts.posts);
 
   useLoadPost();
 
   return (
     <>
-      <Modal open={open} onClose={handleClose}>
-        {/* TODO: Next line causes issue "Failed prop type: Invalid prop `children` supplied to `ForwardRef(Modal2)`. Expected an element that can hold a ref." */}
-        <ModalEdit onClose={handleClose} />
-      </Modal>
+      <ModalEdit isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       <Container maxWidth="sm" disableGutters={true}>
         <HeaderPage>
           <ArrowSvg>
-            <ArrowBack />
+            <ArrowBack size={25} />
           </ArrowSvg>
           <ContainerHederText>
             <Typography variant="h6">
@@ -89,7 +83,7 @@ export function Profile() {
         </HeaderPage>
         <UserPhoto changeIcon={false} />
         <ContainerUserInfo>
-          <EditButton onClick={handleOpen} variant="outlined">
+          <EditButton onClick={() => setIsModalOpen(true)} variant="outlined">
             Edit profile
           </EditButton>
           <Typography variant="h6">{/* TODO: change to user object */}go flex</Typography>
@@ -102,7 +96,7 @@ export function Profile() {
             sx={{
               padding: "10px 0",
             }}>
-            {"some bio"}
+            some bio
           </Typography>
           <Typography variant="body2">
             Joined {/* TODO: change to user object */}September 2023

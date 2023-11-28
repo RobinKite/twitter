@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { api } from "../../service/api";
+import { client } from "@/services";
+import { Endpoint } from "@/constants";
 
 const postsSlice = createSlice({
   name: "posts",
@@ -163,9 +164,59 @@ export const {
 } = postsSlice.actions;
 export default postsSlice.reducer;
 
+// export const handleUnlike = (id) => async (dispatch) => {
+//   try {
+//     const response = await api.delete(`likes/unlike?id=${id}`);
+
+//     if (response.status === 200) {
+//       const { likeCount, liked } = response.data;
+//       dispatch(unlike({ id, likeCount, liked }));
+//     }
+//   } catch (error) {
+//     console.error("Error unliking the post:", error);
+//   }
+// };
+
+// export const handleLike = (id) => async (dispatch) => {
+//   const requestData = {
+//     postId: id,
+//   };
+//   try {
+//     const response = await api.post(`likes/like`, requestData);
+
+//     if (response.status === 200) {
+//       const { likeCount, liked } = response.data;
+//       dispatch(like({ postId: id, likeCount, liked }));
+//     }
+//   } catch (error) {
+//     console.error("Error liking the post:", error);
+//   }
+// };
+
+// export const axiosPostComments = (id) => async (dispatch) => {
+//   try {
+//     const response = await api.get(`posts/replies?postId=${id}&page=${0}&pageSize=${10}`);
+//     const comments = response.data.content;
+//     console.log(comments);
+//     dispatch(getPostComents(comments));
+//   } catch (error) {
+//     console.error("Error fetching posts:", error);
+//   }
+// };
+
+// export const getPostById = (id) => async (dispatch) => {
+//   try {
+//     const response = await api.get(`posts/post?id=${id}`);
+//     const data = response.data;
+//     dispatch(getPostId(data));
+//   } catch (error) {
+//     console.error("Error fetching posts:", error);
+//   }
+// };
+
 export const handleUnlike = (id) => async (dispatch) => {
   try {
-    const response = await api.delete(`likes/unlike?id=${id}`);
+    const response = await client.delete(`likes/unlike?id=${id}`);
 
     if (response.status === 200) {
       const { likeCount, liked } = response.data;
@@ -181,7 +232,7 @@ export const handleLike = (id) => async (dispatch) => {
     postId: id,
   };
   try {
-    const response = await api.post(`likes/like`, requestData);
+    const response = await client.post(`likes/like`, requestData);
 
     if (response.status === 200) {
       const { likeCount, liked } = response.data;
@@ -194,7 +245,9 @@ export const handleLike = (id) => async (dispatch) => {
 
 export const axiosPostComments = (id) => async (dispatch) => {
   try {
-    const response = await api.get(`posts/replies?postId=${id}&page=${0}&pageSize=${10}`);
+    const response = await client.get(
+      `posts/replies?postId=${id}&page=${0}&pageSize=${10}`,
+    );
     const comments = response.data.content;
     console.log(comments);
     dispatch(getPostComents(comments));
@@ -205,7 +258,7 @@ export const axiosPostComments = (id) => async (dispatch) => {
 
 export const getPostById = (id) => async (dispatch) => {
   try {
-    const response = await api.get(`posts/post?id=${id}`);
+    const response = await client.get(`posts/post?id=${id}`);
     const data = response.data;
     dispatch(getPostId(data));
   } catch (error) {
@@ -213,9 +266,16 @@ export const getPostById = (id) => async (dispatch) => {
   }
 };
 
-export const getPosts = (currentPage) => async (dispatch) => {
+// export const getPosts = (currentPage) => async (dispatch) => {
+//   try {
+//     const response = await api.get(`posts/home?page=${currentPage}&pageSize=${12}`);
+export const getPosts = (page) => async (dispatch) => {
   try {
-    const response = await api.get(`posts/home?page=${currentPage}&pageSize=${12}`);
+    const response = await client.get(Endpoint.GET_MY_POSTS, {
+      params: { page: page, pageSize: 12 },
+    });
+    console.log(response);
+
     dispatch(setPosts(response.data.content));
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -224,7 +284,7 @@ export const getPosts = (currentPage) => async (dispatch) => {
 
 export const addPosts = (formData) => async (dispatch) => {
   try {
-    const response = await api.post("posts/create", formData);
+    const response = await client.post(Endpoint.CREATE_POST, formData);
     const data = response.data;
     dispatch(addPost(data));
   } catch (error) {
@@ -234,7 +294,7 @@ export const addPosts = (formData) => async (dispatch) => {
 
 export const deletePost = (id) => async (dispatch) => {
   try {
-    await api.delete(`posts/delete?id=${id}`);
+    await client.delete(Endpoint.DELETE_POST, { params: { id } });
     await dispatch(deleteFromPost(id));
     // dispatch(getPosts());
   } catch (error) {

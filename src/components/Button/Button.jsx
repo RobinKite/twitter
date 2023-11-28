@@ -12,6 +12,7 @@ export const Button = styled(MuiButton)(({ theme }) => ({
   color: "#000000",
   textTransform: "capitalize",
   padding: 0,
+  fontFamily: "inherit",
   "&:hover": {
     backgroundColor: "#dadce0",
   },

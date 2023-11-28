@@ -8,14 +8,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
-import { deletePost, handleLike, handleUnlike } from "../../redux/slices/postsSlice";
-// import View from "../../assets/icons/view.svg?react";
-import Reply from "../../assets/icons/reply.svg?react";
-import LikeFalse from "../../assets/icons/likeFalse.svg?react";
-import Repost from "../../assets/icons/repost.svg?react";
-import Share from "../../assets/icons/share.svg?react";
-import Like from "../../assets/icons/like.svg?react";
-import Delete from "../../assets/icons/delete.svg?react";
+import { deletePost, handleLike, handleUnlike } from "@/redux/slices/postsSlice";
+import { Reply, LikeFalse, Repost, Share, Like, Delete } from "@/icons";
 import styles from "./ItemPost.module.scss";
 
 export function ItemPost({
@@ -92,7 +86,7 @@ export function ItemPost({
             </IconButton>
             <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
               <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
-                <Delete />
+                <Delete fill="red" />
                 Delete
               </MenuItem>
             </Menu>
