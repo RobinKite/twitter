@@ -50,7 +50,7 @@ export function ModalCommentPost({
         <ModalBody>
           <div className={styles.close}>
             <button onClick={closeModal} className={styles.clossvg}>
-              <Cross size={26} />
+              <Cross size={30} />
             </button>
           </div>
           <div className={styles.postInput}>

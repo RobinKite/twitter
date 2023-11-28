@@ -138,6 +138,10 @@ export const Header = () => {
       {isMobile ? (
         // For mobile version
         <Button
+          onClick={() => {
+            dispatch(setModalPost(true));
+            dispatch(setContent(<CreatePost avatarUrl={avatarUrl} />));
+          }}
           sx={{
             margin: 0,
             backgroundColor: "#1d9bf0",
