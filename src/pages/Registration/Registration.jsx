@@ -12,9 +12,11 @@ import {
   TwitterX,
 } from "./styleSX";
 import { useEffect, useState } from "react";
-import { api } from "@/service/api";
+import { googleRegister } from "@/redux/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 export const Registration = () => {
+  const dispatch = useDispatch();
   const [showRegModal, setShowRegModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
@@ -29,16 +31,9 @@ export const Registration = () => {
     const state = urlParams.get("state");
 
     if (code && state) {
-      api
-        .post("/oauth2/exchange-code/google", { code, state })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      dispatch(googleRegister(code, state));
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <Stack sx={{ height: "100vh", padding: "16px" }}>
@@ -74,6 +69,7 @@ export const Registration = () => {
         </ContentStack>
       </Container>
       <Footer />
+
       {showRegModal && (
         <RegistrationForm
           handleRegModalClose={() => {

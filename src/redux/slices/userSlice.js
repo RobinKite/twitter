@@ -13,6 +13,10 @@ const userSlice = createSlice({
       state.isAuthenticated = true;
       state.user = action.payload;
     },
+    googleRegisterAction: (state, action) => {
+      state.isAuthenticated = true;
+      state.user = action.payload;
+    },
     loginUserAction: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload;
@@ -23,7 +27,9 @@ const userSlice = createSlice({
   },
 });
 
-export const { loginUserAction, getUser, registerUserAction } = userSlice.actions;
+export const { loginUserAction, getUser, registerUserAction, googleRegisterAction } =
+  userSlice.actions;
+
 export default userSlice.reducer;
 
 export const loginUser = (email, password) => (dispatch) => {
@@ -53,4 +59,18 @@ export const registerUser = (user) => {
       dispatch(registerUserAction(data));
     });
   };
+};
+
+export const googleRegister = (code, state) => (dispatch) => {
+  api
+    .post("/oauth2/exchange-code/google", { code, state })
+    .then((response) => {
+      console.log(response);
+      setAuthToken(response.data.access_token);
+      setRefreshToken(response.data.refresh_token);
+      dispatch(googleRegisterAction(response.data.user));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
