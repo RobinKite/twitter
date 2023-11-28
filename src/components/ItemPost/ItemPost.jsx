@@ -9,14 +9,9 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
 import { deletePost } from "../../redux/slices/postsSlice";
-import { api } from "../../service/api";
-import View from "../../assets/icons/view.svg?react";
-import Reply from "../../assets/icons/reply.svg?react";
-import LikeFalse from "../../assets/icons/likeFalse.svg?react";
-import Repost from "../../assets/icons/repost.svg?react";
-import Share from "../../assets/icons/share.svg?react";
-import Like from "../../assets/icons/like.svg?react";
-import Delete from "../../assets/icons/delete.svg?react";
+import { Endpoint } from "@/constants";
+import { client } from "@/services";
+import { View, Reply, LikeFalse, Repost, Share, Like, Delete } from "@/icons";
 import styles from "./ItemPost.module.scss";
 
 export function ItemPost({
@@ -72,11 +67,8 @@ export function ItemPost({
 
   const handleLike = async () => {
     try {
-      const requestData = {
-        postId: id,
-      };
       // TODO: Move this function to corresponding slice
-      const response = await api.post(`likes/like`, requestData);
+      const response = await client.post(Endpoint.LIKE, { postId: id });
 
       if (response.status === 200) {
         setIsLiked(true);
@@ -91,11 +83,10 @@ export function ItemPost({
   const handleUnlike = async () => {
     try {
       // TODO: Move this function to corresponding slice
-      const response = await api.delete(`likes/unlike?id=${id}`);
+      const response = await client.delete(Endpoint.UNLIKE, { params: { id } });
 
       if (response.status === 200) {
         setIsLiked(false);
-
         setLikeCount((prevCount) => prevCount - 1);
 
         // dispatch(getPosts());
@@ -130,7 +121,7 @@ export function ItemPost({
             </IconButton>
             <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
               <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
-                <Delete />
+                <Delete fill="red" />
                 Delete
               </MenuItem>
             </Menu>
@@ -169,7 +160,11 @@ export function ItemPost({
               </IconButton>
               <div>
                 <IconButton onClick={isLiked ? handleUnlike : handleLike}>
-                  {isLiked ? <LikeFalse /> : <Like className={styles.tweetLike} />}
+                  {isLiked ? (
+                    <LikeFalse fill="hsla(325, 72%, 58%, 0.688)" />
+                  ) : (
+                    <Like className={styles.tweetLike} />
+                  )}
                 </IconButton>
                 <span>{likeCountState}</span>
               </div>

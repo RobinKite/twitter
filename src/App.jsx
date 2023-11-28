@@ -1,6 +1,8 @@
+import { ThemeProvider } from "@mui/material/styles";
 // import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { LoginFormModal } from "./components";
+import { useSelector } from "react-redux";
+import { LoginFormModal } from "@/components";
+import { theme } from "@/themes/theme";
 // import { loginUser } from "./redux/slices/userSlice";
 import AppRoutes from "./AppRoutes";
 
@@ -14,8 +16,10 @@ export default function App() {
 
   return (
     <div>
-      <AppRoutes />
-      {isLoginModalOpen && <LoginFormModal open={isLoginModalOpen} />}
+      <ThemeProvider theme={theme}>
+        <AppRoutes />
+        {isLoginModalOpen && <LoginFormModal open={isLoginModalOpen} />}
+      </ThemeProvider>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { Footer, Button, RegistrationForm, LoginFormModal } from "../../components";
-import Google from "../../assets/icons/google.svg?react";
+import { Google } from "@/icons";
 import { Stack } from "@mui/material";
 import {
   AccountSpan,
@@ -26,7 +26,7 @@ export const Registration = () => {
         <ContentStack>
           <Title variant="span">Happening now</Title>
           <Text variant="span">Join today.</Text>
-          <Button startIcon={<Google />}>Sign up with Google</Button>
+          <Button startIcon={<Google size={22} />}>Sign up with Google</Button>
           <LinesSpan variant="span">or</LinesSpan>
           <Button
             onClick={() => setShowRegModal(true)}

@@ -1,39 +1,28 @@
 import { Stack, Modal, Link, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
-import { Form, Formik } from "formik";
-import { object, string } from "yup";
-import { Input } from "../../components";
-import Google from "../../assets/icons/google.svg?react";
+// import { Form, Formik } from "formik";
+// import { object, string } from "yup";
+// import { Input } from "@/components";
+import { LoginForm } from "../../forms";
+import { Google } from "@/icons";
 import PropTypes from "prop-types";
 import {
   CloseButton,
   Container,
   LinesSpan,
-  LoginForm,
+  LoginFormStyled,
   LoginTitle,
   MainButton,
-  NextButton,
+  // NextButton,
 } from "./styleSX";
 import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 import { BsTwitterX } from "react-icons/bs";
-import { useDispatch } from "react-redux";
-import { loginUser } from "@/redux/slices/userSlice";
+// import { useDispatch } from "react-redux";
+// import { loginUser } from "@/redux/slices/userSlice";
+// import { setModal } from "@/redux/slices/appSlice";
+// import { useState } from "react";
 
 export function LoginFormModal({ handleLoginModalClose, handleLoginModalOpen }) {
-  const dispatch = useDispatch();
-  const schema = object().shape({
-    email: string().trim().required("Email is required").email("Email is not valid"),
-    password: string().trim().min(4).max(20).required("Password is required"),
-  });
-  const initialValues = {
-    email: "",
-    password: "",
-  };
-  const onSubmit = (values) => {
-    console.log(values);
-    dispatch(loginUser(values.email, values.password));
-  };
-
   const navigate = useNavigate();
 
   const handleForgotPasswordClick = () => {
@@ -44,42 +33,17 @@ export function LoginFormModal({ handleLoginModalClose, handleLoginModalOpen }) 
     <Modal open={handleLoginModalOpen} onClose={handleLoginModalClose}>
       <Container>
         <CloseButton onClick={handleLoginModalClose}>
-          <CloseSharpIcon />
+          <CloseSharpIcon size={30} />
         </CloseButton>
         <Stack>
           <BsTwitterX size={28} />
         </Stack>
-        <LoginForm>
+        <LoginFormStyled>
           <LoginTitle component="h2">Sign in to X</LoginTitle>
-          <MainButton endIcon={<Google />}>Sign in with Google</MainButton>
+          <MainButton endIcon={<Google size={22} />}>Sign in with Google</MainButton>
           <LinesSpan>or</LinesSpan>
           <Stack sx={{ width: "100%" }}>
-            <Formik
-              initialValues={initialValues}
-              onSubmit={onSubmit}
-              validationSchema={schema}>
-              <Form>
-                <Input
-                  name="email"
-                  type="email"
-                  label="email"
-                  variant="email"
-                  sx={{ marginBottom: "12px" }}
-                />
-                <Input
-                  name="password"
-                  type="password"
-                  label="password"
-                  variant="password"
-                  sx={{ marginBottom: "12px" }}
-                />
-                <NextButton
-                  // onClick={handleButtonClick}
-                  type="submit">
-                  Next
-                </NextButton>
-              </Form>
-            </Formik>
+            <LoginForm />
           </Stack>
           <MainButton onClick={handleForgotPasswordClick}>Forgot password?</MainButton>
           <Typography
@@ -103,7 +67,7 @@ export function LoginFormModal({ handleLoginModalClose, handleLoginModalOpen }) 
               Sign Up
             </Link>
           </Typography>
-        </LoginForm>
+        </LoginFormStyled>
       </Container>
     </Modal>
   );

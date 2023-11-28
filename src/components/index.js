@@ -1,4 +1,3 @@
-export { WhoToFollow } from "./WhoToFollow/WhoToFollow";
 export { UserPhoto } from "./UserPhoto/UserPhoto";
 export { SignUpForm } from "./SignUpForm/SignUpForm";
 export { Sidebar } from "./Sidebar/Sidebar";
@@ -9,7 +8,6 @@ export { ProfileTabs } from "./ProfileTabs/ProfileTabs";
 export { PostModal } from "./PostModal/PostModal";
 export { CreatePost } from "./CreatePost/CreatePost";
 export { Navigation } from "./Navigation/Navigation";
-export { ModalUnFollow } from "./ModalUnFollow/ModalUnFollow";
 export { ModalEdit } from "./ModalEdit/ModalEdit";
 export { ModalCommentPost } from "./ModalCommentPost/ModalCommentPost";
 export { Main } from "./Main/Main";
@@ -26,4 +24,5 @@ export { AllNotifications } from "./AllNotifications/AllNotifications";
 export { LoginFormModal } from "./LoginFormModal/LoginFormModal";
 export { PasswordFormModal } from "./PasswordFormModal/PasswordFormModal";
 export { SearchProgressBar } from "./SearchProgressBar/SearchProgressBar";
+export { ConfirmationDialog } from "./ConfirmationDialog/ConfirmationDialog";
 export { CustomDateSelector } from "./CustomDateSelector/CustomDateSelector";

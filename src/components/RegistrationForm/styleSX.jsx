@@ -15,9 +15,9 @@ export const FormBox = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   minHeight: "650px",
   width: "600px",
-  [theme.breakpoints.down("1023")]: {
-    top: "32%",
-  },
+  // [theme.breakpoints.down("1023")]: {
+  //   top: "32%",
+  // },
   [theme.breakpoints.down("767")]: {
     top: "50%",
     width: "100%",

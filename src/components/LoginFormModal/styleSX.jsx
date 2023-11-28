@@ -15,9 +15,9 @@ export const Container = styled(Box)(({ theme }) => ({
   borderRadius: 14,
   boxShadow: 24,
   padding: " 20px 20px 130px ",
-  [theme.breakpoints.down("1023")]: {
-    top: "32%",
-  },
+  // [theme.breakpoints.down("1023")]: {
+  //   top: "32%",
+  // },
   [theme.breakpoints.down("767")]: {
     top: "50%",
     width: "100%",
@@ -26,14 +26,14 @@ export const Container = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const LoginForm = styled(Stack)(({ theme }) => ({
+export const LoginFormStyled = styled(Stack)(({ theme }) => ({
   width: "364px",
   gap: "12px",
   padding: "0 32px 48px",
   alignItems: "flex-start",
   justifyContent: "center",
   [theme.breakpoints.down("767")]: {
-    margin: "173px 33px",
+    // margin: "auto",
   },
 }));
 

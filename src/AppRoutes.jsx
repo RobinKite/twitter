@@ -11,8 +11,9 @@ import { getTokens } from "./utils/tokens";
 import { useSelector } from "react-redux";
 
 export default function AppRoutes() {
-  const hasToken = Boolean(getTokens().access_token);
+  const hasToken = Boolean(getTokens().accessToken);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
   return (
     <Routes>
       <Route
