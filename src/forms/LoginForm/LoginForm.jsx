@@ -3,7 +3,7 @@ import { Input } from "@/components";
 import { loginFormSchema } from "@/schemas";
 import { loginUser } from "@/redux/slices/userSlice";
 import { useDispatch } from "react-redux";
-import { NextButton } from "@/components/LoginFormModal/styleSX";
+import { NextButtonSX } from "@/components/LoginFormModal/styleSX";
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -37,11 +37,11 @@ export const LoginForm = () => {
           variant="password"
           sx={{ marginBottom: "12px" }}
         />
-        <NextButton
+        <NextButtonSX
           // onClick={handleButtonClick}
           type="submit">
           Next
-        </NextButton>
+        </NextButtonSX>
       </Form>
     </Formik>
   );

@@ -1,6 +1,6 @@
-import { Box, Button, IconButton, Stack, Typography, styled } from "@mui/material";
+import { Box, Button, IconButton, Link, Stack, Typography, styled } from "@mui/material";
 
-export const Container = styled(Box)(({ theme }) => ({
+export const ContainerSX = styled(Box)(({ theme }) => ({
   position: "absolute",
   display: "flex",
   flexDirection: "column",
@@ -15,42 +15,51 @@ export const Container = styled(Box)(({ theme }) => ({
   borderRadius: 14,
   boxShadow: 24,
   padding: " 20px 20px 130px ",
-  // [theme.breakpoints.down("1023")]: {
-  //   top: "32%",
-  // },
   [theme.breakpoints.down("767")]: {
-    top: "50%",
     width: "100%",
     height: "100%",
     borderRadius: 0,
   },
 }));
 
-export const LoginFormStyled = styled(Stack)(({ theme }) => ({
+export const LoginFormSX = styled(Stack)(({ theme }) => ({
   width: "364px",
   gap: "12px",
   padding: "0 32px 48px",
-  alignItems: "flex-start",
   justifyContent: "center",
   [theme.breakpoints.down("767")]: {
-    // margin: "auto",
+    margin: "auto",
   },
 }));
 
-export const CloseButton = styled(IconButton)({
+export const CloseButtonSX = styled(IconButton)({
   position: "absolute",
   left: "10px",
   top: "10px",
   color: "#0f1419",
 });
 
-export const LoginTitle = styled(Typography)({
+export const LoginTitleSX = styled(Typography)({
   color: "#0f1419",
   fontSize: "31px",
   fontWeight: 700,
 });
 
-export const LinesSpan = styled(Typography)({
+export const LoginTextSX = styled(Typography)({
+  fontSize: "15px",
+  color: "#71767b",
+  marginTop: "40px",
+});
+
+export const LinkSX = styled(Link)({
+  color: "#1d9bf0",
+  textDecoration: "none",
+  "&:hover": {
+    textDecoration: "underline",
+  },
+});
+
+export const LinesSpanSX = styled(Typography)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
@@ -62,9 +71,9 @@ export const LinesSpan = styled(Typography)({
   "&::after": { content: "''", border: "1px solid #eff3f4", width: "45%" },
 });
 
-export const MainButton = styled(Button)(({ theme }) => ({
+export const MainButtonSX = styled(Button)(({ theme }) => ({
   height: "40px",
-  width: "300px",
+  width: "100%",
   border: "0.6px solid #cfd9de",
   borderRadius: 150,
   fontSize: 15,
@@ -81,9 +90,9 @@ export const MainButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-export const NextButton = styled(Button)(({ theme }) => ({
+export const NextButtonSX = styled(Button)(({ theme }) => ({
   height: "40px",
-  width: "300px",
+  width: "100%",
   border: "0.6px solid #cfd9de",
   borderRadius: 150,
   fontSize: 15,
