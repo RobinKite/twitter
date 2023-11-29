@@ -44,7 +44,7 @@ export const Registration = () => {
         <ContentStackSX>
           <TitleSX variant="span">Happening now</TitleSX>
           <TextSX variant="span">Join today.</TextSX>
-          <Button onClick={handleGoogleButtonClick} startIcon={<Google size={22} />}>
+          <Button onClick={handleGoogleButtonClick} endIcon={<Google size={22} />}>
             Sign up with Google
           </Button>
           <LinesSpanSX variant="span">or</LinesSpanSX>

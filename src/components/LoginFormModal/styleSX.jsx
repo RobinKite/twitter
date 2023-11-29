@@ -71,7 +71,7 @@ export const LinesSpanSX = styled(Typography)({
   "&::after": { content: "''", border: "1px solid #eff3f4", width: "45%" },
 });
 
-export const MainButtonSX = styled(Button)(({ theme }) => ({
+export const MainButtonSX = styled(Button)({
   height: "40px",
   width: "100%",
   border: "0.6px solid #cfd9de",
@@ -85,12 +85,9 @@ export const MainButtonSX = styled(Button)(({ theme }) => ({
   "&:hover": {
     backgroundColor: "#dadce0",
   },
-  [theme.breakpoints.down("sm")]: {
-    fontSize: 14,
-  },
-}));
+});
 
-export const NextButtonSX = styled(Button)(({ theme }) => ({
+export const NextButtonSX = styled(Button)({
   height: "40px",
   width: "100%",
   border: "0.6px solid #cfd9de",
@@ -104,7 +101,4 @@ export const NextButtonSX = styled(Button)(({ theme }) => ({
   "&:hover": {
     backgroundColor: "#3c3a3a",
   },
-  [theme.breakpoints.down("sm")]: {
-    fontSize: 14,
-  },
-}));
+});
