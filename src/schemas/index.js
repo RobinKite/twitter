@@ -1,12 +1,5 @@
 import { object, string } from "yup";
 
-export const editProfileSchema = object({
-  name: string()
-    .min(1, "Minimum 1 letters")
-    .max(20, "Maximum 20 letters")
-    .required("This field is required"),
-});
-
 export const forgotPasswordSchema = object().shape({
   inputValue: string()
     .required("This field is required")

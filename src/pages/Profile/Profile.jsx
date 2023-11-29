@@ -1,4 +1,5 @@
 import TabPanel from "@mui/lab/TabPanel";
+import { Link } from "react-router-dom";
 import { Typography, Container } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -35,9 +36,11 @@ export function Profile() {
 
       <Container maxWidth="sm" disableGutters={true}>
         <HeaderPage>
-          <ArrowSvg>
-            <ArrowBack size={25} />
-          </ArrowSvg>
+          <Link to="/profile">
+            <ArrowSvg>
+              <ArrowBack size={25} />
+            </ArrowSvg>
+          </Link>
           <ContainerHederText>
             <Typography variant="h6">
               {/* TODO: change to user object */}

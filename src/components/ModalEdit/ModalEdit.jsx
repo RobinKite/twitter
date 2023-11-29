@@ -12,7 +12,6 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useState } from "react";
 import { useFormik } from "formik";
 import { UserPhoto } from "@/components";
-import { editProfileSchema } from "@/schemas";
 import PropTypes from "prop-types";
 import { formFields, configDateForm } from "./configForm.js";
 import {
@@ -101,7 +100,7 @@ export function ModalEdit({ isOpen, onClose }) {
     // "location": "string",
     // "avatarUrl": "string",
     // "imageUrl": "string"
-    validationSchema: editProfileSchema,
+    // validationSchema: editProfileSchema,
     onSubmit: (values) => {
       onClose();
       const { month, day, year } = values;
