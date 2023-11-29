@@ -1,12 +1,16 @@
-import { TextField } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import { useField } from "formik";
-import styles from "./Input.module.scss";
 import PropTypes from "prop-types";
 
 export const Input = (props) => {
   const [field, meta] = useField(props.name);
   return (
-    <div className={styles.orderForm}>
+    <Stack
+      sx={{
+        margin: 0,
+        width: "100%",
+        position: "relative",
+      }}>
       <TextField
         {...field}
         {...props}
@@ -14,7 +18,7 @@ export const Input = (props) => {
         error={meta.error && meta.touched}
         helperText={meta.touched && meta.error}
       />
-    </div>
+    </Stack>
   );
 };
 
