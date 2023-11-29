@@ -34,14 +34,7 @@ export default function AppRoutes() {
         <Route path="/lists" element={<div>Lists</div>} />
         <Route path="/communities" element={<div>Communities</div>} />
         <Route path="/verified" element={<div>Verified</div>} />
-        <Route
-          path="/profile"
-          element={
-            <div>
-              <Profile />
-            </div>
-          }
-        />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/more" element={<div>More</div>} />
         <Route path="/post/:id" element={<Post />} />
         <Route path="/user/:id" element={<CurrentUser />} />

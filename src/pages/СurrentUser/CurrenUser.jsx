@@ -2,14 +2,13 @@ import TabPanel from "@mui/lab/TabPanel";
 import { Typography, Container } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { UserPhoto, ProfileTabs, ItemPost } from "@/components";
+import { UserPhoto, ProfileTabs, ItemPost, FollowButton } from "@/components";
 import { useLoadPost } from "@/hooks/useLoadPost";
 import { ArrowBack } from "@/icons";
 import {
   ArrowSvg,
   ContainerHederText,
   ContainerUserInfo,
-  EditButton,
   HeaderPage,
 } from "../Profile/styledSX";
 import { useParams } from "react-router-dom";
@@ -24,9 +23,12 @@ const tabs = [
 export function CurrentUser() {
   const { id } = useParams();
   // const [isModalOpen, setIsModalOpen] = useState(false);
-  const posts = useSelector((state) => state.currentUser.currentPosts);
+
   const user = useSelector((state) => state.currentUser.user);
-  console.log(user);
+  const posts = useSelector((state) => state.currentUser.currentPosts);
+  const likedPosts = useSelector((state) => state.currentUser.currentLikedPosts);
+
+  console.log(likedPosts);
   const dispatch = useDispatch();
   const formattedBirthdate =
     user && user.birthdate
@@ -64,7 +66,11 @@ export function CurrentUser() {
           imageUrl={user && user.imageUrl}
         />
         <ContainerUserInfo>
-          <EditButton variant="outlined">Edit profile</EditButton>
+          <FollowButton
+            id={user.id}
+            userName={user.userTag ? user.userTag : user.fullName}
+            isFollowedByUser={user.isFollowedByUser}
+          />
           <Typography variant="h6">
             {/* TODO: change to user object */}
             {user && user.fullName}
@@ -105,22 +111,44 @@ export function CurrentUser() {
             },
           }}>
           <TabPanel value="0">
-            {posts.map((p) => (
+            {posts.map((post) => (
               <ItemPost
-                key={p.id}
-                avatarUrl={p.user.avatarUrl}
-                fullName={p.user.fullName}
-                replyCount={p.replyCount}
-                id={p.id}
-                content={p.body}
-                likeCount={p.likeCount}
-                liked={p.liked}
-                imageUrls={p.imageUrls}
+                key={post.id}
+                avatarUrl={post.user.avatarUrl}
+                fullName={post.user.fullName}
+                replyCount={post.replyCount}
+                id={post.id}
+                content={post.body}
+                likeCount={post.likeCount}
+                liked={post.liked}
+                imageUrls={post.imageUrls}
               />
             ))}
           </TabPanel>
           <TabPanel value="1">Replies</TabPanel>
-          <TabPanel value="2">Likes</TabPanel>
+          <TabPanel value="2">
+            {
+              likedPosts.length
+                ? likedPosts.map((post) => {
+                    <ItemPost
+                      avatarUrl={post.user.avatarUrl}
+                      fullName={post.user.fullName}
+                      key={post.id}
+                      content={post.body}
+                      imageUrls={post.imageUrls}
+                      id={post.id}
+                      likeCount={post.likeCount}
+                      liked={post.liked}
+                      replyCount={post.replyCount}
+                    />;
+                  })
+                : `${user.fullName} don’t have any likes yet`
+              // <NotificationTabContent
+              //   title={`${user.fullName} don’t have any likes yet`}
+              //   text="Tap the heart on any post to show it some love. When you do, it’ll show up here."
+              // />
+            }
+          </TabPanel>
         </ProfileTabs>
       </Container>
     </>

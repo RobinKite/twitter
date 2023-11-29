@@ -14,4 +14,5 @@ export class Endpoint {
   static SUBSCRIPTIONS = "/subscriptions";
   static USERS_SEARCH = "/users/search";
   static USERS_RECOMMENDED = "/users/recommended";
+  static LIKED_POSTS = "/likes/liked_by_me";
 }
