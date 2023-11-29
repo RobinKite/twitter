@@ -1,10 +1,9 @@
 import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 import {
   Container,
-  SignUpForm,
   ForgotPasswordForm,
-  RegistrationForm,
   PasswordFormModal,
+  RegistrationFormModal,
 } from "./components";
 import { Registration, Home, Notifications, Post, Profile } from "./pages";
 import { getTokens } from "./utils/tokens";
@@ -31,17 +30,7 @@ export default function AppRoutes() {
         <Route path="/explore" element={<div>Explore</div>} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/messages" element={<div>Messages</div>} />
-        <Route path="/lists" element={<div>Lists</div>} />
-        <Route path="/communities" element={<div>Communities</div>} />
-        <Route path="/verified" element={<div>Verified</div>} />
-        <Route
-          path="/profile"
-          element={
-            <div>
-              <Profile />
-            </div>
-          }
-        />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/more" element={<div>More</div>} />
         <Route path="/inshyy-post/:id" element={<Post />} />
         <Route
@@ -49,7 +38,7 @@ export default function AppRoutes() {
           element={
             <>
               <Registration />
-              <RegistrationForm />
+              <RegistrationFormModal />
             </>
           }
         />
@@ -64,14 +53,6 @@ export default function AppRoutes() {
         />
         <Route path="/bookmarks" element={<div>Bookmarks</div>} />
       </Route>
-      <Route
-        path="/signUpForm"
-        element={
-          <>
-            <Registration />
-            <SignUpForm />
-          </>
-        }></Route>
       <Route path="/forgotPasswordForm" element={<ForgotPasswordForm />}></Route>
       <Route
         path="/login"
