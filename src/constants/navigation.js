@@ -10,8 +10,10 @@ import {
   MessageIcon,
   MessageIconFilled,
   TwitterIcon,
+  ListIcon,
+  CommunitiesIcon,
 } from "@/icons";
-
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { capitalize } from "@/utils";
 
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
@@ -46,4 +48,16 @@ export const footerItems = [
   new Item("explore", SearchIconFilled, SearchIcon, "/explore"),
   new Item("notifications", NotificationIconFilled, NotificationIcon, "/notifications"),
   new Item("messages", MessageIconFilled, MessageIcon, "/messages"),
+];
+
+// export const headerSelectItems = [
+//   new Item("bookmarks", HomeIconFilled, HomeIcon, "/bookmarks"),
+//   new Item("explore", SearchIconFilled, SearchIcon, "/explore"),
+// ];
+
+export const headerDrawerItems = [
+  new Item("profile", ProfileIcon, ProfileIcon, "/profile"),
+  new Item("list", ListIcon, ListIcon, "/list"),
+  new Item("bookmarks", BookmarkBorderIcon, BookmarkBorderIcon, "/bookmarks"),
+  new Item("communities", CommunitiesIcon, CommunitiesIcon, "/communities"),
 ];

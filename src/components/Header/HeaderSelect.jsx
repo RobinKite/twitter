@@ -1,5 +1,5 @@
 import { MenuItem, Select } from "@mui/material";
-import { moreSelectMenuProps, moreSelectSX } from "./styledSX";
+import { moreSelectMenuPropsSX, moreSelectSX } from "./styledSX";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
@@ -13,7 +13,7 @@ const HeaderSelect = ({ open, onClose }) => {
       onClose={onClose}
       sx={moreSelectSX}
       id="basic-menu"
-      MenuProps={moreSelectMenuProps}>
+      MenuProps={moreSelectMenuPropsSX}>
       <MenuItem component={Link} to="/bookmarks">
         <BookmarkBorderIcon />
         Bookmarks

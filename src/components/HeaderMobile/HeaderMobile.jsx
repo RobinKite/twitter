@@ -1,37 +1,42 @@
-import { NavLink, useLocation } from "react-router-dom/dist";
-import PropTypes from "prop-types";
-import { headerItems } from "@/constants/navigation";
+import { NavLink } from "react-router-dom/dist";
 
-const HeaderMobileItem = ({ path, getIconComponent }) => {
-  const location = useLocation();
-  const isActive = location.pathname === path;
-  const Icon = getIconComponent(isActive);
-  return (
-    <li>
-      <NavLink to={path}>
-        <Icon size={30} />
-      </NavLink>
-    </li>
-  );
-};
+import { useDispatch } from "react-redux";
+import { setDrawer } from "@/redux/slices/appSlice";
 
-HeaderMobileItem.propTypes = {
-  path: PropTypes.string.isRequired,
-  getIconComponent: PropTypes.func.isRequired,
-};
+import { TwitterIcon, AvatarIcon, SettingsIcon } from "@/icons";
 
 const HeaderMobile = () => {
+  const dispatch = useDispatch();
+  const handleOpenDrawer = () => dispatch(setDrawer(true));
+
   return (
-    <nav style={{ position: "fixed", left: "0px", right: "0px" }}>
+    <nav
+      style={{
+        position: "fixed",
+        left: "0px",
+        right: "0px",
+        backgroundColor: "#FFFFFF",
+      }}>
       <ul
         style={{
           display: "flex",
-          justifyContent: "space-between",
-          padding: "0px, 15px",
+          justifyContent: "space-around",
         }}>
-        {headerItems.map((item) => {
-          return <HeaderMobileItem key={item.name} {...item} />;
-        })}
+        <li style={{ padding: "10px" }}>
+          <NavLink onClick={handleOpenDrawer}>
+            <AvatarIcon size={32} />
+          </NavLink>
+        </li>
+        <li style={{ padding: "10px" }}>
+          <NavLink to="/">
+            <TwitterIcon size={25} />
+          </NavLink>
+        </li>
+        <li style={{ padding: "10px" }}>
+          <NavLink to="settings ">
+            <SettingsIcon size={25} />
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

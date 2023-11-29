@@ -4,12 +4,13 @@ export const postButtonSX = {
     margin: 0,
     backgroundColor: "#1d9bf0",
     color: "#ffffff",
-    // width: 50,
-    // height: 60,
-    height: 0,
+    bottom: "70px",
+    right: "70px",
+    height: "55px",
+    width: "55px",
     minWidth: 0,
+    position: "fixed",
 
-    padding: "26px 14px",
     "&:hover": {
       backgroundColor: "#1a8cd8",
     },
@@ -20,7 +21,7 @@ export const postButtonSX = {
     boxShadow: "none",
     backgroundColor: " #1d9bf0",
     borderRadius: "45px",
-    // height: "52px",
+
     fontWeight: 700,
     minWidth: "233px",
     fontSize: "17px",
@@ -67,7 +68,7 @@ export const moreSelectSX = {
   width: "1px",
 };
 
-export const moreSelectMenuProps = {
+export const moreSelectMenuPropsSX = {
   anchorOrigin: {
     vertical: "bottom",
     horizontal: "left",

@@ -24,8 +24,6 @@ export const Header = () => {
   const isTablet = useMediaQuery("(max-width: 1023px)");
   const isDesktop = !isMobile && !isTablet;
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  //TODO: func below use in HeaderMobile
-  // const handleOpenDrawer = () => dispatch(setDrawer(true));
 
   return (
     <div>
@@ -58,7 +56,7 @@ export const Header = () => {
           dispatch(setContent(<CreatePost avatarUrl={avatarUrl} />));
         }}
         sx={isDesktop ? postButtonSX.desktop : postButtonSX.mobile}>
-        {isDesktop ? "Post" : <PostRoundedButton />}
+        {isDesktop ? "Post" : <PostRoundedButton size={22} />}
       </Button>
 
       {isActiveModal && <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />}

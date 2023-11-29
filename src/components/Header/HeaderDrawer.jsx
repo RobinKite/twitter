@@ -1,56 +1,51 @@
-import { Drawer, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import { ReactComponent as ProfileIcon } from "../../assets/svg/profile.svg";
-import { ReactComponent as ListIcon } from "../../assets/svg/list.svg";
-import { ReactComponent as CommunitiesIcon } from "../../assets/svg/communities.svg";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import { Drawer } from "@mui/material";
+
 import { useDispatch, useSelector } from "react-redux";
 import { setDrawer } from "@/redux/slices/appSlice";
+import { NavLink, useLocation } from "react-router-dom";
+import { headerDrawerItems } from "@/constants/navigation";
+import PropTypes from "prop-types";
 
+const HeaderDrawerItem = ({ path, text, getIconComponent }) => {
+  const location = useLocation();
+  const isActive = location.pathname === path;
+  const Icon = getIconComponent(isActive);
+  return (
+    <li>
+      <NavLink to={path} style={{ display: "flex", padding: "16px", gap: "25px" }}>
+        <Icon size={25} />
+        <span style={{ color: "#0F1419", fontSize: "20px", fontWeight: 700 }}>
+          {text}
+        </span>
+      </NavLink>
+    </li>
+  );
+};
+
+HeaderDrawerItem.propTypes = {
+  path: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  getIconComponent: PropTypes.func.isRequired,
+};
 const HeaderDrawer = () => {
-  //temp change
-  const handleMenuItemClick = () => {};
   const dispatch = useDispatch();
   const open = useSelector((state) => state.app.isDrawerActive);
   const onClose = () => dispatch(setDrawer(false));
-  //TODO: use Navlink instead of ListItem and onClick, remove handleMenuItemClick
-  //TODO: map items
+
   return (
     <Drawer anchor="left" open={open} onClose={onClose}>
-      <List
-        sx={{
-          "& .css-bshv44-MuiButtonBase-root-MuiListItem-root": {
-            color: "#000000",
-          },
-          "& .css-10hburv-MuiTypography-root": {
-            fontSize: 20,
-            fontWeight: 800,
-          },
+      <ul
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "column",
         }}>
-        <ListItem button onClick={() => handleMenuItemClick("/profile")}>
-          <ListItemIcon>
-            <ProfileIcon />
-          </ListItemIcon>
-          <ListItemText primary="Profile" />
-        </ListItem>
-        <ListItem button onClick={() => handleMenuItemClick("/lists")}>
-          <ListItemIcon>
-            <ListIcon />
-          </ListItemIcon>
-          <ListItemText primary="Lists" />
-        </ListItem>
-        <ListItem button onClick={() => handleMenuItemClick("/bookmarks")}>
-          <ListItemIcon>
-            <BookmarkBorderIcon style={{ color: "#000000" }} />
-          </ListItemIcon>
-          <ListItemText primary="Bookmarks" />
-        </ListItem>
-        <ListItem button onClick={() => handleMenuItemClick("/communities")}>
-          <ListItemIcon>
-            <CommunitiesIcon />
-          </ListItemIcon>
-          <ListItemText primary="Communities" />
-        </ListItem>
-      </List>
+        <NavLink>
+          {headerDrawerItems.map((item) => {
+            return <HeaderDrawerItem key={item.name} {...item} />;
+          })}
+        </NavLink>
+      </ul>
     </Drawer>
   );
 };
