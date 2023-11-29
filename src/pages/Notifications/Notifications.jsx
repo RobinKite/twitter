@@ -26,16 +26,23 @@ export const Notifications = () => {
           },
         }}>
         <TabPanel value="0" sx={{ padding: 0 }}>
-          <NotificationTabContent text="From likes to reposts and a whole lot more, this is where all the action happens." />
+          <NotificationTabContent
+            title="Nothing to see here — yet"
+            text="From likes to reposts and a whole lot more, this is where all the action happens."
+          />
         </TabPanel>
         <TabPanel value="1" sx={{ padding: 0 }}>
           <NotificationTabContent
+            title="Nothing to see here — yet"
             imageUrl={imageVerification}
             text="Likes, mentions, reposts, and a whole lot more — when it comes from a verified account, you&#39;ll find it here."
           />
         </TabPanel>
         <TabPanel value="2" sx={{ padding: 0 }}>
-          <NotificationTabContent text="When someone mentions you, you&#39;ll find it here." />
+          <NotificationTabContent
+            title="Nothing to see here — yet"
+            text="When someone mentions you, you&#39;ll find it here."
+          />
         </TabPanel>
       </ProfileTabs>
     </Stack>

@@ -5,7 +5,7 @@ export const container = {
   marginRight: "auto",
 };
 
-export const title = {
+export const titleSX = {
   marginBottom: "8px",
 
   fontSize: "31px",
