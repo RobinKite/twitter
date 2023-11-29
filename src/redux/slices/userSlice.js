@@ -140,3 +140,9 @@ export const googleRegister = (code, state) => (dispatch) => {
       console.log(error);
     });
 };
+
+export const sendTokenToClient = () => () => {
+  if (storage.accessToken !== null) {
+    client.setAccessToken(storage.accessToken);
+  }
+};
