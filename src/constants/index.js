@@ -11,4 +11,5 @@ export class Endpoint {
   static SUBSCRIPTIONS = "/subscriptions";
   static USERS_SEARCH = "/users/search";
   static USERS_RECOMMENDED = "/users/recommended";
+  static GOOGLE_REGISTRATION = "/oauth2/exchange-code/google";
 }

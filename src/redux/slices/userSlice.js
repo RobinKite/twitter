@@ -21,6 +21,10 @@ const userSlice = createSlice({
       state.isAuthenticated = true;
       state.user = action.payload;
     },
+    googleRegisterAction: (state, action) => {
+      state.isAuthenticated = true;
+      state.user = action.payload;
+    },
     getUser: (state, action) => {
       state.user = action.payload;
     },
@@ -49,6 +53,7 @@ export const {
   sendFriendRequest,
   removeFriend,
   setFriendSearches,
+  googleRegisterAction,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -56,7 +61,6 @@ export default userSlice.reducer;
 export const loginUser = (email, password) => (dispatch) => {
   const payload = { email, password };
   client.post(Endpoint.LOGIN, payload).then((response) => {
-    console.log(response);
     const { access_token: accessToken, refresh_token: refreshToken } = response.data;
     storage.setTokens(accessToken, refreshToken);
     client.setAccessToken(accessToken);
@@ -73,8 +77,7 @@ export const registerUser = (user) => {
     userTag: user.userName,
   };
   return (dispatch) => {
-    client.post(Endpoint.REGISTER, data).then((response) => {
-      console.log(response);
+    client.post(Endpoint.REGISTER, data).then(() => {
       dispatch(registerUserAction(data));
     });
   };
@@ -120,4 +123,20 @@ export const fetchFriedsSearch = (query) => {
         return data;
       });
   };
+};
+
+export const googleRegister = (code, state) => (dispatch) => {
+  const payload = { code, state };
+
+  client
+    .post(Endpoint.GOOGLE_REGISTRATION, payload)
+    .then((response) => {
+      const { access_token: accessToken, refresh_token: refreshToken } = response.data;
+      storage.setTokens(accessToken, refreshToken);
+      client.setAccessToken(accessToken);
+      dispatch(googleRegisterAction(response.data.user));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };

@@ -11,11 +11,29 @@ import {
   TitleSX,
   TwitterXSX,
 } from "./styleSX";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { googleRegister } from "@/redux/slices/userSlice";
 
 export const Registration = () => {
+  const dispatch = useDispatch();
   const [showRegModal, setShowRegModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handleGoogleButtonClick = () => {
+    window.location.href =
+      "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/oauth2/authorization/google?redirect_uri=http://localhost:5173/login";
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    const state = urlParams.get("state");
+
+    if (code && state) {
+      dispatch(googleRegister(code, state));
+    }
+  }, [dispatch]);
 
   return (
     <Stack sx={{ height: "100vh", padding: "16px" }}>
@@ -26,7 +44,9 @@ export const Registration = () => {
         <ContentStackSX>
           <TitleSX variant="span">Happening now</TitleSX>
           <TextSX variant="span">Join today.</TextSX>
-          <Button startIcon={<Google size={22} />}>Sign up with Google</Button>
+          <Button onClick={handleGoogleButtonClick} startIcon={<Google size={22} />}>
+            Sign up with Google
+          </Button>
           <LinesSpanSX variant="span">or</LinesSpanSX>
           <Button
             onClick={() => setShowRegModal(true)}
