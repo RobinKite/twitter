@@ -1,15 +1,16 @@
 import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 import {
   Container,
-  SignUpForm,
   ForgotPasswordForm,
-  RegistrationForm,
   PasswordFormModal,
+  RegistrationFormModal,
 } from "./components";
 import { Registration, Home, Notifications, Post, Profile } from "./pages";
+import { getTokens } from "./utils/tokens";
 import { useSelector } from "react-redux";
 
 export default function AppRoutes() {
+  const hasToken = Boolean(getTokens().accessToken);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   return (
@@ -17,7 +18,7 @@ export default function AppRoutes() {
       <Route
         path="/"
         element={
-          isAuthenticated ? (
+          hasToken || isAuthenticated ? (
             <Container>
               <Outlet />
             </Container>
@@ -27,29 +28,16 @@ export default function AppRoutes() {
         }>
         <Route index element={<Home />} />
         <Route path="/explore" element={<div>Explore</div>} />
-
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/messages" element={<div>Messages</div>} />
-        <Route path="/lists" element={<div>Lists</div>} />
-        <Route path="/communities" element={<div>Communities</div>} />
-        <Route path="/verified" element={<div>Verified</div>} />
-        <Route
-          path="/profile"
-          element={
-            <div>
-              <Profile />
-            </div>
-          }
-        />
-        <Route path="/more" element={<div>More</div>} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/post/:id" element={<Post />} />
-
         <Route
           path="/registration"
           element={
             <>
               <Registration />
-              <RegistrationForm />
+              <RegistrationFormModal />
             </>
           }
         />
@@ -62,21 +50,12 @@ export default function AppRoutes() {
             </>
           }
         />
-
         <Route path="/bookmarks" element={<div>Bookmarks</div>} />
       </Route>
-      <Route
-        path="/signUpForm"
-        element={
-          <>
-            <Registration />
-            <SignUpForm />
-          </>
-        }></Route>
       <Route path="/forgotPasswordForm" element={<ForgotPasswordForm />}></Route>
       <Route
         path="/login"
-        element={isAuthenticated ? <Navigate to="/" /> : <Registration />}
+        element={hasToken || isAuthenticated ? <Navigate to="/" /> : <Registration />}
       />
     </Routes>
   );

@@ -4,6 +4,7 @@ export class PostType {
 }
 export class Endpoint {
   static LOGIN = "/auth/login";
+  static REGISTER = "/auth/register";
   static LIKE = "/likes/like";
   static UNLIKE = "/likes/unlike";
   static CREATE_POST = "/posts/create";
@@ -14,4 +15,5 @@ export class Endpoint {
   static SUBSCRIPTIONS = "/subscriptions";
   static USERS_SEARCH = "/users/search";
   static USERS_RECOMMENDED = "/users/recommended";
+  static GOOGLE_REGISTRATION = "/oauth2/exchange-code/google";
 }
