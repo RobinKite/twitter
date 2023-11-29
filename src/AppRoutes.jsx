@@ -31,8 +31,7 @@ export default function AppRoutes() {
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/messages" element={<div>Messages</div>} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/more" element={<div>More</div>} />
-        <Route path="/inshyy-post/:id" element={<Post />} />
+        <Route path="/post/:id" element={<Post />} />
         <Route
           path="/registration"
           element={

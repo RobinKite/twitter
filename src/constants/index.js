@@ -1,3 +1,7 @@
+export class PostType {
+  static TWEET = "TWEET";
+  static REPLY = "REPLY";
+}
 export class Endpoint {
   static LOGIN = "/auth/login";
   static REGISTER = "/auth/register";

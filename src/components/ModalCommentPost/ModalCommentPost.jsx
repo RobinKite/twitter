@@ -11,10 +11,10 @@ export const ModalBody = styled(Box)(() => ({
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  maxWidth: "700px",
+  maxWidth: "600px",
   width: "100%",
-  minHeight: "30em",
-  maxHeight: "55em",
+  // minHeight: "30em",
+  maxHeight: "40em",
   overflowY: "auto",
   overflowX: "hidden",
   backgroundColor: "white",
@@ -40,21 +40,17 @@ export function ModalCommentPost({
   id,
   likeCount,
   liked,
-  updateComment,
+
   avatarUrl,
   fullName,
 }) {
-  // const onClose = (event) => {
-  //   if (event.currentTarget === event.target) {}
-  // };
-
   return (
     <div>
-      <Modal open={isOpen} onClose={() => {}}>
+      <Modal open={isOpen}>
         <ModalBody>
           <div className={styles.close}>
             <button onClick={closeModal} className={styles.clossvg}>
-              <Cross size={26} />
+              <Cross size={30} />
             </button>
           </div>
           <div className={styles.postInput}>
@@ -72,7 +68,6 @@ export function ModalCommentPost({
             <CommentPost
               id={id}
               closeModal={closeModal}
-              updateComment={updateComment}
               avatarUrl={avatarUrl}
               fullName={fullName}
             />
