@@ -1,0 +1,25 @@
+.footer {
+  padding: 12px;
+  text-align: center;
+  margin: 0;
+  li {
+    display: inline-block;
+    margin-left: 15px;
+    color: aqua;
+
+    a {
+      color: rgb(83, 100, 113);
+      font-size: 13px;
+      white-space: inherit;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .XCorp {
+    color: rgb(83, 100, 113) r;
+    font-size: 13px;
+  }
+}
