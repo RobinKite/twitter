@@ -1,23 +1,23 @@
 import {
-  HomeIcon,
-  HomeIconFilled,
-  SearchIcon,
-  SearchIconFilled,
-  ProfileIcon,
-  ProfileIconFilled,
-  NotificationIcon,
-  NotificationIconFilled,
-  MessageIcon,
-  MessageIconFilled,
-  TwitterIcon,
-  ListIcon,
-  CommunitiesIcon,
+  Twitter,
+  Home,
+  HomeFilled,
+  Search,
+  SearchFilled,
+  Profile,
+  ProfileFilled,
+  Notification,
+  NotificationFilled,
+  Message,
+  MessageFilled,
 } from "@/icons";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+
 import { capitalize } from "@/utils";
 
+//TODO: Check for icons in react-icons and replace them
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import SettingsSharpIcon from "@mui/icons-material/SettingsSharp";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 class Item {
   constructor(name, activeIcon, inactiveIcon, path = null) {
@@ -29,25 +29,25 @@ class Item {
 }
 
 export const items = [
-  new Item("home", HomeIconFilled, HomeIcon, "/"),
-  new Item("explore", SearchIconFilled, SearchIcon, "/explore"),
-  new Item("notifications", NotificationIconFilled, NotificationIcon, "/notifications"),
-  new Item("messages", MessageIconFilled, MessageIcon, "/messages"),
-  new Item("profile", ProfileIconFilled, ProfileIcon, "/profile"),
+  new Item("home", HomeFilled, Home, "/"),
+  new Item("explore", SearchFilled, Search, "/explore"),
+  new Item("notifications", NotificationFilled, Notification, "/notifications"),
+  new Item("messages", MessageFilled, Message, "/messages"),
+  new Item("profile", ProfileFilled, Profile, "/profile"),
   // new Item ("bookmarks", "/bookmarks"),
 ];
 
 export const headerItems = [
   new Item("user", AccountCircleTwoToneIcon, AccountCircleTwoToneIcon, ""),
-  new Item("home", TwitterIcon, TwitterIcon, "/"),
+  new Item("home", Twitter, Twitter, "/"),
   new Item("settings", SettingsSharpIcon, SettingsSharpIcon, "/settings"),
 ];
 
 export const footerItems = [
-  new Item("home", HomeIconFilled, HomeIcon, "/"),
-  new Item("explore", SearchIconFilled, SearchIcon, "/explore"),
-  new Item("notifications", NotificationIconFilled, NotificationIcon, "/notifications"),
-  new Item("messages", MessageIconFilled, MessageIcon, "/messages"),
+  new Item("home", HomeFilled, Home, "/"),
+  new Item("explore", SearchFilled, Search, "/explore"),
+  new Item("notifications", NotificationFilled, Notification, "/notifications"),
+  new Item("messages", MessageFilled, Message, "/messages"),
 ];
 
 // export const headerSelectItems = [
@@ -56,8 +56,6 @@ export const footerItems = [
 // ];
 
 export const headerDrawerItems = [
-  new Item("profile", ProfileIcon, ProfileIcon, "/profile"),
-  new Item("list", ListIcon, ListIcon, "/list"),
+  new Item("profile", Profile, Profile, "/profile"),
   new Item("bookmarks", BookmarkBorderIcon, BookmarkBorderIcon, "/bookmarks"),
-  new Item("communities", CommunitiesIcon, CommunitiesIcon, "/communities"),
 ];

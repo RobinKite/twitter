@@ -4,8 +4,7 @@ import Button from "@mui/material/Button";
 
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
-import { MoreIcon, PostRoundedButton } from "@/icons";
+import { More, Feather } from "@/icons";
 import { CreatePost, PostModal, Navigation } from "../../components";
 import { setModalPost, setContent } from "../../redux/slices/appSlice";
 
@@ -42,7 +41,7 @@ export const Header = () => {
           <Button
             id="basic-button"
             onClick={() => setIsSelectOpen(true)}
-            startIcon={<MoreIcon size={30} />}
+            startIcon={<More size={30} />}
             sx={moreButtonSX}>
             {isDesktop && "More"}
           </Button>
@@ -56,7 +55,7 @@ export const Header = () => {
           dispatch(setContent(<CreatePost avatarUrl={avatarUrl} />));
         }}
         sx={isDesktop ? postButtonSX.desktop : postButtonSX.mobile}>
-        {isDesktop ? "Post" : <PostRoundedButton size={22} />}
+        {isDesktop ? "Post" : <Feather size={22} style={{ fill: "#fff" }} />}
       </Button>
 
       {isActiveModal && <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />}

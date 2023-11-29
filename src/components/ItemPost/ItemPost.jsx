@@ -8,10 +8,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
-import { deletePost } from "../../redux/slices/postsSlice";
-import { Endpoint } from "@/constants";
-import { client } from "@/services";
-import { View, Reply, LikeFalse, Repost, Share, Like, Delete } from "@/icons";
+import { deletePost, handleLike, handleUnlike } from "@/redux/slices/postsSlice";
+import { Reply, LikeFalse, Repost, Share, Like, Delete } from "@/icons";
 import styles from "./ItemPost.module.scss";
 
 export function ItemPost({
@@ -55,44 +53,11 @@ export function ItemPost({
   const navigate = useNavigate();
 
   const redirectToPost = () => {
-    navigate(`/inshyy-post/${id}`);
+    navigate(`/post/${id}`);
   };
   const fonnClick = (event) => {
     if (event.currentTarget === event.target) {
       redirectToPost();
-    }
-  };
-  const [isLiked, setIsLiked] = useState(liked);
-  const [likeCountState, setLikeCount] = useState(likeCount);
-
-  const handleLike = async () => {
-    try {
-      // TODO: Move this function to corresponding slice
-      const response = await client.post(Endpoint.LIKE, { postId: id });
-
-      if (response.status === 200) {
-        setIsLiked(true);
-
-        setLikeCount((prevCount) => prevCount + 1);
-        // dispatch(getPosts());
-      }
-    } catch (error) {
-      console.error("Error liking the post:", error);
-    }
-  };
-  const handleUnlike = async () => {
-    try {
-      // TODO: Move this function to corresponding slice
-      const response = await client.delete(Endpoint.UNLIKE, { params: { id } });
-
-      if (response.status === 200) {
-        setIsLiked(false);
-        setLikeCount((prevCount) => prevCount - 1);
-
-        // dispatch(getPosts());
-      }
-    } catch (error) {
-      console.error("Error liking the post:", error);
     }
   };
 
@@ -106,8 +71,8 @@ export function ItemPost({
                 mt: 0,
                 ml: 1,
                 bgcolor: "rgb(8, 139, 226)",
-                width: 50,
-                height: 50,
+                width: 40,
+                height: 40,
               }}
               src={avatarUrl}
             />
@@ -121,7 +86,7 @@ export function ItemPost({
             </IconButton>
             <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
               <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
-                <Delete />
+                <Delete fill="red" />
                 Delete
               </MenuItem>
             </Menu>
@@ -134,7 +99,11 @@ export function ItemPost({
               key={index}
               src={imageUrl}
               alt={`${index}`}
-              style={{ width: "220px", objectFit: "cover" }}
+              style={{
+                maxWidth: imageUrls.length > 1 ? "49%" : "90%",
+
+                objectFit: "cover",
+              }}
             />
           ))}
         </div>
@@ -142,15 +111,8 @@ export function ItemPost({
         <div className={styles.tweetActions}>
           {!disable && (
             <>
-              <div>
-                <IconButton
-                  onClick={openModal}
-                  // onClick={() => {
-                  //   // const postId = id;
-                  //     dispatch(setModalComent());
-                  //     dispatch(setContent(<ComentPost id={id}/>));
-                  // }}
-                >
+              <div className={styles.replyCount}>
+                <IconButton onClick={openModal}>
                   <Reply className={styles.tweetReply} />
                 </IconButton>
                 <span>{replyCount}</span>
@@ -158,15 +120,21 @@ export function ItemPost({
               <IconButton>
                 <Repost className={styles.tweetRepost} />
               </IconButton>
-              <div>
-                <IconButton onClick={isLiked ? handleUnlike : handleLike}>
-                  {isLiked ? <LikeFalse /> : <Like className={styles.tweetLike} />}
+              <div className={styles.likeCount}>
+                <IconButton
+                  onClick={() => {
+                    liked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
+                  }}>
+                  {liked ? <LikeFalse /> : <Like className={styles.tweetLike} />}
                 </IconButton>
-                <span>{likeCountState}</span>
+
+                <span className={`likeCount ${liked ? styles.red : ""}`}>
+                  {likeCount}
+                </span>
               </div>
-              <IconButton>
+              {/* <IconButton>
                 <View className={styles.tweetReply} />
-              </IconButton>
+              </IconButton> */}
               <IconButton>
                 <Share className={styles.tweetReply} />
               </IconButton>

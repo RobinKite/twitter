@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { client } from "@/services";
-// import { setAuthToken, setRefreshToken } from "../../utils/tokens";
 import { client, storage } from "@/services";
 import { Endpoint } from "@/constants";
 
@@ -9,6 +7,10 @@ const userSlice = createSlice({
   initialState: {
     isAuthenticated: false,
     user: {},
+    usersList: [],
+    friendsList: [],
+    friendRequests: [],
+    friendSearches: [],
   },
   reducers: {
     loginUserAction: (state, action) => {
@@ -18,10 +20,32 @@ const userSlice = createSlice({
     getUser: (state, action) => {
       state.user = action.payload;
     },
+    setUsers: (state, action) => {
+      state.usersList = action.payload;
+    },
+    sendFriendRequest: (state, action) => {
+      state.friendRequests.push(action.payload);
+    },
+    removeFriend: (state, action) => {
+      state.friendsList = state.friendsList.filter(
+        (friend) => friend.id !== action.payload,
+      );
+    },
+    setFriendSearches: (state, action) => {
+      state.friendSearches = action.payload;
+    },
   },
 });
 
-export const { loginUserAction, getUser } = userSlice.actions;
+export const {
+  loginUserAction,
+  getUser,
+  setUsers,
+  sendFriendRequest,
+  removeFriend,
+  setFriendSearches,
+} = userSlice.actions;
+
 export default userSlice.reducer;
 
 // export function getUserAsync() {
@@ -51,4 +75,46 @@ export const loginUser = (email, password) => (dispatch) => {
     client.setAccessToken(accessToken);
     dispatch(loginUserAction(response.data.user));
   });
+};
+
+export const fetchUsers = (numberOfUsers) => {
+  return (dispatch) => {
+    client
+      .get(Endpoint.USERS_RECOMMENDED, { params: { page: 0, pageSize: numberOfUsers } })
+      .then((response) => {
+        const data = response.data.content;
+        dispatch(setUsers(data));
+      });
+  };
+};
+
+export const postSubcribeToUser = (id) => {
+  return (dispatch) => {
+    client.post(Endpoint.SUBSCRIPTIONS, { id }).then((response) => {
+      const data = response.data;
+      dispatch(sendFriendRequest(data));
+    });
+  };
+};
+
+export const deleteSubscribeToUser = (id) => {
+  return (dispatch) => {
+    client.delete(Endpoint.SUBSCRIPTIONS, { params: { id } }).then((response) => {
+      const data = response.data;
+      dispatch(removeFriend(id));
+      return data;
+    });
+  };
+};
+
+export const fetchFriedsSearch = (query) => {
+  return (dispatch) => {
+    client
+      .get(Endpoint.USERS_SEARCH, { params: { query, page: 0, pageSize: 12 } })
+      .then((response) => {
+        const data = response.data.content;
+        dispatch(setFriendSearches(data));
+        return data;
+      });
+  };
 };

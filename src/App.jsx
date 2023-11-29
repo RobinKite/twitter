@@ -1,8 +1,10 @@
+import { ThemeProvider } from "@mui/material/styles";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LoginFormModal } from "./components";
-import { loginUser } from "./redux/slices/userSlice";
-import AppRoutes from "./AppRoutes";
+import { LoginFormModal } from "@/components";
+import { theme } from "@/themes/theme";
+import { loginUser } from "@/redux/slices/userSlice";
+import AppRoutes from "@/AppRoutes";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -10,12 +12,14 @@ export default function App() {
 
   useEffect(() => {
     dispatch(loginUser("user2@gmail.com", "2222"));
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
-      <AppRoutes />
-      {isLoginModalOpen && <LoginFormModal open={isLoginModalOpen} />}
+      <ThemeProvider theme={theme}>
+        <AppRoutes />
+        {isLoginModalOpen && <LoginFormModal open={isLoginModalOpen} />}
+      </ThemeProvider>
     </div>
   );
 }
