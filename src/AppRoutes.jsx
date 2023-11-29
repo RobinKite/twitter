@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 
 export default function AppRoutes() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
   return (
     <Routes>
       <Route
@@ -41,7 +42,7 @@ export default function AppRoutes() {
           }
         />
         <Route path="/more" element={<div>More</div>} />
-        <Route path="/inshyy-post/:id" element={<Post />} />
+        <Route path="/post/:id" element={<Post />} />
 
         <Route
           path="/registration"

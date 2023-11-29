@@ -7,6 +7,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 
 const HeaderSelect = ({ open, onClose }) => {
+  //TODO: Move Bookmarks to Navigation component and replace it here with Settings route/icon
   return (
     <Select
       open={open}

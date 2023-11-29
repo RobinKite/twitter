@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Footer, Button } from "../../components";
 import { setCreateProfileModal, setModal } from "../../redux/slices/appSlice";
-import { TwitterIcon, Apple, Google } from "@/icons";
+import { Twitter, Apple, Google } from "@/icons";
 import styles from "./Registration.module.scss";
 
 export const Registration = () => {
@@ -18,7 +18,7 @@ export const Registration = () => {
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <div className={styles.logoContainer}>
-          <TwitterIcon className={styles.logo} />
+          <Twitter className={styles.logo} />
         </div>
 
         <div className={styles.exitLogin}>

@@ -4,9 +4,8 @@ import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-// import { object, string } from "yup";
-import { Button } from "../../components";
-import { TwitterIcon, Apple, Cross, Google } from "@/icons";
+import { Button } from "@/components";
+import { Twitter, Apple, Cross, Google } from "@/icons";
 import styles from "./SignUpForm.module.scss";
 
 const style = {
@@ -63,7 +62,7 @@ export const SignUpForm = () => {
             <Cross size={30} />
           </button>
           <div className={styles.twitterLogo}>
-            <TwitterIcon />
+            <Twitter />
           </div>
           <Typography
             id="modal-modal-title"

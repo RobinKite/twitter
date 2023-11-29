@@ -1,19 +1,20 @@
 import {
-  HomeIcon,
-  HomeIconFilled,
-  SearchIcon,
-  SearchIconFilled,
-  ProfileIcon,
-  ProfileIconFilled,
-  NotificationIcon,
-  NotificationIconFilled,
-  MessageIcon,
-  MessageIconFilled,
-  TwitterIcon,
+  Twitter,
+  Home,
+  HomeFilled,
+  Search,
+  SearchFilled,
+  Profile,
+  ProfileFilled,
+  Notification,
+  NotificationFilled,
+  Message,
+  MessageFilled,
   Avatar,
   Settings,
   Bookmarks,
 } from "@/icons";
+
 import { capitalize } from "@/utils";
 
 class Item {
@@ -26,25 +27,25 @@ class Item {
 }
 
 export const items = [
-  new Item("home", HomeIconFilled, HomeIcon, "/"),
-  new Item("explore", SearchIconFilled, SearchIcon, "/explore"),
-  new Item("notifications", NotificationIconFilled, NotificationIcon, "/notifications"),
-  new Item("messages", MessageIconFilled, MessageIcon, "/messages"),
-  new Item("profile", ProfileIconFilled, ProfileIcon, "/profile"),
+  new Item("home", HomeFilled, Home, "/"),
+  new Item("explore", SearchFilled, Search, "/explore"),
+  new Item("notifications", NotificationFilled, Notification, "/notifications"),
+  new Item("messages", MessageFilled, Message, "/messages"),
+  new Item("profile", ProfileFilled, Profile, "/profile"),
   new Item("bookmarks", Bookmarks, Bookmarks, "/bookmarks"),
 ];
 
 export const headerItems = [
   new Item("user", Avatar, Avatar, ""),
-  new Item("home", TwitterIcon, TwitterIcon, "/"),
+  new Item("home", Twitter, Twitter, "/"),
   new Item("settings", Settings, Settings, "/settings"),
 ];
 
 export const footerItems = [
-  new Item("home", HomeIconFilled, HomeIcon, "/"),
-  new Item("explore", SearchIconFilled, SearchIcon, "/explore"),
-  new Item("notifications", NotificationIconFilled, NotificationIcon, "/notifications"),
-  new Item("messages", MessageIconFilled, MessageIcon, "/messages"),
+  new Item("home", HomeFilled, Home, "/"),
+  new Item("explore", SearchFilled, Search, "/explore"),
+  new Item("notifications", NotificationFilled, Notification, "/notifications"),
+  new Item("messages", MessageFilled, Message, "/messages"),
 ];
 
 // export const headerSelectItems = [
@@ -52,6 +53,4 @@ export const footerItems = [
 //   new Item("explore", SearchIconFilled, SearchIcon, "/explore"),
 // ];
 
-export const headerDrawerItems = [
-  new Item("profile", ProfileIcon, ProfileIcon, "/profile"),
-];
+export const headerDrawerItems = [new Item("profile", Profile, Profile, "/profile")];

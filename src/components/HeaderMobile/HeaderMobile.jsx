@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom/dist";
 import { useDispatch } from "react-redux";
 import { setDrawer } from "@/redux/slices/appSlice";
 
-import { TwitterIcon, Settings, Avatar } from "@/icons";
+import { Avatar, Settings, Twitter } from "@/icons";
 
 const HeaderMobile = () => {
   const dispatch = useDispatch();
@@ -13,8 +13,10 @@ const HeaderMobile = () => {
     <nav
       style={{
         position: "fixed",
-        left: "0px",
-        right: "0px",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 10,
         backgroundColor: "#FFFFFF",
       }}>
       <ul
@@ -29,7 +31,7 @@ const HeaderMobile = () => {
         </li>
         <li style={{ padding: "10px" }}>
           <NavLink to="/">
-            <TwitterIcon size={25} />
+            <Twitter size={25} />
           </NavLink>
         </li>
         <li style={{ padding: "10px" }}>

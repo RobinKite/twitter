@@ -42,10 +42,11 @@ const FooterMobile = () => {
     <nav
       style={{
         position: "fixed",
-        left: "0px",
-        right: "0px",
-        bottom: "0px",
-        backgroundColor: "#FFFFFF",
+        zIndex: 10,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "#ffffff",
       }}>
       <ul
         style={{

@@ -1,3 +1,7 @@
+export class PostType {
+  static TWEET = "TWEET";
+  static REPLY = "REPLY";
+}
 export class Endpoint {
   static LOGIN = "/auth/login";
   static LIKE = "/likes/like";
@@ -7,4 +11,7 @@ export class Endpoint {
   static DELETE_POST = "/posts/delete";
   static GET_POST_REPLIES = "/posts/replies";
   static GET_MY_POSTS = "/posts/home";
+  static SUBSCRIPTIONS = "/subscriptions";
+  static USERS_SEARCH = "/users/search";
+  static USERS_RECOMMENDED = "/users/recommended";
 }
