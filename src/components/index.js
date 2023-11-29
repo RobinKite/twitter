@@ -2,7 +2,7 @@ export { UserPhoto } from "./UserPhoto/UserPhoto";
 export { SignUpForm } from "./SignUpForm/SignUpForm";
 export { Sidebar } from "./Sidebar/Sidebar";
 export { SearchBar } from "./SearchBar/SearchBar";
-export { RegistrationForm } from "./RegistrationForm/RegistrationForm";
+export { RegistrationFormModal } from "./RegistrationFormModal/RegistrationFormModal";
 export { RecommendedUsers } from "./RecommendedUsers/RecommendedUsers";
 export { ProfileTabs } from "./ProfileTabs/ProfileTabs";
 export { PostModal } from "./PostModal/PostModal";
