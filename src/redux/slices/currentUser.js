@@ -1,5 +1,3 @@
-// import { Endpoint } from "@/constants";
-// import { Endpoint } from "@/constants";
 import { Endpoint } from "@/constants";
 import { client } from "@/services";
 import { createSlice } from "@reduxjs/toolkit";
@@ -47,11 +45,12 @@ export const getCurrentPosts = (id) => async (dispatch) => {
   }
 };
 
-export const getCurrentLikedPosts = (id) => async (dispatch) => {
+export const getCurrentLikedPosts = () => async (dispatch) => {
   try {
-    const response = await client.get(`${Endpoint.LIKED_POSTS}?id=${id}`);
+    const response = await client.get(Endpoint.LIKED_POSTS, {
+      params: { page: 0, pageSize: 12 },
+    });
     const data = response.data.content;
-    console.log(data);
     dispatch(setCurrentLikedPosts(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);

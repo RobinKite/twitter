@@ -12,7 +12,11 @@ import {
   HeaderPage,
 } from "../Profile/styledSX";
 import { useParams } from "react-router-dom";
-import { getCurrentPosts, getCurrentUser } from "@/redux/slices/currentUser";
+import {
+  getCurrentLikedPosts,
+  getCurrentPosts,
+  getCurrentUser,
+} from "@/redux/slices/currentUser";
 import PropTypes from "prop-types";
 const tabs = [
   { label: "Post", value: "0" },
@@ -28,8 +32,8 @@ export function CurrentUser() {
   const posts = useSelector((state) => state.currentUser.currentPosts);
   const likedPosts = useSelector((state) => state.currentUser.currentLikedPosts);
 
-  console.log(likedPosts);
   const dispatch = useDispatch();
+
   const formattedBirthdate =
     user && user.birthdate
       ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
@@ -39,6 +43,7 @@ export function CurrentUser() {
   useEffect(() => {
     dispatch(getCurrentUser(id));
     dispatch(getCurrentPosts(id));
+    dispatch(getCurrentLikedPosts());
   }, [dispatch, id]);
 
   return (
@@ -129,7 +134,7 @@ export function CurrentUser() {
           <TabPanel value="2">
             {
               likedPosts.length
-                ? likedPosts.map((post) => {
+                ? likedPosts.map((post) => (
                     <ItemPost
                       avatarUrl={post.user.avatarUrl}
                       fullName={post.user.fullName}
@@ -140,8 +145,8 @@ export function CurrentUser() {
                       likeCount={post.likeCount}
                       liked={post.liked}
                       replyCount={post.replyCount}
-                    />;
-                  })
+                    />
+                  ))
                 : `${user.fullName} don’t have any likes yet`
               // <NotificationTabContent
               //   title={`${user.fullName} don’t have any likes yet`}
