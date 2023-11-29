@@ -1,6 +1,8 @@
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import styles from "./AllNotifications.module.scss";
+import { Stack } from "@mui/material";
+import { container, notificationMassage } from "./styleSX";
+import PropTypes from "prop-types";
 
 const AllNo = [
   {
@@ -12,11 +14,12 @@ const AllNo = [
   },
 ];
 
-const AllNotificationsContainer = ({ id, fullName, avatarUrl, massage }) => {
+// eslint-disable-next-line react/prop-types
+const AllNotificationsContainer = ({ fullName, avatarUrl, massage }) => {
   return (
-    <div className={styles.notificationContainer}>
-      <div>+</div>
-      <div className={styles.mainNotification}>
+    <Stack sx={container}>
+      <Stack>+</Stack>
+      <Stack sx={notificationMassage}>
         <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
         <Typography
           variant="subtitle1"
@@ -26,18 +29,25 @@ const AllNotificationsContainer = ({ id, fullName, avatarUrl, massage }) => {
           paddingTop="15px">
           {fullName}
         </Typography>
-        <p>{massage}</p>
-      </div>
-    </div>
+        <Typography>{massage}</Typography>
+      </Stack>
+    </Stack>
   );
 };
 
 export const AllNotifications = () => {
   return (
-    <div>
+    <Stack>
       {AllNo.map((user, index) => (
         <AllNotificationsContainer key={index} {...user} id={user.id} />
       ))}
-    </div>
+    </Stack>
   );
+};
+
+AllNotificationsContainer.PropTypes = {
+  id: PropTypes.string.isRequired,
+  fullName: PropTypes.string.isRequired,
+  avatarUrl: PropTypes.string,
+  massage: PropTypes.string,
 };
