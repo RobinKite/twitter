@@ -1,7 +1,7 @@
 import { Stack, Typography, styled } from "@mui/material";
 import { BsTwitterX } from "react-icons/bs";
 
-export const Title = styled(Typography)(({ theme }) => ({
+export const TitleSX = styled(Typography)(({ theme }) => ({
   fontSize: "64px",
   fontWeight: 700,
   color: "#0f1419",
@@ -12,7 +12,7 @@ export const Title = styled(Typography)(({ theme }) => ({
   },
 }));
 
-export const Text = styled(Typography)(({ theme }) => ({
+export const TextSX = styled(Typography)(({ theme }) => ({
   fontSize: "31px",
   fontWeight: 700,
   color: "#0f1419",
@@ -23,7 +23,7 @@ export const Text = styled(Typography)(({ theme }) => ({
   },
 }));
 
-export const LinesSpan = styled(Typography)({
+export const LinesSpanSX = styled(Typography)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
@@ -35,14 +35,14 @@ export const LinesSpan = styled(Typography)({
   "&::after": { content: "''", border: "1px solid #eff3f4", width: "45%" },
 });
 
-export const AccountSpan = styled(Typography)({
+export const AccountSpanSX = styled(Typography)({
   fontSize: "17px",
   fontWeight: 700,
   color: "#0f1419",
   margin: "40px 0 20px",
 });
 
-export const Container = styled(Stack)(({ theme }) => ({
+export const ContainerSX = styled(Stack)(({ theme }) => ({
   flexGrow: 1,
   alignItems: "center",
   justifyContent: "space-evenly",
@@ -55,7 +55,7 @@ export const Container = styled(Stack)(({ theme }) => ({
     marginRight: "auto",
   },
 }));
-export const ContentStack = styled(Stack)(({ theme }) => ({
+export const ContentStackSX = styled(Stack)(({ theme }) => ({
   padding: "16px",
   alignItems: "flex-start",
   [theme.breakpoints.down("768")]: {
@@ -63,14 +63,14 @@ export const ContentStack = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export const IconBox = styled(Stack)(({ theme }) => ({
+export const IconBoxSX = styled(Stack)(({ theme }) => ({
   padding: "32px",
   [theme.breakpoints.down("1024")]: {
     padding: "0 16px 12px",
   },
 }));
 
-export const TwitterX = styled(BsTwitterX)(({ theme }) => ({
+export const TwitterXSX = styled(BsTwitterX)(({ theme }) => ({
   width: "342px",
   height: "308px",
   [theme.breakpoints.down("1024")]: {

@@ -1,15 +1,15 @@
-import { Footer, Button, RegistrationForm, LoginFormModal } from "../../components";
+import { Footer, Button, LoginFormModal, RegistrationFormModal } from "@/components";
 import { Google } from "@/icons";
 import { Stack } from "@mui/material";
 import {
-  AccountSpan,
-  Container,
-  ContentStack,
-  IconBox,
-  LinesSpan,
-  Text,
-  Title,
-  TwitterX,
+  AccountSpanSX,
+  ContainerSX,
+  ContentStackSX,
+  IconBoxSX,
+  LinesSpanSX,
+  TextSX,
+  TitleSX,
+  TwitterXSX,
 } from "./styleSX";
 import { useState } from "react";
 
@@ -19,15 +19,15 @@ export const Registration = () => {
 
   return (
     <Stack sx={{ height: "100vh", padding: "16px" }}>
-      <Container direction="row">
-        <IconBox>
-          <TwitterX />
-        </IconBox>
-        <ContentStack>
-          <Title variant="span">Happening now</Title>
-          <Text variant="span">Join today.</Text>
+      <ContainerSX direction="row">
+        <IconBoxSX>
+          <TwitterXSX />
+        </IconBoxSX>
+        <ContentStackSX>
+          <TitleSX variant="span">Happening now</TitleSX>
+          <TextSX variant="span">Join today.</TextSX>
           <Button startIcon={<Google size={22} />}>Sign up with Google</Button>
-          <LinesSpan variant="span">or</LinesSpan>
+          <LinesSpanSX variant="span">or</LinesSpanSX>
           <Button
             onClick={() => setShowRegModal(true)}
             sx={{
@@ -37,7 +37,7 @@ export const Registration = () => {
             }}>
             Create a profile
           </Button>
-          <AccountSpan variant="span">Already have an account?</AccountSpan>
+          <AccountSpanSX variant="span">Already have an account?</AccountSpanSX>
           <Button
             onClick={() => setShowLoginModal(true)}
             sx={{
@@ -46,11 +46,11 @@ export const Registration = () => {
             }}>
             Sign in
           </Button>
-        </ContentStack>
-      </Container>
+        </ContentStackSX>
+      </ContainerSX>
       <Footer />
       {showRegModal && (
-        <RegistrationForm
+        <RegistrationFormModal
           handleRegModalClose={() => {
             setShowRegModal(false);
           }}

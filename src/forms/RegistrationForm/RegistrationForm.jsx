@@ -1,7 +1,6 @@
 import { CustomDateSelector } from "@/components";
 import { validationSchema } from "@/schemas";
-// import styles from "./RegistrationForm.module.scss";
-import { SubmitButton } from "@/components/RegistrationForm/styleSX";
+import { SubmitButtonSX } from "@/components/RegistrationFormModal/styleSX";
 import { TextField, IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -87,8 +86,8 @@ export const RegistrationForm = () => {
             variant="outlined"
             fullWidth
             required
-            error={touched.firstName && Boolean(errors.firstName)}
-            helperText={touched.firstName && errors.firstName}
+            error={touched.userName && Boolean(errors.userName)}
+            helperText={touched.userName && errors.userName}
             sx={{
               marginBottom: "20px",
             }}
@@ -141,9 +140,9 @@ export const RegistrationForm = () => {
             yearLabel="Year"
             required={true}
           />
-          <SubmitButton type="submit" disabled={!isValid}>
+          <SubmitButtonSX type="submit" disabled={!isValid}>
             Sign up
-          </SubmitButton>
+          </SubmitButtonSX>
         </Form>
       )}
     </Formik>
