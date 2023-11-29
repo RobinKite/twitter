@@ -10,4 +10,6 @@ export class Endpoint {
   static SUBSCRIPTIONS = "/subscriptions";
   static USERS_SEARCH = "/users/search";
   static USERS_RECOMMENDED = "/users/recommended";
+  static CHATS = "/chats";
+  static USERS_FOLLOWERS = "/users/followers";
 }

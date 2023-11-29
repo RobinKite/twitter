@@ -18,7 +18,11 @@ export default function AppRoutes() {
         <Route index element={<Home />} />
         <Route path="/explore" element={<Container>Explore</Container>} />
         <Route path="/notifications" element={<Notifications />} />
-        <Route path="/messages" element={<Messages />} />
+        <Route path="/messages">
+          <Route index element={<Messages />} />
+          <Route path="settings" element={<Messages withSettings={true} />} />
+          <Route path="*" element={<Navigate to="/messages" />} />
+        </Route>
         <Route path="/lists" element={<Container>Lists</Container>} />
         <Route path="/communities" element={<Container>Communities</Container>} />
         <Route path="/verified" element={<Container>Verified</Container>} />

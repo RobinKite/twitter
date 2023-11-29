@@ -8,7 +8,7 @@ export const textSx = {
   marginBottom: "1.75rem",
   fontSize: "0.9rem",
   lineHeight: "1.4",
-  color: "rgb(83, 100, 113)",
+  color: "#536471",
 };
 
 export const buttonSx = {
@@ -19,6 +19,6 @@ export const buttonSx = {
   paddingRight: "2rem",
   paddingLeft: "2rem",
   color: "white",
-  backgroundColor: "rgb(29, 155, 240)",
+  backgroundColor: "#1d9bf0",
   borderRadius: "2rem",
 };

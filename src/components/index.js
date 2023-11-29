@@ -25,6 +25,3 @@ export { LoginFormModal } from "./LoginFormModal/LoginFormModal";
 export { PasswordFormModal } from "./PasswordFormModal/PasswordFormModal";
 export { SearchProgressBar } from "./SearchProgressBar/SearchProgressBar";
 export { ConfirmationDialog } from "./ConfirmationDialog/ConfirmationDialog";
-export { Conversations } from "./Conversations/Conversations";
-export { Chat } from "./Chat/Chat";
-export { WelcomeMessage } from "./WelcomeMessage/WelcomeMessage";

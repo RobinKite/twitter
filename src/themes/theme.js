@@ -24,5 +24,12 @@ export const theme = createTheme({
         },
       },
     },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderBottom: "1px solid #eff3f4",
+        },
+      },
+    },
   },
 });
