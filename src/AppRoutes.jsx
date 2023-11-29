@@ -8,6 +8,7 @@ import {
 } from "./components";
 import { Registration, Home, Notifications, Post, Profile } from "./pages";
 import { useSelector } from "react-redux";
+import { CurrentUser } from "./pages/СurrentUser/CurrenUser";
 
 export default function AppRoutes() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -43,6 +44,7 @@ export default function AppRoutes() {
         />
         <Route path="/more" element={<div>More</div>} />
         <Route path="/post/:id" element={<Post />} />
+        <Route path="/user/:id" element={<CurrentUser />} />
 
         <Route
           path="/registration"

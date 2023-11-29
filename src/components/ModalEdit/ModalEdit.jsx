@@ -15,6 +15,12 @@ import { UserPhoto } from "@/components";
 import { editProfileSchema } from "@/schemas";
 import PropTypes from "prop-types";
 import { formFields, configDateForm } from "./configForm.js";
+import {
+  getUsersUpdate,
+  getUsersUpdateAvatarUrl,
+  getUsersUpdateImageUrl,
+} from "@/redux/slices/userSlice.js";
+import { useDispatch } from "react-redux";
 
 const ModalContainer = styled(Box)(({ theme }) => ({
   position: "absolute",
@@ -63,9 +69,11 @@ const ModalHeader = styled(Toolbar)(() => ({
 
 // TODO: 👉 Rewrite the component
 export function ModalEdit({ isOpen, onClose }) {
-  const [image, setImage] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+
+  const [avatarUrl, setAvatarUrl] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
+  const dispatch = useDispatch();
 
   const getDaysInMonth = (month) => {
     if (month === "February") {
@@ -84,12 +92,30 @@ export function ModalEdit({ isOpen, onClose }) {
       month: "",
       day: "",
       year: "",
+      userTag: "",
     },
+    //   "fullName": "string",
+    // "userTag": "string",
+    // "birthdate": "string",
+    // "bio": "string",
+    // "location": "string",
+    // "avatarUrl": "string",
+    // "imageUrl": "string"
     validationSchema: editProfileSchema,
     onSubmit: (values) => {
       onClose();
-      values = { ...values, avatar, image };
-      console.log(values);
+      const { month, day, year } = values;
+      const birthdateInSeconds = new Date(`${month} ${day}, ${year}`).getTime() / 1000;
+
+      values = { ...values, fullName: values.name, birthdate: birthdateInSeconds };
+      console.log();
+      dispatch(getUsersUpdate(values));
+      if (imageUrl) {
+        dispatch(getUsersUpdateImageUrl(imageUrl));
+      }
+      if (avatarUrl) {
+        dispatch(getUsersUpdateAvatarUrl(avatarUrl));
+      }
     },
   });
 
@@ -113,10 +139,10 @@ export function ModalEdit({ isOpen, onClose }) {
           </ModalHeader>
           <UserPhoto
             changeIcon={true}
-            image={image}
-            avatar={avatar}
-            setImage={setImage}
-            setAvatar={setAvatar}
+            imageUrl={imageUrl}
+            avatarUrl={avatarUrl}
+            setImageUrl={setImageUrl}
+            setAvatar={setAvatarUrl}
           />
           <Box
             component="form"

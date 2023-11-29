@@ -1,8 +1,8 @@
 import TabPanel from "@mui/lab/TabPanel";
 import { Typography, Container } from "@mui/material";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "@/components";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { UserPhoto, ProfileTabs, ItemPost } from "@/components";
 import { useLoadPost } from "@/hooks/useLoadPost";
 import { ArrowBack } from "@/icons";
 import {
@@ -11,27 +11,37 @@ import {
   ContainerUserInfo,
   EditButton,
   HeaderPage,
-} from "./styledSX";
+} from "../Profile/styledSX";
+import { useParams } from "react-router-dom";
+import { getCurrentPosts, getCurrentUser } from "@/redux/slices/currentUser";
+import PropTypes from "prop-types";
 const tabs = [
   { label: "Post", value: "0" },
   { label: "Replies", value: "1" },
   { label: "Likes", value: "2" },
 ];
 
-export function Profile() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const posts = useSelector((state) => state.posts.posts);
-  const user = useSelector((state) => state.user.user);
-  // console.log(user);
+export function CurrentUser() {
+  const { id } = useParams();
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const posts = useSelector((state) => state.currentUser.currentPosts);
+  const user = useSelector((state) => state.currentUser.user);
+  console.log(user);
+  const dispatch = useDispatch();
   const formattedBirthdate =
     user && user.birthdate
       ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
       : "N/A";
   useLoadPost();
 
+  useEffect(() => {
+    dispatch(getCurrentUser(id));
+    dispatch(getCurrentPosts(id));
+  }, [dispatch, id]);
+
   return (
     <>
-      <ModalEdit isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      {/* <ModalEdit isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} /> */}
 
       <Container maxWidth="sm" disableGutters={true}>
         <HeaderPage>
@@ -39,11 +49,9 @@ export function Profile() {
             <ArrowBack size={25} />
           </ArrowSvg>
           <ContainerHederText>
-            <Typography variant="h6">
-              {/* TODO: change to user object */}
-              {user && user.fullName}
-            </Typography>
-            {/* <div>post</div> */}
+            <div>{user && user.fullName}</div>
+            <Typography variant="h6"></Typography>
+
             {/* <button onClick={() => dispatch(PostAuthorizationAsync(formData))}>
               test
             </button>
@@ -56,18 +64,22 @@ export function Profile() {
           imageUrl={user && user.imageUrl}
         />
         <ContainerUserInfo>
-          <EditButton onClick={() => setIsModalOpen(true)} variant="outlined">
-            Edit profile
-          </EditButton>
-          <Typography variant="h6"> {user && user.fullName}</Typography>
-          <Typography variant="body1">{user && user.userTag}</Typography>
+          <EditButton variant="outlined">Edit profile</EditButton>
+          <Typography variant="h6">
+            {/* TODO: change to user object */}
+            {user && user.fullName}
+          </Typography>
+          <Typography variant="body1">
+            {user && user.userTag}
+            {/* TODO: change to user object@goflex175802 */}
+          </Typography>
           <Typography
             component="div"
             variant="body1"
             sx={{
               padding: "10px 0",
             }}>
-            {user && user.bio}
+            some bio
           </Typography>
           <Typography variant="body2">{formattedBirthdate}</Typography>
 
@@ -114,3 +126,7 @@ export function Profile() {
     </>
   );
 }
+CurrentUser.propTypes = {
+  // updateComment: PropTypes.func,
+  fullName: PropTypes.string,
+};

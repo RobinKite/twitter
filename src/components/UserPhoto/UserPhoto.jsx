@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, styled } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-
+import PropTypes from "prop-types";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -13,7 +13,7 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-const ContainerFoto = styled(Box)(({ theme }) => ({
+const ContainerFoto = styled(Box)(() => ({
   maxWidth: "600px",
   width: "100%",
   height: "200px",
@@ -22,7 +22,7 @@ const ContainerFoto = styled(Box)(({ theme }) => ({
   boxSizing: "border-box",
 }));
 
-const IconAddFoto = styled(Box)(({ theme }) => ({
+const IconAddFoto = styled(Box)(() => ({
   width: "40px",
   height: "40px",
   backgroundColor: "rgba(15, 20, 25, 0.75)",
@@ -36,19 +36,25 @@ const IconAddFoto = styled(Box)(({ theme }) => ({
   transform: "translate(-50%, -50%)",
 }));
 
-export function UserPhoto({ changeIcon, image, setImage, avatar, setAvatar }) {
+export function UserPhoto({
+  changeIcon,
+  imageUrl,
+  setImageUrl,
+  avatarUrl,
+  setAvatarUrl,
+}) {
   // const [image, setImage] = useState("");
   // const [avatar, setAvatar] = useState("");
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImage(URL.createObjectURL(file));
+      setImageUrl(URL.createObjectURL(file));
     }
   };
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setAvatar(URL.createObjectURL(file));
+      setAvatarUrl(URL.createObjectURL(file));
     }
   };
   return (
@@ -85,7 +91,7 @@ export function UserPhoto({ changeIcon, image, setImage, avatar, setAvatar }) {
               left: "30px",
             }}
             alt="Remy Sharp"
-            src={avatar}>
+            src={avatarUrl}>
             <Button
               component="label"
               endIcon={<AddAPhotoIcon sx={{ margin: "0px", color: "white" }} />}
@@ -111,13 +117,21 @@ export function UserPhoto({ changeIcon, image, setImage, avatar, setAvatar }) {
               left: "30px",
             }}
             alt="Remy Sharp"
-            src={avatar}>
+            src={avatarUrl}>
             M
           </Avatar>
         )}
 
-        <img src={image} alt="" style={{ width: "100%", maxHeight: "200px" }} />
+        <img src={imageUrl} alt="" style={{ width: "100%", maxHeight: "200px" }} />
       </ContainerFoto>
     </>
   );
 }
+
+UserPhoto.propTypes = {
+  setAvatarUrl: PropTypes.func,
+  changeIcon: PropTypes.bool,
+  avatarUrl: PropTypes.string,
+  imageUrl: PropTypes.string,
+  setImageUrl: PropTypes.func,
+};

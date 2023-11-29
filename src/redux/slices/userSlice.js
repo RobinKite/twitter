@@ -47,29 +47,44 @@ export const {
 } = userSlice.actions;
 
 export default userSlice.reducer;
+export const getUsersUpdate = (values) => async (dispatch) => {
+  try {
+    const response = await client.put(`/users/update`, values);
+    const data = response.data;
+    console.log(data);
+    dispatch(getUser(data));
+  } catch (error) {
+    console.error("Error fetching user:", error);
+  }
+};
+export const getUsersUpdateAvatarUrl = (values) => async (dispatch) => {
+  try {
+    const response = await client.put(`/upload/avatar`, values);
+    const data = response.data;
+    console.log(data);
+    dispatch(getUser(data));
+  } catch (error) {
+    console.error("Error fetching user:", error);
+  }
+};
+export const getUsersUpdateImageUrl = (imageUrl) => async (dispatch) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", imageUrl);
 
-// export function getUserAsync() {
-//   return async function (dispatch) {
-//     const response = await fetch(
-//       `https://danit-final-twitter-8f32e99a3dec.herokuapp.com/users/profile`,
-//       {
-//         method: "GET",
-//         headers: {
-//           Authorization: `Bearer ${localStorage.getItem("token")}`,
-//         },
-//       },
-//     );
-//     const userInfo = await response.json();
-//     console.log(userInfo);
-
-//     dispatch(getUser(userInfo));
-//   };
-// }
+    const response = await client.post(`/upload/bg_image`, formData);
+    const data = response.data;
+    console.log(data);
+    dispatch(getUser(data));
+  } catch (error) {
+    console.error("Error fetching user:", error);
+  }
+};
 
 export const loginUser = (email, password) => (dispatch) => {
   const payload = { email, password };
   client.post(Endpoint.LOGIN, payload).then((response) => {
-    console.log(response);
+    // console.log(response);
     const { access_token: accessToken, refresh_token: refreshToken } = response.data;
     storage.setTokens(accessToken, refreshToken);
     client.setAccessToken(accessToken);
@@ -118,3 +133,20 @@ export const fetchFriedsSearch = (query) => {
       });
   };
 };
+// export function getUserAsync() {
+//   return async function (dispatch) {
+//     const response = await fetch(
+//       `https://danit-final-twitter-8f32e99a3dec.herokuapp.com/users/profile`,
+//       {
+//         method: "GET",
+//         headers: {
+//           Authorization: `Bearer ${localStorage.getItem("token")}`,
+//         },
+//       },
+//     );
+//     const userInfo = await response.json();
+//     console.log(userInfo);
+
+//     dispatch(getUser(userInfo));
+//   };
+// }
