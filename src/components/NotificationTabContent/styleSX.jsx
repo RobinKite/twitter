@@ -1,6 +1,6 @@
 export const container = {
   width: "400px",
-  padding: "32px",
+  padding: "28px",
   marginLeft: "auto",
   marginRight: "auto",
 };

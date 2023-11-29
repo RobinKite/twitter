@@ -25,3 +25,4 @@ export { LoginFormModal } from "./LoginFormModal/LoginFormModal";
 export { PasswordFormModal } from "./PasswordFormModal/PasswordFormModal";
 export { SearchProgressBar } from "./SearchProgressBar/SearchProgressBar";
 export { ConfirmationDialog } from "./ConfirmationDialog/ConfirmationDialog";
+export { NotificationTabContent } from "./NotificationTabContent/NotificationTabContent";

@@ -1,8 +1,8 @@
 import TabPanel from "@mui/lab/TabPanel";
-import { ProfileTabs } from "../../components";
+import { NotificationTabContent, ProfileTabs } from "../../components";
 import { Stack, Typography } from "@mui/material";
 import { title } from "./styleSX";
-import { NotificationTabContent } from "@/components/NotificationTabContent/NotificationTabContent";
+import imageVerification from "../../assets/verification.png";
 
 const tabs = [
   { label: "All", value: "0" },
@@ -25,18 +25,17 @@ export const Notifications = () => {
             justifyContent: "space-around",
           },
         }}>
-        <TabPanel value="0">
-          {/* <AllNotifications /> */}
+        <TabPanel value="0" sx={{ padding: 0 }}>
           <NotificationTabContent text="From likes to reposts and a whole lot more, this is where all the action happens." />
         </TabPanel>
-        <TabPanel value="1">
+        <TabPanel value="1" sx={{ padding: 0 }}>
           <NotificationTabContent
-            imageUrl
-            text="Likes, mentions, reposts, and a whole lot more — when it comes from a verified account, you’ll find it here."
+            imageUrl={imageVerification}
+            text="Likes, mentions, reposts, and a whole lot more — when it comes from a verified account, you&#39;ll find it here."
           />
         </TabPanel>
-        <TabPanel value="2">
-          <NotificationTabContent text="When someone mentions you, you’ll find it here." />
+        <TabPanel value="2" sx={{ padding: 0 }}>
+          <NotificationTabContent text="When someone mentions you, you&#39;ll find it here." />
         </TabPanel>
       </ProfileTabs>
     </Stack>

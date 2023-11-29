@@ -1,12 +1,11 @@
 import { Stack, Typography } from "@mui/material";
 import { container, textSX, title } from "./styleSX";
 import PropTypes from "prop-types";
-import image from "../../assets/verification.png";
 
-export function NotificationTabContent({ imageUrl, text }) {
+export function NotificationTabContent({ text, imageUrl }) {
   return (
     <Stack sx={container}>
-      {imageUrl && <img src={image} alt="image" />}
+      {imageUrl && <img src={imageUrl} alt="image" />}
       <Typography sx={title}>Nothing to see here — yet</Typography>
       <Typography sx={textSX}>{text}</Typography>
     </Stack>
@@ -14,6 +13,11 @@ export function NotificationTabContent({ imageUrl, text }) {
 }
 
 NotificationTabContent.propTypes = {
-  imageUrl: PropTypes.bool,
+  imageUrl: PropTypes.string,
   text: PropTypes.string,
+};
+
+NotificationTabContent.defaultProps = {
+  imageUrl: "",
+  text: "",
 };
