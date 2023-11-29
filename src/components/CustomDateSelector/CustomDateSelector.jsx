@@ -2,7 +2,7 @@ import { Box, Typography, MenuItem, FormControl, Stack } from "@mui/material";
 import PropTypes from "prop-types";
 import { useField } from "formik";
 import { getDaysArray, getYearsArray, monthsArray } from "@/utils/date";
-import { CustomSelect, Legend, Text } from "./styleSX";
+import { CustomSelectSX, LegendSX, TextSX } from "./styleSX";
 
 export const CustomDateSelector = ({
   required,
@@ -25,18 +25,18 @@ export const CustomDateSelector = ({
 
   return (
     <Box component="fieldset" sx={{ border: "none" }}>
-      <Legend component="legend">
+      <LegendSX component="legend">
         Date of birth
         {required && (
           <Typography component="span" sx={{ whiteSpace: "nowrap" }}>
             *
           </Typography>
         )}
-      </Legend>
-      <Text>
+      </LegendSX>
+      <TextSX>
         This will not be shown publicly. Confirm your own age, even if this account is for
         a business, a pet, or something else.
-      </Text>
+      </TextSX>
       <Stack direction="row" spacing={2}>
         <DateSelect
           id={monthId}
@@ -78,8 +78,8 @@ const DateSelect = ({ field, meta, label, id, array, required }) => {
   };
 
   return (
-    <FormControl variant="standard" required={required}>
-      <CustomSelect
+    <FormControl variant="standard" required={required} sx={{ flexGrow: 1 }}>
+      <CustomSelectSX
         displayEmpty
         id={id}
         name={id}
@@ -96,7 +96,7 @@ const DateSelect = ({ field, meta, label, id, array, required }) => {
             {item}
           </MenuItem>
         ))}
-      </CustomSelect>
+      </CustomSelectSX>
     </FormControl>
   );
 };
