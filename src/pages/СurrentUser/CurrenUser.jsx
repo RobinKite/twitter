@@ -17,7 +17,8 @@ import {
   getCurrentPosts,
   getCurrentUser,
 } from "@/redux/slices/currentUser";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+
 const tabs = [
   { label: "Post", value: "0" },
   { label: "Replies", value: "1" },
@@ -34,10 +35,10 @@ export function CurrentUser() {
 
   const dispatch = useDispatch();
 
-  const formattedBirthdate =
-    user && user.birthdate
-      ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
-      : "N/A";
+  const formattedBirthdate = user?.birthdate
+    ? new Date(Number(user?.birthdate) * 1000).toLocaleDateString()
+    : "N/A";
+
   useLoadPost();
 
   useEffect(() => {
@@ -56,7 +57,7 @@ export function CurrentUser() {
             <ArrowBack size={25} />
           </ArrowSvg>
           <ContainerHederText>
-            <div>{user && user.fullName}</div>
+            <div>{user?.fullName}</div>
             <Typography variant="h6"></Typography>
 
             {/* <button onClick={() => dispatch(PostAuthorizationAsync(formData))}>
@@ -67,23 +68,17 @@ export function CurrentUser() {
         </HeaderPage>
         <UserPhoto
           changeIcon={false}
-          avatarUrl={user && user.avatarUrl}
-          imageUrl={user && user.imageUrl}
+          avatarUrl={user?.avatarUrl}
+          imageUrl={user?.imageUrl}
         />
         <ContainerUserInfo>
           <FollowButton
-            id={user.id}
-            userName={user.userTag ? user.userTag : user.fullName}
-            isFollowedByUser={user.isFollowedByUser}
+            id={user?.id}
+            userName={user?.userTag ? user?.userTag : user?.fullName}
+            isFollowedByUser={user?.isFollowedByUser}
           />
-          <Typography variant="h6">
-            {/* TODO: change to user object */}
-            {user && user.fullName}
-          </Typography>
-          <Typography variant="body1">
-            {user && user.userTag}
-            {/* TODO: change to user object@goflex175802 */}
-          </Typography>
+          <Typography variant="h6">{user?.fullName}</Typography>
+          <Typography variant="body1">{user?.userTag}</Typography>
           <Typography
             component="div"
             variant="body1"
@@ -95,7 +90,7 @@ export function CurrentUser() {
           <Typography variant="body2">{formattedBirthdate}</Typography>
 
           <Typography component="span" variant="body1">
-            {user && user.following} Following
+            {user?.following} Following
           </Typography>
           <Typography
             component="span"
@@ -103,7 +98,7 @@ export function CurrentUser() {
             sx={{
               paddingLeft: "10px",
             }}>
-            {user && user.followers} Followers
+            {user?.followers} Followers
           </Typography>
         </ContainerUserInfo>
         <ProfileTabs
@@ -119,8 +114,8 @@ export function CurrentUser() {
             {posts.map((post) => (
               <ItemPost
                 key={post.id}
-                avatarUrl={post.user.avatarUrl}
-                fullName={post.user.fullName}
+                avatarUrl={post.user?.avatarUrl}
+                fullName={post.user?.fullName}
                 replyCount={post.replyCount}
                 id={post.id}
                 content={post.body}
@@ -147,9 +142,9 @@ export function CurrentUser() {
                       replyCount={post.replyCount}
                     />
                   ))
-                : `${user.fullName} don’t have any likes yet`
+                : `${user?.fullName} don’t have any likes yet`
               // <NotificationTabContent
-              //   title={`${user.fullName} don’t have any likes yet`}
+              //   title={`${user?.fullName} don’t have any likes yet`}
               //   text="Tap the heart on any post to show it some love. When you do, it’ll show up here."
               // />
             }
@@ -161,5 +156,5 @@ export function CurrentUser() {
 }
 CurrentUser.propTypes = {
   // updateComment: PropTypes.func,
-  fullName: PropTypes.string,
+  // fullName: PropTypes.string,
 };

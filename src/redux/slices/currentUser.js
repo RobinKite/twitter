@@ -11,14 +11,10 @@ const currentUserSlice = createSlice({
   },
   reducers: {
     setCurrentUser: (state, action) => {
-      const info = action.payload;
-      // console.log(info);
-      state.user = info;
+      state.user = action.payload;
     },
     setCurrentPosts: (state, action) => {
-      const newPost = action.payload;
-      console.log(newPost);
-      state.currentPosts = newPost;
+      state.currentPosts = action.payload;
     },
     // clearCurrentUser: (state) => {
     //   state.user = null;
