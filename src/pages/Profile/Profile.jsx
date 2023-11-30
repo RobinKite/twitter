@@ -1,7 +1,7 @@
 import TabPanel from "@mui/lab/TabPanel";
-import { styled, Typography, Container, Button, Box } from "@mui/material";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Typography, Container } from "@mui/material";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   UserPhoto,
   ProfileTabs,
@@ -9,8 +9,15 @@ import {
   ModalEdit,
   Container as AppContainer,
 } from "@/components";
-import { getPosts } from "@/redux/slices/postsSlice";
+import { useLoadPost } from "@/hooks/useLoadPost";
 import { ArrowBack } from "@/icons";
+import {
+  ArrowSvg,
+  ContainerHederText,
+  ContainerUserInfo,
+  EditButton,
+  HeaderPage,
+} from "./styledSX";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -18,94 +25,11 @@ const tabs = [
   { label: "Likes", value: "2" },
 ];
 
-const HeaderPage = styled(Box)(() => ({
-  display: "flex",
-  alignItems: "center",
-  padding: "10px 0 5px 20px",
-}));
-
-const ContainerUserInfo = styled(Box)(() => ({
-  padding: "60px 0 25px 20px",
-  position: "relative",
-}));
-
-const ArrowSvg = styled(Box)(() => ({
-  backgroundColor: "white",
-  borderRadius: "50%",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "40px",
-  height: "40px",
-  transition: "background-color 0.3s",
-  "&:hover": {
-    backgroundColor: "rgb(133, 125, 125)",
-  },
-}));
-
-const ContainerHederText = styled(Box)(() => ({
-  paddingLeft: "20px",
-  color: "black",
-}));
-
-const EditButton = styled(Button)(() => ({
-  position: "absolute",
-  borderRadius: "50px",
-  right: "20px",
-  top: "20px",
-  border: "1px solid rgb(239, 243, 244)",
-  color: "black",
-  " &:hover": {
-    border: "1px solid rgb(207, 217, 222)",
-    background: " rgb(239, 243, 244)",
-  },
-}));
-
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [loading, setLoading] = useState(false);
 
-  // TODO: Move most code inside new hook to get rid of duplication
-
-  const loadMorePosts = () => {
-    if (!loading) {
-      setLoading(true);
-      dispatch(getPosts(currentPage))
-        .then(() => {
-          // TODO: Stop currentPage from infinitely increasing
-          setCurrentPage((prevPage) => prevPage + 1);
-        })
-        .catch((error) => {
-          console.error("Error loading more posts:", error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
-  };
-
-  const handleScroll = () => {
-    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-
-    // TODO: 10 - magic number, so that if condition would better work on smaller screens
-    if (scrollTop + clientHeight + 10 >= scrollHeight && !loading) {
-      loadMorePosts();
-    }
-  };
-
-  useEffect(() => {
-    dispatch(getPosts(currentPage));
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage]);
+  useLoadPost();
 
   return (
     <AppContainer>

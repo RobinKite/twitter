@@ -1,128 +1,67 @@
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
-import { Button } from "@/components";
-import { setModal } from "@/redux/slices/appSlice";
-import { Twitter, Apple, Google, Cross } from "@/icons";
+import { Stack, Modal } from "@mui/material";
 import { LoginForm } from "../../forms";
-import styles from "./LoginFormModal.module.scss";
+import { Google } from "@/icons";
+import PropTypes from "prop-types";
+import {
+  CloseButtonSX,
+  ContainerSX,
+  LinesSpanSX,
+  LinkSX,
+  LoginFormSX,
+  LoginTextSX,
+  LoginTitleSX,
+  MainButtonSX,
+} from "./styleSX";
+import CloseSharpIcon from "@mui/icons-material/CloseSharp";
+import { BsTwitterX } from "react-icons/bs";
+// import { useDispatch } from "react-redux";
+// import { loginUser } from "@/redux/slices/userSlice";
+// import { setModal } from "@/redux/slices/appSlice";
+// import { useState } from "react";
 
-const style = {
-  position: "absolute",
-  display: "flex",
-  flexDirection: "column",
-  gap: "20px",
-  top: "50%",
-  left: "50%",
-  alignItems: "center",
-  transform: "translate(-50%, -50%)",
-  width: " 560px",
-  height: "85%",
-  bgcolor: "background.paper",
-  borderRadius: 6,
-  boxShadow: 24,
-  p: " 20px 20px 130px ",
-
-  // "@media (max-width: 700px)": {
-  //   width: " 100%",
-  //   height: "80%",
-  //   // pt:"50px",
-  // },
-};
-
-export function LoginFormModal() {
-  const [open, setOpen] = useState(true);
-
-  const dispatch = useDispatch();
-  const toggleModal = () => {
-    dispatch(setModal());
-  };
-
-  // const fonnClick = (event) => {
-  //   // Перевіряємо, чи клік був здійснений за межами модального вікна
-  //   if (event.currentTarget === event.target) {
-  //     //Якщо так, то додаємо код для закриття модального вікна
-  //     toggleModal();
-  //   }
-  // };
-
-  useEffect(() => {
-    setOpen(true);
-  }, []);
-
-  const navigate = useNavigate();
-
-  const handleButtonClick = () => {
-    setOpen(false);
-    navigate("/passwordForm");
-  };
+export function LoginFormModal({ handleLoginModalClose, handleLoginModalOpen }) {
   const handleForgotPasswordClick = () => {
-    navigate("/forgotPasswordForm");
-    setOpen(false);
+    //TODO: Change next line to dispatch password reset modal
+    // navigate("/password_reset");
   };
+
+  //TODO: close Login modal and open Registration modal upon pressing Sign Up
+
   return (
-    <div>
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <Box sx={style}>
-          <div className={styles.container}>
-            <div className={styles.clossvg} onClick={toggleModal}>
-              <Cross size={30} />
-            </div>
-            <div className={styles.svgX}>
-              <Twitter size={28} />
-            </div>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Sign in to X
-            </Typography>
-            <Button startIcon={<Google size={22} />} sx={{ width: "60%" }}>
-              Sign in with Google
-            </Button>
-            <Button startIcon={<Apple size={22} />} sx={{ width: "60%" }}>
-              Sign in with Apple
-            </Button>
-            <span className={styles.retreat}>or</span>
-            <div className={styles.conteinerForm}>
-              <LoginForm />
-            </div>
-            <Button
-              onClick={handleButtonClick}
-              sx={{
-                width: "60%",
-                color: "white",
-                backgroundColor: "rgb(0, 0, 0)",
-                "&:hover": { backgroundColor: "rgb(60, 58, 58)" },
-              }}>
-              Next
-            </Button>
-            <Button sx={{ width: "60%", mt: "10px" }} onClick={handleForgotPasswordClick}>
-              Forgot your password
-            </Button>
-            <Typography
-              id="modal-modal-description"
-              sx={{
-                fontSize: "15px",
-                fontWeight: 500,
-                marginTop: "20px",
-                a: { color: "rgb(21, 17, 218)", textDecoration: "none" },
-                " &:hover": {
-                  textDecoration: "underline",
-                },
-              }}>
-              Dont have an account?
-              <Link
-                href="/SignUpForm" // actual URL or route to  "Sign Up" page
-                color="primary">
-                Sign Up
-              </Link>
-            </Typography>
-          </div>
-          {/* </BoxStyled> */}
-        </Box>
-      </Modal>
-    </div>
+    <Modal open={handleLoginModalOpen} onClose={handleLoginModalClose}>
+      <ContainerSX>
+        <CloseButtonSX onClick={handleLoginModalClose}>
+          <CloseSharpIcon size={30} />
+        </CloseButtonSX>
+        <Stack>
+          <BsTwitterX size={28} />
+        </Stack>
+        <LoginFormSX>
+          <LoginTitleSX component="h2">Sign in to X</LoginTitleSX>
+          <MainButtonSX endIcon={<Google size={22} />}>Sign in with Google</MainButtonSX>
+          <LinesSpanSX>or</LinesSpanSX>
+          <Stack sx={{ width: "100%" }}>
+            <LoginForm />
+          </Stack>
+          <MainButtonSX onClick={handleForgotPasswordClick}>
+            Forgot password?
+          </MainButtonSX>
+          <LoginTextSX>
+            Don&apos;t have an account?&#32;
+            <LinkSX>Sign Up</LinkSX>
+          </LoginTextSX>
+        </LoginFormSX>
+      </ContainerSX>
+    </Modal>
   );
 }
+
+LoginFormModal.propTypes = {
+  handleLoginModalOpen: PropTypes.bool,
+  handleLoginModalClose: PropTypes.func,
+};
+
+LoginFormModal.defaultProps = {
+  handleLoginModalOpen: false,
+  handleLoginModalClose: () => {},
+};

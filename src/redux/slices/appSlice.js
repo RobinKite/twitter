@@ -7,10 +7,12 @@ const appSlice = createSlice({
     isProfileModalActive: false,
     isPostModalActive: false,
     postModalContent: null,
+    isDrawerActive: false,
+    isModalActive: false,
   },
   reducers: {
     setModal: (state) => {
-      state.isLoginModalActive = !state.isModalActive;
+      state.isLoginModalActive = !state.isLoginModalActive;
     },
     setCreateProfileModal: (state) => {
       state.isProfileModalActive = !state.isProfileModalActive;
@@ -21,9 +23,12 @@ const appSlice = createSlice({
     setContent: (state, action) => {
       state.postModalContent = action.payload;
     },
+    setDrawer: (state, action) => {
+      state.isDrawerActive = action.payload;
+    },
   },
 });
 
-export const { setModal, setCreateProfileModal, setModalPost, setContent } =
+export const { setModal, setCreateProfileModal, setModalPost, setContent, setDrawer } =
   appSlice.actions;
 export default appSlice.reducer;

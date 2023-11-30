@@ -1,6 +1,8 @@
 import TabPanel from "@mui/lab/TabPanel";
-import { Container, ProfileTabs, AllNotifications } from "@/components";
-import styles from "./Notifications.module.scss";
+import { Stack, Typography } from "@mui/material";
+import { NotificationTabContent, Container, ProfileTabs } from "@/components";
+import imageVerification from "@/assets/verification.png";
+import { title } from "./styleSX";
 
 const tabs = [
   { label: "All", value: "0" },
@@ -11,8 +13,11 @@ const tabs = [
 export const Notifications = () => {
   return (
     <Container>
-      <div>
-        <h2 className={styles.title}>Notifications</h2>
+      <Stack
+        sx={{ border: "1px solid rgb(239, 243, 244)", height: "unset", flexGrow: 1 }}>
+        <Typography variant="h2" sx={title}>
+          Notifications
+        </Typography>
         <ProfileTabs
           tabs={tabs}
           variant="scrollable"
@@ -22,13 +27,27 @@ export const Notifications = () => {
               justifyContent: "space-around",
             },
           }}>
-          <TabPanel value="0">
-            <AllNotifications />
+          <TabPanel value="0" sx={{ padding: 0 }}>
+            <NotificationTabContent
+              title="Nothing to see here — yet"
+              text="From likes to reposts and a whole lot more, this is where all the action happens."
+            />
           </TabPanel>
-          <TabPanel value="1">Verified</TabPanel>
-          <TabPanel value="2">Mentions</TabPanel>
+          <TabPanel value="1" sx={{ padding: 0 }}>
+            <NotificationTabContent
+              title="Nothing to see here — yet"
+              imageUrl={imageVerification}
+              text="Likes, mentions, reposts, and a whole lot more — when it comes from a verified account, you&#39;ll find it here."
+            />
+          </TabPanel>
+          <TabPanel value="2" sx={{ padding: 0 }}>
+            <NotificationTabContent
+              title="Nothing to see here — yet"
+              text="When someone mentions you, you&#39;ll find it here."
+            />
+          </TabPanel>
         </ProfileTabs>
-      </div>
+      </Stack>
     </Container>
   );
 };

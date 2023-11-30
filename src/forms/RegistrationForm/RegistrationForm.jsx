@@ -1,20 +1,20 @@
-import TextField from "@mui/material/TextField";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
+import { CustomDateSelector } from "@/components";
+import { validationSchema } from "@/schemas";
+import { SubmitButtonSX } from "@/components/RegistrationFormModal/styleSX";
+import { TextField, IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik, Field } from "formik";
-import { setCreateProfileModal } from "@/redux/slices/appSlice";
-import { Button } from "@/components";
-import { registrationFormSchema } from "@/schemas";
-import styles from "./RegistrationForm.module.scss";
+// import { setCreateProfileModal } from "../../redux/slices/appSlice";
+// import { CloseButton, FormBox, FormTitle, SubmitButton } from "./styleSX";
+import { registerUser } from "@/redux/slices/userSlice";
 
 export const RegistrationForm = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -24,24 +24,18 @@ export const RegistrationForm = () => {
     lastName: "",
     email: "",
     password: "",
+    day: "",
+    month: "",
+    year: "",
   };
-  const onSubmit = (values) => {
+
+  const onSubmit = (values, actions) => {
+    dispatch(registerUser(values));
     console.log(values);
-    dispatch(setCreateProfileModal());
-    // handleClose(setCreateProfileModal());
+    actions.resetForm();
   };
 
-  const navigate = useNavigate();
-  // const handleNextButtonClick = () => {
-  //   navigate("/signUpForm");
-  // };
-
-  const [registrationData, setRegistrationData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
+  const [registrationData, setRegistrationData] = useState(initialValues);
 
   const handleRegistrationDataChange = (newData) => {
     setRegistrationData(newData);
@@ -53,13 +47,11 @@ export const RegistrationForm = () => {
       onDataChange={handleRegistrationDataChange}
       initialValues={initialValues}
       onSubmit={onSubmit}
-      validationSchema={registrationFormSchema}>
-      {({ errors, touched, isValid, submitForm }) => (
+      validationSchema={validationSchema}>
+      {({ errors, touched, isValid }) => (
         <Form>
           <Field
-            className={styles.textField}
             as={TextField}
-            // id='outlined-basic'
             name="firstName"
             label="First name"
             placeholder="First name"
@@ -69,12 +61,11 @@ export const RegistrationForm = () => {
             error={touched.firstName && Boolean(errors.firstName)}
             helperText={touched.firstName && errors.firstName}
             sx={{
-              marginBottom: "35px",
-            }}></Field>
+              marginBottom: "20px",
+            }}
+          />
           <Field
-            className={styles.textField}
             as={TextField}
-            // id='outlined-basic'
             name="lastName"
             label="Last name"
             placeholder="Last name"
@@ -84,12 +75,25 @@ export const RegistrationForm = () => {
             error={touched.lastName && Boolean(errors.lastName)}
             helperText={touched.lastName && errors.lastName}
             sx={{
-              marginBottom: "35px",
-            }}></Field>
+              marginBottom: "20px",
+            }}
+          />
           <Field
-            className={styles.textField}
             as={TextField}
-            // id='outlined-basic'
+            name="userName"
+            label="User name"
+            placeholder="User name"
+            variant="outlined"
+            fullWidth
+            required
+            error={touched.userName && Boolean(errors.userName)}
+            helperText={touched.userName && errors.userName}
+            sx={{
+              marginBottom: "20px",
+            }}
+          />
+          <Field
+            as={TextField}
             name="email"
             label="Email"
             placeholder="Email"
@@ -99,12 +103,11 @@ export const RegistrationForm = () => {
             error={touched.email && Boolean(errors.email)}
             helperText={touched.email && errors.email}
             sx={{
-              marginBottom: "35px",
-            }}></Field>
+              marginBottom: "20px",
+            }}
+          />
           <Field
-            className={styles.textField}
             as={TextField}
-            id="outlined-password-input"
             autoComplete="current-password"
             name="password"
             label="Password"
@@ -125,38 +128,21 @@ export const RegistrationForm = () => {
               ),
             }}
             sx={{
-              marginBottom: "35px",
-            }}></Field>
-
-          <Button //роут, куда ведет кнопка некст??????
-            type="submit"
-            onClick={(e) => {
-              e.preventDefault();
-              if (isValid) {
-                submitForm();
-                navigate("/");
-              }
+              marginBottom: "20px",
             }}
-            disabled={!isValid}
-            sx={{
-              backgroundColor: "#000000",
-              color: "#FFFFFF",
-              padding: "0 32px",
-              width: "100%",
-              height: "4rem",
-              margin: "0",
-              marginTop: "40px",
-              "&:hover": {
-                backgroundColor: "#0f1419",
-              },
-              "&:disabled": {
-                backgroundColor: "#6d6d6d",
-                color: "#ffffff",
-                cursor: "not-allowed",
-              },
-            }}>
-            Next
-          </Button>
+          />
+          <CustomDateSelector
+            monthId="month"
+            dayId="day"
+            yearId="year"
+            dayLabel="Day"
+            monthLabel="Month"
+            yearLabel="Year"
+            required={true}
+          />
+          <SubmitButtonSX type="submit" disabled={!isValid}>
+            Sign up
+          </SubmitButtonSX>
         </Form>
       )}
     </Formik>

@@ -1,20 +1,27 @@
-import { TextField } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import { useField } from "formik";
-import styles from "./Input.module.scss";
+import PropTypes from "prop-types";
 
 export const Input = (props) => {
-  const [fild, meta] = useField(props.name);
+  const [field, meta] = useField(props.name);
   return (
-    <>
-      <div className={styles.orderForm}>
-        <TextField
-          {...fild}
-          {...props}
-          variant="outlined"
-          error={meta.error && meta.touched}
-          helperText={meta.touched && meta.error}
-        />
-      </div>
-    </>
+    <Stack
+      sx={{
+        margin: 0,
+        width: "100%",
+        position: "relative",
+      }}>
+      <TextField
+        {...field}
+        {...props}
+        variant="outlined"
+        error={meta.error && meta.touched}
+        helperText={meta.touched && meta.error}
+      />
+    </Stack>
   );
+};
+
+Input.propTypes = {
+  name: PropTypes.any,
 };
