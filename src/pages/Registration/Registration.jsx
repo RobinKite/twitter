@@ -22,7 +22,7 @@ export const Registration = () => {
 
   const handleGoogleButtonClick = () => {
     window.location.href =
-      "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/oauth2/authorization/google?redirect_uri=http://localhost:5173/login";
+      "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/oauth2/authorization/google?redirect_uri=https://twitter-two-roan.vercel.app/login";
   };
 
   useEffect(() => {
