@@ -8,11 +8,9 @@ export default function App() {
   const isLoginModalOpen = useSelector((state) => state.app.isLoginModalActive);
 
   return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <AppRoutes />
-        {isLoginModalOpen && <LoginFormModal open={isLoginModalOpen} />}
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme}>
+      <AppRoutes />
+      {isLoginModalOpen && <LoginFormModal open={isLoginModalOpen} />}
+    </ThemeProvider>
   );
 }

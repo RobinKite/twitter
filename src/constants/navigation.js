@@ -27,11 +27,10 @@ class Item {
 
 export const items = [
   new Item("home", HomeFilled, Home, "/"),
-
   new Item("notifications", NotificationFilled, Notification, "/notifications"),
   new Item("messages", MessageFilled, Message, "/messages"),
-  new Item("profile", ProfileFilled, Profile, "/profile"),
   new Item("bookmarks", BookmarkFilled, Bookmark, "/bookmarks"),
+  new Item("profile", ProfileFilled, Profile, "/profile"),
 ];
 
 export const headerItems = [

@@ -9,6 +9,8 @@ export class Client {
     this.get = this.session.get;
     this.post = this.session.post;
     this.delete = this.session.delete;
+    this.put = this.session.put;
+
     if (storage.accessToken) this.setAccessToken(storage.accessToken);
   }
 

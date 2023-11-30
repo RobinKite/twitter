@@ -61,7 +61,7 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
 };
 
 FollowButton.propTypes = {
-  userName: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  isFollowedByUser: PropTypes.bool.isRequired,
+  userName: PropTypes.string,
+  id: PropTypes.string,
+  isFollowedByUser: PropTypes.bool,
 };

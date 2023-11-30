@@ -63,8 +63,8 @@ export function ItemPost({
 
   return (
     <div>
-      <div className={styles.tweet} onClick={fonnClick}>
-        <div className={styles.tweetHeader}>
+      <div className={styles.tweet}>
+        <div className={styles.tweetHeader} onClick={fonnClick}>
           <div className={styles.tweetAvatar}>
             <Avatar
               sx={{
@@ -93,9 +93,10 @@ export function ItemPost({
           </div>
         </div>
         <p className={styles.tweetContent}>{content}</p>
-        <div className={styles.tweetImg}>
+        <div className={styles.tweetImg} onClick={fonnClick}>
           {imageUrls.map((imageUrl, index) => (
             <img
+              onClick={fonnClick}
               key={index}
               src={imageUrl}
               alt={`${index}`}
