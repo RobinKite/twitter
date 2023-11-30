@@ -12,7 +12,7 @@ const tabs = [
 
 export const Notifications = () => {
   return (
-    <Stack>
+    <Stack sx={{ border: "1px solid rgb(239, 243, 244)", height: "100vh" }}>
       <Typography variant="h2" sx={title}>
         Notifications
       </Typography>
