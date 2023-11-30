@@ -31,10 +31,12 @@ export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const posts = useSelector((state) => state.posts.posts);
+
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const user = useSelector((state) => state.user.user);
   console.log(user);
   const dispatch = useDispatch();
+  const filtredPosts = posts.filter((post) => post.user.id === user.id);
 
   useEffect(() => {
     dispatch(getLikedPosts());
@@ -113,7 +115,7 @@ export function Profile() {
             },
           }}>
           <TabPanel value="0">
-            {posts.map((post) => (
+            {filtredPosts.map((post) => (
               <ItemPost
                 key={post.id}
                 avatarUrl={user.avatarUrl}
