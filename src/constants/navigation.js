@@ -1,15 +1,15 @@
 import {
   Twitter,
+  Avatar,
+  Gear,
   Home,
   HomeFilled,
   Profile,
   ProfileFilled,
-  Notification,
-  NotificationFilled,
+  Bell,
+  BellFilled,
   Message,
   MessageFilled,
-  Avatar,
-  Settings,
   Bookmark,
   BookmarkFilled,
 } from "@/icons";
@@ -27,7 +27,7 @@ class Item {
 
 export const items = [
   new Item("home", HomeFilled, Home, "/"),
-  new Item("notifications", NotificationFilled, Notification, "/notifications"),
+  new Item("notifications", BellFilled, Bell, "/notifications"),
   new Item("messages", MessageFilled, Message, "/messages"),
   new Item("bookmarks", BookmarkFilled, Bookmark, "/bookmarks"),
   new Item("profile", ProfileFilled, Profile, "/profile"),
@@ -36,11 +36,11 @@ export const items = [
 export const headerItems = [
   new Item("user", Avatar, Avatar, ""),
   new Item("home", Twitter, Twitter, "/"),
-  new Item("settings", Settings, Settings, "/settings"),
+  new Item("settings", Gear, Gear, "/settings"),
 ];
 
 export const footerItems = [
-  new Item("notifications", NotificationFilled, Notification, "/notifications"),
+  new Item("notifications", BellFilled, Bell, "/notifications"),
   new Item("home", HomeFilled, Home, "/"),
   new Item("messages", MessageFilled, Message, "/messages"),
 ];

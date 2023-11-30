@@ -46,7 +46,7 @@ export const postButtonSX = {
 
 export const moreButtonSX = {
   color: "black",
-  fontSize: "1.25rem",
+  fontSize: "1.2rem",
   borderRadius: "2rem",
   display: "flex",
   gap: "1rem",
@@ -56,6 +56,7 @@ export const moreButtonSX = {
   textTransform: "capitalize",
   minWidth: 0,
   lineHeight: 1,
+
   "&:hover": {
     backgroundColor: "rgb(221, 217, 217)",
   },

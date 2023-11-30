@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom/dist";
 import { useDispatch } from "react-redux";
 import { setDrawer } from "@/redux/slices/appSlice";
 
-import { Avatar, Settings, Twitter } from "@/icons";
+import { Avatar, Gear, Twitter } from "@/icons";
 
 const HeaderMobile = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const HeaderMobile = () => {
         </li>
         <li style={{ padding: "10px" }}>
           <NavLink to="settings ">
-            <Settings size={25} />
+            <Gear size={25} />
           </NavLink>
         </li>
       </ul>

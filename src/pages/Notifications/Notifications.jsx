@@ -1,7 +1,7 @@
 import TabPanel from "@mui/lab/TabPanel";
 import { Stack, Typography } from "@mui/material";
 import { NotificationTabContent, Container, ProfileTabs } from "@/components";
-import imageVerification from "@/assets/verification.png";
+import imageVerification from "@/assets/images/verification.png";
 import { title } from "./styleSX";
 
 const tabs = [
