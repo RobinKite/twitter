@@ -1,10 +1,15 @@
-import { Drawer } from "@mui/material";
+import { Button, Drawer } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setDrawer } from "@/redux/slices/appSlice";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { headerDrawerItems } from "@/constants/navigation";
 import PropTypes from "prop-types";
+import { Avatar } from "@/icons";
+import { useState } from "react";
+import { ConfirmationDialog } from "..";
+import { logoutUserAction } from "@/redux/slices/userSlice";
+import { logoutButton } from "./styledSX";
 
 const HeaderDrawerItem = ({ path, text, getIconComponent }) => {
   const location = useLocation();
@@ -29,8 +34,32 @@ HeaderDrawerItem.propTypes = {
 };
 const HeaderDrawer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const open = useSelector((state) => state.app.isDrawerActive);
   const onClose = () => dispatch(setDrawer(false));
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogClick, setDialogClick] = useState(false);
+
+  const handleLogoutClick = () => {
+    setDialogClick(true);
+    setDialogOpen(true);
+  };
+  const handleConfirmation = () => {
+    setDialogOpen(false);
+    setDialogClick(false);
+    if (dialogClick) {
+      dispatch(logoutUserAction());
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("accessToken");
+      navigate("/login");
+      console.log("Logged out!");
+    }
+  };
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+    setDialogClick(false);
+  };
 
   return (
     <Drawer anchor="left" open={open} onClose={onClose}>
@@ -46,6 +75,19 @@ const HeaderDrawer = () => {
           })}
         </NavLink>
       </ul>
+      <Button onClick={handleLogoutClick} sx={logoutButton}>
+        <Avatar size={25} />
+        Log out
+      </Button>
+      {dialogOpen && (
+        <ConfirmationDialog
+          open={dialogOpen}
+          title="Log out of X?"
+          description="You can always log back in at any time. If you just want to switch accounts, you can do that by adding an existing account."
+          actionButton={{ title: "Log out", callback: handleConfirmation }}
+          closeButton={{ title: "Cancel", callback: handleCloseDialog }}
+        />
+      )}
     </Drawer>
   );
 };

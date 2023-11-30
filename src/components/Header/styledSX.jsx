@@ -78,6 +78,22 @@ export const moreSelectSX = {
   width: "1px",
 };
 
+export const logoutButton = {
+  width: "100%",
+  color: "#0f1419",
+  fontSize: "20px",
+  fontWeight: 700,
+  display: "flex",
+  gap: "25px",
+  alignSelf: "flex-start",
+  justifyContent: "flex-start",
+  padding: "16px",
+  marginTop: "auto",
+  "&:hover": {
+    backgroundColor: "#fff",
+  },
+};
+
 export const moreSelectMenuPropsSX = {
   anchorOrigin: {
     vertical: "bottom",

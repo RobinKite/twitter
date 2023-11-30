@@ -42,6 +42,14 @@ const userSlice = createSlice({
     setFriendSearches: (state, action) => {
       state.friendSearches = action.payload;
     },
+    logoutUserAction: (state) => {
+      state.isAuthenticated = false;
+      state.user = {};
+      state.usersList = [];
+      state.friendsList = [];
+      state.friendRequests = [];
+      state.friendSearches = [];
+    },
   },
 });
 
@@ -54,6 +62,7 @@ export const {
   removeFriend,
   setFriendSearches,
   googleRegisterAction,
+  logoutUserAction,
 } = userSlice.actions;
 
 export default userSlice.reducer;
