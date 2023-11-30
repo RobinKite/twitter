@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { FollowButton } from "@/components";
 import { fetchUsers } from "@/redux/slices/userSlice";
 import { userCardSX } from "./styleSX";
+import { useNavigate } from "react-router-dom";
 
 export const RecommendedUserCard = ({
   id,
@@ -14,8 +15,16 @@ export const RecommendedUserCard = ({
   useButton,
   isFollowedByUser,
 }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // Перехід на новий роут і передача id
+    navigate(`/user/${id}`);
+    console.log(id);
+  };
+
   return (
-    <Stack sx={userCardSX}>
+    <Stack sx={userCardSX} onClick={handleClick}>
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
       <Stack marginLeft="0.75rem" overflow="hidden">
         <Typography fontWeight={500} variant="subtitle1" noWrap={true}>

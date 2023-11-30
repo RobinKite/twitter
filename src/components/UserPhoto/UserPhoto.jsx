@@ -1,7 +1,6 @@
 import { Avatar, Box, Button, styled } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import PropTypes from "prop-types";
-
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -14,16 +13,18 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-const ContainerPhoto = styled(Box)({
+const ContainerPhoto = styled(Box)(() => ({
   maxWidth: "600px",
   width: "100%",
   height: "200px",
   position: "relative",
-  backgroundColor: "rgb(207, 217, 222)",
+  backgroundColor: "#1d9bf0",
   boxSizing: "border-box",
-});
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+}));
 
-const IconAddPhoto = styled(Box)({
+const IconAddPhoto = styled(Box)(() => ({
   width: "40px",
   height: "40px",
   backgroundColor: "rgba(15, 20, 25, 0.75)",
@@ -35,21 +36,35 @@ const IconAddPhoto = styled(Box)({
   justifyContent: "center",
   borderRadius: "50%",
   transform: "translate(-50%, -50%)",
-});
+}));
 
-export function UserPhoto({ changeIcon, image, setImage, avatar, setAvatar }) {
+export function UserPhoto({
+  changeIcon,
+  imageUrl,
+  setImageUrl,
+  avatarUrl,
+  setAvatarUrl,
+  setFileForServer,
+  setFileForServerAvatar,
+}) {
   // const [image, setImage] = useState("");
   // const [avatar, setAvatar] = useState("");
+  // const image = URL.createObjectURL(file)
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+
     if (file) {
-      setImage(URL.createObjectURL(file));
+      const imageUrl = URL.createObjectURL(file);
+      setImageUrl(imageUrl);
+      setFileForServer(file);
     }
   };
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setAvatar(URL.createObjectURL(file));
+      const avatarUrl = URL.createObjectURL(file);
+      setAvatarUrl(avatarUrl);
+      setFileForServerAvatar(file);
     }
   };
   return (
@@ -71,7 +86,7 @@ export function UserPhoto({ changeIcon, image, setImage, avatar, setAvatar }) {
                   accept="image/*"
                   type="file"
                 />
-              </Button>{" "}
+              </Button>
             </IconAddPhoto>
           </>
         ) : null}
@@ -86,7 +101,7 @@ export function UserPhoto({ changeIcon, image, setImage, avatar, setAvatar }) {
               left: "30px",
             }}
             alt="Remy Sharp"
-            src={avatar}>
+            src={avatarUrl}>
             <Button
               component="label"
               endIcon={<AddAPhotoIcon sx={{ margin: "0px", color: "white" }} />}
@@ -112,21 +127,23 @@ export function UserPhoto({ changeIcon, image, setImage, avatar, setAvatar }) {
               left: "30px",
             }}
             alt="Remy Sharp"
-            src={avatar}>
+            src={avatarUrl}>
             M
           </Avatar>
         )}
 
-        <img src={image} alt="" style={{ width: "100%", maxHeight: "200px" }} />
+        <img src={imageUrl} alt="" style={{ width: "100%", maxHeight: "200px" }} />
       </ContainerPhoto>
     </>
   );
 }
 
 UserPhoto.propTypes = {
+  setAvatarUrl: PropTypes.func,
   changeIcon: PropTypes.bool,
-  image: PropTypes.string,
-  setImage: PropTypes.func,
-  avatar: PropTypes.string,
-  setAvatar: PropTypes.func,
+  avatarUrl: PropTypes.string,
+  imageUrl: PropTypes.string,
+  setImageUrl: PropTypes.func,
+  setFileForServer: PropTypes.func,
+  setFileForServerAvatar: PropTypes.func,
 };

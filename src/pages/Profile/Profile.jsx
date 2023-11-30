@@ -1,14 +1,9 @@
 import TabPanel from "@mui/lab/TabPanel";
+import { Link } from "react-router-dom";
 import { Typography, Container } from "@mui/material";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import {
-  UserPhoto,
-  ProfileTabs,
-  ItemPost,
-  ModalEdit,
-  Container as AppContainer,
-} from "@/components";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "@/components";
 import { useLoadPost } from "@/hooks/useLoadPost";
 import { ArrowBack } from "@/icons";
 import {
@@ -18,62 +13,86 @@ import {
   EditButton,
   HeaderPage,
 } from "./styledSX";
-
+import {
+  // UserPhoto,
+  // ProfileTabs,
+  // ItemPost,
+  // ModalEdit,
+  Container as AppContainer,
+} from "@/components";
+import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
 const tabs = [
   { label: "Post", value: "0" },
-  { label: "Replies", value: "1" },
+  // { label: "Replies", value: "1" },
   { label: "Likes", value: "2" },
 ];
 
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const posts = useSelector((state) => state.posts.posts);
 
+  const posts = useSelector((state) => state.posts.posts);
+  const likedPosts = useSelector((state) => state.user.likedPosts);
+  const user = useSelector((state) => state.user.user);
+  console.log(user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getLikedPosts());
+    dispatch(getUserInfo());
+  }, [dispatch]);
+
+  const formattedBirthdate =
+    user && user.birthdate
+      ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
+      : "N/A";
   useLoadPost();
 
   return (
     <AppContainer>
       <ModalEdit isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-      <Container maxWidth="sm" disableGutters={true}>
+      <Container
+        maxWidth="sm"
+        disableGutters={true}
+        sx={{ border: "1px solid rgb(239, 243, 244)", height: "unset" }}>
         <HeaderPage>
-          <ArrowSvg>
-            <ArrowBack size={25} />
-          </ArrowSvg>
+          <Link to="/">
+            <ArrowSvg>
+              <ArrowBack size={25} />
+            </ArrowSvg>
+          </Link>
           <ContainerHederText>
-            <Typography variant="h6">
-              {/* TODO: change to user object */}go flex
-            </Typography>
-            <div>post</div>
+            <Typography variant="h6">{user && user.fullName}</Typography>
+            {/* <div>post</div> */}
             {/* <button onClick={() => dispatch(PostAuthorizationAsync(formData))}>
               test
             </button>
             <button onClick={() => dispatch(getUserAsync())}>test2</button> */}
           </ContainerHederText>
         </HeaderPage>
-        <UserPhoto changeIcon={false} />
+        <UserPhoto
+          changeIcon={false}
+          avatarUrl={user && user.avatarUrl}
+          imageUrl={user && user.imageUrl}
+        />
         <ContainerUserInfo>
           <EditButton onClick={() => setIsModalOpen(true)} variant="outlined">
             Edit profile
           </EditButton>
-          <Typography variant="h6">{/* TODO: change to user object */}go flex</Typography>
-          <Typography variant="body1">
-            {/* TODO: change to user object */}@goflex175802
-          </Typography>
+          <Typography variant="h6"> {user && user.fullName}</Typography>
+          <Typography variant="body1">{user && user.userTag}</Typography>
           <Typography
             component="div"
             variant="body1"
             sx={{
               padding: "10px 0",
             }}>
-            some bio
+            {user && user.bio}
           </Typography>
-          <Typography variant="body2">
-            Joined {/* TODO: change to user object */}September 2023
-          </Typography>
+          <Typography variant="body2">{formattedBirthdate}</Typography>
 
           <Typography component="span" variant="body1">
-            {/* TODO: change to user object */}1 Following
+            {user && user.following} Following
           </Typography>
           <Typography
             component="span"
@@ -81,7 +100,7 @@ export function Profile() {
             sx={{
               paddingLeft: "10px",
             }}>
-            {/* TODO: change to user object */}0 Followers
+            {user && user.followers} Followers
           </Typography>
         </ContainerUserInfo>
         <ProfileTabs
@@ -94,22 +113,46 @@ export function Profile() {
             },
           }}>
           <TabPanel value="0">
-            {posts.map((p) => (
+            {posts.map((post) => (
               <ItemPost
-                key={p.id}
-                avatarUrl={p.user.avatarUrl}
-                fullName={p.user.fullName}
-                replyCount={p.replyCount}
-                id={p.id}
-                content={p.body}
-                likeCount={p.likeCount}
-                liked={p.liked}
-                imageUrls={p.imageUrls}
+                key={post.id}
+                avatarUrl={user.avatarUrl}
+                fullName={user.fullName}
+                replyCount={post.replyCount}
+                id={post.id}
+                content={post.body}
+                likeCount={post.likeCount}
+                liked={post.liked}
+                imageUrls={post.imageUrls}
               />
             ))}
           </TabPanel>
-          <TabPanel value="1">Replies</TabPanel>
-          <TabPanel value="2">Likes</TabPanel>
+          {/* <TabPanel value="1">Replies</TabPanel> */}
+          <TabPanel value="2">
+            {
+              likedPosts.length ? (
+                likedPosts.map((post) => (
+                  <ItemPost
+                    avatarUrl={user.avatarUrl}
+                    fullName={user.fullName}
+                    key={post.id}
+                    content={post.body}
+                    imageUrls={post.imageUrls}
+                    id={post.id}
+                    likeCount={post.likeCount}
+                    liked={post.liked}
+                    replyCount={post.replyCount}
+                  />
+                ))
+              ) : (
+                <>You don&apos;t have any likes yet</>
+              )
+              // <NotificationTabContent
+              //   title={'You do not have any likes yet'}
+              //   text="Tap the heart on any post to show it some love. When you do, it’ll show up here."
+              // />
+            }
+          </TabPanel>
         </ProfileTabs>
       </Container>
     </AppContainer>
