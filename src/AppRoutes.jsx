@@ -8,6 +8,7 @@ import {
 } from "./components";
 import { Registration, Home, Notifications, Post, Profile } from "./pages";
 import { useSelector } from "react-redux";
+import Bookmarks from "./pages/Bookmarks/Bookmarks";
 
 export default function AppRoutes() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -29,9 +30,6 @@ export default function AppRoutes() {
 
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/messages" element={<div>Messages</div>} />
-        <Route path="/lists" element={<div>Lists</div>} />
-        <Route path="/communities" element={<div>Communities</div>} />
-        <Route path="/verified" element={<div>Verified</div>} />
         <Route
           path="/profile"
           element={
@@ -62,7 +60,7 @@ export default function AppRoutes() {
           }
         />
 
-        <Route path="/bookmarks" element={<div>Bookmarks</div>} />
+        <Route path="/bookmarks" element={<Bookmarks />} />
       </Route>
       <Route
         path="/signUpForm"

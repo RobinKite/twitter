@@ -1,12 +1,11 @@
 import { useLoadPost } from "@/hooks/useLoadPost";
-import { Typography, useMediaQuery } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useSelector, shallowEqual } from "react-redux";
 import { CreatePost, ItemPost } from "../../components";
 
 export const Home = () => {
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
-  const isMobile = useMediaQuery("(max-width: 767px)");
 
   useLoadPost();
 
@@ -20,7 +19,6 @@ export const Home = () => {
           margin: "20px auto",
           textAlign: "center",
           fontWeight: "700",
-          ...(isMobile && { mt: "52px", mb: 0 }),
         }}>
         Following
       </Typography>
