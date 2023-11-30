@@ -10,4 +10,4 @@ const Icon = (props) => {
   );
 };
 
-export const Bookmark = withSize(Icon);
+export const Feather = withSize(Icon);

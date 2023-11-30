@@ -1,62 +1,38 @@
-import { Route, Routes, Outlet, Navigate } from "react-router-dom";
-import {
-  Container,
-  ForgotPasswordForm,
-  PasswordFormModal,
-  RegistrationFormModal,
-} from "./components";
-import { Registration, Home, Notifications, Post, Profile } from "./pages";
-import { getTokens } from "./utils/tokens";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Registration, Home, Notifications, Post, Profile, Messages } from "@/pages";
+import { Settings, Bookmarks } from "@/pages";
+import { CurrentUser } from "./pages/СurrentUser/CurrenUser";
 
 export default function AppRoutes() {
-  const hasToken = Boolean(getTokens().accessToken);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
+  if (!isAuthenticated) {
+    return (
+      <Routes>
+        <Route path="/login" element={<Registration />} />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    );
+  }
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          hasToken || isAuthenticated ? (
-            <Container>
-              <Outlet />
-            </Container>
-          ) : (
-            <Navigate to="/login" />
-          )
-        }>
+      <Route path="/">
         <Route index element={<Home />} />
-        <Route path="/explore" element={<div>Explore</div>} />
-        <Route path="/notifications" element={<Notifications />} />
-        <Route path="/messages" element={<div>Messages</div>} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/post/:id" element={<Post />} />
-        <Route
-          path="/registration"
-          element={
-            <>
-              <Registration />
-              <RegistrationFormModal />
-            </>
-          }
-        />
-        <Route
-          path="/passwordForm"
-          element={
-            <>
-              <Registration />
-              <PasswordFormModal />
-            </>
-          }
-        />
-        <Route path="/bookmarks" element={<div>Bookmarks</div>} />
+        <Route path="notifications" element={<Notifications />} />
+        <Route path="messages">
+          <Route index element={<Messages />} />
+          <Route path="settings" element={<Messages withSettings={true} />} />
+          <Route path="*" element={<Navigate to="/messages" />} />
+        </Route>
+        <Route path="profile" element={<Profile />} />
+        <Route path="user/:id" element={<CurrentUser />} />
+        <Route path="post/:id" element={<Post />} />
+        <Route path="bookmarks" element={<Bookmarks />} />
+        <Route path="settings" element={<Settings />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Route>
-      <Route path="/forgotPasswordForm" element={<ForgotPasswordForm />}></Route>
-      <Route
-        path="/login"
-        element={hasToken || isAuthenticated ? <Navigate to="/" /> : <Registration />}
-      />
     </Routes>
   );
 }

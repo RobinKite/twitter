@@ -22,7 +22,7 @@ const CommentPostTemplate = (props) => {
     submit,
   } = usePostData(type, closeModal, id);
   return (
-    <div className={styles.wraper}>
+    <div className={styles.wrapper}>
       <div>
         <div className={styles.conteinerPost}>
           <Avatar
@@ -50,7 +50,8 @@ const CommentPostTemplate = (props) => {
             onChange={(e) => setInputStr(e.target.value)}
             value={inputStr}
           />
-
+        </div>
+        <div className={styles.wrapperImg}>
           {files.map((file, index) => (
             <img
               key={index}
@@ -67,6 +68,7 @@ const CommentPostTemplate = (props) => {
             />
           ))}
         </div>
+
         {showEmojiPicker && (
           <EmojiPicker pickerStyle={{ width: "100%" }} onEmojiClick={onEmojiClick} />
         )}

@@ -1,15 +1,19 @@
-.wraper {
+.wrapper {
   padding: 10px;
-  border: 1px solid rgb(239, 243, 244);
+  border-top: 1px solid rgb(239, 243, 244);
+  border-bottom: 1px solid rgb(239, 243, 244);
 }
-
+.wrapperImg {
+  display: flex;
+  flex-wrap: wrap;
+}
 .conteinerPost {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: row;
   gap: 5px;
-  flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 .postText {

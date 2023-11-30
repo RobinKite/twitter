@@ -266,15 +266,12 @@ export const getPostById = (id) => async (dispatch) => {
   }
 };
 
-// export const getPosts = (currentPage) => async (dispatch) => {
-//   try {
-//     const response = await api.get(`posts/home?page=${currentPage}&pageSize=${12}`);
 export const getPosts = (page) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.GET_MY_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-    console.log(response);
+    // console.log(response);
 
     dispatch(setPosts(response.data.content));
   } catch (error) {

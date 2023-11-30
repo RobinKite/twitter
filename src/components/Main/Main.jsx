@@ -1,10 +1,20 @@
+import { Stack, useMediaQuery } from "@mui/material";
+import PropTypes from "prop-types";
+
 export const Main = ({ children }) => {
+  const isMobile = useMediaQuery("(max-width: 767px)");
+
   return (
-    <div>
-      {/* <AppRoutes /> */}
+    <Stack
+      sx={{
+        // flexDirection: "row",
+        ...(isMobile && { mt: "52px" }),
+      }}>
       {children}
-      {/* <h2>MAIN SECTION</h2>
-      <AppRoutes/> */}
-    </div>
+    </Stack>
   );
+};
+
+Main.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
 };

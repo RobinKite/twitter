@@ -1,19 +1,24 @@
-import { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { FormControl, Input, Stack, debounce } from "@mui/material";
-import { closeIconSX, inputSX, searchBarSX, searchIconSX } from "./styleSX";
-import { SearchProgressBar } from "..";
-import { fetchFriedsSearch } from "@/redux/slices/userSlice";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { SearchProgressBar } from "@/components";
+import { fetchFriedsSearch } from "@/redux/slices/userSlice";
+import { closeIconSX, inputSX, searchBarSX, searchIconSX } from "./styleSX";
 
 export const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState("");
+  const parentRef = useRef(null);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setSearchTerm(e.target.value);
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearchTerm(event.target.value);
+  };
+
+  const clearInput = () => {
+    setSearchTerm("");
   };
 
   const debouncedSearch = debounce((term) => {
@@ -21,17 +26,20 @@ export const SearchBar = () => {
   }, 500);
 
   useEffect(() => {
-    if (searchTerm.trim() !== "") {
-      debouncedSearch(searchTerm);
-    }
+    if (searchTerm.trim() !== "") debouncedSearch(searchTerm);
   }, [searchTerm, debouncedSearch]);
 
-  const handleInputClear = () => {
-    setSearchTerm("");
-  };
+  useEffect(() => {
+    const handleClick = ({ target }) => {
+      if (!parentRef.current.contains(target)) clearInput();
+    };
+    document.addEventListener("click", handleClick);
+
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
 
   return (
-    <Stack sx={searchBarSX}>
+    <Stack ref={parentRef} sx={searchBarSX}>
       <FormControl fullWidth component="form">
         <Input
           sx={inputSX}
@@ -41,7 +49,7 @@ export const SearchBar = () => {
           onChange={handleSearch}
         />
         <SearchIcon sx={searchIconSX} />
-        {searchTerm.trim() && <CancelIcon sx={closeIconSX} onClick={handleInputClear} />}
+        {searchTerm.trim() && <CancelIcon sx={closeIconSX} onClick={clearInput} />}
       </FormControl>
       {searchTerm.trim() && <SearchProgressBar searchText={searchTerm} />}
     </Stack>

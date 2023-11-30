@@ -12,9 +12,14 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useState } from "react";
 import { useFormik } from "formik";
 import { UserPhoto } from "@/components";
-import { editProfileSchema } from "@/schemas";
 import PropTypes from "prop-types";
 import { formFields, configDateForm } from "./configForm.js";
+import {
+  getUsersUpdate,
+  getUsersUpdateAvatarUrl,
+  getUsersUpdateImageUrl,
+} from "@/redux/slices/userSlice.js";
+import { useDispatch } from "react-redux";
 
 const ModalContainer = styled(Box)(({ theme }) => ({
   position: "absolute",
@@ -35,6 +40,7 @@ const ModalContainer = styled(Box)(({ theme }) => ({
 const CustomButton = styled(Button)(() => ({
   backgroundColor: "black",
   borderRadius: "15px",
+  color: "white",
   "&:hover": {
     backgroundColor: "black",
   },
@@ -63,9 +69,13 @@ const ModalHeader = styled(Toolbar)(() => ({
 
 // TODO: 👉 Rewrite the component
 export function ModalEdit({ isOpen, onClose }) {
-  const [image, setImage] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
+  const [fileForServer, setFileForServer] = useState("");
+  const [fileForServerAvatar, setFileForServerAvatar] = useState("");
+
+  const dispatch = useDispatch();
 
   const getDaysInMonth = (month) => {
     if (month === "February") {
@@ -84,12 +94,30 @@ export function ModalEdit({ isOpen, onClose }) {
       month: "",
       day: "",
       year: "",
+      userTag: "",
     },
-    validationSchema: editProfileSchema,
+    //   "fullName": "string",
+    // "userTag": "string",
+    // "birthdate": "string",
+    // "bio": "string",
+    // "location": "string",
+    // "avatarUrl": "string",
+    // "imageUrl": "string"
+    // validationSchema: editProfileSchema,
     onSubmit: (values) => {
       onClose();
-      values = { ...values, avatar, image };
-      console.log(values);
+      const { month, day, year } = values;
+      const birthdateInSeconds = new Date(`${month} ${day}, ${year}`).getTime() / 1000;
+
+      values = { ...values, fullName: values.name, birthdate: birthdateInSeconds };
+      console.log();
+      dispatch(getUsersUpdate(values));
+      if (imageUrl) {
+        dispatch(getUsersUpdateImageUrl(fileForServer));
+      }
+      if (avatarUrl) {
+        dispatch(getUsersUpdateAvatarUrl(fileForServerAvatar));
+      }
     },
   });
 
@@ -108,15 +136,17 @@ export function ModalEdit({ isOpen, onClose }) {
               type="submit"
               onClick={formik.handleSubmit}
               size="small">
-              save
+              Save
             </CustomButton>
           </ModalHeader>
           <UserPhoto
             changeIcon={true}
-            image={image}
-            avatar={avatar}
-            setImage={setImage}
-            setAvatar={setAvatar}
+            imageUrl={imageUrl}
+            avatarUrl={avatarUrl}
+            setImageUrl={setImageUrl}
+            setAvatarUrl={setAvatarUrl}
+            setFileForServer={setFileForServer}
+            setFileForServerAvatar={setFileForServerAvatar}
           />
           <Box
             component="form"

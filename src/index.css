@@ -27,10 +27,12 @@ img {
   display: block;
 }
 
-button {
+button,
+input {
+  outline: none;
+  border: none;
   font-family: inherit;
   font-size: inherit;
-  border: none;
   background-color: transparent;
 }
 
@@ -42,6 +44,5 @@ a {
 
 #root {
   display: flex;
-  flex-direction: column;
   min-height: 100vh;
 }

@@ -2,19 +2,18 @@ import {
   Twitter,
   Home,
   HomeFilled,
-  Search,
-  SearchFilled,
   Profile,
   ProfileFilled,
   Notification,
   NotificationFilled,
   Message,
   MessageFilled,
-  List,
-  ListFilled,
-  Communities,
-  CommunitiesFilled,
+  Avatar,
+  Settings,
+  Bookmark,
+  BookmarkFilled,
 } from "@/icons";
+
 import { capitalize } from "@/utils";
 
 class Item {
@@ -28,11 +27,25 @@ class Item {
 
 export const items = [
   new Item("home", HomeFilled, Home, "/"),
-  new Item("explore", SearchFilled, Search),
-  new Item("notifications", NotificationFilled, Notification),
-  new Item("messages", MessageFilled, Message),
-  new Item("lists", ListFilled, List),
-  new Item("communities", CommunitiesFilled, Communities),
-  new Item("verified", Twitter, Twitter),
-  new Item("profile", ProfileFilled, Profile),
+  new Item("notifications", NotificationFilled, Notification, "/notifications"),
+  new Item("messages", MessageFilled, Message, "/messages"),
+  new Item("bookmarks", BookmarkFilled, Bookmark, "/bookmarks"),
+  new Item("profile", ProfileFilled, Profile, "/profile"),
+];
+
+export const headerItems = [
+  new Item("user", Avatar, Avatar, ""),
+  new Item("home", Twitter, Twitter, "/"),
+  new Item("settings", Settings, Settings, "/settings"),
+];
+
+export const footerItems = [
+  new Item("notifications", NotificationFilled, Notification, "/notifications"),
+  new Item("home", HomeFilled, Home, "/"),
+  new Item("messages", MessageFilled, Message, "/messages"),
+];
+
+export const headerDrawerItems = [
+  new Item("profile", Profile, Profile, "/profile"),
+  new Item("bookmarks", Bookmark, Bookmark, "/bookmarks"),
 ];
