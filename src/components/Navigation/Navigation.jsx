@@ -6,8 +6,8 @@ import { items } from "@/constants/navigation";
 import styles from "./Navigation.module.scss";
 
 const NavigationItem = ({ path, text, getIconComponent }) => {
-  const location = useLocation();
-  const isActive = location.pathname === path;
+  const { pathname } = useLocation();
+  const isActive = (pathname.includes(path) && path !== "/") || path === pathname;
   const Icon = getIconComponent(isActive);
 
   return (

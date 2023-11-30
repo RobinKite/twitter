@@ -1,5 +1,6 @@
 import { Avatar, Box, Button, styled } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import PropTypes from "prop-types";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -13,16 +14,16 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-const ContainerFoto = styled(Box)(({ theme }) => ({
+const ContainerPhoto = styled(Box)({
   maxWidth: "600px",
   width: "100%",
   height: "200px",
   position: "relative",
   backgroundColor: "rgb(207, 217, 222)",
   boxSizing: "border-box",
-}));
+});
 
-const IconAddFoto = styled(Box)(({ theme }) => ({
+const IconAddPhoto = styled(Box)({
   width: "40px",
   height: "40px",
   backgroundColor: "rgba(15, 20, 25, 0.75)",
@@ -34,7 +35,7 @@ const IconAddFoto = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   borderRadius: "50%",
   transform: "translate(-50%, -50%)",
-}));
+});
 
 export function UserPhoto({ changeIcon, image, setImage, avatar, setAvatar }) {
   // const [image, setImage] = useState("");
@@ -53,10 +54,10 @@ export function UserPhoto({ changeIcon, image, setImage, avatar, setAvatar }) {
   };
   return (
     <>
-      <ContainerFoto>
+      <ContainerPhoto>
         {changeIcon ? (
           <>
-            <IconAddFoto>
+            <IconAddPhoto>
               <Button
                 component="label"
                 endIcon={<AddAPhotoIcon sx={{ margin: "0", color: "white" }} />}
@@ -71,7 +72,7 @@ export function UserPhoto({ changeIcon, image, setImage, avatar, setAvatar }) {
                   type="file"
                 />
               </Button>{" "}
-            </IconAddFoto>
+            </IconAddPhoto>
           </>
         ) : null}
 
@@ -117,7 +118,15 @@ export function UserPhoto({ changeIcon, image, setImage, avatar, setAvatar }) {
         )}
 
         <img src={image} alt="" style={{ width: "100%", maxHeight: "200px" }} />
-      </ContainerFoto>
+      </ContainerPhoto>
     </>
   );
 }
+
+UserPhoto.propTypes = {
+  changeIcon: PropTypes.bool,
+  image: PropTypes.string,
+  setImage: PropTypes.func,
+  avatar: PropTypes.string,
+  setAvatar: PropTypes.func,
+};

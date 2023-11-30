@@ -5,7 +5,7 @@ import { Endpoint } from "@/constants";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    isAuthenticated: false,
+    isAuthenticated: !!storage.accessToken,
     user: {},
     usersList: [],
     friendsList: [],

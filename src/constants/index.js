@@ -2,6 +2,7 @@ export class PostType {
   static TWEET = "TWEET";
   static REPLY = "REPLY";
 }
+
 export class Endpoint {
   static LOGIN = "/auth/login";
   static REGISTER = "/auth/register";
@@ -15,5 +16,7 @@ export class Endpoint {
   static SUBSCRIPTIONS = "/subscriptions";
   static USERS_SEARCH = "/users/search";
   static USERS_RECOMMENDED = "/users/recommended";
+  static CHATS = "/chats";
+  static USERS_FOLLOWERS = "/users/followers";
   static GOOGLE_REGISTRATION = "/oauth2/exchange-code/google";
 }

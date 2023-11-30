@@ -6,16 +6,18 @@ export const searchBarSX = {
   paddingTop: "6px",
   paddingBottom: "6px",
   color: "rgb(83, 100, 113)",
-  // overflow: "hidden",
   backgroundColor: "#ffffff",
   zIndex: 1,
-
+  borderWidth: "1px",
+  boderStyle: "solid",
+  borderColor: "transparent",
   transition: "border-color 250ms linear, fill 250ms linear",
 
   "& input:focus": {
-    border: "1px solid rgb(29, 155, 240)",
+    borderColor: "rgb(29, 155, 240)",
   },
 
+  // FIXME: 👉 Affects any inner svg
   "&:focus-within svg": {
     fill: "rgb(29, 155, 240)",
   },

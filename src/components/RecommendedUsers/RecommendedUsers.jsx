@@ -17,8 +17,8 @@ export const RecommendedUserCard = ({
   return (
     <Stack sx={userCardSX}>
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
-      <Stack marginLeft="0.75rem">
-        <Typography fontWeight={500} variant="subtitle1">
+      <Stack marginLeft="0.75rem" overflow="hidden">
+        <Typography fontWeight={500} variant="subtitle1" noWrap={true}>
           {fullName}
         </Typography>
         <Typography variant="body2" color="textSecondary">
