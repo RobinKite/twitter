@@ -10,14 +10,14 @@ export const Home = () => {
   useLoadPost();
 
   return (
-    <>
+    <div style={{ border: "1px solid rgb(239, 243, 244)" }}>
       <Typography
         variant="h6"
         component="h2"
         sx={{
           fontSize: 25,
-          marginLeft: "37%",
-          marginTop: "20px",
+          margin: "20px auto",
+          textAlign: "center",
           fontWeight: "700",
         }}>
         Following
@@ -36,6 +36,6 @@ export const Home = () => {
           liked={p.liked}
         />
       ))}
-    </>
+    </div>
   );
 };
