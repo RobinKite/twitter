@@ -8,6 +8,7 @@ const appSlice = createSlice({
     isPostModalActive: false,
     postModalContent: null,
     isDrawerActive: false,
+    isModalActive: false,
   },
   reducers: {
     setModal: (state) => {
