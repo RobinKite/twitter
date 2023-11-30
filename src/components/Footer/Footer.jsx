@@ -1,36 +1,42 @@
-import styles from "./Footer.module.scss";
+import { Link } from "@mui/material";
+import { FooterContainer, FooterLink } from "./styleSX";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const items = [
-    "About the community",
-    "Reference center",
-    "Terms of service",
+    "About",
+    "Download the X app",
+    "Help Center",
+    "Terms of Service",
     "Privacy Policy",
-    "Cookies policy",
-    "Special features",
+    "Cookie Policy",
+    "Accessibility",
+    "Ads info",
     "Blog",
-    "State",
-    "Career",
-    "Brand resources",
+    "Status",
+    "Careers",
+    "Brand Resources",
     "Advertising",
     "Marketing",
-    "X is for business",
+    "X for Business",
     "Developers",
-    "Catalogue",
+    "Directory",
     "Settings",
   ];
 
   return (
-    <footer className={styles.footer}>
-      <ul className={styles.footer}>
-        {items.map((item) => (
-          <li key={item}>
-            <button>{item}</button>
-          </li>
-        ))}
-        <span className={styles.XCorp}>&copy; {currentYear} X Corp.</span>
-      </ul>
-    </footer>
+    <FooterContainer component="footer">
+      {items.map((item, index) => (
+        <FooterLink
+          key={index}
+          variant="body2"
+          component={Link}
+          underline="hover"
+          href="#">
+          {item}
+        </FooterLink>
+      ))}
+      <FooterLink variant="body2">&copy; {currentYear} X Corp.</FooterLink>
+    </FooterContainer>
   );
 };
