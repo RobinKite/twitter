@@ -30,6 +30,7 @@ export default function AppRoutes() {
         <Route index element={<Home />} />
 
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/messages" element={<div>Messages</div>} />
 
         <Route
           path="/profile"
