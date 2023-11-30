@@ -16,16 +16,16 @@ import {
 import { getLikedPosts } from "@/redux/slices/userSlice";
 const tabs = [
   { label: "Post", value: "0" },
-  { label: "Replies", value: "1" },
+  // { label: "Replies", value: "1" },
   { label: "Likes", value: "2" },
 ];
 
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const posts = useSelector((state) => state.posts.posts);
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const user = useSelector((state) => state.user.user);
-  console.log(likedPosts);
 
   const dispatch = useDispatch();
 
@@ -43,18 +43,18 @@ export function Profile() {
     <>
       <ModalEdit isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-      <Container maxWidth="sm" disableGutters={true}>
+      <Container
+        maxWidth="sm"
+        disableGutters={true}
+        sx={{ border: "1px solid rgb(239, 243, 244)", height: "unset" }}>
         <HeaderPage>
-          <Link to="/profile">
+          <Link to="/">
             <ArrowSvg>
               <ArrowBack size={25} />
             </ArrowSvg>
           </Link>
           <ContainerHederText>
-            <Typography variant="h6">
-              {/* TODO: change to user object */}
-              {user && user.fullName}
-            </Typography>
+            <Typography variant="h6">{user && user.fullName}</Typography>
             {/* <div>post</div> */}
             {/* <button onClick={() => dispatch(PostAuthorizationAsync(formData))}>
               test
@@ -119,24 +119,26 @@ export function Profile() {
               />
             ))}
           </TabPanel>
-          <TabPanel value="1">Replies</TabPanel>
+          {/* <TabPanel value="1">Replies</TabPanel> */}
           <TabPanel value="2">
             {
-              likedPosts.length
-                ? likedPosts.map((post) => (
-                    <ItemPost
-                      avatarUrl={post.user.avatarUrl}
-                      fullName={post.user.fullName}
-                      key={post.id}
-                      content={post.body}
-                      imageUrls={post.imageUrls}
-                      id={post.id}
-                      likeCount={post.likeCount}
-                      liked={post.liked}
-                      replyCount={post.replyCount}
-                    />
-                  ))
-                : "You dont have any likes yet"
+              likedPosts.length ? (
+                likedPosts.map((post) => (
+                  <ItemPost
+                    avatarUrl={post.user.avatarUrl}
+                    fullName={post.user.fullName}
+                    key={post.id}
+                    content={post.body}
+                    imageUrls={post.imageUrls}
+                    id={post.id}
+                    likeCount={post.likeCount}
+                    liked={post.liked}
+                    replyCount={post.replyCount}
+                  />
+                ))
+              ) : (
+                <>You don&apos;t have any likes yet</>
+              )
               // <NotificationTabContent
               //   title={'You do not have any likes yet'}
               //   text="Tap the heart on any post to show it some love. When you do, it’ll show up here."

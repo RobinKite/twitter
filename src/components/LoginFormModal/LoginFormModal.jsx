@@ -112,7 +112,7 @@ export function LoginFormModal() {
                   textDecoration: "underline",
                 },
               }}>
-              Dont have an account?
+              Don&apos;t have an account?
               <Link
                 href="/SignUpForm" // actual URL or route to  "Sign Up" page
                 color="primary">

@@ -12,6 +12,7 @@ const userSlice = createSlice({
     friendRequests: [],
     friendSearches: [],
     likedPosts: [],
+    currentLikedPosts: [],
   },
   reducers: {
     loginUserAction: (state, action) => {
@@ -38,6 +39,9 @@ const userSlice = createSlice({
     setLikedPosts: (state, action) => {
       state.likedPosts = action.payload;
     },
+    setCurrentLikedPosts: (state, action) => {
+      state.currentLikedPosts = action.payload;
+    },
   },
 });
 
@@ -49,9 +53,22 @@ export const {
   removeFriend,
   setFriendSearches,
   setLikedPosts,
+  setCurrentLikedPosts,
 } = userSlice.actions;
 
 export default userSlice.reducer;
+
+export const getCurrentLikedPosts = () => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.LIKED_POSTS, {
+      params: { page: 0, pageSize: 12 },
+    });
+    const data = response.data.content;
+    dispatch(setCurrentLikedPosts(data));
+  } catch (error) {
+    console.error("Error fetching liked posts:", error);
+  }
+};
 
 export const getUsersUpdate = (values) => async (dispatch) => {
   try {

@@ -13,17 +13,13 @@ import {
   HeaderPage,
 } from "../Profile/styledSX";
 import { useParams } from "react-router-dom";
-import {
-  getCurrentLikedPosts,
-  getCurrentPosts,
-  getCurrentUser,
-} from "@/redux/slices/currentUser";
+import { getCurrentPosts, getCurrentUser } from "@/redux/slices/currentUser";
 // import PropTypes from "prop-types";
 
 const tabs = [
   { label: "Post", value: "0" },
-  { label: "Replies", value: "1" },
-  { label: "Likes", value: "2" },
+  // { label: "Replies", value: "1" },
+  // { label: "Likes", value: "2" },
 ];
 
 export function CurrentUser() {
@@ -32,7 +28,6 @@ export function CurrentUser() {
 
   const user = useSelector((state) => state.currentUser.user);
   const posts = useSelector((state) => state.currentUser.currentPosts);
-  const likedPosts = useSelector((state) => state.currentUser.currentLikedPosts);
 
   const dispatch = useDispatch();
 
@@ -45,14 +40,16 @@ export function CurrentUser() {
   useEffect(() => {
     dispatch(getCurrentUser(id));
     dispatch(getCurrentPosts(id));
-    dispatch(getCurrentLikedPosts());
   }, [dispatch, id]);
 
   return (
     <>
       {/* <ModalEdit isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} /> */}
 
-      <Container maxWidth="sm" disableGutters={true}>
+      <Container
+        maxWidth="sm"
+        disableGutters={true}
+        sx={{ border: "1px solid rgb(239, 243, 244)" }}>
         <HeaderPage>
           <Link to="/profile">
             <ArrowSvg>
@@ -60,8 +57,7 @@ export function CurrentUser() {
             </ArrowSvg>
           </Link>
           <ContainerHederText>
-            <div>{user?.fullName}</div>
-            <Typography variant="h6"></Typography>
+            <Typography variant="h6">{user?.fullName}</Typography>
 
             {/* <button onClick={() => dispatch(PostAuthorizationAsync(formData))}>
               test
@@ -82,14 +78,14 @@ export function CurrentUser() {
           />
           <Typography variant="h6">{user?.fullName}</Typography>
           <Typography variant="body1">{user?.userTag}</Typography>
-          <Typography
+          {/* <Typography
             component="div"
             variant="body1"
             sx={{
               padding: "10px 0",
             }}>
             some bio
-          </Typography>
+          </Typography> */}
           <Typography variant="body2">{formattedBirthdate}</Typography>
 
           <Typography component="span" variant="body1">
@@ -128,36 +124,16 @@ export function CurrentUser() {
               />
             ))}
           </TabPanel>
-          <TabPanel value="1">Replies</TabPanel>
+          {/* <TabPanel value="1">Replies</TabPanel>
           <TabPanel value="2">
-            {
-              likedPosts.length
-                ? likedPosts.map((post) => (
-                    <ItemPost
-                      avatarUrl={post.user.avatarUrl}
-                      fullName={post.user.fullName}
-                      key={post.id}
-                      content={post.body}
-                      imageUrls={post.imageUrls}
-                      id={post.id}
-                      likeCount={post.likeCount}
-                      liked={post.liked}
-                      replyCount={post.replyCount}
-                    />
-                  ))
-                : `${user?.fullName} don’t have any likes yet`
-              // <NotificationTabContent
-              //   title={`${user?.fullName} don’t have any likes yet`}
-              //   text="Tap the heart on any post to show it some love. When you do, it’ll show up here."
-              // />
-            }
-          </TabPanel>
+            
+          </TabPanel> */}
         </ProfileTabs>
       </Container>
     </>
   );
 }
-CurrentUser.propTypes = {
-  // updateComment: PropTypes.func,
-  // fullName: PropTypes.string,
-};
+// CurrentUser.propTypes = {
+// updateComment: PropTypes.func,
+// fullName: PropTypes.string,
+// };
