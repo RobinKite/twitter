@@ -108,8 +108,8 @@ export function Profile() {
             {posts.map((post) => (
               <ItemPost
                 key={post.id}
-                avatarUrl={post.user.avatarUrl}
-                fullName={post.user.fullName}
+                avatarUrl={user.avatarUrl}
+                fullName={user.fullName}
                 replyCount={post.replyCount}
                 id={post.id}
                 content={post.body}
@@ -125,8 +125,8 @@ export function Profile() {
               likedPosts.length ? (
                 likedPosts.map((post) => (
                   <ItemPost
-                    avatarUrl={post.user.avatarUrl}
-                    fullName={post.user.fullName}
+                    avatarUrl={user.avatarUrl}
+                    fullName={user.fullName}
                     key={post.id}
                     content={post.body}
                     imageUrls={post.imageUrls}

@@ -40,6 +40,7 @@ const ModalContainer = styled(Box)(({ theme }) => ({
 const CustomButton = styled(Button)(() => ({
   backgroundColor: "black",
   borderRadius: "15px",
+  color: "white",
   "&:hover": {
     backgroundColor: "black",
   },
@@ -69,9 +70,11 @@ const ModalHeader = styled(Toolbar)(() => ({
 // TODO: 👉 Rewrite the component
 export function ModalEdit({ isOpen, onClose }) {
   const [imageUrl, setImageUrl] = useState("");
-
   const [avatarUrl, setAvatarUrl] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
+  const [fileForServer, setFileForServer] = useState("");
+  const [fileForServerAvatar, setFileForServerAvatar] = useState("");
+
   const dispatch = useDispatch();
 
   const getDaysInMonth = (month) => {
@@ -110,10 +113,10 @@ export function ModalEdit({ isOpen, onClose }) {
       console.log();
       dispatch(getUsersUpdate(values));
       if (imageUrl) {
-        dispatch(getUsersUpdateImageUrl(imageUrl));
+        dispatch(getUsersUpdateImageUrl(fileForServer));
       }
       if (avatarUrl) {
-        dispatch(getUsersUpdateAvatarUrl(avatarUrl));
+        dispatch(getUsersUpdateAvatarUrl(fileForServerAvatar));
       }
     },
   });
@@ -133,7 +136,7 @@ export function ModalEdit({ isOpen, onClose }) {
               type="submit"
               onClick={formik.handleSubmit}
               size="small">
-              save
+              Save
             </CustomButton>
           </ModalHeader>
           <UserPhoto
@@ -141,7 +144,9 @@ export function ModalEdit({ isOpen, onClose }) {
             imageUrl={imageUrl}
             avatarUrl={avatarUrl}
             setImageUrl={setImageUrl}
-            setAvatar={setAvatarUrl}
+            setAvatarUrl={setAvatarUrl}
+            setFileForServer={setFileForServer}
+            setFileForServerAvatar={setFileForServerAvatar}
           />
           <Box
             component="form"

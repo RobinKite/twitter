@@ -28,7 +28,7 @@ export function CurrentUser() {
 
   const user = useSelector((state) => state.currentUser.user);
   const posts = useSelector((state) => state.currentUser.currentPosts);
-
+  console.log(user);
   const dispatch = useDispatch();
 
   const formattedBirthdate = user?.birthdate
@@ -78,14 +78,14 @@ export function CurrentUser() {
           />
           <Typography variant="h6">{user?.fullName}</Typography>
           <Typography variant="body1">{user?.userTag}</Typography>
-          {/* <Typography
+          <Typography
             component="div"
             variant="body1"
             sx={{
               padding: "10px 0",
             }}>
-            some bio
-          </Typography> */}
+            {user && user.bio}
+          </Typography>
           <Typography variant="body2">{formattedBirthdate}</Typography>
 
           <Typography component="span" variant="body1">

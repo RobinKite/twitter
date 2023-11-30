@@ -11,7 +11,7 @@ export default function App() {
   const isLoginModalOpen = useSelector((state) => state.app.isLoginModalActive);
 
   useEffect(() => {
-    dispatch(loginUser("user2@gmail.com", "2222"));
+    dispatch(loginUser("user3@gmail.com", "3333"));
   }, [dispatch]);
 
   return (

@@ -80,9 +80,11 @@ export const getUsersUpdate = (values) => async (dispatch) => {
     console.error("Error fetching user:", error);
   }
 };
-export const getUsersUpdateAvatarUrl = (values) => async (dispatch) => {
+export const getUsersUpdateAvatarUrl = (avatarUrl) => async (dispatch) => {
   try {
-    const response = await client.put(`/upload/avatar`, values);
+    const formData = new FormData();
+    formData.append("file", avatarUrl);
+    const response = await client.post(`/upload/avatar`, formData);
     const data = response.data;
     console.log(data);
     dispatch(getUser(data));

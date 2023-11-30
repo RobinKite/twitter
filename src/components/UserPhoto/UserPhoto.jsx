@@ -18,8 +18,10 @@ const ContainerFoto = styled(Box)(() => ({
   width: "100%",
   height: "200px",
   position: "relative",
-  backgroundColor: "rgb(207, 217, 222)",
+  backgroundColor: "#1d9bf0",
   boxSizing: "border-box",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
 }));
 
 const IconAddFoto = styled(Box)(() => ({
@@ -42,19 +44,27 @@ export function UserPhoto({
   setImageUrl,
   avatarUrl,
   setAvatarUrl,
+  setFileForServer,
+  setFileForServerAvatar,
 }) {
   // const [image, setImage] = useState("");
   // const [avatar, setAvatar] = useState("");
+  // const image = URL.createObjectURL(file)
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+
     if (file) {
-      setImageUrl(URL.createObjectURL(file));
+      const imageUrl = URL.createObjectURL(file);
+      setImageUrl(imageUrl);
+      setFileForServer(file);
     }
   };
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setAvatarUrl(URL.createObjectURL(file));
+      const avatarUrl = URL.createObjectURL(file);
+      setAvatarUrl(avatarUrl);
+      setFileForServerAvatar(file);
     }
   };
   return (
@@ -76,7 +86,7 @@ export function UserPhoto({
                   accept="image/*"
                   type="file"
                 />
-              </Button>{" "}
+              </Button>
             </IconAddFoto>
           </>
         ) : null}
@@ -134,4 +144,6 @@ UserPhoto.propTypes = {
   avatarUrl: PropTypes.string,
   imageUrl: PropTypes.string,
   setImageUrl: PropTypes.func,
+  setFileForServer: PropTypes.func,
+  setFileForServerAvatar: PropTypes.func,
 };
