@@ -13,6 +13,7 @@ export class Endpoint {
   static DELETE_POST = "/posts/delete";
   static GET_POST_REPLIES = "/posts/replies";
   static GET_MY_POSTS = "/posts/home";
+  static GET_ALL_POSTS = "posts/feed";
   static SUBSCRIPTIONS = "/subscriptions";
   static USERS_SEARCH = "/users/search";
   static USERS_RECOMMENDED = "/users/recommended";

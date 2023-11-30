@@ -268,16 +268,28 @@ export const getPostById = (id) => async (dispatch) => {
 
 export const getPosts = (page) => async (dispatch) => {
   try {
-    const response = await client.get(Endpoint.GET_MY_POSTS, {
+    const response = await client.get(Endpoint.GET_ALL_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-    // console.log(response);
 
     dispatch(setPosts(response.data.content));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
 };
+
+// export const getPosts = (page) => async (dispatch) => {
+//   try {
+//     const response = await client.get(Endpoint.GET_MY_POSTS, {
+//       params: { page: page, pageSize: 12 },
+//     });
+//     // console.log(response);
+
+//     dispatch(setPosts(response.data.content));
+//   } catch (error) {
+//     console.error("Error fetching posts:", error);
+//   }
+// };
 
 export const addPosts = (formData) => async (dispatch) => {
   try {
