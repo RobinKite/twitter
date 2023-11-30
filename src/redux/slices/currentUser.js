@@ -1,5 +1,4 @@
-// import { Endpoint } from "@/constants";
-// import { Endpoint } from "@/constants";
+import { Endpoint } from "@/constants";
 import { client } from "@/services";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -8,25 +7,26 @@ const currentUserSlice = createSlice({
   initialState: {
     user: null,
     currentPosts: [],
+    currentLikedPosts: [],
   },
   reducers: {
     setCurrentUser: (state, action) => {
-      const info = action.payload;
-      // console.log(info);
-      state.user = info;
+      state.user = action.payload;
     },
     setCurrentPosts: (state, action) => {
-      const newPost = action.payload;
-      console.log(newPost);
-      state.currentPosts = newPost;
+      state.currentPosts = action.payload;
     },
     // clearCurrentUser: (state) => {
     //   state.user = null;
     // },
+    setCurrentLikedPosts: (state, action) => {
+      state.currentLikedPosts = action.payload;
+    },
   },
 });
 
-export const { setCurrentUser, setCurrentPosts } = currentUserSlice.actions;
+export const { setCurrentUser, setCurrentPosts, setCurrentLikedPosts } =
+  currentUserSlice.actions;
 // export const selectCurrentUser = (state) => state.currentUser.user;
 export default currentUserSlice.reducer;
 
@@ -38,6 +38,18 @@ export const getCurrentPosts = (id) => async (dispatch) => {
     dispatch(setCurrentPosts(data));
   } catch (error) {
     console.error("Error fetching user:", error);
+  }
+};
+
+export const getCurrentLikedPosts = () => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.LIKED_POSTS, {
+      params: { page: 0, pageSize: 12 },
+    });
+    const data = response.data.content;
+    dispatch(setCurrentLikedPosts(data));
+  } catch (error) {
+    console.error("Error fetching liked posts:", error);
   }
 };
 
