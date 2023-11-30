@@ -1,5 +1,4 @@
 import { Stack, Modal } from "@mui/material";
-import { useNavigate } from "react-router";
 import { LoginForm } from "../../forms";
 import { Google } from "@/icons";
 import PropTypes from "prop-types";
@@ -21,11 +20,12 @@ import { BsTwitterX } from "react-icons/bs";
 // import { useState } from "react";
 
 export function LoginFormModal({ handleLoginModalClose, handleLoginModalOpen }) {
-  const navigate = useNavigate();
-
   const handleForgotPasswordClick = () => {
-    navigate("/forgotPasswordForm");
+    //TODO: Change next line to dispatch password reset modal
+    // navigate("/password_reset");
   };
+
+  //TODO: close Login modal and open Registration modal upon pressing Sign Up
 
   return (
     <Modal open={handleLoginModalOpen} onClose={handleLoginModalClose}>
@@ -48,7 +48,7 @@ export function LoginFormModal({ handleLoginModalClose, handleLoginModalOpen }) 
           </MainButtonSX>
           <LoginTextSX>
             Don&apos;t have an account?&#32;
-            <LinkSX href="/registration">Sign Up</LinkSX>
+            <LinkSX>Sign Up</LinkSX>
           </LoginTextSX>
         </LoginFormSX>
       </ContainerSX>
