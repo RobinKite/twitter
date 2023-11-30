@@ -1,19 +1,23 @@
-import { Route, Routes, Outlet, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Registration, Home, Notifications, Post, Profile, Messages } from "@/pages";
 import { Settings, Bookmarks } from "@/pages";
-import { storage } from "@/services";
 
 export default function AppRoutes() {
-  // const hasToken = Boolean(getTokens().accessToken);
-  const hasToken = Boolean(storage.accessToken);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
+  if (!isAuthenticated) {
+    return (
+      <Routes>
+        <Route path="/login" element={<Registration />} />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    );
+  }
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={isAuthenticated || hasToken ? <Outlet /> : <Navigate to="/login" />}>
+      <Route path="/">
         <Route index element={<Home />} />
         <Route path="notifications" element={<Notifications />} />
         <Route path="messages">
@@ -25,11 +29,8 @@ export default function AppRoutes() {
         <Route path="post/:id" element={<Post />} />
         <Route path="bookmarks" element={<Bookmarks />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Route>
-      <Route
-        path="/login"
-        element={hasToken || isAuthenticated ? <Navigate to="/" /> : <Registration />}
-      />
     </Routes>
   );
 }
