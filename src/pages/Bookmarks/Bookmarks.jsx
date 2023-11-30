@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 const Bookmarks = () => {
   const email = useSelector((state) => state.user.user.userTag);
-  console.log(email);
+
   return (
     <Box
       sx={{
