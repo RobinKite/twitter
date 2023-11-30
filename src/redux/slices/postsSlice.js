@@ -8,6 +8,7 @@ const postsSlice = createSlice({
     posts: [],
     selectedPost: null,
     postComments: [],
+    myPosts: [],
     // coments:[],
   },
   reducers: {
@@ -18,6 +19,14 @@ const postsSlice = createSlice({
         combinedPosts.find((post) => post.id === postId),
       );
       state.posts = uniquePostsArray;
+    },
+    setMyPosts: (state, action) => {
+      const combinedPosts = [...state.posts, ...action.payload];
+      const uniquePostsSet = new Set(combinedPosts.map((post) => post.id));
+      const uniquePostsArray = Array.from(uniquePostsSet, (postId) =>
+        combinedPosts.find((post) => post.id === postId),
+      );
+      state.myPosts = uniquePostsArray;
     },
     addPost: (state, action) => {
       const newPost = action.payload;
@@ -161,6 +170,7 @@ export const {
   like,
   addComent,
   unlike,
+  setMyPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
 
@@ -278,18 +288,18 @@ export const getPosts = (page) => async (dispatch) => {
   }
 };
 
-// export const getPosts = (page) => async (dispatch) => {
-//   try {
-//     const response = await client.get(Endpoint.GET_MY_POSTS, {
-//       params: { page: page, pageSize: 12 },
-//     });
-//     // console.log(response);
+export const getMyPosts = (page) => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.GET_MY_POSTS, {
+      params: { page: page, pageSize: 12 },
+    });
+    // console.log(response);
 
-//     dispatch(setPosts(response.data.content));
-//   } catch (error) {
-//     console.error("Error fetching posts:", error);
-//   }
-// };
+    dispatch(setMyPosts(response.data.content));
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+};
 
 export const addPosts = (formData) => async (dispatch) => {
   try {

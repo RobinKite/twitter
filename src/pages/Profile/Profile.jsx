@@ -21,6 +21,7 @@ import {
   Container as AppContainer,
 } from "@/components";
 import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
+import { getMyPosts } from "@/redux/slices/postsSlice";
 const tabs = [
   { label: "Post", value: "0" },
   // { label: "Replies", value: "1" },
@@ -30,17 +31,16 @@ const tabs = [
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const posts = useSelector((state) => state.posts.posts);
-
-  const likedPosts = useSelector((state) => state.user.likedPosts);
   const user = useSelector((state) => state.user.user);
-  console.log(user);
+  const likedPosts = useSelector((state) => state.user.likedPosts);
+  const posts = useSelector((state) => state.posts.myPosts);
+
   const dispatch = useDispatch();
-  const filtredPosts = posts.filter((post) => post.user.id === user.id);
 
   useEffect(() => {
     dispatch(getLikedPosts());
     dispatch(getUserInfo());
+    dispatch(getMyPosts());
   }, [dispatch]);
 
   const formattedBirthdate =
@@ -115,7 +115,7 @@ export function Profile() {
             },
           }}>
           <TabPanel value="0">
-            {filtredPosts.map((post) => (
+            {posts.map((post) => (
               <ItemPost
                 key={post.id}
                 avatarUrl={user.avatarUrl}
