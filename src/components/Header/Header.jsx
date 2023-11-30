@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { More, Feather } from "@/icons";
+import { MoreCircle, Feather } from "@/icons";
 import { CreatePost, PostModal, Navigation } from "../../components";
 import { setModalPost, setContent } from "../../redux/slices/appSlice";
 
@@ -43,7 +43,7 @@ export const Header = () => {
             id="basic-button"
             onClick={() => setIsSelectOpen(true)}
             sx={moreButtonSX}>
-            <More size={30} /> {isDesktop && "More"}
+            <MoreCircle size={30} /> {isDesktop && "More"}
           </Button>
           <HeaderSelect open={isSelectOpen} onClose={() => setIsSelectOpen(false)} />
         </>

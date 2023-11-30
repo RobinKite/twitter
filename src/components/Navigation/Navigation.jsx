@@ -13,7 +13,7 @@ const NavigationItem = ({ path, text, getIconComponent }) => {
   return (
     <li>
       <NavLink to={path} className={styles.link}>
-        <Icon size={30} />
+        <Icon size={26.25} />
         <span className={clsx(styles.text, isActive && styles.activeLink)}>{text}</span>
       </NavLink>
     </li>
@@ -32,7 +32,7 @@ export const Navigation = () => {
       <ul className={styles.list}>
         <li>
           <NavLink to="/" className={styles.logoLink}>
-            <Twitter size={32} />
+            <Twitter size={30} />
           </NavLink>
         </li>
         {items.map((item) => {

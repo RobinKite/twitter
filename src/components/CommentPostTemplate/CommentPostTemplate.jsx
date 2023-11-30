@@ -1,12 +1,11 @@
 import { Avatar } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import EmojiPicker from "emoji-picker-react";
-import styles from "./CommentPostTemplate.module.scss";
 import PropTypes from "prop-types";
-import Media from "@/assets/icons/media.svg?react";
-import Emoji from "@/assets/icons/emoji.svg?react";
-import { ButtonPost, InputField, VisuallyHiddenInput } from "./styledSX";
+import { Media, Emoji } from "@/icons";
 import usePostData from "@/hooks/usePostData";
+import styles from "./CommentPostTemplate.module.scss";
+import { ButtonPost, InputField, VisuallyHiddenInput } from "./styledSX";
 
 const CommentPostTemplate = (props) => {
   const { id, closeModal, avatarUrl, placeholder, buttonName, type } = props;
@@ -76,7 +75,7 @@ const CommentPostTemplate = (props) => {
       <div className={styles.conteinerFooterPost}>
         <div className={styles.conteinerSvgPost}>
           <IconButton component="label">
-            <Media />
+            <Media size={20} fill="#1D9BF0" />
             <VisuallyHiddenInput
               multiple
               accept="image/*"
@@ -92,7 +91,7 @@ const CommentPostTemplate = (props) => {
           </IconButton>
 
           <IconButton component="label" onClick={() => setShowEmojiPicker((val) => !val)}>
-            <Emoji />
+            <Emoji size={20} fill="#1D9BF0" />
           </IconButton>
         </div>
         <ButtonPost type="submit" onClick={submit}>

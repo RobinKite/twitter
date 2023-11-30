@@ -2,7 +2,7 @@ import { MenuItem, Select } from "@mui/material";
 import { moreSelectMenuPropsSX, moreSelectSX } from "./styledSX";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Avatar, Display, Settings } from "@/icons";
+import { Avatar, Display, Gear } from "@/icons";
 import { ConfirmationDialog } from "..";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -41,7 +41,7 @@ const HeaderSelect = ({ open, onClose }) => {
         id="basic-menu"
         MenuProps={moreSelectMenuPropsSX}>
         <MenuItem component={Link} to="/settings">
-          <Settings size={22} />
+          <Gear size={22} />
           Settings
         </MenuItem>
         <MenuItem>
