@@ -5,27 +5,37 @@ export const postButtonSX = {
     backgroundColor: "#1d9bf0",
     color: "#ffffff",
     bottom: "70px",
-    right: "70px",
-    height: "55px",
-    width: "55px",
+    right: "20px",
+    top: "",
+    height: "50px",
+    width: "50px",
     minWidth: 0,
     position: "fixed",
 
-    "&:hover": {
-      backgroundColor: "#1a8cd8",
-    },
-  },
+    // "&:hover": {
+    //   backgroundColor: "#1a8cd8",
 
+    // },
+  },
+  tablet: {
+    position: "unset",
+    height: "50px",
+    width: "50px",
+    minWidth: 0,
+    backgroundColor: "#1d9bf0",
+    borderRadius: "100%",
+    alignSelf: "center",
+  },
   desktop: {
     color: "#ffffff",
     boxShadow: "none",
     backgroundColor: " #1d9bf0",
     borderRadius: "45px",
-
+    alignSelf: "flex-start",
     fontWeight: 700,
-    minWidth: "233px",
     fontSize: "17px",
-    margin: 0,
+    padding: "11px 80px",
+    margin: "0 40px 0 0",
 
     "&:hover": {
       boxShadow: "none",
@@ -45,7 +55,7 @@ export const moreButtonSX = {
   padding: "12px",
   textTransform: "capitalize",
   minWidth: 0,
-
+  lineHeight: 1,
   "&:hover": {
     backgroundColor: "rgb(221, 217, 217)",
   },
@@ -61,10 +71,10 @@ export const moreButtonSX = {
 export const moreSelectSX = {
   position: "relative",
   clip: "rect(0 0 0 0)",
-  "clip-path": "inset(50%)",
+  clipPath: "inset(50%)",
   height: "1px",
   overflow: "hidden",
-  "white-space": "nowrap",
+  whiteSpace: "nowrap",
   width: "1px",
 };
 

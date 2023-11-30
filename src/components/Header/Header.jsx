@@ -20,12 +20,13 @@ export const Header = () => {
   const isActiveModal = useSelector((state) => state.app.isPostModalActive);
   const dispatch = useDispatch();
   const isMobile = useMediaQuery("(max-width: 767px)");
-  const isTablet = useMediaQuery("(max-width: 1023px)");
-  const isDesktop = !isMobile && !isTablet;
+  const isTablet = useMediaQuery("(min-width: 767px) and (max-width: 1023px)");
+  const isDesktop = useMediaQuery("(min-width: 1023px)");
+
   const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
       {isMobile && (
         <>
           <HeaderDrawer />
@@ -41,9 +42,8 @@ export const Header = () => {
           <Button
             id="basic-button"
             onClick={() => setIsSelectOpen(true)}
-            startIcon={<More size={30} />}
             sx={moreButtonSX}>
-            {isDesktop && "More"}
+            <More size={30} /> {isDesktop && "More"}
           </Button>
           <HeaderSelect open={isSelectOpen} onClose={() => setIsSelectOpen(false)} />
         </>
@@ -54,7 +54,11 @@ export const Header = () => {
           dispatch(setModalPost(true));
           dispatch(setContent(<CreatePost avatarUrl={avatarUrl} />));
         }}
-        sx={isDesktop ? postButtonSX.desktop : postButtonSX.mobile}>
+        sx={
+          (isDesktop && postButtonSX.desktop) ||
+          (isTablet && postButtonSX.tablet) ||
+          (isMobile && postButtonSX.mobile)
+        }>
         {isDesktop ? "Post" : <Feather size={22} style={{ fill: "#fff" }} />}
       </Button>
 

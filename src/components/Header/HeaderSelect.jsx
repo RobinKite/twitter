@@ -2,12 +2,9 @@ import { MenuItem, Select } from "@mui/material";
 import { moreSelectMenuPropsSX, moreSelectSX } from "./styledSX";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-
-import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
+import { Display, Settings } from "@/icons";
 
 const HeaderSelect = ({ open, onClose }) => {
-  //TODO: Move Bookmarks to Navigation component and replace it here with Settings route/icon
   return (
     <Select
       open={open}
@@ -15,12 +12,12 @@ const HeaderSelect = ({ open, onClose }) => {
       sx={moreSelectSX}
       id="basic-menu"
       MenuProps={moreSelectMenuPropsSX}>
-      <MenuItem component={Link} to="/bookmarks">
-        <BookmarkBorderIcon />
-        Bookmarks
+      <MenuItem component={Link} to="/settings">
+        <Settings size={22} />
+        Settings
       </MenuItem>
       <MenuItem>
-        <DisplaySettingsIcon />
+        <Display size={22} />
         Display
       </MenuItem>
     </Select>

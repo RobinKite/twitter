@@ -26,7 +26,6 @@ export default function AppRoutes() {
           )
         }>
         <Route index element={<Home />} />
-        <Route path="/explore" element={<div>Explore</div>} />
 
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/messages" element={<div>Messages</div>} />
