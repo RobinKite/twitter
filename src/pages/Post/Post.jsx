@@ -2,7 +2,7 @@ import { IconButton, Typography, styled, Box } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { CommentPost, ItemPost } from "../../components";
+import { CommentPost, ItemPost, Container } from "@/components";
 import { ArrowBack } from "@/icons";
 import { axiosPostComments, getPostById } from "@/redux/slices/postsSlice";
 // import { compareByDate } from "@/utils";
@@ -42,7 +42,7 @@ export const Post = () => {
   // }, [dispatch, id]);
 
   return (
-    <>
+    <Container>
       <HeaderPage>
         <IconButton onClick={redirectToPost}>
           <ArrowBack size={25} />
@@ -83,6 +83,6 @@ export const Post = () => {
           fullName={e.user.fullName}
         />
       ))}
-    </>
+    </Container>
   );
 };

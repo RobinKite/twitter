@@ -1,8 +1,8 @@
 import { Stack, Typography } from "@mui/material";
-import PropTypes from "prop-types";
-import { searchBoxSX, searchLineSX, searchProgressBarContainerSX } from "./styleSX";
-import { RecommendedUsers } from "..";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { RecommendedUsers } from "@/components";
+import { searchBoxSX, searchLineSX, searchProgressBarContainerSX } from "./styleSX";
 
 export function SearchProgressBar({ searchText }) {
   const usersList = useSelector((state) => state.user.friendSearches);

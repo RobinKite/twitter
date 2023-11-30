@@ -13,7 +13,7 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-const ContainerFoto = styled(Box)(() => ({
+const ContainerPhoto = styled(Box)(() => ({
   maxWidth: "600px",
   width: "100%",
   height: "200px",
@@ -24,7 +24,7 @@ const ContainerFoto = styled(Box)(() => ({
   backgroundPosition: "center",
 }));
 
-const IconAddFoto = styled(Box)(() => ({
+const IconAddPhoto = styled(Box)(() => ({
   width: "40px",
   height: "40px",
   backgroundColor: "rgba(15, 20, 25, 0.75)",
@@ -69,10 +69,10 @@ export function UserPhoto({
   };
   return (
     <>
-      <ContainerFoto>
+      <ContainerPhoto>
         {changeIcon ? (
           <>
-            <IconAddFoto>
+            <IconAddPhoto>
               <Button
                 component="label"
                 endIcon={<AddAPhotoIcon sx={{ margin: "0", color: "white" }} />}
@@ -87,7 +87,7 @@ export function UserPhoto({
                   type="file"
                 />
               </Button>
-            </IconAddFoto>
+            </IconAddPhoto>
           </>
         ) : null}
 
@@ -133,7 +133,7 @@ export function UserPhoto({
         )}
 
         <img src={imageUrl} alt="" style={{ width: "100%", maxHeight: "200px" }} />
-      </ContainerFoto>
+      </ContainerPhoto>
     </>
   );
 }

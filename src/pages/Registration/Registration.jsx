@@ -1,49 +1,88 @@
+import { Footer, Button, LoginFormModal, RegistrationFormModal } from "@/components";
+import { Google } from "@/icons";
+import { Stack } from "@mui/material";
+import {
+  AccountSpanSX,
+  ContainerSX,
+  ContentStackSX,
+  IconBoxSX,
+  LinesSpanSX,
+  TextSX,
+  TitleSX,
+  TwitterXSX,
+} from "./styleSX";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Footer, Button } from "../../components";
-import { setCreateProfileModal, setModal } from "../../redux/slices/appSlice";
-import { Twitter, Apple, Google } from "@/icons";
-import styles from "./Registration.module.scss";
+import { googleRegister } from "@/redux/slices/userSlice";
 
 export const Registration = () => {
   const dispatch = useDispatch();
-  const toggleModal = () => {
-    dispatch(setModal());
+  const [showRegModal, setShowRegModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handleGoogleButtonClick = () => {
+    window.location.href =
+      "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/oauth2/authorization/google?redirect_uri=http://localhost:5173/login";
   };
 
-  const handleCreateElementClick = () => {
-    dispatch(setCreateProfileModal());
-  };
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    const state = urlParams.get("state");
+
+    if (code && state) {
+      dispatch(googleRegister(code, state));
+    }
+  }, [dispatch]);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <div className={styles.logoContainer}>
-          <Twitter className={styles.logo} />
-        </div>
-
-        <div className={styles.exitLogin}>
-          <h1 className={styles.titleLogin}>Here and now</h1>
-          <h5 className={styles.titleJoin}>Join today.</h5>
-          <Button startIcon={<Google size={22} />}>Sign up with Google</Button>
-          <Button startIcon={<Apple size={22} />}>Sign up with Apple</Button>
-          <span className={styles.retreat}>or</span>
+    <Stack sx={{ height: "100vh", padding: "16px" }}>
+      <ContainerSX direction="row">
+        <IconBoxSX>
+          <TwitterXSX />
+        </IconBoxSX>
+        <ContentStackSX>
+          <TitleSX variant="span">Happening now</TitleSX>
+          <TextSX variant="span">Join today.</TextSX>
+          <Button onClick={handleGoogleButtonClick} endIcon={<Google size={22} />}>
+            Sign up with Google
+          </Button>
+          <LinesSpanSX variant="span">or</LinesSpanSX>
           <Button
-            onClick={handleCreateElementClick}
+            onClick={() => setShowRegModal(true)}
             sx={{
               color: "white",
-              backgroundColor: "rgb(8, 139, 226)",
-              "&:hover": { backgroundColor: "rgb(26, 26, 172)" },
+              backgroundColor: "#1d9bf0",
+              "&:hover": { backgroundColor: "#1a8cd8" },
             }}>
             Create a profile
           </Button>
-          <p className={styles.titleProfile}>Already have a profile?</p>
-          <Button onClick={toggleModal}>Sign in</Button>
-        </div>
-      </div>
-      <div>
-        <Footer />
-      </div>
-      {/* {firstModalOpen && <LoginForm open={firstModalOpen} />} */}
-    </div>
+          <AccountSpanSX variant="span">Already have an account?</AccountSpanSX>
+          <Button
+            onClick={() => setShowLoginModal(true)}
+            sx={{
+              margin: "0 0 8px",
+              color: "#1d9bf0",
+            }}>
+            Sign in
+          </Button>
+        </ContentStackSX>
+      </ContainerSX>
+      <Footer />
+      {showRegModal && (
+        <RegistrationFormModal
+          handleRegModalClose={() => {
+            setShowRegModal(false);
+          }}
+          handleRegModalOpen={showRegModal}
+        />
+      )}
+      {showLoginModal && (
+        <LoginFormModal
+          handleLoginModalClose={() => setShowLoginModal(false)}
+          handleLoginModalOpen={showLoginModal}
+        />
+      )}
+    </Stack>
   );
 };

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { storage } from ".";
 
 export class Client {
   BASE_URL = "https://danit-final-twitter-8f32e99a3dec.herokuapp.com";
@@ -9,6 +10,8 @@ export class Client {
     this.post = this.session.post;
     this.delete = this.session.delete;
     this.put = this.session.put;
+
+    if (storage.accessToken) this.setAccessToken(storage.accessToken);
   }
 
   setAccessToken(accessToken) {

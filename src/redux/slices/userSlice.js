@@ -5,7 +5,7 @@ import { Endpoint } from "@/constants";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    isAuthenticated: false,
+    isAuthenticated: !!storage.accessToken,
     user: {},
     usersList: [],
     friendsList: [],
@@ -15,7 +15,15 @@ const userSlice = createSlice({
     currentLikedPosts: [],
   },
   reducers: {
+    registerUserAction: (state, action) => {
+      state.isAuthenticated = true;
+      state.user = action.payload;
+    },
     loginUserAction: (state, action) => {
+      state.isAuthenticated = true;
+      state.user = action.payload;
+    },
+    googleRegisterAction: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload;
     },
@@ -48,16 +56,45 @@ const userSlice = createSlice({
 export const {
   loginUserAction,
   getUser,
+  registerUserAction,
   setUsers,
   sendFriendRequest,
   removeFriend,
   setFriendSearches,
+  googleRegisterAction,
   setLikedPosts,
   setCurrentLikedPosts,
 } = userSlice.actions;
 
 export default userSlice.reducer;
+// export function getUserAsync() {
+//   return async function (dispatch) {
+//     const response = await fetch(
+//       `https://danit-final-twitter-8f32e99a3dec.herokuapp.com/users/profile`,
+//       {
+//         method: "GET",
+//         headers: {
+//           Authorization: `Bearer ${localStorage.getItem("token")}`,
+//         },
+//       },
+//     );
+//     const userInfo = await response.json();
+//     console.log(userInfo);
 
+//     dispatch(getUser(userInfo));
+//   };
+// }
+
+export const getUserInfo = () => async (dispatch) => {
+  try {
+    const response = await client.get("users/profile");
+    const data = response.data;
+    console.log(data);
+    dispatch(getUser(data));
+  } catch (error) {
+    console.error("Error fetching liked posts:", error);
+  }
+};
 export const getCurrentLikedPosts = () => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.LIKED_POSTS, {
@@ -109,12 +146,29 @@ export const getUsersUpdateImageUrl = (imageUrl) => async (dispatch) => {
 export const loginUser = (email, password) => (dispatch) => {
   const payload = { email, password };
   client.post(Endpoint.LOGIN, payload).then((response) => {
-    // console.log(response);
     const { access_token: accessToken, refresh_token: refreshToken } = response.data;
     storage.setTokens(accessToken, refreshToken);
     client.setAccessToken(accessToken);
     dispatch(loginUserAction(response.data.user));
   });
+};
+
+export const registerUser = (user) => {
+  const data = {
+    fullName: `${user.firstName} ${user.lastName}`,
+    email: user.email,
+    password: user.password,
+    birthdate: `${user.day}.${user.month}.${user.year}`,
+    userTag: user.userName,
+  };
+  return (dispatch) => {
+    client.post(Endpoint.REGISTER, data).then((response) => {
+      const { access_token: accessToken, refresh_token: refreshToken } = response.data;
+      storage.setTokens(accessToken, refreshToken);
+      client.setAccessToken(accessToken);
+      dispatch(registerUserAction(data));
+    });
+  };
 };
 
 export const fetchUsers = (numberOfUsers) => {
@@ -158,23 +212,27 @@ export const fetchFriedsSearch = (query) => {
       });
   };
 };
-// export function getUserAsync() {
-//   return async function (dispatch) {
-//     const response = await fetch(
-//       `https://danit-final-twitter-8f32e99a3dec.herokuapp.com/users/profile`,
-//       {
-//         method: "GET",
-//         headers: {
-//           Authorization: `Bearer ${localStorage.getItem("token")}`,
-//         },
-//       },
-//     );
-//     const userInfo = await response.json();
-//     console.log(userInfo);
+export const googleRegister = (code, state) => (dispatch) => {
+  const payload = { code, state };
 
-//     dispatch(getUser(userInfo));
-//   };
-// }
+  client
+    .post(Endpoint.GOOGLE_REGISTRATION, payload)
+    .then((response) => {
+      const { access_token: accessToken, refresh_token: refreshToken } = response.data;
+      storage.setTokens(accessToken, refreshToken);
+      client.setAccessToken(accessToken);
+      dispatch(googleRegisterAction(response.data.user));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const sendTokenToClient = () => () => {
+  if (storage.accessToken !== null) {
+    client.setAccessToken(storage.accessToken);
+  }
+};
 export const getLikedPosts = () => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.LIKED_POSTS, {

@@ -13,7 +13,14 @@ import {
   EditButton,
   HeaderPage,
 } from "./styledSX";
-import { getLikedPosts } from "@/redux/slices/userSlice";
+import {
+  // UserPhoto,
+  // ProfileTabs,
+  // ItemPost,
+  // ModalEdit,
+  Container as AppContainer,
+} from "@/components";
+import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
 const tabs = [
   { label: "Post", value: "0" },
   // { label: "Replies", value: "1" },
@@ -26,11 +33,12 @@ export function Profile() {
   const posts = useSelector((state) => state.posts.posts);
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const user = useSelector((state) => state.user.user);
-
+  console.log(user);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getLikedPosts());
+    dispatch(getUserInfo());
   }, [dispatch]);
 
   const formattedBirthdate =
@@ -40,7 +48,7 @@ export function Profile() {
   useLoadPost();
 
   return (
-    <>
+    <AppContainer>
       <ModalEdit isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       <Container
@@ -147,6 +155,6 @@ export function Profile() {
           </TabPanel>
         </ProfileTabs>
       </Container>
-    </>
+    </AppContainer>
   );
 }

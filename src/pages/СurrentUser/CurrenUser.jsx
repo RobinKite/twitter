@@ -12,6 +12,7 @@ import {
   ContainerUserInfo,
   HeaderPage,
 } from "../Profile/styledSX";
+import { Container as AppContainer } from "@/components";
 import { useParams } from "react-router-dom";
 import { getCurrentPosts, getCurrentUser } from "@/redux/slices/currentUser";
 // import PropTypes from "prop-types";
@@ -45,91 +46,92 @@ export function CurrentUser() {
   return (
     <>
       {/* <ModalEdit isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} /> */}
+      <AppContainer>
+        <Container
+          maxWidth="sm"
+          disableGutters={true}
+          sx={{ border: "1px solid rgb(239, 243, 244)" }}>
+          <HeaderPage>
+            <Link to="/profile">
+              <ArrowSvg>
+                <ArrowBack size={25} />
+              </ArrowSvg>
+            </Link>
+            <ContainerHederText>
+              <Typography variant="h6">{user?.fullName}</Typography>
 
-      <Container
-        maxWidth="sm"
-        disableGutters={true}
-        sx={{ border: "1px solid rgb(239, 243, 244)" }}>
-        <HeaderPage>
-          <Link to="/profile">
-            <ArrowSvg>
-              <ArrowBack size={25} />
-            </ArrowSvg>
-          </Link>
-          <ContainerHederText>
-            <Typography variant="h6">{user?.fullName}</Typography>
-
-            {/* <button onClick={() => dispatch(PostAuthorizationAsync(formData))}>
+              {/* <button onClick={() => dispatch(PostAuthorizationAsync(formData))}>
               test
             </button>
             <button onClick={() => dispatch(getUserAsync())}>test2</button> */}
-          </ContainerHederText>
-        </HeaderPage>
-        <UserPhoto
-          changeIcon={false}
-          avatarUrl={user?.avatarUrl}
-          imageUrl={user?.imageUrl}
-        />
-        <ContainerUserInfo>
-          <FollowButton
-            id={user?.id}
-            userName={user?.userTag ? user?.userTag : user?.fullName}
-            isFollowedByUser={user?.isFollowedByUser}
+            </ContainerHederText>
+          </HeaderPage>
+          <UserPhoto
+            changeIcon={false}
+            avatarUrl={user?.avatarUrl}
+            imageUrl={user?.imageUrl}
           />
-          <Typography variant="h6">{user?.fullName}</Typography>
-          <Typography variant="body1">{user?.userTag}</Typography>
-          <Typography
-            component="div"
-            variant="body1"
-            sx={{
-              padding: "10px 0",
-            }}>
-            {user && user.bio}
-          </Typography>
-          <Typography variant="body2">{formattedBirthdate}</Typography>
+          <ContainerUserInfo>
+            <FollowButton
+              id={user?.id}
+              userName={user?.userTag ? user?.userTag : user?.fullName}
+              isFollowedByUser={user?.isFollowedByUser}
+            />
+            <Typography variant="h6">{user?.fullName}</Typography>
+            <Typography variant="body1">{user?.userTag}</Typography>
+            <Typography
+              component="div"
+              variant="body1"
+              sx={{
+                padding: "10px 0",
+              }}>
+              {user && user.bio}
+            </Typography>
+            <Typography variant="body2">{formattedBirthdate}</Typography>
 
-          <Typography component="span" variant="body1">
-            {user?.following} Following
-          </Typography>
-          <Typography
-            component="span"
-            variant="body1"
-            sx={{
-              paddingLeft: "10px",
+            <Typography component="span" variant="body1">
+              {user?.following} Following
+            </Typography>
+            <Typography
+              component="span"
+              variant="body1"
+              sx={{
+                paddingLeft: "10px",
+              }}>
+              {user?.followers} Followers
+            </Typography>
+          </ContainerUserInfo>
+          <ProfileTabs
+            tabs={tabs}
+            variant="scrollable"
+            scrollButtons="auto"
+            style={{
+              "& .MuiTabs-flexContainer": {
+                justifyContent: "space-around",
+              },
             }}>
-            {user?.followers} Followers
-          </Typography>
-        </ContainerUserInfo>
-        <ProfileTabs
-          tabs={tabs}
-          variant="scrollable"
-          scrollButtons="auto"
-          style={{
-            "& .MuiTabs-flexContainer": {
-              justifyContent: "space-around",
-            },
-          }}>
-          <TabPanel value="0">
-            {posts.map((post) => (
-              <ItemPost
-                key={post.id}
-                avatarUrl={post.user?.avatarUrl}
-                fullName={post.user?.fullName}
-                replyCount={post.replyCount}
-                id={post.id}
-                content={post.body}
-                likeCount={post.likeCount}
-                liked={post.liked}
-                imageUrls={post.imageUrls}
-              />
-            ))}
-          </TabPanel>
-          {/* <TabPanel value="1">Replies</TabPanel>
+            <TabPanel value="0">
+              {posts.map((post) => (
+                <ItemPost
+                  key={post.id}
+                  avatarUrl={post.user?.avatarUrl}
+                  fullName={post.user?.fullName}
+                  replyCount={post.replyCount}
+                  id={post.id}
+                  content={post.body}
+                  likeCount={post.likeCount}
+                  liked={post.liked}
+                  imageUrls={post.imageUrls}
+                />
+              ))}
+            </TabPanel>
+            {/* <TabPanel value="1">Replies</TabPanel>
           <TabPanel value="2">
             
           </TabPanel> */}
-        </ProfileTabs>
-      </Container>
+          </ProfileTabs>
+        </Container>
+      </AppContainer>
     </>
   );
 }
