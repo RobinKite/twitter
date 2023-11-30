@@ -26,7 +26,6 @@ export default function AppRoutes() {
           )
         }>
         <Route index element={<Home />} />
-        <Route path="/explore" element={<div>Explore</div>} />
 
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/messages" element={<div>Messages</div>} />
@@ -78,6 +77,7 @@ export default function AppRoutes() {
         path="/login"
         element={isAuthenticated ? <Navigate to="/" /> : <Registration />}
       />
+      <Route path="/settings" element={<div>Settings</div>} />
     </Routes>
   );
 }
