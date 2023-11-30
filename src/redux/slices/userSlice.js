@@ -44,6 +44,14 @@ const userSlice = createSlice({
     setFriendSearches: (state, action) => {
       state.friendSearches = action.payload;
     },
+    logoutUserAction: (state) => {
+      state.isAuthenticated = false;
+      state.user = {};
+      state.usersList = [];
+      state.friendsList = [];
+      state.friendRequests = [];
+      state.friendSearches = [];
+    },
     setLikedPosts: (state, action) => {
       state.likedPosts = action.payload;
     },
@@ -62,6 +70,7 @@ export const {
   removeFriend,
   setFriendSearches,
   googleRegisterAction,
+  logoutUserAction,
   setLikedPosts,
   setCurrentLikedPosts,
 } = userSlice.actions;
