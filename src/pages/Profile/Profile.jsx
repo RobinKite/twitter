@@ -114,7 +114,7 @@ export function Profile() {
               justifyContent: "space-around",
             },
           }}>
-          <TabPanel value="0">
+          <TabPanel sx={{ padding: 0 }} value="0">
             {posts.map((post) => (
               <ItemPost
                 key={post.id}
