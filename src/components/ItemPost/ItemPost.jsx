@@ -2,15 +2,28 @@ import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { IconButton } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
 import { deletePost, handleLike, handleUnlike } from "@/redux/slices/postsSlice";
-import { Reply, LikeFalse, Repost, Share, Like, Delete } from "@/icons";
-import styles from "./ItemPost.module.scss";
+import { Reply, LikeFalse, Repost, Like, Delete, Bookmark } from "@/icons";
+import {
+  avatarSX,
+  iconDeleteSX,
+  likeCountSX,
+  replyCountSX,
+  tweetActionsSX,
+  tweetContentSX,
+  tweetHeaderSX,
+  tweetImgSX,
+  tweetRepostSX,
+  tweetSX,
+  tweetUsernameSX,
+  tweetWrapperSX,
+} from "./styleSX";
 
 export function ItemPost({
   content,
@@ -62,87 +75,73 @@ export function ItemPost({
   };
 
   return (
-    <div>
-      <div className={styles.tweet}>
-        <div className={styles.tweetHeader} onClick={fonnClick}>
-          <div className={styles.tweetAvatar}>
-            <Avatar
-              sx={{
-                mt: 0,
-                ml: 1,
-                bgcolor: "rgb(8, 139, 226)",
-                width: 40,
-                height: 40,
-              }}
-              src={avatarUrl}
-            />
-            <div className={styles.tweetUserInfo}>
-              <span className={styles.tweetUsername}>{fullName}</span>
-            </div>
-          </div>
-          <div>
-            <IconButton id="basic-button" onClick={handleClick}>
-              <MoreHorizIcon fontSize="large" />
-            </IconButton>
-            <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
-              <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
-                <Delete fill="red" />
-                Delete
-              </MenuItem>
-            </Menu>
-          </div>
-        </div>
-        <p className={styles.tweetContent}>{content}</p>
-        <div className={styles.tweetImg} onClick={fonnClick}>
-          {imageUrls.map((imageUrl, index) => (
-            <img
-              onClick={fonnClick}
-              key={index}
-              src={imageUrl}
-              alt={`${index}`}
-              style={{
-                maxWidth: imageUrls.length > 1 ? "49%" : "90%",
-
-                objectFit: "cover",
-              }}
-            />
-          ))}
-        </div>
-
-        <div className={styles.tweetActions}>
-          {!disable && (
-            <>
-              <div className={styles.replyCount}>
-                <IconButton onClick={openModal}>
-                  <Reply className={styles.tweetReply} />
-                </IconButton>
-                <span>{replyCount}</span>
-              </div>
-              <IconButton>
-                <Repost className={styles.tweetRepost} />
+    <Stack sx={tweetWrapperSX}>
+      <Stack sx={tweetSX}>
+        <Avatar sx={avatarSX} src={avatarUrl} />
+        <Stack>
+          <Stack sx={tweetHeaderSX} onClick={fonnClick}>
+            <Stack>
+              <Typography component="span" sx={tweetUsernameSX}>
+                {fullName}
+              </Typography>
+              {/* TODO: add user tag */}
+            </Stack>
+            <Stack>
+              <IconButton sx={iconDeleteSX} id="basic-button" onClick={handleClick}>
+                <MoreHorizIcon fontSize="small" />
               </IconButton>
-              <div className={styles.likeCount}>
-                <IconButton
-                  onClick={() => {
-                    liked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
-                  }}>
-                  {liked ? <LikeFalse /> : <Like className={styles.tweetLike} />}
-                </IconButton>
+              <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
+                <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
+                  <Delete fill="red" />
+                  Delete
+                </MenuItem>
+              </Menu>
+            </Stack>
+          </Stack>
+          <Typography sx={tweetContentSX}>{content}</Typography>
+          <Stack sx={tweetImgSX} onClick={fonnClick}>
+            {imageUrls.map((imageUrl, index) => (
+              <img onClick={fonnClick} key={index} src={imageUrl} alt={`${index}`} />
+            ))}
+          </Stack>
 
-                <span className={`likeCount ${liked ? styles.red : ""}`}>
-                  {likeCount}
-                </span>
-              </div>
-              {/* <IconButton>
-                <View className={styles.tweetReply} />
-              </IconButton> */}
-              <IconButton>
-                <Share className={styles.tweetReply} />
-              </IconButton>
-            </>
-          )}
-        </div>
-      </div>
+          <Stack sx={tweetActionsSX}>
+            {!disable && (
+              <>
+                <Stack sx={replyCountSX}>
+                  <IconButton onClick={openModal}>
+                    <Reply />
+                  </IconButton>
+                  <Typography component="span">{replyCount}</Typography>
+                </Stack>
+                <IconButton sx={tweetRepostSX}>
+                  <Repost />
+                </IconButton>
+                <Stack sx={likeCountSX}>
+                  <IconButton
+                    onClick={() => {
+                      liked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
+                    }}>
+                    {liked ? <LikeFalse /> : <Like />}
+                  </IconButton>
+
+                  <Typography
+                    component="span"
+                    sx={{
+                      color: liked ? "rgb(249, 24, 128)" : "inherit",
+                    }}>
+                    {likeCount}
+                  </Typography>
+                </Stack>
+                {/* TODO: add logic for bookmark */}
+                <IconButton sx={replyCountSX}>
+                  <Bookmark />
+                </IconButton>
+              </>
+            )}
+          </Stack>
+        </Stack>
+      </Stack>
 
       <ModalCommentPost
         isOpen={modalIsOpen}
@@ -156,7 +155,7 @@ export function ItemPost({
         avatarUrl={avatarUrl}
         fullName={fullName}
       />
-    </div>
+    </Stack>
   );
 }
 
