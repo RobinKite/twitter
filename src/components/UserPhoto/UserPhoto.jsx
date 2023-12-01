@@ -75,10 +75,14 @@ export function UserPhoto({
             <IconAddPhoto>
               <Button
                 component="label"
-                endIcon={<AddAPhotoIcon sx={{ margin: "0", color: "white" }} />}
+                endIcon={
+                  <AddAPhotoIcon
+                    sx={{ margin: "0", color: "white", marginRight: "10px" }}
+                  />
+                }
                 sx={{
                   "& .css-9tj150-MuiButton-endIcon": {
-                    margin: "0px",
+                    margin: "0",
                   },
                 }}>
                 <VisuallyHiddenInput
@@ -104,7 +108,11 @@ export function UserPhoto({
             src={avatarUrl}>
             <Button
               component="label"
-              endIcon={<AddAPhotoIcon sx={{ margin: "0px", color: "white" }} />}
+              endIcon={
+                <AddAPhotoIcon
+                  sx={{ margin: "0px", color: "white", marginRight: "10px" }}
+                />
+              }
               sx={{
                 "& .css-9tj150-MuiButton-endIcon": {
                   margin: "0px",
@@ -132,7 +140,11 @@ export function UserPhoto({
           </Avatar>
         )}
 
-        <img src={imageUrl} alt="" style={{ width: "100%", maxHeight: "200px" }} />
+        <img
+          src={imageUrl}
+          alt=""
+          style={{ width: "100%", maxHeight: "100%", objectFit: "cover" }}
+        />
       </ContainerPhoto>
     </>
   );

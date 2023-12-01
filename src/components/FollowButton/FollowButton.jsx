@@ -12,6 +12,7 @@ const Container = styled(Box)({
   display: "flex",
   justifyContent: "end",
   marginLeft: "auto",
+  marginRight: "3%",
 });
 
 export const FollowButton = ({ id, userName, isFollowedByUser }) => {

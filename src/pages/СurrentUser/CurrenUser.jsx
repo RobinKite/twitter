@@ -76,6 +76,7 @@ export function CurrentUser() {
               id={user?.id}
               userName={user?.userTag ? user?.userTag : user?.fullName}
               isFollowedByUser={user?.isFollowedByUser}
+              sx={{}}
             />
             <Typography variant="h6">{user?.fullName}</Typography>
             <Typography variant="body1">{user?.userTag}</Typography>
