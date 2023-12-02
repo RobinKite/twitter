@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Registration, Home, Notifications, Post, Profile, Messages } from "@/pages";
 import { Settings, Bookmarks } from "@/pages";
 import { CurrentUser } from "./pages/СurrentUser/CurrenUser";
+import { Container, UserProfile } from "@/components";
 
 export default function AppRoutes() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -27,6 +28,14 @@ export default function AppRoutes() {
           <Route path="*" element={<Navigate to="/messages" />} />
         </Route>
         <Route path="profile" element={<Profile />} />
+        <Route
+          path="profile/:id"
+          element={
+            <Container>
+              <UserProfile />
+            </Container>
+          }
+        />
         <Route path="user/:id" element={<CurrentUser />} />
         <Route path="post/:id" element={<Post />} />
         <Route path="bookmarks" element={<Bookmarks />} />

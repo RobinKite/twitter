@@ -10,7 +10,7 @@ export const withSize = (IconComponent) => {
   };
 
   ResizableIcon.defaultProps = {
-    size: 24,
+    size: 20,
   };
 
   return ResizableIcon;
