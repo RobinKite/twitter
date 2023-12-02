@@ -13,8 +13,19 @@ const userSlice = createSlice({
     friendSearches: [],
     likedPosts: [],
     currentLikedPosts: [],
+    userFollowing: [],
+    userFollowers: [],
   },
   reducers: {
+    userFollowers: (state, action) => {
+      const followers = action.payload;
+      console.log(followers);
+      state.userFollowers = followers;
+    },
+    userFollowing: (state, action) => {
+      const following = action.payload;
+      state.userFollowing = following;
+    },
     registerUserAction: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload;
@@ -73,6 +84,8 @@ export const {
   logoutUserAction,
   setLikedPosts,
   setCurrentLikedPosts,
+  userFollowing,
+  userFollowers,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -100,6 +113,28 @@ export const getUserInfo = () => async (dispatch) => {
     const data = response.data;
     console.log(data);
     dispatch(getUser(data));
+  } catch (error) {
+    console.error("Error fetching liked posts:", error);
+  }
+};
+export const getUserFollowers = () => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.USER_FOLLOWERS, {
+      params: { page: 0, pageSize: 10 },
+    });
+    const data = response.data.content;
+    dispatch(userFollowers(data));
+  } catch (error) {
+    console.error("Error fetching liked posts:", error);
+  }
+};
+export const getUserFollowing = () => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.USER_FOLLOWED, {
+      params: { page: 0, pageSize: 10 },
+    });
+    const data = response.data.content;
+    dispatch(userFollowing(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
   }

@@ -62,7 +62,7 @@ export const Header = () => {
         {isDesktop ? "Post" : <Feather size={22} style={{ fill: "#fff" }} />}
       </Button>
 
-      {isActiveModal && <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />}
+      {isActiveModal && <PostModal isOpen={isActiveModal} />}
     </div>
   );
 };

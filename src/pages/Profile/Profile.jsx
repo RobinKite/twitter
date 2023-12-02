@@ -1,6 +1,7 @@
 import TabPanel from "@mui/lab/TabPanel";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Typography, Container } from "@mui/material";
+import Link from "@mui/material/Link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "@/components";
@@ -22,6 +23,9 @@ import {
 } from "@/components";
 import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
+import { setContent, setModalPost } from "@/redux/slices/appSlice";
+import Following from "@/components/Following/Following";
+import Followers from "@/components/Followers/Followers";
 const tabs = [
   { label: "Post", value: "0" },
   // { label: "Replies", value: "1" },
@@ -30,8 +34,9 @@ const tabs = [
 
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  // const isActiveModal = useSelector((state) => state.app.isPostModalActive);
   const user = useSelector((state) => state.user.user);
+
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
 
@@ -92,18 +97,28 @@ export function Profile() {
             {user && user.bio}
           </Typography>
           <Typography variant="body2">{formattedBirthdate}</Typography>
-
-          <Typography component="span" variant="body1">
+          <Link
+            color={"rgb(83, 100, 113)"}
+            underline="hover"
+            onClick={() => {
+              dispatch(setModalPost(true));
+              dispatch(setContent(<Following />));
+            }}>
             {user && user.following} Following
-          </Typography>
-          <Typography
-            component="span"
-            variant="body1"
+          </Link>
+
+          <Link
+            onClick={() => {
+              dispatch(setModalPost(true));
+              dispatch(setContent(<Followers />));
+            }}
+            color={"rgb(83, 100, 113)"}
+            underline="hover"
             sx={{
               paddingLeft: "10px",
             }}>
             {user && user.followers} Followers
-          </Typography>
+          </Link>
         </ContainerUserInfo>
         <ProfileTabs
           tabs={tabs}
