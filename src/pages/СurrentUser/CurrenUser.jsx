@@ -114,6 +114,7 @@ export function CurrentUser() {
               {posts.map((post) => (
                 <ItemPost
                   key={post.id}
+                  postUser={post.user}
                   avatarUrl={post.user?.avatarUrl}
                   fullName={post.user?.fullName}
                   replyCount={post.replyCount}
