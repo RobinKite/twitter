@@ -3,8 +3,8 @@ import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
@@ -24,6 +24,7 @@ import {
   tweetUsernameSX,
   tweetWrapperSX,
 } from "./styleSX";
+import { getUserInfo } from "@/redux/slices/userSlice";
 
 export function ItemPost({
   content,
@@ -40,6 +41,11 @@ export function ItemPost({
 }) {
   const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const profileUser = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    dispatch(getUserInfo());
+  }, [dispatch]);
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -86,17 +92,23 @@ export function ItemPost({
               </Typography>
               {/* TODO: add user tag */}
             </Stack>
-            <Stack>
-              <IconButton sx={iconDeleteSX} id="basic-button" onClick={handleClick}>
-                <MoreHorizIcon fontSize="small" />
-              </IconButton>
-              <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
-                <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
-                  <Delete fill="red" />
-                  Delete
-                </MenuItem>
-              </Menu>
-            </Stack>
+            {profileUser.fullName === fullName && (
+              <Stack>
+                <IconButton sx={iconDeleteSX} id="basic-button" onClick={handleClick}>
+                  <MoreHorizIcon fontSize="small" />
+                </IconButton>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}>
+                  <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
+                    <Delete fill="red" />
+                    Delete
+                  </MenuItem>
+                </Menu>
+              </Stack>
+            )}
           </Stack>
           <Typography sx={tweetContentSX}>{content}</Typography>
           <Stack sx={tweetImgSX} onClick={fonnClick}>
