@@ -27,6 +27,7 @@ export const Home = () => {
         {posts.map((p) => (
           <ItemPost
             key={p.id}
+            postUser={p.user}
             avatarUrl={p.user.avatarUrl}
             fullName={p.user.fullName}
             content={p.body}

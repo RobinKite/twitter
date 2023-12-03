@@ -3,8 +3,8 @@ import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
@@ -24,6 +24,8 @@ import {
   tweetUsernameSX,
   tweetWrapperSX,
 } from "./styleSX";
+import { getUserInfo } from "@/redux/slices/userSlice";
+// import { PostWithPhotos } from "../PhotosContainer/PhotosContainer";
 
 export function ItemPost({
   content,
@@ -37,9 +39,11 @@ export function ItemPost({
   updateComment,
   avatarUrl,
   fullName,
+  postUser,
 }) {
   const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const profileUser = useSelector((state) => state.user.user);
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -50,12 +54,15 @@ export function ItemPost({
   };
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handleDeletePost = () => {
     dispatch(deletePost(id));
     if (onPostDeleted) {
@@ -68,35 +75,50 @@ export function ItemPost({
   const redirectToPost = () => {
     navigate(`/post/${id}`);
   };
+
+  const redirectToUserProfile = () => {
+    navigate(`/user/${postUser.id}`);
+  };
+
   const fonnClick = (event) => {
     if (event.currentTarget === event.target) {
       redirectToPost();
     }
   };
 
+  useEffect(() => {
+    dispatch(getUserInfo());
+  }, [dispatch]);
+
   return (
     <Stack sx={tweetWrapperSX}>
       <Stack sx={tweetSX}>
-        <Avatar sx={avatarSX} src={avatarUrl} />
+        <Avatar sx={avatarSX} src={avatarUrl} onClick={redirectToUserProfile} />
         <Stack>
-          <Stack sx={tweetHeaderSX} onClick={fonnClick}>
-            <Stack>
+          <Stack sx={tweetHeaderSX}>
+            <Stack onClick={redirectToUserProfile}>
               <Typography component="span" sx={tweetUsernameSX}>
                 {fullName}
               </Typography>
               {/* TODO: add user tag */}
             </Stack>
-            <Stack>
-              <IconButton sx={iconDeleteSX} id="basic-button" onClick={handleClick}>
-                <MoreHorizIcon fontSize="small" />
-              </IconButton>
-              <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
-                <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
-                  <Delete fill="red" />
-                  Delete
-                </MenuItem>
-              </Menu>
-            </Stack>
+            {profileUser.id === postUser.id && (
+              <Stack>
+                <IconButton sx={iconDeleteSX} id="basic-button" onClick={handleClick}>
+                  <MoreHorizIcon fontSize="small" />
+                </IconButton>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}>
+                  <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
+                    <Delete fill="red" />
+                    Delete
+                  </MenuItem>
+                </Menu>
+              </Stack>
+            )}
           </Stack>
           <Typography sx={tweetContentSX}>{content}</Typography>
           <Stack sx={tweetImgSX} onClick={fonnClick}>
@@ -104,7 +126,7 @@ export function ItemPost({
               <img onClick={fonnClick} key={index} src={imageUrl} alt={`${index}`} />
             ))}
           </Stack>
-
+          {/* <PostWithPhotos imageUrls={imageUrls} /> */}
           <Stack sx={tweetActionsSX}>
             {!disable && (
               <>
@@ -164,6 +186,7 @@ ItemPost.propTypes = {
   imageUrls: PropTypes.array,
   avatarUrl: PropTypes.string,
   fullName: PropTypes.string,
+  postUser: PropTypes.object,
   id: PropTypes.string,
   likeCount: PropTypes.number,
   liked: PropTypes.bool,
@@ -178,4 +201,5 @@ ItemPost.defaultProps = {
   imageUrls: [],
   avatarUrl: "",
   fullName: "",
+  postUser: {},
 };

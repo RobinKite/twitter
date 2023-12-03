@@ -43,6 +43,16 @@ export function Profile() {
     dispatch(getMyPosts());
   }, [dispatch]);
 
+  useEffect(() => {
+    const unlisten = () => {
+      window.scrollTo(0, 0);
+    };
+
+    return () => {
+      unlisten();
+    };
+  }, []);
+
   const formattedBirthdate =
     user && user.birthdate
       ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
@@ -118,6 +128,7 @@ export function Profile() {
             {posts.map((post) => (
               <ItemPost
                 key={post.id}
+                postUser={post.user}
                 avatarUrl={user.avatarUrl}
                 fullName={user.fullName}
                 replyCount={post.replyCount}
@@ -135,6 +146,7 @@ export function Profile() {
               likedPosts.length ? (
                 likedPosts.map((post) => (
                   <ItemPost
+                    postUser={post.user}
                     avatarUrl={user.avatarUrl}
                     fullName={user.fullName}
                     key={post.id}
