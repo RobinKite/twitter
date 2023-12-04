@@ -41,6 +41,16 @@ export const tweetUsernameSX = {
   fontSize: "15px",
   fontWeight: 700,
   lineHeight: 1.333,
+
+  "&:hover": {
+    textDecoration: "underline",
+  },
+};
+
+export const tweetUsertagSX = {
+  marginBottom: "2px",
+  fontSize: "15px",
+  color: "rgb(83, 100, 113)",
 };
 
 export const iconDeleteSX = {
@@ -58,13 +68,37 @@ export const tweetContentSX = {
 
 export const tweetImgSX = {
   borderRadius: "15px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
   overflow: "hidden",
+  display: "grid",
+  gap: "2px",
+
+  "& img": {
+    borderRadius: "15px",
+    maxWidth: "100%",
+    objectFit: "cover",
+  },
+};
+
+export const tweetImgEvenSX = {
+  gridTemplateColumns: "1fr 1fr",
+  border: "1px solid rgb(207,217,222)",
+  ...tweetImgSX,
 
   "& img": {
     maxWidth: "100%",
+    minHeight: "100%",
+    objectFit: "cover",
+  },
+};
+
+export const tweetImgOddSX = {
+  gridTemplateColumns: "repeat(3, 1fr)",
+  border: "1px solid rgb(207,217,222)",
+  ...tweetImgSX,
+
+  "& img": {
+    maxWidth: "100%",
+    minHeight: "100%",
     objectFit: "cover",
   },
 };

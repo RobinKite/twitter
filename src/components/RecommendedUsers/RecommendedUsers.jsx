@@ -7,14 +7,7 @@ import { fetchUsers } from "@/redux/slices/userSlice";
 import { userCardSX } from "./styleSX";
 import { useNavigate } from "react-router-dom";
 
-export const UserCard = ({
-  avatarUrl,
-  fullName,
-  userTag,
-  onClick,
-  children,
-  // stylesSX,
-}) => {
+export const UserCard = ({ avatarUrl, fullName, userTag, onClick, children }) => {
   const isMobile = useMediaQuery("(max-width: 767px)");
   const isTablet = useMediaQuery("(min-width: 767px) and (max-width: 1023px)");
 
@@ -57,22 +50,11 @@ export const RecommendedUserCard = ({
   const navigate = useNavigate();
 
   const handleClick = () => {
-    // Перехід на новий роут і передача id
     navigate(`/user/${id}`);
-    console.log(id);
   };
 
   return (
     <Stack sx={userCardSX} onClick={handleClick}>
-      {/* <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
-      <Stack marginLeft="0.75rem" overflow="hidden">
-        <Typography fontWeight={500} variant="subtitle1" noWrap={true}>
-          {fullName}
-        </Typography>
-        <Typography variant="body2" color="textSecondary">
-          {userTag ? `@${userTag}` : fullName}
-        </Typography>
-      </Stack> */}
       <UserCard avatarUrl={avatarUrl} fullName={fullName} userTag={userTag} />
       {useButton && (
         <FollowButton

@@ -18,10 +18,13 @@ import {
   tweetActionsSX,
   tweetContentSX,
   tweetHeaderSX,
+  tweetImgEvenSX,
+  tweetImgOddSX,
   tweetImgSX,
   tweetRepostSX,
   tweetSX,
   tweetUsernameSX,
+  tweetUsertagSX,
   tweetWrapperSX,
 } from "./styleSX";
 import { getUserInfo } from "@/redux/slices/userSlice";
@@ -96,11 +99,17 @@ export function ItemPost({
         <Avatar sx={avatarSX} src={avatarUrl} onClick={redirectToUserProfile} />
         <Stack>
           <Stack sx={tweetHeaderSX}>
-            <Stack onClick={redirectToUserProfile}>
+            <Stack
+              onClick={redirectToUserProfile}
+              sx={{ flexDirection: "row", alignItems: "center", gap: "4px" }}>
               <Typography component="span" sx={tweetUsernameSX}>
                 {fullName}
               </Typography>
-              {/* TODO: add user tag */}
+              {postUser.userTag && (
+                <Typography component="span" sx={tweetUsertagSX}>
+                  @{postUser.userTag}
+                </Typography>
+              )}
             </Stack>
             {profileUser.id === postUser.id && (
               <Stack>
@@ -121,11 +130,29 @@ export function ItemPost({
             )}
           </Stack>
           <Typography sx={tweetContentSX}>{content}</Typography>
-          <Stack sx={tweetImgSX} onClick={fonnClick}>
-            {imageUrls.map((imageUrl, index) => (
-              <img onClick={fonnClick} key={index} src={imageUrl} alt={`${index}`} />
-            ))}
-          </Stack>
+          {imageUrls.length > 0 && (
+            <Stack
+              sx={
+                imageUrls.length > 1
+                  ? imageUrls.length % 2
+                    ? tweetImgOddSX
+                    : tweetImgEvenSX
+                  : tweetImgSX
+              }
+              onClick={fonnClick}>
+              {imageUrls.map((imageUrl, index) => (
+                <img
+                  style={{
+                    border: imageUrls.length > 1 ? "" : "1px solid rgb(207,217,222)",
+                  }}
+                  onClick={fonnClick}
+                  key={index}
+                  src={imageUrl}
+                  alt={`${index}`}
+                />
+              ))}
+            </Stack>
+          )}
           {/* <PostWithPhotos imageUrls={imageUrls} /> */}
           <Stack sx={tweetActionsSX}>
             {!disable && (
