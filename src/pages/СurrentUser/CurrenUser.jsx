@@ -36,7 +36,7 @@ export function CurrentUser() {
     ? new Date(Number(user?.birthdate) * 1000).toLocaleDateString()
     : "N/A";
 
-  useLoadPost();
+  useLoadPost(getCurrentPosts);
 
   useEffect(() => {
     dispatch(getCurrentUser(id));

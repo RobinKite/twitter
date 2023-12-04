@@ -2,12 +2,13 @@ import { useLoadPost } from "@/hooks/useLoadPost";
 import { Typography } from "@mui/material";
 import { useSelector, shallowEqual } from "react-redux";
 import { Container, CreatePost, ItemPost } from "@/components";
+import { getPosts } from "@/redux/slices/postsSlice";
 
 export const Home = () => {
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
 
-  useLoadPost();
+  useLoadPost(getPosts);
 
   return (
     <Container>

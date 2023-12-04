@@ -52,7 +52,7 @@ export function Profile() {
     user && user.birthdate
       ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
       : "N/A";
-  useLoadPost();
+  useLoadPost(getMyPosts);
 
   return (
     <AppContainer>
