@@ -18,6 +18,8 @@ import {
   tweetActionsSX,
   tweetContentSX,
   tweetHeaderSX,
+  tweetImgEvenSX,
+  tweetImgOddSX,
   tweetImgSX,
   tweetRepostSX,
   tweetSX,
@@ -128,7 +130,15 @@ export function ItemPost({
             )}
           </Stack>
           <Typography sx={tweetContentSX}>{content}</Typography>
-          <Stack sx={tweetImgSX} onClick={fonnClick}>
+          <Stack
+            sx={
+              imageUrls.length > 1
+                ? imageUrls.length % 2
+                  ? tweetImgOddSX
+                  : tweetImgEvenSX
+                : tweetImgSX
+            }
+            onClick={fonnClick}>
             {imageUrls.map((imageUrl, index) => (
               <img onClick={fonnClick} key={index} src={imageUrl} alt={`${index}`} />
             ))}

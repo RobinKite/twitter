@@ -68,15 +68,49 @@ export const tweetContentSX = {
 
 export const tweetImgSX = {
   borderRadius: "15px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
   overflow: "hidden",
+  display: "grid",
+  backgroundColor: "rgb(239, 243, 244)",
+
+  "& img": {
+    borderRadius: "15px",
+    maxWidth: "100%",
+    objectFit: "cover",
+  },
+};
+
+export const tweetImgEvenSX = {
+  borderRadius: "15px",
+  overflow: "hidden",
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr",
+  gap: "2px",
+  gridRowGap: "2px",
+  gridAutoRows: "140px",
+  backgroundColor: "rgb(239, 243, 244)",
 
   "& img": {
     maxWidth: "100%",
     objectFit: "cover",
   },
+};
+
+export const tweetImgOddSX = {
+  borderRadius: "15px",
+  overflow: "hidden",
+  display: "grid",
+  gridTemplateColumns: "repeat(3, 1fr)",
+  backgroundColor: "rgb(239, 243, 244)",
+
+  "& img": {
+    maxWidth: "100%",
+    objectFit: "cover",
+  },
+
+  // "& img:first-child": {
+  //   gridColumn: "1 / 2",
+  //   gridRow: "span 2",
+  // },
 };
 
 export const tweetActionsSX = {
