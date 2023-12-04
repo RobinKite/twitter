@@ -130,19 +130,29 @@ export function ItemPost({
             )}
           </Stack>
           <Typography sx={tweetContentSX}>{content}</Typography>
-          <Stack
-            sx={
-              imageUrls.length > 1
-                ? imageUrls.length % 2
-                  ? tweetImgOddSX
-                  : tweetImgEvenSX
-                : tweetImgSX
-            }
-            onClick={fonnClick}>
-            {imageUrls.map((imageUrl, index) => (
-              <img onClick={fonnClick} key={index} src={imageUrl} alt={`${index}`} />
-            ))}
-          </Stack>
+          {imageUrls.length > 0 && (
+            <Stack
+              sx={
+                imageUrls.length > 1
+                  ? imageUrls.length % 2
+                    ? tweetImgOddSX
+                    : tweetImgEvenSX
+                  : tweetImgSX
+              }
+              onClick={fonnClick}>
+              {imageUrls.map((imageUrl, index) => (
+                <img
+                  style={{
+                    border: imageUrls.length > 1 ? "" : "1px solid rgb(207,217,222)",
+                  }}
+                  onClick={fonnClick}
+                  key={index}
+                  src={imageUrl}
+                  alt={`${index}`}
+                />
+              ))}
+            </Stack>
+          )}
           {/* <PostWithPhotos imageUrls={imageUrls} /> */}
           <Stack sx={tweetActionsSX}>
             {!disable && (
