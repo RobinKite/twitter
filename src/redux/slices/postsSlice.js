@@ -13,21 +13,12 @@ const postsSlice = createSlice({
   },
   reducers: {
     setPosts: (state, action) => {
-      const combinedPosts = [...state.posts, ...action.payload];
-      const uniquePostsSet = new Set(combinedPosts.map((post) => post.id));
-      const uniquePostsArray = Array.from(uniquePostsSet, (postId) =>
-        combinedPosts.find((post) => post.id === postId),
-      );
-      state.posts = uniquePostsArray;
+      if (!action.payload.length) return;
+      state.posts = action.payload;
     },
     setMyPosts: (state, action) => {
-      const combinedPosts = [...state.posts, ...action.payload];
-      console.log(combinedPosts);
-      const uniquePostsSet = new Set(combinedPosts.map((post) => post.id));
-      const uniquePostsArray = Array.from(uniquePostsSet, (postId) =>
-        combinedPosts.find((post) => post.id === postId),
-      );
-      state.myPosts = uniquePostsArray;
+      if (!action.payload.length) return;
+      state.myPosts = action.payload;
     },
     addPost: (state, action) => {
       const newPost = action.payload;
@@ -174,56 +165,6 @@ export const {
   setMyPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
-
-// export const handleUnlike = (id) => async (dispatch) => {
-//   try {
-//     const response = await api.delete(`likes/unlike?id=${id}`);
-
-//     if (response.status === 200) {
-//       const { likeCount, liked } = response.data;
-//       dispatch(unlike({ id, likeCount, liked }));
-//     }
-//   } catch (error) {
-//     console.error("Error unliking the post:", error);
-//   }
-// };
-
-// export const handleLike = (id) => async (dispatch) => {
-//   const requestData = {
-//     postId: id,
-//   };
-//   try {
-//     const response = await api.post(`likes/like`, requestData);
-
-//     if (response.status === 200) {
-//       const { likeCount, liked } = response.data;
-//       dispatch(like({ postId: id, likeCount, liked }));
-//     }
-//   } catch (error) {
-//     console.error("Error liking the post:", error);
-//   }
-// };
-
-// export const axiosPostComments = (id) => async (dispatch) => {
-//   try {
-//     const response = await api.get(`posts/replies?postId=${id}&page=${0}&pageSize=${10}`);
-//     const comments = response.data.content;
-//     console.log(comments);
-//     dispatch(getPostComents(comments));
-//   } catch (error) {
-//     console.error("Error fetching posts:", error);
-//   }
-// };
-
-// export const getPostById = (id) => async (dispatch) => {
-//   try {
-//     const response = await api.get(`posts/post?id=${id}`);
-//     const data = response.data;
-//     dispatch(getPostId(data));
-//   } catch (error) {
-//     console.error("Error fetching posts:", error);
-//   }
-// };
 
 export const handleUnlike = (id) => async (dispatch) => {
   try {

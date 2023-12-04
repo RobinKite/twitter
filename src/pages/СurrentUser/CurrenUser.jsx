@@ -26,14 +26,14 @@ export function CurrentUser() {
 
   const user = useSelector((state) => state.currentUser.user);
   const posts = useSelector((state) => state.currentUser.currentPosts);
-  console.log(user);
+
   const dispatch = useDispatch();
 
   // const formattedBirthdate = user?.birthdate
   //   ? new Date(Number(user?.birthdate) * 1000).toLocaleDateString()
   //   : "N/A";
 
-  useLoadPost();
+  useLoadPost(getCurrentPosts);
 
   useEffect(() => {
     dispatch(getCurrentUser(id));
@@ -61,6 +61,8 @@ export function CurrentUser() {
               followers={user.followers}
               isFollowedByUser={user.isFollowedByUser}
               showFollowButton={true}
+              location={user.location}
+              createdAt={user.createdAt}
             />
           )}
 

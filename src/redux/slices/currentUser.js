@@ -28,7 +28,6 @@ export const getCurrentPosts = (id) => async (dispatch) => {
   try {
     const response = await client.get(`posts?id=${id}`);
     const data = response.data.content;
-    console.log(data);
     dispatch(setCurrentPosts(data));
   } catch (error) {
     console.error("Error fetching user:", error);

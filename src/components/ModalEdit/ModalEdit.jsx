@@ -146,62 +146,66 @@ export function ModalEdit({ isOpen, onClose }) {
             autoComplete="off"
             sx={{ padding: "70px 15px" }}
             onSubmit={formik.handleSubmit}>
-            {formFields.map((field) => (
-              <div key={field.name}>
-                <TextField
-                  name={field.name}
-                  id={`outlined-start-adornment`}
-                  label={field.label}
-                  multiline
-                  rows={field.rows}
-                  value={formik.values[field.name]}
-                  onChange={formik.handleChange}
-                  onFocus={() => {
-                    formik.setFieldTouched(field.name, true);
-                  }}
-                  sx={{
-                    width: "100%",
-                    marginTop: "25px",
-                    "& .MuiOutlinedInput-input": {
-                      paddingTop: "5px",
-                    },
-                  }}
-                  error={formik.touched[field.name] && Boolean(formik.errors[field.name])}
-                  helperText={formik.touched[field.name] && formik.errors[field.name]}
-                  InputProps={{
-                    sx: {
-                      padding: "16px 10px",
-                    },
-                    endAdornment:
-                      formik.touched[field.name] && field.maxLength ? (
-                        <div
-                          style={{
-                            alignSelf: "flex-start",
-                            fontSize: "14px",
-                            position: "relative",
-                            bottom: "15px",
-                          }}>
-                          {(formik.values[field.name] || "").length}/{field.maxLength}
-                        </div>
-                      ) : null,
-                  }}
-                  InputLabelProps={{
-                    shrink: false,
-                    sx: {
-                      transform: formik.values[field.name]
-                        ? "translate(10px, 4px)"
-                        : null,
-                      fontSize: formik.values[field.name] ? "14px" : "16px",
-                      transition: "transform 0.3s, font-size 0.3s",
-                      "&.Mui-focused": {
-                        transform: "translate(10px, 4px)",
-                        fontSize: "14px",
+            {formFields
+              .filter((field) => field.name !== "website")
+              .map((field) => (
+                <div key={field.name}>
+                  <TextField
+                    name={field.name}
+                    id={`outlined-start-adornment`}
+                    label={field.label}
+                    multiline
+                    rows={field.rows}
+                    value={formik.values[field.name]}
+                    onChange={formik.handleChange}
+                    onFocus={() => {
+                      formik.setFieldTouched(field.name, true);
+                    }}
+                    sx={{
+                      width: "100%",
+                      marginTop: "25px",
+                      "& .MuiOutlinedInput-input": {
+                        paddingTop: "5px",
                       },
-                    },
-                  }}
-                />
-              </div>
-            ))}
+                    }}
+                    error={
+                      formik.touched[field.name] && Boolean(formik.errors[field.name])
+                    }
+                    helperText={formik.touched[field.name] && formik.errors[field.name]}
+                    InputProps={{
+                      sx: {
+                        padding: "16px 10px",
+                      },
+                      endAdornment:
+                        formik.touched[field.name] && field.maxLength ? (
+                          <div
+                            style={{
+                              alignSelf: "flex-start",
+                              fontSize: "14px",
+                              position: "relative",
+                              bottom: "15px",
+                            }}>
+                            {(formik.values[field.name] || "").length}/{field.maxLength}
+                          </div>
+                        ) : null,
+                    }}
+                    InputLabelProps={{
+                      shrink: false,
+                      sx: {
+                        transform: formik.values[field.name]
+                          ? "translate(10px, 4px)"
+                          : null,
+                        fontSize: formik.values[field.name] ? "14px" : "16px",
+                        transition: "transform 0.3s, font-size 0.3s",
+                        "&.Mui-focused": {
+                          transform: "translate(10px, 4px)",
+                          fontSize: "14px",
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              ))}
             <ContainerDate>
               {configDateForm.map((field) => (
                 <TextField

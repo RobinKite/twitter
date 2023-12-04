@@ -19,6 +19,7 @@ const tabs = [
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
+
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
   const dispatch = useDispatch();
@@ -26,10 +27,10 @@ export function Profile() {
   useEffect(() => {
     dispatch(getLikedPosts());
     dispatch(getUserInfo());
-    dispatch(getMyPosts());
+    // dispatch(getMyPosts());
   }, [dispatch]);
 
-  useLoadPost();
+  useLoadPost(getMyPosts);
 
   return (
     <AppContainer>
@@ -53,6 +54,8 @@ export function Profile() {
             following={user.following}
             followers={user.followers}
             showFollowButton={false}
+            location={user.location}
+            createdAt={user.createdAt}
           />
         )}
         <ProfileTabs

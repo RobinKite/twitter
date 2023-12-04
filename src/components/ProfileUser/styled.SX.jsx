@@ -1,4 +1,4 @@
-import { styled, Button, Box } from "@mui/material";
+import { styled, Button, Box, Typography } from "@mui/material";
 
 export const HeaderPage = styled(Box)(() => ({
   display: "flex",
@@ -41,4 +41,14 @@ export const EditButton = styled(Button)(() => ({
     border: "1px solid rgb(207, 217, 222)",
     background: " rgb(239, 243, 244)",
   },
+}));
+export const BoxInfo = styled(Box)(() => ({
+  display: "flex",
+  gap: 20,
+  color: "rgb(83, 100, 113)",
+  marginBottom: 10,
+}));
+export const TypographyInfo = styled(Typography)(() => ({
+  display: "flex",
+  fontSize: "15px",
 }));

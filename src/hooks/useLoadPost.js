@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getMyPosts } from "@/redux/slices/postsSlice";
 import { client } from "@/services";
 import { Endpoint } from "@/constants";
 
-export const useLoadPost = () => {
+export const useLoadPost = (callback) => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -29,7 +28,7 @@ export const useLoadPost = () => {
       const morePostsAvailable = await checkIfMorePostsAvailable(currentPage);
 
       if (morePostsAvailable) {
-        dispatch(getMyPosts(currentPage))
+        dispatch(callback(currentPage))
           .then((response) => {
             // Перевіряємо, чи є ще пости
             const morePosts = response?.data?.content.length > 0;
@@ -66,7 +65,7 @@ export const useLoadPost = () => {
   };
 
   useEffect(() => {
-    dispatch(getMyPosts(currentPage));
+    dispatch(callback(currentPage));
 
     window.addEventListener("scroll", handleScroll);
 
