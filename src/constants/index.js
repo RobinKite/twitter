@@ -24,4 +24,8 @@ export class Endpoint {
   static GOOGLE_REGISTRATION = "/oauth2/exchange-code/google";
   static USER_FOLLOWED = "/users/followed";
   static USER_FOLLOWERS = "/users/followers";
+  static USER_PROFILE = "/users/profile";
+  static USERS_UPDATE = "/users/update";
+  static UPLOAD_AVATAR = "/upload/avatar";
+  static UPLOAD_BG_IMAGE = "/upload/bg_image";
 }

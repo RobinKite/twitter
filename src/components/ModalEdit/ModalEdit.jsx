@@ -95,27 +95,20 @@ export function ModalEdit({ isOpen, onClose }) {
       year: "",
       userTag: "",
     },
-    //   "fullName": "string",
-    // "userTag": "string",
-    // "birthdate": "string",
-    // "bio": "string",
-    // "location": "string",
-    // "avatarUrl": "string",
-    // "imageUrl": "string"
-    // validationSchema: editProfileSchema,
-    onSubmit: (values) => {
+
+    onSubmit: async (values) => {
       onClose();
       const { month, day, year } = values;
       const birthdateInSeconds = new Date(`${month} ${day}, ${year}`).getTime() / 1000;
 
       values = { ...values, fullName: values.name, birthdate: birthdateInSeconds };
       console.log();
-      dispatch(getUsersUpdate(values));
+      await dispatch(getUsersUpdate(values));
       if (imageUrl) {
-        dispatch(getUsersUpdateImageUrl(fileForServer));
+        await dispatch(getUsersUpdateImageUrl(fileForServer));
       }
       if (avatarUrl) {
-        dispatch(getUsersUpdateAvatarUrl(fileForServerAvatar));
+        await dispatch(getUsersUpdateAvatarUrl(fileForServerAvatar));
       }
     },
   });

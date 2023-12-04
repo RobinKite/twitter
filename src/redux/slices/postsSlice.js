@@ -22,6 +22,7 @@ const postsSlice = createSlice({
     },
     setMyPosts: (state, action) => {
       const combinedPosts = [...state.posts, ...action.payload];
+      console.log(combinedPosts);
       const uniquePostsSet = new Set(combinedPosts.map((post) => post.id));
       const uniquePostsArray = Array.from(uniquePostsSet, (postId) =>
         combinedPosts.find((post) => post.id === postId),

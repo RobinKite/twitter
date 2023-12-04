@@ -1,23 +1,23 @@
 import { getUserFollowing } from "@/redux/slices/userSlice";
-
+import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RecommendedUserCard } from "../RecommendedUsers/RecommendedUsers";
 
-function Following() {
-  const userFollowing = useSelector((state) => state.user.userFollowing);
+function Following({ id }) {
+  const usersFollowing = useSelector((state) => state.user.usersFollowing);
 
   const dispatch = useDispatch();
-  console.log(userFollowing);
+
   useEffect(() => {
-    dispatch(getUserFollowing());
+    dispatch(getUserFollowing(id));
   }, [dispatch]);
 
   return (
     <>
-      {userFollowing &&
-        userFollowing.map((user) => (
+      {usersFollowing &&
+        usersFollowing.map((user) => (
           <RecommendedUserCard
             key={user.id}
             id={user.id}
@@ -33,3 +33,7 @@ function Following() {
 }
 
 export default Following;
+
+Following.propTypes = {
+  id: PropTypes.string,
+};

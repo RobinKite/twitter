@@ -1,23 +1,23 @@
 import { getUserFollowers } from "@/redux/slices/userSlice";
-
+import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RecommendedUserCard } from "../RecommendedUsers/RecommendedUsers";
 
-function Followers() {
-  const userFollowers = useSelector((state) => state.user.userFollowers);
+function Followers({ id }) {
+  const usersFollowers = useSelector((state) => state.user.usersFollowers);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserFollowers());
+    dispatch(getUserFollowers(id));
   }, [dispatch]);
 
   return (
     <>
-      {userFollowers &&
-        userFollowers.map((user) => (
+      {usersFollowers &&
+        usersFollowers.map((user) => (
           <RecommendedUserCard
             key={user.id}
             id={user.id}
@@ -33,3 +33,6 @@ function Followers() {
 }
 
 export default Followers;
+Followers.propTypes = {
+  id: PropTypes.string,
+};

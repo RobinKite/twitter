@@ -1,31 +1,15 @@
 import TabPanel from "@mui/lab/TabPanel";
 // import { Link } from "react-router-dom";
-import { Typography, Container } from "@mui/material";
-import Link from "@mui/material/Link";
+import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "@/components";
+import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
 import { useLoadPost } from "@/hooks/useLoadPost";
-import { ArrowBack } from "@/icons";
-import {
-  ArrowSvg,
-  ContainerHederText,
-  ContainerUserInfo,
-  EditButton,
-  HeaderPage,
-} from "./styledSX";
-import {
-  // UserPhoto,
-  // ProfileTabs,
-  // ItemPost,
-  // ModalEdit,
-  Container as AppContainer,
-} from "@/components";
+import { Container as AppContainer } from "@/components";
 import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
-import { setContent, setModalPost } from "@/redux/slices/appSlice";
-import Following from "@/components/Following/Following";
-import Followers from "@/components/Followers/Followers";
+
+import ProfileUser from "@/components/ProfileUser/ProfileUser";
 const tabs = [
   { label: "Post", value: "0" },
   // { label: "Replies", value: "1" },
@@ -34,12 +18,9 @@ const tabs = [
 
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const isActiveModal = useSelector((state) => state.app.isPostModalActive);
   const user = useSelector((state) => state.user.user);
-
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,10 +29,6 @@ export function Profile() {
     dispatch(getMyPosts());
   }, [dispatch]);
 
-  const formattedBirthdate =
-    user && user.birthdate
-      ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
-      : "N/A";
   useLoadPost();
 
   return (
@@ -62,64 +39,22 @@ export function Profile() {
         maxWidth="sm"
         disableGutters={true}
         sx={{ border: "1px solid rgb(239, 243, 244)", height: "unset" }}>
-        <HeaderPage>
-          <Link to="/">
-            <ArrowSvg>
-              <ArrowBack size={25} />
-            </ArrowSvg>
-          </Link>
-          <ContainerHederText>
-            <Typography variant="h6">{user && user.fullName}</Typography>
-            {/* <div>post</div> */}
-            {/* <button onClick={() => dispatch(PostAuthorizationAsync(formData))}>
-              test
-            </button>
-            <button onClick={() => dispatch(getUserAsync())}>test2</button> */}
-          </ContainerHederText>
-        </HeaderPage>
-        <UserPhoto
-          changeIcon={false}
-          avatarUrl={user && user.avatarUrl}
-          imageUrl={user && user.imageUrl}
-        />
-        <ContainerUserInfo>
-          <EditButton onClick={() => setIsModalOpen(true)} variant="outlined">
-            Edit profile
-          </EditButton>
-          <Typography variant="h6"> {user && user.fullName}</Typography>
-          <Typography variant="body1">{user && user.userTag}</Typography>
-          <Typography
-            component="div"
-            variant="body1"
-            sx={{
-              padding: "10px 0",
-            }}>
-            {user && user.bio}
-          </Typography>
-          <Typography variant="body2">{formattedBirthdate}</Typography>
-          <Link
-            color={"rgb(83, 100, 113)"}
-            underline="hover"
-            onClick={() => {
-              dispatch(setModalPost(true));
-              dispatch(setContent(<Following />));
-            }}>
-            {user && user.following} Following
-          </Link>
-
-          <Link
-            onClick={() => {
-              dispatch(setModalPost(true));
-              dispatch(setContent(<Followers />));
-            }}
-            color={"rgb(83, 100, 113)"}
-            underline="hover"
-            sx={{
-              paddingLeft: "10px",
-            }}>
-            {user && user.followers} Followers
-          </Link>
-        </ContainerUserInfo>
+        {user && (
+          <ProfileUser
+            id={user.id}
+            key={user.id}
+            fullName={user.fullName}
+            avatarUrl={user.avatarUrl}
+            imageUrl={user.imageUrl}
+            userTag={user.userTag}
+            bio={user.bio}
+            setIsModalOpen={setIsModalOpen}
+            birthdate={user.birthdate}
+            following={user.following}
+            followers={user.followers}
+            showFollowButton={false}
+          />
+        )}
         <ProfileTabs
           tabs={tabs}
           variant="scrollable"
