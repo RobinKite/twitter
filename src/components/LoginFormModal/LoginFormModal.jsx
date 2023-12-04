@@ -19,11 +19,15 @@ import { BsTwitterX } from "react-icons/bs";
 // import { setModal } from "@/redux/slices/appSlice";
 // import { useState } from "react";
 
-export function LoginFormModal({ handleLoginModalClose, handleLoginModalOpen }) {
-  const handleForgotPasswordClick = () => {
-    //TODO: Change next line to dispatch password reset modal
-    // navigate("/password_reset");
-  };
+export function LoginFormModal({
+  handleLoginModalClose,
+  handleLoginModalOpen,
+  handleSignUpClick,
+}) {
+  // const handleForgotPasswordClick = () => {
+  //   //TODO: Change next line to dispatch password reset modal
+  //   // navigate("/password_reset");
+  // };
 
   //TODO: close Login modal and open Registration modal upon pressing Sign Up
 
@@ -43,12 +47,12 @@ export function LoginFormModal({ handleLoginModalClose, handleLoginModalOpen }) 
           <Stack sx={{ width: "100%" }}>
             <LoginForm />
           </Stack>
-          <MainButtonSX onClick={handleForgotPasswordClick}>
+          {/* <MainButtonSX onClick={handleForgotPasswordClick}>
             Forgot password?
-          </MainButtonSX>
+          </MainButtonSX> */}
           <LoginTextSX>
             Don&apos;t have an account?&#32;
-            <LinkSX>Sign Up</LinkSX>
+            <LinkSX onClick={handleSignUpClick}>Sign Up</LinkSX>
           </LoginTextSX>
         </LoginFormSX>
       </ContainerSX>
@@ -59,9 +63,11 @@ export function LoginFormModal({ handleLoginModalClose, handleLoginModalOpen }) 
 LoginFormModal.propTypes = {
   handleLoginModalOpen: PropTypes.bool,
   handleLoginModalClose: PropTypes.func,
+  handleSignUpClick: PropTypes.func,
 };
 
 LoginFormModal.defaultProps = {
   handleLoginModalOpen: false,
   handleLoginModalClose: () => {},
+  handleSignUpClick: () => {},
 };

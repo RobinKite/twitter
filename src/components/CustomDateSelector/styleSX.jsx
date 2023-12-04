@@ -3,7 +3,7 @@ import { Select, Typography, styled } from "@mui/material";
 export const CustomSelectSX = styled(Select)({
   "&": {
     borderRadius: 4,
-    border: "1px solid #00000099",
+    border: "1px solid #00000039",
     color: "#00000099",
     height: "50px",
     padding: "10px",

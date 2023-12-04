@@ -1,4 +1,4 @@
-import { Avatar, Stack, Typography } from "@mui/material";
+import { Avatar, Stack, Typography, useMediaQuery } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -6,6 +6,45 @@ import { FollowButton } from "@/components";
 import { fetchUsers } from "@/redux/slices/userSlice";
 import { userCardSX } from "./styleSX";
 import { useNavigate } from "react-router-dom";
+
+export const UserCard = ({
+  avatarUrl,
+  fullName,
+  userTag,
+  onClick,
+  children,
+  // stylesSX,
+}) => {
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const isTablet = useMediaQuery("(min-width: 767px) and (max-width: 1023px)");
+
+  return (
+    <Stack onClick={onClick} sx={userCardSX}>
+      <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
+      {!isMobile && !isTablet && (
+        <>
+          <Stack overflow="hidden" sx={{ marginRight: "auto", marginLeft: "0.75rem" }}>
+            <Typography fontWeight={700} variant="subtitle1" noWrap={true}>
+              {fullName}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              {userTag ? `@${userTag}` : fullName}
+            </Typography>
+          </Stack>
+          {children}
+        </>
+      )}
+    </Stack>
+  );
+};
+
+UserCard.propTypes = {
+  avatarUrl: PropTypes.string,
+  fullName: PropTypes.string,
+  userTag: PropTypes.string,
+  onClick: PropTypes.func,
+  children: PropTypes.object,
+};
 
 export const RecommendedUserCard = ({
   id,
@@ -25,7 +64,7 @@ export const RecommendedUserCard = ({
 
   return (
     <Stack sx={userCardSX} onClick={handleClick}>
-      <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
+      {/* <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
       <Stack marginLeft="0.75rem" overflow="hidden">
         <Typography fontWeight={500} variant="subtitle1" noWrap={true}>
           {fullName}
@@ -33,7 +72,8 @@ export const RecommendedUserCard = ({
         <Typography variant="body2" color="textSecondary">
           {userTag ? `@${userTag}` : fullName}
         </Typography>
-      </Stack>
+      </Stack> */}
+      <UserCard avatarUrl={avatarUrl} fullName={fullName} userTag={userTag} />
       {useButton && (
         <FollowButton
           id={id}

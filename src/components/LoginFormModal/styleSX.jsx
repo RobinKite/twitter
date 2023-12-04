@@ -54,6 +54,7 @@ export const LoginTextSX = styled(Typography)({
 export const LinkSX = styled(Link)({
   color: "#1d9bf0",
   textDecoration: "none",
+  cursor: "pointer",
   "&:hover": {
     textDecoration: "underline",
   },
@@ -98,6 +99,7 @@ export const NextButtonSX = styled(Button)({
   color: "#fff",
   textTransform: "none",
   padding: "0 16px",
+  margin: "12px 0",
   "&:hover": {
     backgroundColor: "#3c3a3a",
   },
