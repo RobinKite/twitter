@@ -41,6 +41,16 @@ export const tweetUsernameSX = {
   fontSize: "15px",
   fontWeight: 700,
   lineHeight: 1.333,
+
+  "&:hover": {
+    textDecoration: "underline",
+  },
+};
+
+export const tweetUsertagSX = {
+  marginBottom: "2px",
+  fontSize: "15px",
+  color: "rgb(83, 100, 113)",
 };
 
 export const iconDeleteSX = {
