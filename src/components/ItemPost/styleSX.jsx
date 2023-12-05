@@ -1,7 +1,6 @@
 export const tweetWrapperSX = {};
 
 export const tweetSX = {
-  position: "relative",
   borderBottom: "1px solid rgb(239, 243, 244)",
   paddingTop: "12px",
   paddingBottom: "12px",
@@ -29,6 +28,7 @@ export const avatarSX = {
 };
 
 export const tweetHeaderSX = {
+  position: "relative",
   display: "flex",
   flexDirection: "row",
   alignItems: "flex-start",
@@ -55,7 +55,7 @@ export const tweetUsertagSX = {
 
 export const iconDeleteSX = {
   position: "absolute",
-  top: "4px",
+  top: "-2px",
   right: "6px",
 };
 

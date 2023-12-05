@@ -120,7 +120,13 @@ export function ItemPost({
                   id="basic-menu"
                   anchorEl={anchorEl}
                   open={open}
-                  onClose={handleClose}>
+                  onClose={handleClose}
+                  sx={{
+                    "& .css-6hp17o-MuiList-root-MuiMenu-list": {
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                    },
+                  }}>
                   <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
                     <Delete fill="red" />
                     Delete

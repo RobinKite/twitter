@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { ConfirmationDialog } from "@/components";
-import { deleteSubscribeToUser, postSubcribeToUser } from "@/redux/slices/userSlice";
+import { deleteSubscribeToUser, postSubscribeToUser } from "@/redux/slices/userSlice";
 import { FollowButtonStyled } from "./styleSX";
 
 const Container = styled(Box)({
@@ -20,9 +20,10 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const handleFollow = () => {
+  const handleFollow = (e) => {
+    e.stopPropagation();
     setIsFollowing(true);
-    dispatch(postSubcribeToUser(id));
+    dispatch(postSubscribeToUser(id));
     setOpenDialog(false);
   };
 

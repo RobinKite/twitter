@@ -191,7 +191,7 @@ export const fetchUsers = (numberOfUsers) => {
   };
 };
 
-export const postSubcribeToUser = (id) => {
+export const postSubscribeToUser = (id) => {
   return (dispatch) => {
     client.post(Endpoint.SUBSCRIPTIONS, { id }).then((response) => {
       const data = response.data;
