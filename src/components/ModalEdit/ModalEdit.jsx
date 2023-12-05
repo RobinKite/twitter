@@ -67,7 +67,7 @@ const ModalHeader = styled(Toolbar)(() => ({
 }));
 
 // TODO: 👉 Rewrite the component
-export function ModalEdit({ isOpen, onClose }) {
+export function ModalEdit({ isOpen, onClose, fullName, bio, location, userTag }) {
   const [imageUrl, setImageUrl] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
@@ -85,15 +85,16 @@ export function ModalEdit({ isOpen, onClose }) {
     }
     return Array.from({ length: 31 }, (_, i) => i + 1);
   };
+
   const formik = useFormik({
     initialValues: {
-      name: "",
-      bio: "",
-      location: "",
+      name: fullName || "",
+      bio: bio || "",
+      location: location || "",
       month: "",
       day: "",
       year: "",
-      userTag: "",
+      userTag: userTag || "",
     },
 
     onSubmit: async (values) => {
@@ -250,4 +251,8 @@ export function ModalEdit({ isOpen, onClose }) {
 ModalEdit.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  fullName: PropTypes.string,
+  bio: PropTypes.string,
+  location: PropTypes.string,
+  userTag: PropTypes.string,
 };

@@ -29,10 +29,6 @@ export function CurrentUser() {
 
   const dispatch = useDispatch();
 
-  // const formattedBirthdate = user?.birthdate
-  //   ? new Date(Number(user?.birthdate) * 1000).toLocaleDateString()
-  //   : "N/A";
-
   useLoadPost(getCurrentPosts);
 
   useEffect(() => {

@@ -9,7 +9,6 @@ const postsSlice = createSlice({
     selectedPost: null,
     postComments: [],
     myPosts: [],
-    // coments:[],
   },
   reducers: {
     setPosts: (state, action) => {
@@ -17,7 +16,7 @@ const postsSlice = createSlice({
       state.posts = action.payload;
     },
     setMyPosts: (state, action) => {
-      if (!action.payload.length) return;
+      // if (!action.payload.length) return;
       state.myPosts = action.payload;
     },
     addPost: (state, action) => {
@@ -201,7 +200,6 @@ export const axiosPostComments = (id) => async (dispatch) => {
       `posts/replies?postId=${id}&page=${0}&pageSize=${10}`,
     );
     const comments = response.data.content;
-    console.log(comments);
     dispatch(getPostComents(comments));
   } catch (error) {
     console.error("Error fetching posts:", error);

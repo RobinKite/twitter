@@ -52,7 +52,7 @@ function ProfileUser({
   };
 
   const formattedBirthdate = birthdate
-    ? new Date(Number(birthdate) * 1000).toLocaleDateString()
+    ? new Date(Number(birthdate) * 500).toLocaleDateString()
     : null;
   const registrationDate = createdAt
     ? new Date(Number(createdAt) * 1000).toLocaleDateString()

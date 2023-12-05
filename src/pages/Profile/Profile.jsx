@@ -27,14 +27,21 @@ export function Profile() {
   useEffect(() => {
     dispatch(getLikedPosts());
     dispatch(getUserInfo());
-    // dispatch(getMyPosts());
+    dispatch(getMyPosts());
   }, [dispatch]);
 
   useLoadPost(getMyPosts);
 
   return (
     <AppContainer>
-      <ModalEdit isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ModalEdit
+        isOpen={isModalOpen}
+        fullName={user.fullName}
+        userTag={user.userTag}
+        location={user.location}
+        bio={user.bio}
+        onClose={() => setIsModalOpen(false)}
+      />
 
       <Container
         maxWidth="sm"
