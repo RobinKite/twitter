@@ -21,12 +21,12 @@ export const Bookmarks = () => {
         sx={{
           borderRight: "1px solid #EFF3F4",
           borderLeft: "1px solid #EFF3F4",
-          paddingLeft: "16px",
           height: "100vh",
         }}>
         <Typography
           variant="h1"
           sx={{
+            padding: "0 16px",
             color: "#0F1419",
             fontSize: "20px",
             fontWeight: 700,
@@ -34,7 +34,14 @@ export const Bookmarks = () => {
           }}>
           Bookmarks
         </Typography>
-        <Typography variant="h5" sx={{ color: "#536471", fontSize: "13px" }}>
+        <Typography
+          variant="h5"
+          sx={{
+            marginBottom: "4px",
+            padding: "0 16px",
+            color: "#536471",
+            fontSize: "13px",
+          }}>
           @{email}
         </Typography>
         {allBookmarkPosts.length > 0 ? (
