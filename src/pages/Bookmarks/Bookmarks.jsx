@@ -1,9 +1,19 @@
 import { Box, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Container } from "@/components";
+import { useEffect } from "react";
+import { getAllBookmarkPosts } from "@/redux/slices/userSlice";
 
 export const Bookmarks = () => {
+  const dispatch = useDispatch();
   const email = useSelector((state) => state.user.user.userTag);
+  const allBookmarkPosts = useSelector((state) => state.user.bookmarkPosts);
+
+  useEffect(() => {
+    dispatch(getAllBookmarkPosts());
+  }, [dispatch]);
+
+  console.log(allBookmarkPosts);
 
   return (
     <Container>
@@ -25,7 +35,7 @@ export const Bookmarks = () => {
           Bookmarks
         </Typography>
         <Typography variant="h5" sx={{ color: "#536471", fontSize: "13px" }}>
-          {email}
+          @{email}
         </Typography>
 
         <Box sx={{ margin: "32px auto", padding: "0 32px", maxWidth: "calc(5 * 80px)" }}>

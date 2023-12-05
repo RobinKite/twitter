@@ -36,6 +36,7 @@ export const Home = () => {
             id={p.id}
             likeCount={p.likeCount}
             liked={p.liked}
+            isBookmarked={p.bookmarked}
           />
         ))}
       </div>

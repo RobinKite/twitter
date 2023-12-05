@@ -13,6 +13,7 @@ const userSlice = createSlice({
     friendSearches: [],
     likedPosts: [],
     currentLikedPosts: [],
+    bookmarkPosts: [],
   },
   reducers: {
     registerUserAction: (state, action) => {
@@ -58,6 +59,14 @@ const userSlice = createSlice({
     setCurrentLikedPosts: (state, action) => {
       state.currentLikedPosts = action.payload;
     },
+    setBookmarkPost: (state, action) => {
+      state.bookmarkPosts = action.payload;
+    },
+    removeBookmarkPost: (state, action) => {
+      state.bookmarkPosts = state.bookmarkPosts.filter(
+        (post) => post.id !== action.payload,
+      );
+    },
   },
 });
 
@@ -73,6 +82,8 @@ export const {
   logoutUserAction,
   setLikedPosts,
   setCurrentLikedPosts,
+  setBookmarkPost,
+  removeBookmarkPost,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -98,12 +109,12 @@ export const getUserInfo = () => async (dispatch) => {
   try {
     const response = await client.get("users/profile");
     const data = response.data;
-    console.log(data);
     dispatch(getUser(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
   }
 };
+
 export const getCurrentLikedPosts = () => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.LIKED_POSTS, {
@@ -126,6 +137,7 @@ export const getUsersUpdate = (values) => async (dispatch) => {
     console.error("Error fetching user:", error);
   }
 };
+
 export const getUsersUpdateAvatarUrl = (avatarUrl) => async (dispatch) => {
   try {
     const formData = new FormData();
@@ -138,6 +150,7 @@ export const getUsersUpdateAvatarUrl = (avatarUrl) => async (dispatch) => {
     console.error("Error fetching user:", error);
   }
 };
+
 export const getUsersUpdateImageUrl = (imageUrl) => async (dispatch) => {
   try {
     const formData = new FormData();
@@ -251,5 +264,35 @@ export const getLikedPosts = () => async (dispatch) => {
     dispatch(setLikedPosts(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
+  }
+};
+
+export const addBookmarkPost = (postId) => async (dispatch) => {
+  try {
+    await client.post(Endpoint.BOOKMARKS, null, { params: { postId } });
+
+    dispatch(getAllBookmarkPosts());
+  } catch (error) {
+    console.error("Error adding bookmark post:", error);
+  }
+};
+
+export const deleteBookmarkPost = (postId) => async (dispatch) => {
+  try {
+    await client.delete(Endpoint.BOOKMARKS, { params: { postId } });
+
+    dispatch(getAllBookmarkPosts());
+  } catch (error) {
+    console.error("Error removing bookmark post:", error);
+  }
+};
+
+export const getAllBookmarkPosts = () => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.BOOKMARKS);
+    const data = response.data.content;
+    dispatch(setBookmarkPost(data));
+  } catch (error) {
+    console.log("getAllBookmarkPosts error: ", error);
   }
 };

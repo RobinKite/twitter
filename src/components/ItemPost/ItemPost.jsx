@@ -9,7 +9,15 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
 import { deletePost, handleLike, handleUnlike } from "@/redux/slices/postsSlice";
-import { Reply, LikeFalse, Repost, Like, Delete, Bookmark } from "@/icons";
+import {
+  Reply,
+  LikeFalse,
+  Repost,
+  Like,
+  Delete,
+  Bookmark,
+  BookmarkFilled,
+} from "@/icons";
 import {
   avatarSX,
   iconDeleteSX,
@@ -27,7 +35,12 @@ import {
   tweetUsertagSX,
   tweetWrapperSX,
 } from "./styleSX";
-import { getUserInfo } from "@/redux/slices/userSlice";
+import {
+  addBookmarkPost,
+  deleteBookmarkPost,
+  getAllBookmarkPosts,
+  getUserInfo,
+} from "@/redux/slices/userSlice";
 // import { PostWithPhotos } from "../PhotosContainer/PhotosContainer";
 
 export function ItemPost({
@@ -43,10 +56,28 @@ export function ItemPost({
   avatarUrl,
   fullName,
   postUser,
+  bookmarked,
 }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const profileUser = useSelector((state) => state.user.user);
+  const [isBookmarked, setIsBookmarked] = useState(bookmarked);
+
+  useEffect(() => {
+    dispatch(getAllBookmarkPosts());
+  }, [dispatch]);
+
+  const handleBookmarkClick = (postId) => {
+    isBookmarked
+      ? dispatch(deleteBookmarkPost(postId))
+      : dispatch(addBookmarkPost(postId));
+    setIsBookmarked(!isBookmarked);
+  };
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -55,8 +86,6 @@ export function ItemPost({
   const closeModal = () => {
     setModalIsOpen(false);
   };
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -73,14 +102,18 @@ export function ItemPost({
     }
   };
 
-  const navigate = useNavigate();
-
   const redirectToPost = () => {
     navigate(`/post/${id}`);
   };
 
   const redirectToUserProfile = () => {
-    navigate(`/user/${postUser.id}`);
+    try {
+      if (postUser && postUser.id) {
+        navigate(`/user/${postUser.id}`);
+      }
+    } catch (error) {
+      console.error("Error navigating to user profile:", error);
+    }
   };
 
   const fonnClick = (event) => {
@@ -159,7 +192,6 @@ export function ItemPost({
               ))}
             </Stack>
           )}
-          {/* <PostWithPhotos imageUrls={imageUrls} /> */}
           <Stack sx={tweetActionsSX}>
             {!disable && (
               <>
@@ -188,9 +220,12 @@ export function ItemPost({
                     {likeCount}
                   </Typography>
                 </Stack>
-                {/* TODO: add logic for bookmark */}
-                <IconButton sx={replyCountSX}>
-                  <Bookmark />
+                <IconButton sx={replyCountSX} onClick={() => handleBookmarkClick(id)}>
+                  {isBookmarked ? (
+                    <BookmarkFilled style={{ fill: "hsl(201, 79%, 48%)" }} />
+                  ) : (
+                    <Bookmark />
+                  )}
                 </IconButton>
               </>
             )}
@@ -227,6 +262,7 @@ ItemPost.propTypes = {
   onPostDeleted: PropTypes.func,
   replyCount: PropTypes.number,
   updateComment: PropTypes.func,
+  bookmarked: PropTypes.bool,
 };
 
 ItemPost.defaultProps = {
