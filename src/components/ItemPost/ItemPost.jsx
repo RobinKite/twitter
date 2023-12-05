@@ -41,7 +41,6 @@ import {
   getAllBookmarkPosts,
   getUserInfo,
 } from "@/redux/slices/userSlice";
-// import { PostWithPhotos } from "../PhotosContainer/PhotosContainer";
 
 export function ItemPost({
   content,
