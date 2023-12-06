@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { client, storage } from "@/services";
 import { Endpoint } from "@/constants";
+import { getBirthdayInSeconds } from "@/utils/date";
 
 const userSlice = createSlice({
   name: "user",
@@ -98,7 +99,7 @@ export const getUserInfo = () => async (dispatch) => {
   try {
     const response = await client.get("users/profile");
     const data = response.data;
-    console.log(data);
+    // console.log(data);
     dispatch(getUser(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
@@ -163,11 +164,16 @@ export const loginUser = (email, password) => (dispatch) => {
 };
 
 export const registerUser = (user) => {
+  const birthdateInSeconds = getBirthdayInSeconds({
+    day: user.day,
+    month: user.month,
+    year: user.year,
+  });
   const data = {
     fullName: `${user.firstName} ${user.lastName}`,
     email: user.email,
     password: user.password,
-    birthdate: `${user.day}.${user.month}.${user.year}`,
+    birthdate: birthdateInSeconds,
     userTag: user.userName,
   };
   return (dispatch) => {
