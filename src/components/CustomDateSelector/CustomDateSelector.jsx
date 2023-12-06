@@ -1,4 +1,4 @@
-import { Box, Typography, MenuItem, FormControl, Stack } from "@mui/material";
+import { Box, Typography, MenuItem, FormControl, Stack, InputLabel } from "@mui/material";
 import PropTypes from "prop-types";
 import { useField } from "formik";
 import { getDaysArray, getYearsArray, monthsArray } from "@/utils/date";
@@ -77,17 +77,20 @@ const DateSelect = ({ field, meta, label, id, array, required }) => {
     return selected;
   };
 
+  const selectedValue = field.value ?? "";
+
   return (
-    <FormControl variant="standard" required={required} sx={{ flexGrow: 1 }}>
+    <FormControl required={required} sx={{ flexGrow: 1 }}>
+      <InputLabel htmlFor={id}>{label}</InputLabel>
       <CustomSelectSX
-        displayEmpty
         id={id}
         name={id}
         onChange={(value) => field.onChange(field.name, value)}
         label={label}
         renderValue={handleRenderValue}
         error={meta.touched && meta.error ? true : false}
-        {...field}>
+        {...field}
+        value={selectedValue}>
         <MenuItem disabled value="">
           <em>{label}</em>
         </MenuItem>

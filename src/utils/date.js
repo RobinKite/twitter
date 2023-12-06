@@ -29,3 +29,9 @@ export const monthsArray = [
   "November",
   "December",
 ];
+
+export function getBirthdayInSeconds({ year, month, day }) {
+  const selectedDate = new Date(year, month - 1, day);
+  const seconds = Math.round(selectedDate.getTime() / 1000);
+  return seconds;
+}

@@ -4,8 +4,8 @@ import { ConfirmationDialog } from "..";
 import { getUserInfo, logoutUserAction } from "@/redux/slices/userSlice";
 import { useEffect, useState } from "react";
 import { MoreMenu } from "@/icons";
-import { moreSelectMenuPropsSX, moreSelectSX } from "../Header/styledSX";
 import { UserCard } from "../RecommendedUsers/RecommendedUsers";
+import { moreSelectMenuPropsSX, moreSelectSX } from "./styledSX";
 
 const AccountMenu = () => {
   const dispatch = useDispatch();
@@ -14,6 +14,7 @@ const AccountMenu = () => {
   const user = useSelector((state) => state.user.user);
 
   const isTablet = useMediaQuery("(min-width: 768px) and (max-width:1023px)");
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
   useEffect(() => {
     dispatch(getUserInfo());
@@ -38,7 +39,8 @@ const AccountMenu = () => {
   };
 
   return (
-    user && (
+    user &&
+    !isMobile && (
       <Stack
         direction="row"
         sx={{
@@ -48,6 +50,7 @@ const AccountMenu = () => {
           cursor: "pointer",
           width: isTablet ? "72px" : "260px",
           marginTop: "auto",
+          marginBottom: "12px",
         }}>
         <UserCard
           onClick={handleClickOnUserCard}
