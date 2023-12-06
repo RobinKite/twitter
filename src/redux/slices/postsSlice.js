@@ -9,15 +9,28 @@ const postsSlice = createSlice({
     selectedPost: null,
     postComments: [],
     myPosts: [],
+    hasMore: true,
   },
   reducers: {
     setPosts: (state, action) => {
       if (!action.payload.length) return;
       state.posts = action.payload;
+      // if (action.payload && action.payload.length !== 0) {
+      //   state.hasMore = true;
+      //   state.posts = state.posts.concat(action.payload);
+      // } else {
+      //   state.hasMore = false;
+      // }
     },
     setMyPosts: (state, action) => {
-      // if (!action.payload.length) return;
+      if (!action.payload.length) return;
       state.myPosts = action.payload;
+      // if (action.payload && action.payload.length !== 0) {
+      //   state.hasMore = true;
+      //   state.myPosts = state.myPosts.concat(action.payload);
+      // } else {
+      //   state.hasMore = false;
+      // }
     },
     addPost: (state, action) => {
       const newPost = action.payload;
@@ -111,6 +124,11 @@ const postsSlice = createSlice({
           ? { ...post, likeCount: post.likeCount + 1, liked: true }
           : post,
       );
+      state.myPosts = state.myPosts.map((post) =>
+        post.id === postId
+          ? { ...post, likeCount: post.likeCount + 1, liked: true }
+          : post,
+      );
 
       state.postComments = state.postComments.map((post) =>
         post.id === postId
@@ -131,6 +149,11 @@ const postsSlice = createSlice({
     unlike: (state, action) => {
       const { id } = action.payload;
       state.posts = state.posts.map((post) =>
+        post.id === id && post.likeCount > 0
+          ? { ...post, likeCount: post.likeCount - 1, liked: false }
+          : post,
+      );
+      state.myPosts = state.myPosts.map((post) =>
         post.id === id && post.likeCount > 0
           ? { ...post, likeCount: post.likeCount - 1, liked: false }
           : post,
@@ -221,7 +244,7 @@ export const getPosts = (page) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_ALL_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-
+    // console.log(response)
     dispatch(setPosts(response.data.content));
   } catch (error) {
     console.error("Error fetching posts:", error);
