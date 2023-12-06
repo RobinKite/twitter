@@ -99,7 +99,6 @@ export const getUserInfo = () => async (dispatch) => {
   try {
     const response = await client.get("users/profile");
     const data = response.data;
-    // console.log(data);
     dispatch(getUser(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
