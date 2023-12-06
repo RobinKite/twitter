@@ -43,6 +43,7 @@ export function ModalCommentPost({
   postUser,
   avatarUrl,
   fullName,
+  bookmarked,
 }) {
   return (
     <div>
@@ -65,6 +66,7 @@ export function ModalCommentPost({
               avatarUrl={avatarUrl}
               fullName={fullName}
               disable={true}
+              bookmarked={bookmarked}
             />
             <CommentPost
               id={id}
@@ -91,4 +93,5 @@ ModalCommentPost.propTypes = {
   avatarUrl: PropTypes.string,
   fullName: PropTypes.string,
   postUser: PropTypes.object,
+  bookmarked: PropTypes.bool,
 };

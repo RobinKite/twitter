@@ -7,7 +7,6 @@ export class Endpoint {
   static LOGIN = "/auth/login";
   static REGISTER = "/auth/register";
   static LIKE = "/likes/like";
-
   static UNLIKE = "/likes/unlike";
   static CREATE_POST = "/posts/create";
   static GET_POST = "/posts/post";
@@ -19,6 +18,7 @@ export class Endpoint {
   static USERS_SEARCH = "/users/search";
   static USERS_RECOMMENDED = "/users/recommended";
   static LIKED_POSTS = "/posts/liked";
+  static BOOKMARKS = "/bookmarks";
   static CHATS = "/chats";
   static USERS_FOLLOWERS = "/users/followers";
   static GOOGLE_REGISTRATION = "/oauth2/exchange-code/google";
