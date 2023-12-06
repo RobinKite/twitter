@@ -13,8 +13,6 @@ export const Bookmarks = () => {
     dispatch(getAllBookmarkPosts());
   }, [dispatch]);
 
-  console.log(allBookmarkPosts);
-
   return (
     <Container>
       <Box
@@ -57,7 +55,7 @@ export const Bookmarks = () => {
               id={post.id}
               likeCount={post.likeCount}
               liked={post.liked}
-              isBookmarked={post.bookmarked}
+              bookmarked={post.bookmarked}
             />
           ))
         ) : (

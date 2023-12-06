@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -35,12 +35,7 @@ import {
   tweetUsertagSX,
   tweetWrapperSX,
 } from "./styleSX";
-import {
-  addBookmarkPost,
-  deleteBookmarkPost,
-  getAllBookmarkPosts,
-  getUserInfo,
-} from "@/redux/slices/userSlice";
+import { addBookmarkPost, deleteBookmarkPost } from "@/redux/slices/userSlice";
 
 export function ItemPost({
   content,
@@ -65,17 +60,17 @@ export function ItemPost({
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const profileUser = useSelector((state) => state.user.user);
-  const [isBookmarked, setIsBookmarked] = useState(bookmarked);
 
-  useEffect(() => {
-    dispatch(getAllBookmarkPosts());
-  }, [dispatch]);
+  const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleBookmarkClick = (postId) => {
-    isBookmarked
+    setIsLoading(true);
+    isBookmarkedPost
       ? dispatch(deleteBookmarkPost(postId))
       : dispatch(addBookmarkPost(postId));
-    setIsBookmarked(!isBookmarked);
+    setIsBookmarkedPost(!isBookmarkedPost);
+    setIsLoading(false);
   };
 
   const openModal = () => {
@@ -120,10 +115,6 @@ export function ItemPost({
       redirectToPost();
     }
   };
-
-  useEffect(() => {
-    dispatch(getUserInfo());
-  }, [dispatch]);
 
   return (
     <Stack sx={tweetWrapperSX}>
@@ -219,8 +210,11 @@ export function ItemPost({
                     {likeCount}
                   </Typography>
                 </Stack>
-                <IconButton sx={replyCountSX} onClick={() => handleBookmarkClick(id)}>
-                  {isBookmarked ? (
+                <IconButton
+                  sx={replyCountSX}
+                  onClick={() => handleBookmarkClick(id)}
+                  disabled={isLoading}>
+                  {isBookmarkedPost ? (
                     <BookmarkFilled style={{ fill: "hsl(201, 79%, 48%)" }} />
                   ) : (
                     <Bookmark />
@@ -243,6 +237,7 @@ export function ItemPost({
         updateComment={updateComment}
         avatarUrl={avatarUrl}
         fullName={fullName}
+        bookmarked={bookmarked}
       />
     </Stack>
   );

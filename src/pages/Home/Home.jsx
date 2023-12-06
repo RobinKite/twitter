@@ -24,19 +24,19 @@ export const Home = () => {
           Following
         </Typography>
         <CreatePost avatarUrl={avatarUrl} />
-        {posts.map((p) => (
+        {posts.map((post) => (
           <ItemPost
-            key={p.id}
-            postUser={p.user}
-            avatarUrl={p.user.avatarUrl}
-            fullName={p.user.fullName}
-            content={p.body}
-            replyCount={p.replyCount}
-            imageUrls={p.imageUrls}
-            id={p.id}
-            likeCount={p.likeCount}
-            liked={p.liked}
-            isBookmarked={p.bookmarked}
+            key={post.id}
+            postUser={post.user}
+            avatarUrl={post.user.avatarUrl}
+            fullName={post.user.fullName}
+            content={post.body}
+            replyCount={post.replyCount}
+            imageUrls={post.imageUrls}
+            id={post.id}
+            likeCount={post.likeCount}
+            liked={post.liked}
+            bookmarked={post.bookmarked}
           />
         ))}
       </div>

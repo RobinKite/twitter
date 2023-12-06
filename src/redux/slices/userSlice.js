@@ -270,7 +270,6 @@ export const getLikedPosts = () => async (dispatch) => {
 export const addBookmarkPost = (postId) => async (dispatch) => {
   try {
     await client.post(Endpoint.BOOKMARKS, null, { params: { postId } });
-
     dispatch(getAllBookmarkPosts());
   } catch (error) {
     console.error("Error adding bookmark post:", error);
@@ -280,7 +279,6 @@ export const addBookmarkPost = (postId) => async (dispatch) => {
 export const deleteBookmarkPost = (postId) => async (dispatch) => {
   try {
     await client.delete(Endpoint.BOOKMARKS, { params: { postId } });
-
     dispatch(getAllBookmarkPosts());
   } catch (error) {
     console.error("Error removing bookmark post:", error);
