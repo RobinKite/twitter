@@ -6,6 +6,7 @@ const postsSlice = createSlice({
   name: "posts",
   initialState: {
     posts: [],
+    popularPosts: [],
     selectedPost: null,
     postComments: [],
     myPosts: [],
@@ -29,6 +30,11 @@ const postsSlice = createSlice({
       // state.myPosts = uniquePostsArray;
       state.myPosts = action.payload;
     },
+
+    setPopularPosts: (state, action) => {
+      state.popularPosts = action.payload;
+    },
+
     addPost: (state, action) => {
       const newPost = action.payload;
 
@@ -223,6 +229,18 @@ export const getPosts = (page) => async (dispatch) => {
   }
 };
 
+export const getPopularPosts = (page) => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.GET_POPULAR_POSTS, {
+      params: { page: page, pageSize: 12 },
+    });
+
+    dispatch(setPopularPosts(response.data.content));
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+};
+
 export const getMyPosts = (page) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.GET_MY_POSTS, {
@@ -266,5 +284,6 @@ export const {
   addComent,
   unlike,
   setMyPosts,
+  setPopularPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
