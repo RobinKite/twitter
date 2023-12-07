@@ -6,7 +6,9 @@ export const sidebarSX = {
     position: "relative",
     marginLeft: "30px",
     width: "100%",
+    minWidth: 360,
     maxWidth: 360,
+
     backgroundColor: "inherit",
   },
 };
