@@ -5,7 +5,7 @@ import { getUserInfo, logoutUserAction } from "@/redux/slices/userSlice";
 import { useEffect, useState } from "react";
 import { MoreMenu } from "@/icons";
 import { UserCard } from "../RecommendedUsers/RecommendedUsers";
-import { moreSelectMenuPropsSX, moreSelectSX } from "./styledSX";
+import { WrapperAccountMenuSX, moreSelectMenuPropsSX, moreSelectSX } from "./styledSX";
 
 const AccountMenu = () => {
   const dispatch = useDispatch();
@@ -43,15 +43,7 @@ const AccountMenu = () => {
     !isMobile && (
       <Stack
         direction="row"
-        sx={{
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "20px",
-          cursor: "pointer",
-          width: isTablet ? "72px" : "260px",
-          marginTop: "auto",
-          marginBottom: "12px",
-        }}>
+        sx={[WrapperAccountMenuSX, { width: isTablet ? "72px" : "260px" }]}>
         <UserCard
           onClick={handleClickOnUserCard}
           avatarUrl={user.avatarUrl}
