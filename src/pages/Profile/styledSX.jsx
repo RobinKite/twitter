@@ -3,11 +3,11 @@ import { styled, Button, Box } from "@mui/material";
 export const HeaderPage = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
-  padding: "10px 0 5px 20px",
+  padding: "10px 20px 5px 20px",
 }));
 
 export const ContainerUserInfo = styled(Box)(() => ({
-  padding: "60px 0 25px 20px",
+  padding: "60px 20px 25px 20px",
   position: "relative",
 }));
 

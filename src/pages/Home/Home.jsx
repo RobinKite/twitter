@@ -1,11 +1,13 @@
 import { useLoadPost } from "@/hooks/useLoadPost";
 import { Typography } from "@mui/material";
 import { useSelector, shallowEqual } from "react-redux";
-import { Container, CreatePost, ItemPost } from "@/components";
+import { Container, CreatePost, ItemPost, WelcomeMessage } from "@/components";
 
 export const Home = () => {
+  const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
-  const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
+  const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
+  const renderPosts = accountUser.following ? posts : popularPosts;
 
   useLoadPost();
 
@@ -17,14 +19,24 @@ export const Home = () => {
           component="h2"
           sx={{
             fontSize: 25,
-            margin: "20px auto",
+            margin: "10px auto",
             textAlign: "center",
             fontWeight: "700",
           }}>
           Following
         </Typography>
-        <CreatePost avatarUrl={avatarUrl} />
-        {posts.map((post) => (
+        {!accountUser.following && (
+          <WelcomeMessage
+            stylesSX={{
+              marginBottom: "15px",
+              padding: "0 20px",
+              fontWeight: 500,
+              textAlign: "center",
+            }}
+          />
+        )}
+        <CreatePost avatarUrl={accountUser.avatarUrl} />
+        {renderPosts.map((post) => (
           <ItemPost
             key={post.id}
             postUser={post.user}
