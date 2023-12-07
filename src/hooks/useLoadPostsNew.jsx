@@ -8,42 +8,13 @@ export const useLoadPostsNew = (callback) => {
 
   const fetchPosts = () => {
     setPage((prevState) => prevState + 1);
-    setTimeout(() => {
-      if (hasMore) {
-        dispatch(callback(page));
-      } else {
-        console.log("No more data");
-      }
-    }, 200);
+
+    if (hasMore) {
+      dispatch(callback(page));
+    }
   };
 
   return fetchPosts;
 };
 
 export default useLoadPostsNew;
-// useEffect(() => {
-//   dispatch(getMyPosts(page));
-//   setPage((prevState) => prevState + 1);
-// }, [dispatch]);
-
-// const fetchContacts = () => {
-//   setPage((prevState) => prevState + 1);
-//   setTimeout(() => {
-//     if (hasMore) {
-//       dispatch(getMyPosts(page));
-//     }
-//   }, 1000);
-// };
-// const fetchContacts = () => {
-//   setPage((prevState) => prevState + 1);
-//   console.log("Fetching page:", page); // Логуємо значення page
-//   setTimeout(() => {
-//     if (hasMore) {
-//       dispatch(getMyPosts(page));
-//     } else {
-//       // Якщо вже немає додаткових даних, встановлюємо hasMore на false
-//       console.log("No more data"); // Логуємо, що більше даних немає
-
-//     }
-//   }, 200);
-// };

@@ -12,25 +12,32 @@ const postsSlice = createSlice({
     hasMore: true,
   },
   reducers: {
+    resetPosts: (state) => {
+      state.posts = [];
+      state.myPosts = [];
+      state.hasMore = true;
+    },
     setPosts: (state, action) => {
-      if (!action.payload.length) return;
-      state.posts = action.payload;
-      // if (action.payload && action.payload.length !== 0) {
-      //   state.hasMore = true;
-      //   state.posts = state.posts.concat(action.payload);
-      // } else {
-      //   state.hasMore = false;
-      // }
+      // if (!action.payload.length) return;
+      // state.posts = action.payload;
+
+      if (action.payload && action.payload.length !== 0) {
+        state.hasMore = true;
+        state.posts = [...state.posts, ...action.payload];
+      } else {
+        state.hasMore = false;
+      }
     },
     setMyPosts: (state, action) => {
-      if (!action.payload.length) return;
-      state.myPosts = action.payload;
-      // if (action.payload && action.payload.length !== 0) {
-      //   state.hasMore = true;
-      //   state.myPosts = state.myPosts.concat(action.payload);
-      // } else {
-      //   state.hasMore = false;
-      // }
+      // if (!action.payload.length) return;
+      // state.myPosts = action.payload;
+
+      if (action.payload && action.payload.length !== 0) {
+        state.hasMore = true;
+        state.myPosts = [...state.myPosts, ...action.payload];
+      } else {
+        state.hasMore = false;
+      }
     },
     addPost: (state, action) => {
       const newPost = action.payload;
@@ -185,6 +192,7 @@ export const {
   addComent,
   unlike,
   setMyPosts,
+  resetPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
 

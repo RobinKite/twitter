@@ -7,8 +7,8 @@ import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
 // import { useLoadPost } from "@/hooks/useLoadPost";
 import { Container as AppContainer } from "@/components";
 import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
-import { getMyPosts } from "@/redux/slices/postsSlice";
-// import useLoadPostsNew from "@/hooks/useLoadPostsNew";
+import { getMyPosts, resetPosts } from "@/redux/slices/postsSlice";
+import useLoadPostsNew from "@/hooks/useLoadPostsNew";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
 const tabs = [
@@ -23,30 +23,27 @@ export function Profile() {
 
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
-  const dispatch = useDispatch();
-  const [page, setPage] = useState(0);
 
-  const hasMore = useSelector((state) => state.posts.hasMore);
+  const dispatch = useDispatch();
+  // const [page, setPage] = useState(1);
+  // const hasMore = useSelector((state) => state.posts.hasMore);
+  // const fetchPosts = () => {
+  //   setPage((prevState) => prevState + 1);
+
+  //   if (hasMore) {
+  //     dispatch(getMyPosts(page));
+  //   }
+  // };
+
+  // useLoadPost(getMyPosts);
   useEffect(() => {
     dispatch(getLikedPosts());
     dispatch(getUserInfo());
-    // dispatch(getMyPosts());
+    dispatch(resetPosts());
+    dispatch(getMyPosts());
   }, [dispatch]);
 
-  // useLoadPost(getMyPosts);
-  // useEffect(() => {
-  //   dispatch(getMyPosts(page));
-  //   setPage((prevState) => prevState + 1);
-  // }, [dispatch]);
-
-  const fetchContacts = () => {
-    setPage((prevState) => prevState + 1);
-    setTimeout(() => {
-      if (hasMore) {
-        dispatch(getMyPosts(page));
-      }
-    }, 1000);
-  };
+  const fetchPosts = useLoadPostsNew(getMyPosts);
 
   return (
     <AppContainer>
@@ -93,7 +90,7 @@ export function Profile() {
           <TabPanel value="0">
             <InfiniteScroll
               dataLength={posts.length}
-              next={fetchContacts}
+              next={fetchPosts}
               hasMore={true}
               loader={<h4>Loading...</h4>}>
               {posts?.map((post) => (
