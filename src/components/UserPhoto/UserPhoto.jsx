@@ -1,6 +1,7 @@
 import { Avatar, Box, Button, styled } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import PropTypes from "prop-types";
+
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -37,7 +38,11 @@ const IconAddPhoto = styled(Box)(() => ({
   borderRadius: "50%",
   transform: "translate(-50%, -50%)",
 }));
-
+const IconAddAvatar = styled(Box)(() => ({
+  position: "absolute",
+  top: "183px",
+  left: "44px",
+}));
 export function UserPhoto({
   changeIcon,
   imageUrl,
@@ -95,17 +100,20 @@ export function UserPhoto({
           </>
         ) : null}
 
+        <Avatar
+          changeIcon={false}
+          sx={{
+            width: "100px",
+            height: "100px",
+            position: "absolute",
+            bottom: "-50px",
+            left: "30px",
+          }}
+          alt="Remy Sharp"
+          src={avatarUrl}></Avatar>
+
         {changeIcon ? (
-          <Avatar
-            sx={{
-              width: "100px",
-              height: "100px",
-              position: "absolute",
-              bottom: "-50px",
-              left: "30px",
-            }}
-            alt="Remy Sharp"
-            src={avatarUrl}>
+          <IconAddAvatar>
             <Button
               component="label"
               endIcon={
@@ -124,22 +132,8 @@ export function UserPhoto({
                 type="file"
               />
             </Button>
-          </Avatar>
-        ) : (
-          <Avatar
-            sx={{
-              width: "100px",
-              height: "100px",
-              position: "absolute",
-              bottom: "-50px",
-              left: "30px",
-            }}
-            alt="Remy Sharp"
-            src={avatarUrl}>
-            M
-          </Avatar>
-        )}
-
+          </IconAddAvatar>
+        ) : null}
         <img
           src={imageUrl}
           alt=""

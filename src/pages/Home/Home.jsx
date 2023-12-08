@@ -1,29 +1,14 @@
 import { Typography } from "@mui/material";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import { Container, CreatePost, ItemPost } from "@/components";
-import { getPosts, resetPosts } from "@/redux/slices/postsSlice";
+import { getPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useLoadPostsNew from "@/hooks/useLoadPostsNew";
-import { useEffect } from "react";
+import {} from "react";
 
 export const Home = () => {
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
-  const dispatch = useDispatch();
-  // useLoadPost(getPosts);
-  // const [page, setPage] = useState(1);
-  // const hasMore = useSelector((state) => state.posts.hasMore);
-  // const fetchPosts = () => {
-  //   setPage((prevState) => prevState + 1);
-
-  //   if (hasMore) {
-  //     dispatch(getPosts(page));
-  //   }
-  // };
-  useEffect(() => {
-    dispatch(resetPosts());
-    dispatch(getPosts());
-  }, [dispatch]);
 
   const fetchPosts = useLoadPostsNew(getPosts);
   return (

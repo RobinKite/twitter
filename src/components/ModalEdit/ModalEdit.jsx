@@ -19,7 +19,7 @@ import {
   getUsersUpdateAvatarUrl,
   getUsersUpdateImageUrl,
 } from "@/redux/slices/userSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const ModalContainer = styled(Box)(({ theme }) => ({
   position: "absolute",
@@ -67,13 +67,13 @@ const ModalHeader = styled(Toolbar)(() => ({
 }));
 
 // TODO: 👉 Rewrite the component
-export function ModalEdit({ isOpen, onClose, fullName, bio, location, userTag }) {
+export function ModalEdit({ isOpen, onClose }) {
   const [imageUrl, setImageUrl] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [fileForServer, setFileForServer] = useState("");
   const [fileForServerAvatar, setFileForServerAvatar] = useState("");
-
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
   const getDaysInMonth = (month) => {
@@ -88,13 +88,13 @@ export function ModalEdit({ isOpen, onClose, fullName, bio, location, userTag })
 
   const formik = useFormik({
     initialValues: {
-      name: fullName || "",
-      bio: bio || "",
-      location: location || "",
+      name: user.fullName || "",
+      bio: user.bio || "",
+      location: user.location || "",
       month: "",
       day: "",
       year: "",
-      userTag: userTag || "",
+      userTag: user.userTag || "",
     },
 
     onSubmit: async (values) => {
@@ -134,8 +134,8 @@ export function ModalEdit({ isOpen, onClose, fullName, bio, location, userTag })
           </ModalHeader>
           <UserPhoto
             changeIcon={true}
-            imageUrl={imageUrl}
-            avatarUrl={avatarUrl}
+            imageUrl={user.imageUrl}
+            avatarUrl={user.avatarUrl}
             setImageUrl={setImageUrl}
             setAvatarUrl={setAvatarUrl}
             setFileForServer={setFileForServer}

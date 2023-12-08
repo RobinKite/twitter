@@ -7,7 +7,7 @@ import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
 // import { useLoadPost } from "@/hooks/useLoadPost";
 import { Container as AppContainer } from "@/components";
 import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
-import { getMyPosts, resetPosts } from "@/redux/slices/postsSlice";
+import { getMyPosts } from "@/redux/slices/postsSlice";
 import useLoadPostsNew from "@/hooks/useLoadPostsNew";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
@@ -39,8 +39,8 @@ export function Profile() {
   useEffect(() => {
     dispatch(getLikedPosts());
     dispatch(getUserInfo());
-    dispatch(resetPosts());
-    dispatch(getMyPosts());
+    // dispatch(resetPosts());
+    // dispatch(getMyPosts());
   }, [dispatch]);
 
   const fetchPosts = useLoadPostsNew(getMyPosts);
@@ -92,7 +92,8 @@ export function Profile() {
               dataLength={posts.length}
               next={fetchPosts}
               hasMore={true}
-              loader={<h4>Loading...</h4>}>
+              // loader={posts?<h4>Loading...</h4> : null}
+            >
               {posts?.map((post) => (
                 <ItemPost
                   key={post.id}

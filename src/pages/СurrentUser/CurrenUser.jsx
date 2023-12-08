@@ -25,7 +25,7 @@ export function CurrentUser() {
 
   const user = useSelector((state) => state.currentUser.user);
   const posts = useSelector((state) => state.currentUser.currentPosts);
-
+  console.log(posts);
   const dispatch = useDispatch();
   const hasMore = useSelector((state) => state.currentUser.hasMore);
   const [page, setPage] = useState(1);
@@ -35,14 +35,12 @@ export function CurrentUser() {
     dispatch(resetPosts());
     dispatch(getCurrentUser(id));
     dispatch(getCurrentPosts(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
-  // const fetchPosts = useLoadPostsNew(getCurrentPosts);
   const fetchPosts = () => {
     setPage((prevState) => prevState + 1);
 
     if (hasMore) {
-      dispatch(resetPosts());
       dispatch(getCurrentPosts(id, page));
     }
   };
@@ -87,8 +85,9 @@ export function CurrentUser() {
                 dataLength={posts.length}
                 next={fetchPosts}
                 hasMore={true}
+                // loader={<h4>Loading...</h4>}
                 loader={<h4>Loading...</h4>}>
-                {posts.map((post) => (
+                {posts?.map((post) => (
                   <ItemPost
                     key={post.id}
                     avatarUrl={post.user?.avatarUrl}
