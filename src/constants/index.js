@@ -22,4 +22,5 @@ export class Endpoint {
   static CHATS = "/chats";
   static USERS_FOLLOWERS = "/users/followers";
   static GOOGLE_REGISTRATION = "/oauth2/exchange-code/google";
+  static GET_NOTIFICATIONS = "/notifications";
 }

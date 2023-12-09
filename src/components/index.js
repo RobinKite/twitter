@@ -23,3 +23,5 @@ export { SearchProgressBar } from "./SearchProgressBar/SearchProgressBar";
 export { ConfirmationDialog } from "./ConfirmationDialog/ConfirmationDialog";
 export { NotificationTabContent } from "./NotificationTabContent/NotificationTabContent";
 export { CustomDateSelector } from "./CustomDateSelector/CustomDateSelector";
+export { NotificationItem } from "./NotificationItem/NotificationItem";
+export { NotificationList } from "./NotificationList/NotificationList";

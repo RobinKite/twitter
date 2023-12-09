@@ -110,7 +110,7 @@ export const tweetActionsSX = {
   marginTop: "12px",
 };
 
-const iconSX = {
+export const iconSX = {
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "center",
