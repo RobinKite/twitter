@@ -3,7 +3,7 @@ export const userCardSX = {
   flexDirection: "row",
   alignItems: "center",
   padding: "6px 8px",
-  transition: "background-color 200ms",
+  transition: "background-color 200ms linear",
   width: "100%",
 
   "&:hover": {

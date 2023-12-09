@@ -82,16 +82,18 @@ RecommendedUserCard.defaultProps = {
   avatarUrl: "",
 };
 
-export const RecommendedUsers = ({ useButton, usersList }) => {
+export const RecommendedUsers = ({ useButton, usersList, isShowMore }) => {
   const dispatch = useDispatch();
 
+  const renderList = isShowMore ? usersList : usersList.slice(2);
+
   useEffect(() => {
-    dispatch(fetchUsers(3));
+    dispatch(fetchUsers(5));
   }, [dispatch]);
 
   return (
     <Stack>
-      {usersList.map((user, index) => (
+      {renderList.map((user, index) => (
         <RecommendedUserCard
           key={index}
           {...user}
@@ -105,10 +107,12 @@ export const RecommendedUsers = ({ useButton, usersList }) => {
 };
 
 RecommendedUsers.propTypes = {
+  isShowMore: PropTypes.bool.isRequired,
   useButton: PropTypes.bool,
   usersList: PropTypes.arrayOf(PropTypes.object),
 };
 
 RecommendedUsers.defaultProps = {
+  isShowMore: false,
   useButton: false,
 };

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getPosts } from "@/redux/slices/postsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getPopularPosts, getPosts } from "@/redux/slices/postsSlice";
 import { client } from "@/services";
 import { Endpoint } from "@/constants";
 
 export const useLoadPost = () => {
   const dispatch = useDispatch();
+  const accountUser = useSelector((state) => state.user.user);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [allPostsLoaded, setAllPostsLoaded] = useState(false);
@@ -66,12 +67,14 @@ export const useLoadPost = () => {
   };
 
   useEffect(() => {
-    dispatch(getPosts(currentPage));
+    accountUser.following
+      ? dispatch(getPosts(currentPage))
+      : dispatch(getPopularPosts(currentPage));
 
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [currentPage]);
+  }, [currentPage, accountUser.following]);
 };

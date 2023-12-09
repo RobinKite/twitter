@@ -1,5 +1,5 @@
 import TextField from "@mui/material/TextField";
-import { styled } from "@mui/material";
+import { Stack, styled } from "@mui/material";
 import MuiButton from "@mui/material/Button";
 
 export const VisuallyHiddenInput = styled("input")({
@@ -15,31 +15,66 @@ export const VisuallyHiddenInput = styled("input")({
 });
 
 export const InputField = styled(TextField)({
-  marginLeft: "10px",
+  borderBottom: "1px solid rgb(239, 243, 244)",
   width: "100%",
-  height: "70%",
+  padding: 0,
+  paddingBottom: "8px",
   cursor: "text",
 
   "& textarea": {
-    fontSize: "24px",
-    lineHeight: "28px",
+    fontSize: "20px",
+    lineHeight: 1.2,
   },
 });
 export const ButtonPost = styled(MuiButton)(({ theme }) => ({
-  height: "40px",
-  width: "17%",
-  margin: 0,
+  marginLeft: "12px",
   border: "1px solid #dadce0",
+  borderRadius: "35px",
+  padding: "0 16px",
+  minHeight: "36px",
+
   backgroundColor: "rgb(29, 150, 240)",
-  borderRadius: 150,
-  fontSize: "20px",
-  fontWeight: 700,
+
+  fontSize: "15px",
+  fontWeight: 500,
   color: "white",
   textTransform: "capitalize",
-  padding: 0,
 
   "&:hover": { backgroundColor: "#1a8cd8" },
   [theme.breakpoints.down("sm")]: {
     fontSize: 14,
   },
 }));
+
+export const WrapperSX = styled(Stack)({
+  display: "flex",
+  flexDirection: "row",
+  borderTop: "1px solid rgb(239, 243, 244)",
+  borderBottom: "1px solid rgb(239, 243, 244)",
+  padding: "16px 16px 8px",
+});
+
+export const ConteinerPostSX = styled(Stack)({
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
+  height: "100%",
+});
+
+export const WrapperImgSX = styled(Stack)({
+  display: "flex",
+  flexWrap: "wrap",
+  paddingTop: "8px",
+  fontSize: "15px",
+});
+
+export const conteinerFooterPostSX = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+};
+
+export const conteinerSvgPostSX = {
+  display: "flex",
+  flexDirection: "row",
+};
