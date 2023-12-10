@@ -15,8 +15,8 @@ const InnerIcon = styled("span", {
 export const Checked = ({ isRound, isDisabled }) => {
   return (
     <Stack
+      justifyContent="center"
       alignItems="center"
-      alignContent="center"
       height={24}
       width={24}
       opacity={isDisabled ? 0.5 : 1}>
