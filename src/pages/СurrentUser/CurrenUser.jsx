@@ -25,7 +25,7 @@ export function CurrentUser() {
 
   const user = useSelector((state) => state.currentUser.user);
   const posts = useSelector((state) => state.currentUser.currentPosts);
-  console.log(posts);
+
   const dispatch = useDispatch();
   const hasMore = useSelector((state) => state.currentUser.hasMore);
   const [page, setPage] = useState(1);

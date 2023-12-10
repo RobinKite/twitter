@@ -10,6 +10,7 @@ const postsSlice = createSlice({
     postComments: [],
     myPosts: [],
     hasMore: true,
+    likePosts: [],
   },
   reducers: {
     resetPosts: (state) => {
@@ -28,17 +29,23 @@ const postsSlice = createSlice({
         state.hasMore = false;
       }
     },
+    likePosts: (state, action) => {
+      state.likePosts = action.payload;
+    },
     setMyPosts: (state, action) => {
-      // if (!action.payload.length) return;
-      // state.myPosts = action.payload;
-
-      if (action.payload && action.payload.length !== 0) {
-        state.hasMore = true;
-        state.myPosts = [...state.myPosts, ...action.payload];
-      } else {
+      if (!action.payload || !action.payload.length) {
         state.hasMore = false;
+      } else {
+        state.hasMore = true;
+
+        const uniquePosts = action.payload.filter(
+          (post) => !state.myPosts.includes(post),
+        );
+
+        state.myPosts = [...state.myPosts, ...uniquePosts];
       }
     },
+
     addPost: (state, action) => {
       const newPost = action.payload;
 
@@ -149,8 +156,6 @@ const postsSlice = createSlice({
           liked: true,
         };
       }
-
-      console.log(state.selectedPost);
     },
 
     unlike: (state, action) => {
@@ -193,12 +198,13 @@ export const {
   unlike,
   setMyPosts,
   resetPosts,
+  likePosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
 
 export const handleUnlike = (id) => async (dispatch) => {
   try {
-    const response = await client.delete(`likes/unlike?id=${id}`);
+    const response = await client.delete(Endpoint.UNLIKE, { params: { id } });
 
     if (response.status === 200) {
       const { likeCount, liked } = response.data;
@@ -210,11 +216,8 @@ export const handleUnlike = (id) => async (dispatch) => {
 };
 
 export const handleLike = (id) => async (dispatch) => {
-  const requestData = {
-    postId: id,
-  };
   try {
-    const response = await client.post(`likes/like`, requestData);
+    const response = await client.post(Endpoint.LIKE, { postId: id });
 
     if (response.status === 200) {
       const { likeCount, liked } = response.data;
@@ -224,12 +227,25 @@ export const handleLike = (id) => async (dispatch) => {
     console.error("Error liking the post:", error);
   }
 };
-
-export const axiosPostComments = (id) => async (dispatch) => {
+export const handleLikeSPost = (page) => async () => {
   try {
-    const response = await client.get(
-      `posts/replies?postId=${id}&page=${0}&pageSize=${10}`,
-    );
+    const response = await client.post(Endpoint.LIKE, {
+      params: { page: page, pageSize: 12 },
+    });
+
+    console.log(response);
+    // const { likeCount, liked } = response.data;
+    // dispatch(likePosts());
+  } catch (error) {
+    console.error("Error liking the post:", error);
+  }
+};
+
+export const axiosPostComments = (id, page) => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.GET_POST_REPLIES, {
+      params: { postId: id, page: page, pageSize: 12 },
+    });
     const comments = response.data.content;
     dispatch(getPostComents(comments));
   } catch (error) {
@@ -239,7 +255,7 @@ export const axiosPostComments = (id) => async (dispatch) => {
 
 export const getPostById = (id) => async (dispatch) => {
   try {
-    const response = await client.get(`posts/post?id=${id}`);
+    const response = await client.get(Endpoint.GET_POST, { params: { id } });
     const data = response.data;
     dispatch(getPostId(data));
   } catch (error) {

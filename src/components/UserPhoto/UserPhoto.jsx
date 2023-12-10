@@ -101,7 +101,7 @@ export function UserPhoto({
         ) : null}
 
         <Avatar
-          changeIcon={false}
+          changeicon={"false"}
           sx={{
             width: "100px",
             height: "100px",

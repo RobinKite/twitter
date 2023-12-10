@@ -17,13 +17,7 @@ const currentUserSlice = createSlice({
       // state.currentPosts = action.payload;
       if (action.payload && action.payload.length !== 0) {
         state.hasMore = true;
-        state.currentPosts = [
-          ...state.currentPosts,
-          ...action.payload.filter(
-            (newPost) =>
-              !state.currentPosts.some((existingPost) => existingPost.id === newPost.id),
-          ),
-        ];
+        state.currentPosts = action.payload;
       } else {
         state.hasMore = false;
       }

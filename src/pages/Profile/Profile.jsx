@@ -6,9 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
 // import { useLoadPost } from "@/hooks/useLoadPost";
 import { Container as AppContainer } from "@/components";
-import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
-import { getMyPosts } from "@/redux/slices/postsSlice";
-import useLoadPostsNew from "@/hooks/useLoadPostsNew";
+import { getUserInfo } from "@/redux/slices/userSlice";
+import { getMyPosts, handleLikeSPost, resetPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
 const tabs = [
@@ -23,27 +22,31 @@ export function Profile() {
 
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
+  // const posts = [];
 
   const dispatch = useDispatch();
-  // const [page, setPage] = useState(1);
-  // const hasMore = useSelector((state) => state.posts.hasMore);
-  // const fetchPosts = () => {
-  //   setPage((prevState) => prevState + 1);
+  const hasMore = useSelector((state) => state.posts.hasMore);
+  const [page, setPage] = useState(1);
 
-  //   if (hasMore) {
-  //     dispatch(getMyPosts(page));
-  //   }
-  // };
+  const fetchPosts = () => {
+    setPage((prevState) => prevState + 1);
 
-  // useLoadPost(getMyPosts);
+    console.log(page);
+
+    if (hasMore) {
+      dispatch(getMyPosts(page));
+    }
+  };
+
   useEffect(() => {
-    dispatch(getLikedPosts());
     dispatch(getUserInfo());
-    // dispatch(resetPosts());
-    // dispatch(getMyPosts());
-  }, [dispatch]);
 
-  const fetchPosts = useLoadPostsNew(getMyPosts);
+    if (!page) dispatch(resetPosts());
+    dispatch(getMyPosts());
+    dispatch(handleLikeSPost());
+    //TODO: Fix liked posts
+    //TODO: Add condition to load liked posts upon visiting coresponding tab
+  }, [dispatch]);
 
   return (
     <AppContainer>
@@ -55,7 +58,6 @@ export function Profile() {
         bio={user.bio}
         onClose={() => setIsModalOpen(false)}
       />
-
       <Container
         maxWidth="sm"
         disableGutters={true}
