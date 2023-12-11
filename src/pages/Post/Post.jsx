@@ -37,10 +37,6 @@ export const Post = () => {
     dispatch(axiosPostComments(id));
   }, [dispatch, id]);
 
-  // useEffect(() => {
-
-  // }, [dispatch, id]);
-
   return (
     <Container>
       <HeaderPage>

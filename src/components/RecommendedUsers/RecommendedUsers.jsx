@@ -20,7 +20,7 @@ export const UserCard = ({ avatarUrl, fullName, userTag, onClick, children }) =>
             <Typography fontWeight={700} variant="subtitle1" noWrap={true}>
               {fullName}
             </Typography>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant="body2" color="textSecondary" align="left">
               {userTag ? `@${userTag}` : fullName}
             </Typography>
           </Stack>

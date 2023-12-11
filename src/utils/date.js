@@ -15,6 +15,25 @@ export function getYearsArray() {
   return years;
 }
 
+export const getDaysInMonth = (month) => {
+  if (month === "February") {
+    return Array.from({ length: 28 }, (_, i) => i + 1);
+  }
+  if (["April", "June", "September", "November"].includes(month)) {
+    return Array.from({ length: 30 }, (_, i) => i + 1);
+  }
+  return Array.from({ length: 31 }, (_, i) => i + 1);
+};
+
+export const formatBirthdate = (birthdateInSeconds) => {
+  const birthdate = new Date(birthdateInSeconds * 1000); // Multiplying by 1000 to convert seconds to milliseconds
+
+  const day = birthdate.getDate();
+  const month = monthsArray[birthdate.getMonth()];
+  const year = birthdate.getFullYear();
+
+  return { day, month, year };
+};
 export const monthsArray = [
   "January",
   "February",

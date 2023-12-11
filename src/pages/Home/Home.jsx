@@ -1,16 +1,21 @@
-import { useLoadPost } from "@/hooks/useLoadPost";
+// import { useLoadPost } from "@/hooks/useLoadPost";
 import { Stack, Typography } from "@mui/material";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { Container, CreatePost, ItemPost, WelcomeMessage } from "@/components";
 import { homeHeaderSX } from "./stylesSX";
+import { getPosts } from "@/redux/slices/postsSlice";
+import { useEffect } from "react";
 
 export const Home = () => {
   const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
+  // const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
   const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
   const renderPosts = accountUser.following ? posts : popularPosts;
-
-  useLoadPost();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
 
   return (
     <Container>
