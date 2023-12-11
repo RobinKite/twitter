@@ -21,6 +21,7 @@ export const tweetSX = {
 };
 
 export const avatarSX = {
+  position: "static",
   margin: 0,
   bgcolor: "rgb(8, 139, 226)",
   width: 40,

@@ -63,7 +63,6 @@ const CommentPostTemplate = (props) => {
               key={index}
               style={{
                 maxWidth: files.length > 1 ? "49%" : "90%",
-
                 objectFit: "cover",
               }}
               src={URL.createObjectURL(file)}
