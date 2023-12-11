@@ -1,5 +1,4 @@
 import { Stack, Typography } from "@mui/material";
-// import { BsDot } from "react-icons/bs";
 // import { useSelector } from "react-redux";
 
 const NotificationAlert = () => {
@@ -8,7 +7,6 @@ const NotificationAlert = () => {
   //TODO: filter unread notifications and then show this component
   return (
     <>
-      {/* {unreadCount > 0 && ( */}
       <Stack>
         <Typography
           sx={{
@@ -24,11 +22,8 @@ const NotificationAlert = () => {
             fontSize: "12px",
             fontWeight: 700,
             padding: "1px 0",
-          }}>
-          {/* {unreadCount} */}
-        </Typography>
+          }}></Typography>
       </Stack>
-      {/* )} */}
     </>
   );
 };

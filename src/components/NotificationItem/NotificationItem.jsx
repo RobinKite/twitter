@@ -13,7 +13,6 @@ export const NotificationItem = ({ notification }) => {
   };
 
   const { initiator, post } = notification;
-  //TODO: !notification.read && <NotificationAlert/>
   const navigate = useNavigate();
 
   const handleClick = (id) => {

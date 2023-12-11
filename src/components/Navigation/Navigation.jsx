@@ -12,14 +12,14 @@ const NavigationItem = ({ path, text, getIconComponent, alert }) => {
   const { pathname } = useLocation();
   const isActive = (pathname.includes(path) && path !== "/") || path === pathname;
   const Icon = getIconComponent(isActive);
-  // const notifications = useSelector((state) => state.user.unreadNotificationsCount);
-  // const unreadCount = notifications.unreadNotificationsCount || 0;
+  const notificationsCount = useSelector((state) => state.user.notificationsCount);
+  const alertCondition = alert && notificationsCount !== 0;
   return (
     <li>
       <NavLink to={path} className={styles.link}>
         <Stack sx={{ position: "relative" }}>
           <Icon size={26.25} />
-          {alert && <NotificationAlert />}
+          {alertCondition && <NotificationAlert />}
         </Stack>
         <span className={clsx(styles.text, isActive && styles.activeLink)}>{text}</span>
       </NavLink>

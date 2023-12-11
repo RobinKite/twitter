@@ -1,10 +1,17 @@
 import { Stack } from "@mui/material";
 import { NotificationItem, NotificationTabContent } from "..";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getNotifications, setNotificationsCount } from "@/redux/slices/userSlice";
 
 const NotificationsList = () => {
   const notifications = useSelector((state) => state.user.notifications);
   console.log(notifications);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getNotifications());
+    dispatch(setNotificationsCount(0));
+  }, []);
 
   if (notifications.length === 0) {
     return (

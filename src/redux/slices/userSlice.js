@@ -16,6 +16,7 @@ const userSlice = createSlice({
     currentLikedPosts: [],
     bookmarkPosts: [],
     notifications: [],
+    notificationsCount: 0,
   },
   reducers: {
     registerUserAction: (state, action) => {
@@ -72,6 +73,9 @@ const userSlice = createSlice({
     setNotifications: (state, action) => {
       state.notifications = action.payload;
     },
+    setNotificationsCount: (state, action) => {
+      state.notificationsCount = action.payload;
+    },
   },
 });
 
@@ -90,6 +94,7 @@ export const {
   setBookmarkPost,
   removeBookmarkPost,
   setNotifications,
+  setNotificationsCount,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -315,5 +320,15 @@ export const getNotifications = () => {
         const data = response.data.content;
         dispatch(setNotifications(data));
       });
+  };
+};
+
+export const getNotificationsCount = () => {
+  return (dispatch) => {
+    client.get(Endpoint.GET_NOTIFICATIONS_COUNT).then((response) => {
+      console.log(response);
+      const data = response.data.count;
+      dispatch(setNotificationsCount(data));
+    });
   };
 };
