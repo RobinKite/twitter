@@ -97,9 +97,9 @@ export const RecommendedUsers = ({ useButton, usersList, isShowMore }) => {
 
   return (
     <Stack>
-      {renderList.map((user, index) => (
+      {renderList.map((user) => (
         <RecommendedUserCard
-          key={index}
+          key={user.id}
           {...user}
           id={`${user.id}`}
           useButton={useButton}
