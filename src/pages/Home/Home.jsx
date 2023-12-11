@@ -1,14 +1,18 @@
-import { Typography } from "@mui/material";
+// import { useLoadPost } from "@/hooks/useLoadPost";
+import { Stack, Typography } from "@mui/material";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { Container, CreatePost, ItemPost } from "@/components";
+import { Container, CreatePost, ItemPost, WelcomeMessage } from "@/components";
+import { homeHeaderSX } from "./stylesSX";
 import { getPosts } from "@/redux/slices/postsSlice";
 import { useEffect } from "react";
 
 export const Home = () => {
+  const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
-  const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
+  // const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
+  const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
+  const renderPosts = accountUser.following ? posts : popularPosts;
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
@@ -16,33 +20,38 @@ export const Home = () => {
   return (
     <Container>
       <div style={{ border: "1px solid rgb(239, 243, 244)" }}>
-        <Typography
-          variant="h6"
-          component="h2"
-          sx={{
-            fontSize: 25,
-            margin: "20px auto",
-            textAlign: "center",
-            fontWeight: "700",
-          }}>
-          Following
-        </Typography>
+        <Stack sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+          <Typography variant="h2" component="h2" sx={homeHeaderSX}>
+            Following
+          </Typography>
+        </Stack>
 
-        <CreatePost avatarUrl={avatarUrl} />
-        {posts &&
-          posts.map((p) => (
-            <ItemPost
-              key={p.id}
-              avatarUrl={p.user.avatarUrl}
-              fullName={p.user.fullName}
-              content={p.body}
-              replyCount={p.replyCount}
-              imageUrls={p.imageUrls}
-              id={p.id}
-              likeCount={p.likeCount}
-              liked={p.liked}
-            />
-          ))}
+        {!accountUser.following && (
+          <WelcomeMessage
+            stylesSX={{
+              marginBottom: "15px",
+              padding: "0 20px",
+              fontWeight: 500,
+              textAlign: "center",
+            }}
+          />
+        )}
+        <CreatePost avatarUrl={accountUser.avatarUrl} />
+        {renderPosts.map((post) => (
+          <ItemPost
+            key={post.id}
+            postUser={post.user}
+            avatarUrl={post.user.avatarUrl}
+            fullName={post.user.fullName}
+            content={post.body}
+            replyCount={post.replyCount}
+            imageUrls={post.imageUrls}
+            id={post.id}
+            likeCount={post.likeCount}
+            liked={post.liked}
+            bookmarked={post.bookmarked}
+          />
+        ))}
       </div>
     </Container>
   );

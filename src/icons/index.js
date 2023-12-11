@@ -9,6 +9,7 @@ export { CgProfile as Avatar } from "react-icons/cg";
 // export { IoList as ListFilled } from "react-icons/io5";
 // export { IoSettingsOutline as Settings } from "react-icons/io5";
 export { MdDisplaySettings as Display } from "react-icons/md";
+export { IoIosMore as MoreMenu } from "react-icons/io";
 export { Delete } from "./custom/Delete";
 export { View } from "./custom/View";
 export { Share } from "./custom/Share";

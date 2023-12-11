@@ -29,7 +29,23 @@ export function Profile() {
     dispatch(getMyPosts());
     dispatch(getLikedPosts());
   }, [dispatch]);
-  //  useLoadPost(getMyPosts);
+
+  useEffect(() => {
+    const unlisten = () => {
+      window.scrollTo(0, 0);
+    };
+
+    return () => {
+      unlisten();
+    };
+  }, []);
+
+  // const formattedBirthdate =
+  //   user && user.birthdate
+  //     ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
+  //     : "N/A";
+  // useLoadPost();
+
   return (
     <AppContainer>
       <ModalEdit
@@ -71,10 +87,11 @@ export function Profile() {
               justifyContent: "space-around",
             },
           }}>
-          <TabPanel value="0">
-            {posts?.map((post) => (
+          <TabPanel value="0" sx={{ padding: 0 }}>
+            {posts.map((post) => (
               <ItemPost
                 key={post.id}
+                postUser={post.user}
                 avatarUrl={user.avatarUrl}
                 fullName={user.fullName}
                 replyCount={post.replyCount}
@@ -93,6 +110,7 @@ export function Profile() {
               likedPosts.length ? (
                 likedPosts.map((post) => (
                   <ItemPost
+                    postUser={post.user}
                     avatarUrl={post.user.avatarUrl}
                     fullName={post.user.fullName}
                     key={post.id}

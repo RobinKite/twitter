@@ -48,13 +48,9 @@ export const monthsArray = [
   "November",
   "December",
 ];
-// useEffect(() => {
-//   formFields.forEach((item) => {
-//     formik.setFieldValue(item.name, user[item.name]);
-//   });
 
-//   //function timestamp (date in seconds) ==> day,month,year
-//   formik.setFieldValue("day", 1);
-//   formik.setFieldValue("month", "April");
-//   formik.setFieldValue("year", 2001);
-// }, [user]);
+export function getBirthdayInSeconds({ year, month, day }) {
+  const selectedDate = new Date(year, month - 1, day);
+  const seconds = Math.round(selectedDate.getTime() / 1000);
+  return seconds;
+}

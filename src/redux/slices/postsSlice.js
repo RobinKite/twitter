@@ -6,6 +6,7 @@ const postsSlice = createSlice({
   name: "posts",
   initialState: {
     posts: [],
+    popularPosts: [],
     selectedPost: null,
     postComments: [],
     myPosts: [],
@@ -184,6 +185,7 @@ export const {
   unlike,
   setMyPosts,
   resetPosts,
+  //   setPopularPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
 
@@ -258,16 +260,27 @@ export const getPosts = (page) => async (dispatch) => {
   }
 };
 
+// export const getPopularPosts = (page) => async (dispatch) => {
+//   try {
+//     const response = await client.get(Endpoint.GET_POPULAR_POSTS, {
+//       params: { page: page, pageSize: 12 },
+//     });
+
+//     dispatch(setPopularPosts(response.data.content));
+//   } catch (error) {
+//     console.error("Error fetching posts:", error);
+//   }
+// };
+
 export const getMyPosts = (page) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.GET_MY_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-    // console.log(response);
 
     dispatch(setMyPosts(response.data.content));
   } catch (error) {
-    console.error("Error fetching posts:", error);
+    console.error("Error fetching posts:", error.errorMessage);
   }
 };
 
@@ -290,3 +303,18 @@ export const deletePost = (id) => async (dispatch) => {
     console.error("Сталася помилка при видаленні поста:", error);
   }
 };
+
+// export const {
+//   setPosts,
+//   addPost,
+//   deleteComment,
+//   deleteFromPost,
+//   getPostId,
+//   getPostComents,
+//   like,
+//   addComent,
+//   unlike,
+//   setMyPosts,
+//   setPopularPosts,
+// } = postsSlice.actions;
+// export default postsSlice.reducer;

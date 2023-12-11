@@ -72,10 +72,11 @@ export function CurrentUser() {
                 justifyContent: "space-around",
               },
             }}>
-            <TabPanel value="0">
-              {posts?.map((post) => (
+            <TabPanel value="0" sx={{ padding: 0 }}>
+              {posts.map((post) => (
                 <ItemPost
                   key={post.id}
+                  // postUser={post.user}
                   avatarUrl={post.user?.avatarUrl}
                   fullName={post.user?.fullName}
                   replyCount={post.replyCount}

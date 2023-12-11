@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { client, storage } from "@/services";
 import { Endpoint } from "@/constants";
+import { getBirthdayInSeconds } from "@/utils/date";
 
 const userSlice = createSlice({
   name: "user",
@@ -12,6 +13,8 @@ const userSlice = createSlice({
     friendRequests: [],
     friendSearches: [],
     likedPosts: [],
+    currentLikedPosts: [],
+    bookmarkPosts: [],
     usersFollowing: [],
     usersFollowers: [],
   },
@@ -62,6 +65,17 @@ const userSlice = createSlice({
     setLikedPosts: (state, action) => {
       state.likedPosts = action.payload;
     },
+    setCurrentLikedPosts: (state, action) => {
+      state.currentLikedPosts = action.payload;
+    },
+    setBookmarkPost: (state, action) => {
+      state.bookmarkPosts = action.payload;
+    },
+    removeBookmarkPost: (state, action) => {
+      state.bookmarkPosts = state.bookmarkPosts.filter(
+        (post) => post.id !== action.payload,
+      );
+    },
   },
 });
 
@@ -76,6 +90,9 @@ export const {
   googleRegisterAction,
   logoutUserAction,
   setLikedPosts,
+  setCurrentLikedPosts,
+  setBookmarkPost,
+  removeBookmarkPost,
   usersFollowing,
   usersFollowers,
 } = userSlice.actions;
@@ -125,6 +142,7 @@ export const getUsersUpdate = (values) => async (dispatch) => {
     console.error("Error fetching user:", error);
   }
 };
+
 export const getUsersUpdateAvatarUrl = (avatarUrl) => async (dispatch) => {
   try {
     const formData = new FormData();
@@ -137,6 +155,7 @@ export const getUsersUpdateAvatarUrl = (avatarUrl) => async (dispatch) => {
     console.error("Error fetching user:", error);
   }
 };
+
 export const getUsersUpdateImageUrl = (imageUrl) => async (dispatch) => {
   try {
     const formData = new FormData();
@@ -162,11 +181,16 @@ export const loginUser = (email, password) => (dispatch) => {
 };
 
 export const registerUser = (user) => {
+  const birthdateInSeconds = getBirthdayInSeconds({
+    day: user.day,
+    month: user.month,
+    year: user.year,
+  });
   const data = {
     fullName: `${user.firstName} ${user.lastName}`,
     email: user.email,
     password: user.password,
-    birthdate: `${user.day}.${user.month}.${user.year}`,
+    birthdate: birthdateInSeconds,
     userTag: user.userName,
   };
   return (dispatch) => {
@@ -190,7 +214,7 @@ export const fetchUsers = (numberOfUsers) => {
   };
 };
 
-export const postSubcribeToUser = (id) => {
+export const postSubscribeToUser = (id) => {
   return (dispatch) => {
     client.post(Endpoint.SUBSCRIPTIONS, { id }).then((response) => {
       const data = response.data;
@@ -250,5 +274,33 @@ export const getLikedPosts = (page) => async (dispatch) => {
     dispatch(setLikedPosts(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
+  }
+};
+
+export const addBookmarkPost = (postId) => async (dispatch) => {
+  try {
+    await client.post(Endpoint.BOOKMARKS, null, { params: { postId } });
+    dispatch(getAllBookmarkPosts());
+  } catch (error) {
+    console.error("Error adding bookmark post:", error);
+  }
+};
+
+export const deleteBookmarkPost = (postId) => async (dispatch) => {
+  try {
+    await client.delete(Endpoint.BOOKMARKS, { params: { postId } });
+    dispatch(getAllBookmarkPosts());
+  } catch (error) {
+    console.error("Error removing bookmark post:", error);
+  }
+};
+
+export const getAllBookmarkPosts = () => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.BOOKMARKS);
+    const data = response.data.content;
+    dispatch(setBookmarkPost(data));
+  } catch (error) {
+    console.log("getAllBookmarkPosts error: ", error);
   }
 };
