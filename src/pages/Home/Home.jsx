@@ -1,16 +1,18 @@
 import { Typography } from "@mui/material";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { Container, CreatePost, ItemPost } from "@/components";
 import { getPosts } from "@/redux/slices/postsSlice";
-import InfiniteScroll from "react-infinite-scroll-component";
-import useLoadPostsNew from "@/hooks/useLoadPostsNew";
-import {} from "react";
+import { useEffect } from "react";
 
 export const Home = () => {
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
+  const dispatch = useDispatch();
 
-  const fetchPosts = useLoadPostsNew(getPosts);
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
+
   return (
     <Container>
       <div style={{ border: "1px solid rgb(239, 243, 244)" }}>
@@ -25,13 +27,10 @@ export const Home = () => {
           }}>
           Following
         </Typography>
-        <InfiniteScroll
-          dataLength={posts.length}
-          next={fetchPosts}
-          hasMore={true}
-          loader={<h4>Loading...</h4>}>
-          <CreatePost avatarUrl={avatarUrl} />
-          {posts.map((p) => (
+
+        <CreatePost avatarUrl={avatarUrl} />
+        {posts &&
+          posts.map((p) => (
             <ItemPost
               key={p.id}
               avatarUrl={p.user.avatarUrl}
@@ -44,7 +43,6 @@ export const Home = () => {
               liked={p.liked}
             />
           ))}
-        </InfiniteScroll>
       </div>
     </Container>
   );

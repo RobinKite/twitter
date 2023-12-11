@@ -10,7 +10,6 @@ const postsSlice = createSlice({
     postComments: [],
     myPosts: [],
     hasMore: true,
-    likePosts: [],
   },
   reducers: {
     resetPosts: (state) => {
@@ -19,40 +18,21 @@ const postsSlice = createSlice({
       state.hasMore = true;
     },
     setPosts: (state, action) => {
-      // if (!action.payload.length) return;
-      // state.posts = action.payload;
+      if (!action.payload.length) return;
+      state.posts = action.payload;
+    },
 
-      if (action.payload && action.payload.length !== 0) {
-        state.hasMore = true;
-        state.posts = [...state.posts, ...action.payload];
-      } else {
-        state.hasMore = false;
-      }
-    },
-    likePosts: (state, action) => {
-      state.likePosts = action.payload;
-    },
     setMyPosts: (state, action) => {
-      if (!action.payload || !action.payload.length) {
-        state.hasMore = false;
-      } else {
-        state.hasMore = true;
-
-        const uniquePosts = action.payload.filter(
-          (post) => !state.myPosts.includes(post),
-        );
-
-        state.myPosts = [...state.myPosts, ...uniquePosts];
-      }
+      if (!action.payload.length) return;
+      state.myPosts = action.payload;
     },
 
     addPost: (state, action) => {
       const newPost = action.payload;
-
       if (newPost.type === "TWEET") {
+        state.myPosts.unshift(newPost);
         state.posts.unshift(newPost);
       }
-
       if (newPost.type === "REPLY") {
         const parentPostExistsInComments = state.postComments.some(
           (comment) => comment.id === newPost.parentPost?.id,
@@ -62,7 +42,9 @@ const postsSlice = createSlice({
           state.postComments.unshift(newPost);
         }
 
-        const parentPost = state.posts.find((post) => post.id === newPost.parentPost?.id);
+        const parentPost = state.myPosts.find(
+          (post) => post.id === newPost.parentPost?.id,
+        );
 
         if (parentPost) {
           parentPost.replyCount = (parentPost.replyCount || 0) + 1;
@@ -107,14 +89,13 @@ const postsSlice = createSlice({
         ?.parentPost?.id;
 
       if (parentPostId) {
-        const parentPost = state.posts.find((post) => post.id === parentPostId);
+        const parentPost = state.myPosts.find((post) => post.id === parentPostId);
 
         if (parentPost) {
           parentPost.replyCount = Math.max((parentPost.replyCount || 0) - 1, 0);
         }
       }
-
-      state.posts = state.posts.filter((post) => post.id !== postIdToDelete);
+      state.myPosts = state.myPosts.filter((post) => post.id !== postIdToDelete);
 
       state.postComments = state.postComments.filter(
         (post) => post.id !== postIdToDelete,
@@ -133,6 +114,7 @@ const postsSlice = createSlice({
 
     like: (state, action) => {
       const { postId } = action.payload;
+
       state.posts = state.posts.map((post) =>
         post.id === postId
           ? { ...post, likeCount: post.likeCount + 1, liked: true }
@@ -160,6 +142,9 @@ const postsSlice = createSlice({
 
     unlike: (state, action) => {
       const { id } = action.payload;
+
+      state.likePosts = state.likePosts.filter((post) => post.id !== id);
+
       state.posts = state.posts.map((post) =>
         post.id === id && post.likeCount > 0
           ? { ...post, likeCount: post.likeCount - 1, liked: false }
@@ -170,6 +155,7 @@ const postsSlice = createSlice({
           ? { ...post, likeCount: post.likeCount - 1, liked: false }
           : post,
       );
+
       state.postComments = state.postComments.map((post) =>
         post.id === id && post.likeCount > 0
           ? { ...post, likeCount: post.likeCount - 1, liked: false }
@@ -198,7 +184,6 @@ export const {
   unlike,
   setMyPosts,
   resetPosts,
-  likePosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
 
@@ -227,15 +212,13 @@ export const handleLike = (id) => async (dispatch) => {
     console.error("Error liking the post:", error);
   }
 };
-export const handleLikeSPost = (page) => async () => {
+export const handleLikeSPosts = (page) => async () => {
   try {
     const response = await client.post(Endpoint.LIKE, {
       params: { page: page, pageSize: 12 },
     });
 
     console.log(response);
-    // const { likeCount, liked } = response.data;
-    // dispatch(likePosts());
   } catch (error) {
     console.error("Error liking the post:", error);
   }

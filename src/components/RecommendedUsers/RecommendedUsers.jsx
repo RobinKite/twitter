@@ -18,7 +18,6 @@ export const RecommendedUserCard = ({
   const navigate = useNavigate();
 
   const handleClick = () => {
-    // Перехід на новий роут і передача id
     navigate(`/user/${id}`);
     console.log(id);
   };
@@ -27,10 +26,10 @@ export const RecommendedUserCard = ({
     <Stack sx={userCardSX}>
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} onClick={handleClick} />
       <Stack marginLeft="0.75rem" overflow="hidden" onClick={handleClick}>
-        <Typography fontWeight={500} variant="subtitle1" noWrap={true}>
+        <Typography fontWeight={500} variant="subtitle1" noWrap={true} align="left">
           {fullName}
         </Typography>
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="body2" color="textSecondary" align="left">
           {userTag ? `@${userTag}` : fullName}
         </Typography>
       </Stack>

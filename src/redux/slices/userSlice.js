@@ -12,7 +12,6 @@ const userSlice = createSlice({
     friendRequests: [],
     friendSearches: [],
     likedPosts: [],
-    currentLikedPosts: [],
     usersFollowing: [],
     usersFollowers: [],
   },
@@ -63,9 +62,6 @@ const userSlice = createSlice({
     setLikedPosts: (state, action) => {
       state.likedPosts = action.payload;
     },
-    setCurrentLikedPosts: (state, action) => {
-      state.currentLikedPosts = action.payload;
-    },
   },
 });
 
@@ -80,7 +76,6 @@ export const {
   googleRegisterAction,
   logoutUserAction,
   setLikedPosts,
-  setCurrentLikedPosts,
   usersFollowing,
   usersFollowers,
 } = userSlice.actions;
@@ -115,17 +110,6 @@ export const getUserFollowing = (userId) => async (dispatch) => {
     });
     const data = response.data.content;
     dispatch(usersFollowing(data));
-  } catch (error) {
-    console.error("Error fetching liked posts:", error);
-  }
-};
-export const getCurrentLikedPosts = () => async (dispatch) => {
-  try {
-    const response = await client.get(Endpoint.LIKED_POSTS, {
-      params: { page: 0, pageSize: 12 },
-    });
-    const data = response.data.content;
-    dispatch(setCurrentLikedPosts(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
   }
@@ -257,10 +241,10 @@ export const sendTokenToClient = () => () => {
     client.setAccessToken(storage.accessToken);
   }
 };
-export const getLikedPosts = () => async (dispatch) => {
+export const getLikedPosts = (page) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.LIKED_POSTS, {
-      params: { page: 0, pageSize: 12 },
+      params: { page: page, pageSize: 12 },
     });
     const data = response.data.content;
     dispatch(setLikedPosts(data));

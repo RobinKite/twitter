@@ -18,7 +18,7 @@ export class Endpoint {
   static SUBSCRIPTIONS = "/subscriptions";
   static USERS_SEARCH = "/users/search";
   static USERS_RECOMMENDED = "/users/recommended";
-  static LIKED_POSTS = "/likes/liked_by_me";
+  static LIKED_POSTS = "/posts/liked";
   static CHATS = "/chats";
   static USERS_FOLLOWERS = "/users/followers";
   static GOOGLE_REGISTRATION = "/oauth2/exchange-code/google";

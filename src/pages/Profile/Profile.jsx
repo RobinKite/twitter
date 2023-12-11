@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
 // import { useLoadPost } from "@/hooks/useLoadPost";
 import { Container as AppContainer } from "@/components";
-import { getUserInfo } from "@/redux/slices/userSlice";
-import { getMyPosts, handleLikeSPost, resetPosts } from "@/redux/slices/postsSlice";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
+import { getMyPosts } from "@/redux/slices/postsSlice";
+
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
+
 const tabs = [
   { label: "Post", value: "0" },
   // { label: "Replies", value: "1" },
@@ -19,35 +20,16 @@ const tabs = [
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
-
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
-  // const posts = [];
-
   const dispatch = useDispatch();
-  const hasMore = useSelector((state) => state.posts.hasMore);
-  const [page, setPage] = useState(1);
-
-  const fetchPosts = () => {
-    setPage((prevState) => prevState + 1);
-
-    console.log(page);
-
-    if (hasMore) {
-      dispatch(getMyPosts(page));
-    }
-  };
-
+  console.log(likedPosts);
   useEffect(() => {
     dispatch(getUserInfo());
-
-    if (!page) dispatch(resetPosts());
     dispatch(getMyPosts());
-    dispatch(handleLikeSPost());
-    //TODO: Fix liked posts
-    //TODO: Add condition to load liked posts upon visiting coresponding tab
+    dispatch(getLikedPosts());
   }, [dispatch]);
-
+  //  useLoadPost(getMyPosts);
   return (
     <AppContainer>
       <ModalEdit
@@ -90,26 +72,19 @@ export function Profile() {
             },
           }}>
           <TabPanel value="0">
-            <InfiniteScroll
-              dataLength={posts.length}
-              next={fetchPosts}
-              hasMore={true}
-              // loader={posts?<h4>Loading...</h4> : null}
-            >
-              {posts?.map((post) => (
-                <ItemPost
-                  key={post.id}
-                  avatarUrl={user.avatarUrl}
-                  fullName={user.fullName}
-                  replyCount={post.replyCount}
-                  id={post.id}
-                  content={post.body}
-                  likeCount={post.likeCount}
-                  liked={post.liked}
-                  imageUrls={post.imageUrls}
-                />
-              ))}
-            </InfiniteScroll>
+            {posts?.map((post) => (
+              <ItemPost
+                key={post.id}
+                avatarUrl={user.avatarUrl}
+                fullName={user.fullName}
+                replyCount={post.replyCount}
+                id={post.id}
+                content={post.body}
+                likeCount={post.likeCount}
+                liked={post.liked}
+                imageUrls={post.imageUrls}
+              />
+            ))}
           </TabPanel>
 
           {/* <TabPanel value="1">Replies</TabPanel> */}
@@ -118,8 +93,8 @@ export function Profile() {
               likedPosts.length ? (
                 likedPosts.map((post) => (
                   <ItemPost
-                    avatarUrl={user.avatarUrl}
-                    fullName={user.fullName}
+                    avatarUrl={post.user.avatarUrl}
+                    fullName={post.user.fullName}
                     key={post.id}
                     content={post.body}
                     imageUrls={post.imageUrls}
