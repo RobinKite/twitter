@@ -7,8 +7,7 @@ export const HeaderPage = styled(Box)(() => ({
 }));
 
 export const ContainerUserInfo = styled(Box)(() => ({
-  padding: "60px 0 25px 20px",
-  position: "relative",
+  padding: "40px 20px 25px 20px",
 }));
 
 export const ArrowSvg = styled(Box)(() => ({
@@ -31,10 +30,10 @@ export const ContainerHederText = styled(Box)(() => ({
 }));
 
 export const EditButton = styled(Button)(() => ({
-  position: "absolute",
+  // position: "absolute",
+  display: "flex",
+  marginLeft: "auto",
   borderRadius: "50px",
-  right: "20px",
-  top: "20px",
   border: "1px solid rgb(239, 243, 244)",
   color: "black",
   " &:hover": {

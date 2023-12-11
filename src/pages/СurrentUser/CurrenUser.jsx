@@ -89,8 +89,8 @@ export function CurrentUser() {
               ))}
             </TabPanel>
             {/* <TabPanel value="1">Replies</TabPanel> */}
-            <TabPanel value="2">
-              {currentLikedPosts.length ? (
+            <TabPanel value="2" sx={{ padding: 0 }}>
+              {!!currentLikedPosts.length &&
                 currentLikedPosts.map((post) => (
                   <ItemPost
                     avatarUrl={post.user.avatarUrl}
@@ -103,10 +103,7 @@ export function CurrentUser() {
                     liked={post.liked}
                     replyCount={post.replyCount}
                   />
-                ))
-              ) : (
-                <>You don&apos;t have any likes yet</>
-              )}
+                ))}
             </TabPanel>
           </ProfileTabs>
         </Container>

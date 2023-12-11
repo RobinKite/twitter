@@ -21,6 +21,7 @@ const currentUserSlice = createSlice({
         state.currentPosts = action.payload;
       } else {
         state.hasMore = false;
+        state.currentPosts = [];
       }
     },
     resetPosts: (state) => {

@@ -103,18 +103,24 @@ function ProfileUser({
           {bio}
         </Typography>
         <BoxInfo>
-          <TypographyInfo>
-            {formattedBirthdate ? <Birhdate /> : null}
-            {formattedBirthdate && formattedBirthdate}
-          </TypographyInfo>
-          <TypographyInfo>
-            {location ? <Location /> : null}
-            {location && location}
-          </TypographyInfo>
-          <TypographyInfo>
-            {registrationDate ? <Calendar /> : null}
-            {registrationDate && registrationDate}
-          </TypographyInfo>
+          {formattedBirthdate && (
+            <TypographyInfo>
+              <Birhdate />
+              {formattedBirthdate}
+            </TypographyInfo>
+          )}
+          {location && (
+            <TypographyInfo>
+              <Location />
+              {location}
+            </TypographyInfo>
+          )}
+          {registrationDate && (
+            <TypographyInfo>
+              <Calendar />
+              {registrationDate}
+            </TypographyInfo>
+          )}
         </BoxInfo>
         <Link
           color={"rgb(83, 100, 113)"}

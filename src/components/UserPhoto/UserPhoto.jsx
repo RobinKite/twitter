@@ -19,7 +19,7 @@ const ContainerPhoto = styled(Box)(() => ({
   width: "100%",
   height: "200px",
   position: "relative",
-  backgroundColor: "#1d9bf0",
+  backgroundColor: "rgb(232, 232, 232)",
   boxSizing: "border-box",
   backgroundSize: "cover",
   backgroundPosition: "center",

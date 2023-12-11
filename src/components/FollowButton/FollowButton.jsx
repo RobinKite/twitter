@@ -1,19 +1,9 @@
-import { Box } from "@mui/material";
-import { styled } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { ConfirmationDialog } from "@/components";
 import { deleteSubscribeToUser, postSubscribeToUser } from "@/redux/slices/userSlice";
 import { FollowButtonStyled } from "./styleSX";
-
-const Container = styled(Box)({
-  minWidth: 110,
-  display: "flex",
-  justifyContent: "end",
-  marginLeft: "auto",
-  marginRight: "3%",
-});
 
 export const FollowButton = ({ id, userName, isFollowedByUser }) => {
   const dispatch = useDispatch();
@@ -35,7 +25,7 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
   };
 
   return (
-    <Container>
+    <>
       <FollowButtonStyled
         variant="contained"
         onClick={isFollowing ? () => setOpenDialog(true) : handleFollow}
@@ -58,7 +48,7 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
           closeButton={{ title: "Cancel", callback: () => setOpenDialog(false) }}
         />
       )}
-    </Container>
+    </>
   );
 };
 
