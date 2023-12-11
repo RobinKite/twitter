@@ -17,6 +17,8 @@ const userSlice = createSlice({
     bookmarkPosts: [],
     usersFollowing: [],
     usersFollowers: [],
+    notifications: [],
+    notificationsCount: 0,
   },
   reducers: {
     usersFollowers: (state, action) => {
@@ -76,6 +78,12 @@ const userSlice = createSlice({
         (post) => post.id !== action.payload,
       );
     },
+    setNotifications: (state, action) => {
+      state.notifications = action.payload;
+    },
+    setNotificationsCount: (state, action) => {
+      state.notificationsCount = action.payload;
+    },
   },
 });
 
@@ -95,6 +103,8 @@ export const {
   removeBookmarkPost,
   usersFollowing,
   usersFollowers,
+  setNotifications,
+  setNotificationsCount,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -303,4 +313,26 @@ export const getAllBookmarkPosts = () => async (dispatch) => {
   } catch (error) {
     console.log("getAllBookmarkPosts error: ", error);
   }
+};
+
+export const getNotifications = () => {
+  return (dispatch) => {
+    client
+      .get(Endpoint.GET_NOTIFICATIONS, { params: { page: 0, pageSize: 12 } })
+      .then((response) => {
+        console.log(response);
+        const data = response.data.content;
+        dispatch(setNotifications(data));
+      });
+  };
+};
+
+export const getNotificationsCount = () => {
+  return (dispatch) => {
+    client.get(Endpoint.GET_NOTIFICATIONS_COUNT).then((response) => {
+      console.log(response);
+      const data = response.data.count;
+      dispatch(setNotificationsCount(data));
+    });
+  };
 };

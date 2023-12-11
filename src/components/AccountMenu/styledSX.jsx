@@ -1,9 +1,9 @@
 export const WrapperAccountMenuSX = {
-  mr: "10px",
+  // mr: "10px",
   borderRadius: "30px",
   alignItems: "center",
   justifyContent: "space-between",
-  gap: "20px",
+  // gap: "20px",
   cursor: "pointer",
 
   marginTop: "auto",

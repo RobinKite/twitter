@@ -19,7 +19,22 @@ export function ProfileTabs({ children, tabs, style }) {
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} sx={style}>
             {tabs.map((tab) => (
-              <Tab key={tab.value} label={tab.label} value={tab.value} />
+              <Tab
+                disableRipple
+                key={tab.value}
+                label={tab.label}
+                value={tab.value}
+                sx={{
+                  textTransform: "none",
+                  fontSize: 15,
+                  color: "#536471",
+                  "&:focus": { color: "#0f1419", fontWeight: 700 },
+                  "&:hover": {
+                    backgroundColor: "rgba(15, 20, 25, 0.1)",
+                    transitionDuration: "0.2s",
+                  },
+                }}
+              />
             ))}
           </TabList>
         </Box>

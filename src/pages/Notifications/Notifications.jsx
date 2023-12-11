@@ -3,6 +3,7 @@ import { Stack, Typography } from "@mui/material";
 import { NotificationTabContent, Container, ProfileTabs } from "@/components";
 import imageVerification from "@/assets/images/verification.png";
 import { title } from "./styleSX";
+import NotificationsList from "@/components/NotificationsList/NotificationsList";
 
 const tabs = [
   { label: "All", value: "0" },
@@ -28,10 +29,7 @@ export const Notifications = () => {
             },
           }}>
           <TabPanel value="0" sx={{ padding: 0 }}>
-            <NotificationTabContent
-              title="Nothing to see here — yet"
-              text="From likes to reposts and a whole lot more, this is where all the action happens."
-            />
+            <NotificationsList />
           </TabPanel>
           <TabPanel value="1" sx={{ padding: 0 }}>
             <NotificationTabContent
