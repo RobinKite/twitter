@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { MoreMenu } from "@/icons";
 import { UserCard } from "../RecommendedUsers/RecommendedUsers";
 import { WrapperAccountMenuSX, moreSelectMenuPropsSX, moreSelectSX } from "./styledSX";
+import { storage } from "@/services";
 
 const AccountMenu = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const AccountMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
 
-  const isTablet = useMediaQuery("(min-width: 768px) and (max-width:1023px)");
+  // const isTablet = useMediaQuery("(min-width: 768px) and (max-width:1023px)");
   const isMobile = useMediaQuery("(max-width: 767px)");
 
   useEffect(() => {
@@ -29,8 +30,7 @@ const AccountMenu = () => {
     setDialogOpen(false);
     if (confirmed) {
       dispatch(logoutUserAction());
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("accessToken");
+      storage.setTokens();
     }
   };
 
@@ -41,9 +41,7 @@ const AccountMenu = () => {
   return (
     user &&
     !isMobile && (
-      <Stack
-        direction="row"
-        sx={[WrapperAccountMenuSX, { width: isTablet ? "72px" : "260px" }]}>
+      <Stack direction="row" sx={WrapperAccountMenuSX}>
         <UserCard
           onClick={handleClickOnUserCard}
           avatarUrl={user.avatarUrl}

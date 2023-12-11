@@ -16,7 +16,7 @@ export const UserCard = ({ avatarUrl, fullName, userTag, onClick, children }) =>
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
       {!isMobile && !isTablet && (
         <>
-          <Stack overflow="hidden" sx={{ marginRight: "auto", marginLeft: "0.75rem" }}>
+          <Stack overflow="hidden" sx={{ marginRight: "auto", marginLeft: "auto" }}>
             <Typography fontWeight={700} variant="subtitle1" noWrap={true}>
               {fullName}
             </Typography>

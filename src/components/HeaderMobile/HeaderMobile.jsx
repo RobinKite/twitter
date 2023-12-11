@@ -32,7 +32,12 @@ const HeaderMobile = () => {
               <img
                 src={user.avatarUrl}
                 alt="User Avatar"
-                style={{ width: "32px", height: "32px", borderRadius: "50%" }}
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
               />
             ) : (
               <Avatar size={32} />
