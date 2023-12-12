@@ -67,14 +67,15 @@ const postsSlice = createSlice({
 
     deleteFromPost: (state, action) => {
       const postIdToDelete = action.payload;
-
+      state.posts = state.posts.filter((post) => post.id !== postIdToDelete);
+      // state.selectedPost = state.selectedPost.filter((post) => post.id !== postIdToDelete);
       if (state.selectedPost && state.selectedPost.id === postIdToDelete) {
         const commentsToDelete = state.postComments.filter(
           (comment) => comment.parentPost.id === postIdToDelete,
         );
-        state.postComments = state.postComments.filter(
-          (comment) => comment.parentPost.id !== postIdToDelete,
-        );
+        // state.postComments = state.postComments.filter(
+        //   (comment) => comment.parentPost.id !== postIdToDelete,
+        // );
         state.selectedPost.replyCount = Math.max(
           (state.selectedPost.replyCount || 0) - commentsToDelete.length,
           0,
@@ -86,16 +87,16 @@ const postsSlice = createSlice({
           0,
         );
       }
-      const parentPostId = state.postComments.find((post) => post.id === postIdToDelete)
-        ?.parentPost?.id;
+      // const parentPostId = state.postComments.find((post) => post.id === postIdToDelete)
+      //   ?.parentPost?.id;
 
-      if (parentPostId) {
-        const parentPost = state.myPosts.find((post) => post.id === parentPostId);
+      // if (parentPostId) {
+      //   const parentPost = state.myPosts.find((post) => post.id === parentPostId);
 
-        if (parentPost) {
-          parentPost.replyCount = Math.max((parentPost.replyCount || 0) - 1, 0);
-        }
-      }
+      //   if (parentPost) {
+      //     parentPost.replyCount = Math.max((parentPost.replyCount || 0) - 1, 0);
+      //   }
+      // }
       state.myPosts = state.myPosts.filter((post) => post.id !== postIdToDelete);
 
       state.postComments = state.postComments.filter(
@@ -143,20 +144,24 @@ const postsSlice = createSlice({
 
     unlike: (state, action) => {
       const { id } = action.payload;
+      const postIndex = state.posts.findIndex((post) => post.id === id);
 
-      state.likePosts = state.likePosts.filter((post) => post.id !== id);
-
-      state.posts = state.posts.map((post) =>
-        post.id === id && post.likeCount > 0
-          ? { ...post, likeCount: post.likeCount - 1, liked: false }
-          : post,
-      );
+      if (postIndex !== -1) {
+        state.posts = [
+          ...state.posts.slice(0, postIndex),
+          {
+            ...state.posts[postIndex],
+            liked: false,
+            likeCount: state.posts[postIndex].likeCount - 1,
+          },
+          ...state.posts.slice(postIndex + 1),
+        ];
+      }
       state.myPosts = state.myPosts.map((post) =>
         post.id === id && post.likeCount > 0
           ? { ...post, likeCount: post.likeCount - 1, liked: false }
           : post,
       );
-
       state.postComments = state.postComments.map((post) =>
         post.id === id && post.likeCount > 0
           ? { ...post, likeCount: post.likeCount - 1, liked: false }

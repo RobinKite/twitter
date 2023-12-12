@@ -23,7 +23,6 @@ export function Profile() {
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
   const dispatch = useDispatch();
-  console.log(likedPosts);
   useEffect(() => {
     dispatch(getUserInfo());
     dispatch(getMyPosts());
