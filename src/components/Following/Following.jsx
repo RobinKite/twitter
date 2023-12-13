@@ -7,7 +7,7 @@ import { RecommendedUserCard } from "../RecommendedUsers/RecommendedUsers";
 
 function Following({ id }) {
   const usersFollowing = useSelector((state) => state.user.usersFollowing);
-
+  console.log(usersFollowing);
   const dispatch = useDispatch();
 
   useEffect(() => {

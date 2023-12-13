@@ -6,9 +6,8 @@ import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
 import { Container as AppContainer } from "@/components";
 import { getUserInfo } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
-
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
-import LikePostsUser from "@/components/LikePostsUser/LikePostsUser";
+import LikedPosts from "@/components/LikedPosts/LikedPosts";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -99,7 +98,7 @@ export function Profile() {
 
           {/* <TabPanel value="1">Replies</TabPanel> */}
           <TabPanel value="2">
-            <LikePostsUser />
+            <LikedPosts currentUser={false} />
           </TabPanel>
         </ProfileTabs>
       </Container>

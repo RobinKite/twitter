@@ -40,6 +40,7 @@ const userSlice = createSlice({
       state.user = action.payload;
     },
     getUser: (state, action) => {
+      // console.log(action.payload);
       state.user = action.payload;
     },
     setUsers: (state, action) => {
@@ -237,6 +238,7 @@ export const deleteSubscribeToUser = (id) => {
   return (dispatch) => {
     client.delete(Endpoint.SUBSCRIPTIONS, { params: { id } }).then((response) => {
       const data = response.data;
+
       dispatch(removeFriend(id));
       return data;
     });

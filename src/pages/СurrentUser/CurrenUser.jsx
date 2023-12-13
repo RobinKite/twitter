@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { getCurrentPosts, getCurrentUser } from "@/redux/slices/currentUser";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import { resetPosts } from "@/redux/slices/postsSlice";
-import LikePostsCurrentUser from "@/components/LikePostsCurrentUser/LikePostsCurrentUser";
+import LikedPosts from "@/components/LikedPosts/LikedPosts";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -85,7 +85,7 @@ export function CurrentUser() {
             </TabPanel>
             {/* <TabPanel value="1">Replies</TabPanel> */}
             <TabPanel value="2" sx={{ padding: 0 }}>
-              <LikePostsCurrentUser id={id} />
+              <LikedPosts id={id} currentUser={true} />
             </TabPanel>
           </ProfileTabs>
         </Container>
