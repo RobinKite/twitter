@@ -40,8 +40,10 @@ export const ForgotPasswordForm = ({ handleClose }) => {
             onClick={submitForm}
             disabled={!isValid}
             sx={{
-              backgroundColor: "#000000",
-              color: "#FFFFFF",
+              color: (theme) => theme.palette[theme.palette.mode].primary,
+              backgroundColor: (theme) => theme.palette[theme.palette.mode].secondary,
+              // backgroundColor: "#000000",
+              // color: "#FFFFFF",
               padding: "0 32px",
               width: "100%",
               height: "4rem",

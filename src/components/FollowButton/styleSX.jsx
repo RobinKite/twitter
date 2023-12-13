@@ -25,13 +25,13 @@ export const FollowButtonStyled = styled(Button, {
 
   "&:hover": {
     backgroundColor: isFollowing ? "rgb(255, 0, 0, 0.08)" : "rgb(0, 0, 0)",
-    color: isFollowing ? "rgb(255, 0, 0)" : "rgb(255, 255, 255)",
+    // color: isFollowing ? "rgb(255, 0, 0)" : "rgb(255, 255, 255)",
     boxShadow: "none",
   },
 
   "&:focus": {
     backgroundColor: isFollowing ? "rgb(255, 0, 0, 0.08)" : "rgb(0, 0, 0)",
-    color: isFollowing ? "rgb(255, 0, 0)" : "rgb(255, 255, 255)",
+    // color: isFollowing ? "rgb(255, 0, 0)" : "rgb(255, 255, 255)",
     boxShadow: "none",
   },
 }));

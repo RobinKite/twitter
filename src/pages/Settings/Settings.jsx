@@ -14,7 +14,8 @@ export const Settings = () => {
         <Typography
           variant="h1"
           sx={{
-            color: "#0F1419",
+            // color: "#0F1419",
+            color: (theme) => theme.palette.common.secondary,
             fontSize: "20px",
             fontWeight: 700,
             marginTop: "10px",

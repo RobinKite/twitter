@@ -222,6 +222,7 @@ export const getPosts = (page) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_ALL_POSTS, {
       params: { page: page, pageSize: 12 },
     });
+    console.log(response);
 
     dispatch(setPosts(response.data.content));
   } catch (error) {

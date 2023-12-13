@@ -49,15 +49,26 @@ export const Registration = () => {
         <ContentStackSX>
           <TitleSX variant="span">Happening now</TitleSX>
           <TextSX variant="span">Join today.</TextSX>
-          <Button onClick={handleGoogleButtonClick} endIcon={<Google size={22} />}>
+          <Button
+            onClick={handleGoogleButtonClick}
+            endIcon={
+              <Google
+                size={22}
+                sx={{
+                  backgroundColor: (theme) => theme.palette.light.primary,
+                }}
+              />
+            }>
             Sign up with Google
           </Button>
           <LinesSpanSX variant="span">or</LinesSpanSX>
           <Button
             onClick={() => setShowRegModal(true)}
             sx={{
-              color: "white",
-              backgroundColor: "#1d9bf0",
+              color: (theme) => theme.palette.light.primary,
+              backgroundColor: (theme) => theme.palette.light.accent,
+              // color: "white",
+              // backgroundColor: "#1d9bf0",
               "&:hover": { backgroundColor: "#1a8cd8" },
             }}>
             Create a profile
@@ -67,7 +78,8 @@ export const Registration = () => {
             onClick={() => setShowLoginModal(true)}
             sx={{
               margin: "0 0 8px",
-              color: "#1d9bf0",
+              color: (theme) => theme.palette[theme.palette.mode].accent,
+              // color: "#1d9bf0",
             }}>
             Sign in
           </Button>

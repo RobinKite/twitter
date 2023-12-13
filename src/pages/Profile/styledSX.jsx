@@ -11,8 +11,9 @@ export const ContainerUserInfo = styled(Box)(() => ({
   position: "relative",
 }));
 
-export const ArrowSvg = styled(Box)(() => ({
-  backgroundColor: "white",
+export const ArrowSvg = styled(Box)(({ theme }) => ({
+  // backgroundColor: "white",
+  backgroundColor: theme.palette[theme.palette.mode].primary,
   borderRadius: "50%",
   display: "flex",
   justifyContent: "center",
@@ -25,18 +26,20 @@ export const ArrowSvg = styled(Box)(() => ({
   },
 }));
 
-export const ContainerHederText = styled(Box)(() => ({
+export const ContainerHederText = styled(Box)(({ theme }) => ({
   paddingLeft: "20px",
-  color: "black",
+  color: theme.palette[theme.palette.mode].secondary,
+  // color: "black",
 }));
 
-export const EditButton = styled(Button)(() => ({
+export const EditButton = styled(Button)(({ theme }) => ({
   position: "absolute",
   borderRadius: "50px",
   right: "20px",
   top: "20px",
   border: "1px solid rgb(239, 243, 244)",
-  color: "black",
+  color: theme.palette[theme.palette.mode].secondary,
+  // color: "black",
   " &:hover": {
     border: "1px solid rgb(207, 217, 222)",
     background: " rgb(239, 243, 244)",

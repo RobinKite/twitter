@@ -15,7 +15,8 @@ export const searchBoxSX = {
   padding: "16px",
   fontSize: "15px",
   lineHeight: "1.33",
-  color: "rgb(15,20,25)",
+  // color: "rgb(15,20,25)",
+  color: (theme) => theme.palette[theme.palette.mode].secondary,
   transition: "background-color 250ms linear",
 
   "&:hover": {

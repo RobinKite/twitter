@@ -2,8 +2,10 @@ export const postButtonSX = {
   mobile: {
     borderRadius: "100%",
     margin: 0,
-    backgroundColor: "#1d9bf0",
-    color: "#ffffff",
+    // backgroundColor: "#1d9bf0",
+    // color: "#ffffff",
+    color: (theme) => theme.palette.light.primary,
+    backgroundColor: (theme) => theme.palette[theme.palette.mode].accent,
     bottom: "70px",
     right: "20px",
     top: "",
@@ -12,24 +14,26 @@ export const postButtonSX = {
     minWidth: 0,
     position: "fixed",
 
-    // "&:hover": {
-    //   backgroundColor: "#1a8cd8",
-
-    // },
+    "&:hover": {
+      backgroundColor: "#1a8cd8",
+    },
   },
   tablet: {
     position: "unset",
     height: "50px",
     width: "50px",
     minWidth: 0,
-    backgroundColor: "#1d9bf0",
+    // backgroundColor: "#1d9bf0",
+    backgroundColor: (theme) => theme.palette[theme.palette.mode].accent,
     borderRadius: "100%",
     alignSelf: "center",
   },
   desktop: {
-    color: "#ffffff",
+    // color: "#ffffff",
+    color: (theme) => theme.palette.light.primary,
     boxShadow: "none",
-    backgroundColor: " #1d9bf0",
+    // backgroundColor: " #1d9bf0",
+    backgroundColor: (theme) => theme.palette[theme.palette.mode].accent,
     borderRadius: "45px",
     alignSelf: "flex-start",
     fontWeight: 700,
@@ -45,7 +49,8 @@ export const postButtonSX = {
 };
 
 export const moreButtonSX = {
-  color: "black",
+  //  color: "black",
+  color: (theme) => theme.palette[theme.palette.mode].secondary,
   fontSize: "1.2rem",
   borderRadius: "2rem",
   display: "flex",
@@ -81,7 +86,8 @@ export const moreSelectSX = {
 
 export const logoutButton = {
   width: "100%",
-  color: "#0f1419",
+  // color: "#0f1419",
+  color: (theme) => theme.palette[theme.palette.mode].secondary,
   fontSize: "20px",
   fontWeight: 700,
   display: "flex",
@@ -111,7 +117,8 @@ export const moreSelectMenuPropsSX = {
       "& .css-6hp17o-MuiList-root-MuiMenu-list": {
         paddingTop: 0,
         paddingBottom: 0,
-        backgroundColor: "#ffffff",
+        // backgroundColor: "#ffffff",
+        backgroundColor: (theme) => theme.palette[theme.palette.mode].primary,
       },
       "& .MuiMenuItem-root": {
         padding: 2,

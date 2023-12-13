@@ -1,6 +1,31 @@
 import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
+  palette: {
+    mode: "light",
+    light: {
+      primary: "#ffffff",
+      secondary: "#000000",
+      accent: "#1d9bf0",
+      search_light: "#EFF3F4",
+      background_light: "#f7f9f9",
+    },
+    dark: {
+      primary: "#000000",
+      secondary: "#ffffff",
+      accent: "#1d9bf0",
+      light_grey: "#E7E9EA",
+      text_grey: "#71767B",
+      border_grey: "#2F3336",
+      background_dark: "#202327",
+    },
+    common: {
+      primary: "#536471", //grey (text+border)
+      secondary: "#0f1419", //black
+      borderMain: "#32F3336",
+      like: "#f91880",
+    },
+  },
   typography: {
     allVariants: {
       fontFamily: "Inter, sans-serif",
@@ -40,3 +65,37 @@ export const theme = createTheme({
     },
   },
 });
+
+export class Themes {
+  static LIGHT = "light";
+  static DARK = "dark";
+}
+
+// const getDesignTokens = (mode: PaletteMode) => ({
+//   palette: {
+//     mode,
+//     ...(mode === 'light'
+//       ? {
+//           // palette values for light mode
+//           primary: amber,
+//           divider: amber[200],
+//           text: {
+//             primary: grey[900],
+//             secondary: grey[800],
+//           },
+//         }
+//       : {
+//           // palette values for dark mode
+//           primary: deepOrange,
+//           divider: deepOrange[700],
+//           background: {
+//             default: deepOrange[900],
+//             paper: deepOrange[900],
+//           },
+//           text: {
+//             primary: '#fff',
+//             secondary: grey[500],
+//           },
+//         }),
+//   },
+// });

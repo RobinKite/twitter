@@ -19,7 +19,7 @@ const HeaderMobile = () => {
         left: 0,
         right: 0,
         zIndex: 10,
-        backgroundColor: "#FFFFFF",
+        // backgroundColor: "#FFFFFF",
       }}>
       <ul
         style={{

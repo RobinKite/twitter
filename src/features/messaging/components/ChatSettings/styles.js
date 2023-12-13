@@ -28,12 +28,14 @@ export const radioGroupSx = {
 export const settingTitleSx = {
   fontWeight: 600,
   fontSize: "0.9375rem",
-  color: "rgb(15, 20, 25)",
+  // color: "rgb(15, 20, 25)",
+  color: (theme) => theme.palette[theme.palette.mode].secondary,
 };
 
 export const settingDescriptionSx = {
   fontSize: "0.8rem",
-  color: "rgb(83, 100, 113)",
+  // color: "rgb(83, 100, 113)",
+  color: (theme) => theme.palette.common.primary,
   marginBottom: "0.25rem",
 };
 

@@ -6,7 +6,7 @@ import { Cross } from "@/icons";
 import styles from "../PostModal/PostModal.module.scss";
 import PropTypes from "prop-types";
 
-export const ModalBody = styled(Box)(() => ({
+export const ModalBody = styled(Box)(({ theme }) => ({
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -17,7 +17,8 @@ export const ModalBody = styled(Box)(() => ({
   maxHeight: "40em",
   overflowY: "auto",
   overflowX: "hidden",
-  backgroundColor: "white",
+  // backgroundColor: "white",
+  backgroundColor: theme.palette[theme.palette.mode].primary,
   display: "flex",
   justifyContent: "flex-start",
   flexDirection: "column",

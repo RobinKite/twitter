@@ -21,5 +21,6 @@ export const buttonsSx = {
 };
 
 export const iconStyle = {
-  color: "rgb(15, 20, 25)",
+  // color: "rgb(15, 20, 25)",
+  color: (theme) => theme.palette.common.secondary,
 };

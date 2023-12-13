@@ -12,8 +12,24 @@ const NavigationItem = ({ path, text, getIconComponent }) => {
 
   return (
     <li>
-      <NavLink to={path} className={styles.link}>
-        <Icon size={26.25} />
+      <NavLink
+        sx={{
+          color: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.light.secondary
+              : theme.palette.dark.light_grey,
+        }}
+        to={path}
+        className={styles.link}>
+        <Icon
+          sx={{
+            fill: (theme) =>
+              theme.palette.mode === "light"
+                ? theme.palette.light.secondary
+                : theme.palette.dark.light_grey,
+          }}
+          size={30}
+        />
         <span className={clsx(styles.text, isActive && styles.activeLink)}>{text}</span>
       </NavLink>
     </li>
@@ -31,7 +47,15 @@ export const Navigation = () => {
     <nav className={styles.navigation}>
       <ul className={styles.list}>
         <li>
-          <NavLink to="/" className={styles.logoLink}>
+          <NavLink
+            to="/"
+            className={styles.logoLink}
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette.common.secondary
+                  : theme.palette.dark.light_grey,
+            }}>
             <Twitter size={30} />
           </NavLink>
         </li>

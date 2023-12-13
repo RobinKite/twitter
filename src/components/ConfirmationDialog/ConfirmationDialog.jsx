@@ -22,11 +22,12 @@ const Title = styled(Typography)({
   marginBottom: "0.5rem",
 });
 
-const Description = styled(Typography)({
+const Description = styled(Typography)(({ theme }) => ({
   lineHeight: "1.25rem",
-  color: "#536471",
+  // color: "#536471",
+  color: theme.palette.common.primary,
   fontSize: "inherit",
-});
+}));
 
 const Actions = styled(Box)({
   marginTop: "1.5rem",
@@ -50,8 +51,8 @@ const Button = styled(MuiButton)({
 });
 
 const ActionButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.common.white,
-  backgroundColor: theme.palette.common.black,
+  color: theme.palette[theme.palette.mode].primary,
+  backgroundColor: theme.palette[theme.palette.mode].secondary,
 
   ":hover": {
     backgroundColor: "#272c30",

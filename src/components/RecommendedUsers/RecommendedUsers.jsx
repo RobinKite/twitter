@@ -17,10 +17,27 @@ export const UserCard = ({ avatarUrl, fullName, userTag, onClick, children }) =>
       {!isMobile && !isTablet && (
         <>
           <Stack overflow="hidden" sx={{ marginRight: "auto", marginLeft: "0.75rem" }}>
-            <Typography fontWeight={700} variant="subtitle1" noWrap={true}>
+            <Typography
+              fontWeight={700}
+              variant="subtitle1"
+              noWrap={true}
+              sx={{
+                color: (theme) =>
+                  theme.palette.mode === "light"
+                    ? theme.palette.light.secondary
+                    : theme.palette.dark.light_grey,
+              }}>
               {fullName}
             </Typography>
-            <Typography variant="body2" color="textSecondary">
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              sx={{
+                color: (theme) =>
+                  theme.palette.mode === "light"
+                    ? theme.palette.common.primary
+                    : theme.palette.dark.text_grey,
+              }}>
               {userTag ? `@${userTag}` : fullName}
             </Typography>
           </Stack>

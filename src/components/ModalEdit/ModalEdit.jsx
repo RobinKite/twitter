@@ -21,26 +21,28 @@ import {
 } from "@/redux/slices/userSlice.js";
 import { useDispatch } from "react-redux";
 
-const ModalContainer = styled(Box)(({ theme }) => ({
+const ModalContainer = styled(Box)({
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   maxWidth: "600px",
   width: "100%",
-  backgroundColor: theme.palette.background.paper,
+  // backgroundColor: theme.palette.background.paper,
   border: "1px solid #000",
   boxShadow: "24px",
   padding: "0",
   borderRadius: "16px",
   height: "600px",
   overflow: "hidden",
-}));
+});
 
-const CustomButton = styled(Button)(() => ({
-  backgroundColor: "black",
+const CustomButton = styled(Button)(({ theme }) => ({
+  // backgroundColor: "black",
+  // color: "white",
+  backgroundColor: theme.palette[theme.palette.mode].secondary,
+  color: theme.palette[theme.palette.mode].primary,
   borderRadius: "15px",
-  color: "white",
   "&:hover": {
     backgroundColor: "black",
   },
@@ -58,8 +60,9 @@ const ModalContent = styled(Box)(() => ({
   padding: " 0",
 }));
 
-const ModalHeader = styled(Toolbar)(() => ({
-  backgroundColor: "rgb(255, 255, 255)",
+const ModalHeader = styled(Toolbar)(({ theme }) => ({
+  // backgroundColor: "rgb(255, 255, 255)",
+  backgroundColor: theme.palette[theme.palette.mode].primary,
   position: "sticky",
   top: 0,
   zIndex: 1000,

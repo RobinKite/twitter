@@ -4,7 +4,8 @@ import { BsTwitterX } from "react-icons/bs";
 export const TitleSX = styled(Typography)(({ theme }) => ({
   fontSize: "64px",
   fontWeight: 700,
-  color: "#0f1419",
+  // color: "#0f1419",
+  color: theme.palette.common.secondary,
   margin: "48px 0",
   [theme.breakpoints.down("768")]: {
     fontSize: "40px",
@@ -15,7 +16,8 @@ export const TitleSX = styled(Typography)(({ theme }) => ({
 export const TextSX = styled(Typography)(({ theme }) => ({
   fontSize: "31px",
   fontWeight: 700,
-  color: "#0f1419",
+  // color: "#0f1419",
+  color: theme.palette.common.secondary,
   margin: "0 0 32px",
   [theme.breakpoints.down("768")]: {
     fontSize: "23px",
@@ -23,24 +25,26 @@ export const TextSX = styled(Typography)(({ theme }) => ({
   },
 }));
 
-export const LinesSpanSX = styled(Typography)({
+export const LinesSpanSX = styled(Typography)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
   width: "300px",
-  color: "#0f1419",
+  // color: "#0f1419",
+  color: theme.palette.common.secondary,
   margin: "10px 0",
   fontSize: "15px",
   "&::before": { content: "''", border: "1px solid #eff3f4", width: "45%" },
   "&::after": { content: "''", border: "1px solid #eff3f4", width: "45%" },
-});
+}));
 
-export const AccountSpanSX = styled(Typography)({
+export const AccountSpanSX = styled(Typography)(({ theme }) => ({
   fontSize: "17px",
   fontWeight: 700,
-  color: "#0f1419",
+  // color: "#0f1419",
+  color: theme.palette.common.secondary,
   margin: "40px 0 20px",
-});
+}));
 
 export const ContainerSX = styled(Stack)(({ theme }) => ({
   flexGrow: 1,

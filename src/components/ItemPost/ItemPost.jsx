@@ -205,7 +205,8 @@ export function ItemPost({
                   <Typography
                     component="span"
                     sx={{
-                      color: liked ? "rgb(249, 24, 128)" : "inherit",
+                      // color: liked ? "rgb(249, 24, 128)" : "inherit",
+                      color: (theme) => (liked ? theme.palette.common.like : "inherit"),
                     }}>
                     {likeCount}
                   </Typography>
@@ -215,7 +216,17 @@ export function ItemPost({
                   onClick={() => handleBookmarkClick(id)}
                   disabled={isLoading}>
                   {isBookmarkedPost ? (
-                    <BookmarkFilled style={{ fill: "hsl(201, 79%, 48%)" }} />
+                    <BookmarkFilled
+                      // sx={{
+
+                      //    (theme => ({
+                      //      icon:{
+                      //   color:theme.palette.light.accent}
+                      // }))
+
+                      // }}
+                      style={{ fill: "hsl(201, 79%, 48%)" }}
+                    />
                   ) : (
                     <Bookmark />
                   )}

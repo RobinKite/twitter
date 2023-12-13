@@ -35,7 +35,7 @@ const CommentPostTemplate = (props) => {
         sx={{
           m: 0,
           mr: "12px",
-          bgcolor: "rgb(8, 139, 226)",
+          // bgcolor: "rgb(8, 139, 226)",
           width: 40,
           height: 40,
         }}
@@ -55,6 +55,12 @@ const CommentPostTemplate = (props) => {
           maxRows={18}
           onChange={(e) => setInputStr(e.target.value)}
           value={inputStr}
+          sx={{
+            color: (theme) =>
+              theme.palette.mode === "light"
+                ? theme.palette.light.secondary
+                : theme.palette.dark.light_grey,
+          }}
         />
 
         <WrapperImgSX>

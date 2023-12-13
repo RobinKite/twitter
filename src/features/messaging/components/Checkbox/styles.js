@@ -18,7 +18,8 @@ export const labelSx = {
 export const descriptionSx = {
   fontSize: "0.775rem",
   marginBottom: "1rem",
-  color: "rgb(83, 100, 113)",
+  // color: "rgb(83, 100, 113)",
+  color: (theme) => theme.palette.common.primary,
   marginRight: "0.5rem",
   lineHeight: "1.25",
 };

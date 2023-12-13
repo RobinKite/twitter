@@ -19,7 +19,12 @@ const HeaderDrawerItem = ({ path, text, getIconComponent }) => {
     <li>
       <NavLink to={path} style={{ display: "flex", padding: "16px", gap: "25px" }}>
         <Icon size={25} />
-        <span style={{ color: "#0F1419", fontSize: "20px", fontWeight: 700 }}>
+        <span
+          style={{
+            color: "#0F1419",
+            fontSize: "20px",
+            fontWeight: 700,
+          }}>
           {text}
         </span>
       </NavLink>

@@ -50,7 +50,9 @@ export function CurrentUser() {
         <Container
           maxWidth="sm"
           disableGutters={true}
-          sx={{ border: "1px solid rgb(239, 243, 244)" }}>
+          sx={{
+            border: "1px solid rgb(239, 243, 244)",
+          }}>
           <HeaderPage>
             <Link to="/profile">
               <ArrowSvg>

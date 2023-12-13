@@ -28,16 +28,18 @@ export const InputField = styled(TextField)({
 });
 export const ButtonPost = styled(MuiButton)(({ theme }) => ({
   marginLeft: "12px",
-  border: "1px solid #dadce0",
+
   borderRadius: "35px",
   padding: "0 16px",
   minHeight: "36px",
 
-  backgroundColor: "rgb(29, 150, 240)",
+  // backgroundColor: "rgb(29, 150, 240)",
+  backgroundColor: theme.palette[theme.palette.mode].accent,
 
   fontSize: "15px",
   fontWeight: 500,
-  color: "white",
+  // color: "white",
+  color: theme.palette.light.primary,
   textTransform: "capitalize",
 
   "&:hover": { backgroundColor: "#1a8cd8" },

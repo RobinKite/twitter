@@ -14,7 +14,11 @@ export const sidebarSX = {
 };
 
 export const containerSX = {
-  backgroundColor: "rgb(248, 248, 248)",
+  // backgroundColor: "rgb(248, 248, 248)",
+  backgroundColor: (theme) =>
+    theme.palette.mode === "light"
+      ? theme.palette.light.background_light
+      : theme.palette.dark.background_dark,
   borderRadius: "1rem",
 };
 
@@ -23,6 +27,7 @@ export const titleSX = {
   fontFamily: "inherit",
   fontSize: "1.25rem",
   fontWeight: 800,
+  color: (theme) => theme.palette[theme.palette.mode].secondary,
 };
 
 export const showMoreSX = {
@@ -31,7 +36,8 @@ export const showMoreSX = {
   borderBottomLeftRadius: "1rem",
   borderBottomRightRadius: "1rem",
   fontSize: "14px",
-  color: "rgb(29, 155, 240)",
+  // color: "rgb(29, 155, 240)",
+  color: (theme) => theme.palette[theme.palette.mode].accent,
   transition: "background-color 200ms",
 
   ":hover": {

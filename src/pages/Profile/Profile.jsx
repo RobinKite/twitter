@@ -66,10 +66,23 @@ export function Profile() {
       <Container
         maxWidth="sm"
         disableGutters={true}
-        sx={{ border: "1px solid rgb(239, 243, 244)", height: "unset" }}>
+        sx={{
+          border: "1px solid ",
+          borderColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.dark.light_grey
+              : theme.palette.dark.background_dark,
+          height: "unset",
+        }}>
         <HeaderPage>
           <Link to="/">
-            <ArrowSvg>
+            <ArrowSvg
+              sx={{
+                fill: (theme) =>
+                  theme.palette.mode === "light"
+                    ? theme.palette.light.primary
+                    : theme.palette.dark.secondary,
+              }}>
               <ArrowBack size={25} />
             </ArrowSvg>
           </Link>
@@ -91,12 +104,34 @@ export function Profile() {
           <EditButton onClick={() => setIsModalOpen(true)} variant="outlined">
             Edit profile
           </EditButton>
-          <Typography variant="h6"> {user && user.fullName}</Typography>
-          <Typography variant="body1">{user && user.userTag}</Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette.common.secondary
+                  : theme.palette.dark.light_grey,
+            }}>
+            {user && user.fullName}
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette.common.primary
+                  : theme.palette.dark.text_grey,
+            }}>
+            {user && user.userTag}
+          </Typography>
           <Typography
             component="div"
             variant="body1"
             sx={{
+              color: (theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette.common.secondary
+                  : theme.palette.dark.light_grey,
               padding: "10px 0",
             }}>
             {user && user.bio}

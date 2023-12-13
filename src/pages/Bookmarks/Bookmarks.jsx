@@ -25,7 +25,11 @@ export const Bookmarks = () => {
           variant="h1"
           sx={{
             padding: "0 16px",
-            color: "#0F1419",
+            // color: "#0F1419",
+            color: (theme) =>
+              theme.palette.mode === "light"
+                ? theme.palette.light.secondary
+                : theme.palette.dark.light_grey,
             fontSize: "20px",
             fontWeight: 700,
             marginTop: "10px",
@@ -37,7 +41,11 @@ export const Bookmarks = () => {
           sx={{
             marginBottom: "4px",
             padding: "0 16px",
-            color: "#536471",
+            color: (theme) =>
+              theme.palette.mode === "light"
+                ? theme.palette.common.primary
+                : theme.palette.dark.text_grey,
+            // color: "#536471",
             fontSize: "13px",
           }}>
           @{email}
@@ -64,14 +72,28 @@ export const Bookmarks = () => {
             <Typography
               variant="h2"
               sx={{
-                color: "#0F1419",
+                // color: "#0F1419",
+                color: (theme) =>
+                  theme.palette.mode === "light"
+                    ? theme.palette.light.secondary
+                    : theme.palette.dark.light_grey,
+                // theme.palette[theme.palette.mode].primary
                 fontSize: "30px",
                 fontWeight: 800,
                 marginBottom: "8px",
               }}>
               Save posts for later
             </Typography>
-            <Typography variant="h5" sx={{ color: "#536471", fontSize: "15px" }}>
+            <Typography
+              variant="h5"
+              sx={{
+                color: (theme) =>
+                  theme.palette.mode === "light"
+                    ? theme.palette.common.primary
+                    : theme.palette.dark.text_grey,
+                // color: "#536471",
+                fontSize: "15px",
+              }}>
               Bookmark posts to easily find them again in the future.
             </Typography>
           </Box>

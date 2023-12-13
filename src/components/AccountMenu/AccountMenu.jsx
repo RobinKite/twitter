@@ -49,7 +49,18 @@ const AccountMenu = () => {
           avatarUrl={user.avatarUrl}
           fullName={user.fullName}
           userTag={user.userTag}>
-          <MoreMenu size={18} color="#0f1419" style={{ display: "block" }} />
+          <MoreMenu
+            size={18}
+            // color="#0f1419"
+            sx={{
+              // color: (theme) => theme.palette.common.secondary,
+              fill: (theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette.common.secondary
+                  : theme.palette.light.primary,
+              display: "block",
+            }}
+          />
         </UserCard>
         <Select
           open={isMenuOpen}
@@ -57,7 +68,18 @@ const AccountMenu = () => {
           sx={moreSelectSX}
           id="basic-menu"
           MenuProps={moreSelectMenuPropsSX}>
-          <MenuItem onClick={handleLogoutClick}>
+          <MenuItem
+            onClick={handleLogoutClick}
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette.light.secondary
+                  : theme.palette.dark.light_grey,
+              backgroundColor: (theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette.light.primary
+                  : theme.palette.light.secondary,
+            }}>
             Log out @{user.userTag || user.fullName}
           </MenuItem>
         </Select>

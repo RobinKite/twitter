@@ -13,21 +13,22 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-const ContainerPhoto = styled(Box)(() => ({
+const ContainerPhoto = styled(Box)(({ theme }) => ({
   maxWidth: "600px",
   width: "100%",
   height: "200px",
   position: "relative",
-  backgroundColor: "#1d9bf0",
+  backgroundColor: theme.palette[theme.palette.mode].accent,
   boxSizing: "border-box",
   backgroundSize: "cover",
   backgroundPosition: "center",
 }));
 
-const IconAddPhoto = styled(Box)(() => ({
+const IconAddPhoto = styled(Box)(({ theme }) => ({
   width: "40px",
   height: "40px",
-  backgroundColor: "rgba(15, 20, 25, 0.75)",
+  // backgroundColor: "rgba(15, 20, 25, 0.75)",a
+  backgroundColor: theme.palette.common.secondary,
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -75,7 +76,15 @@ export function UserPhoto({
             <IconAddPhoto>
               <Button
                 component="label"
-                endIcon={<AddAPhotoIcon sx={{ margin: "0", color: "white" }} />}
+                endIcon={
+                  <AddAPhotoIcon
+                    sx={{
+                      margin: "0",
+                      // color: "white"
+                      color: (theme) => theme.palette[theme.palette.mode].primary,
+                    }}
+                  />
+                }
                 sx={{
                   "& .css-9tj150-MuiButton-endIcon": {
                     margin: "0px",
@@ -104,7 +113,15 @@ export function UserPhoto({
             src={avatarUrl}>
             <Button
               component="label"
-              endIcon={<AddAPhotoIcon sx={{ margin: "0px", color: "white" }} />}
+              endIcon={
+                <AddAPhotoIcon
+                  sx={{
+                    margin: "0px",
+                    // color: "white"
+                    color: (theme) => theme.palette[theme.palette.mode].primary,
+                  }}
+                />
+              }
               sx={{
                 "& .css-9tj150-MuiButton-endIcon": {
                   margin: "0px",
