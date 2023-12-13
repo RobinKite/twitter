@@ -5,13 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { ProfileTabs, ItemPost } from "@/components";
 import { Container as AppContainer } from "@/components";
 import { useParams } from "react-router-dom";
-import {
-  getCurrentLikedPosts,
-  getCurrentPosts,
-  getCurrentUser,
-} from "@/redux/slices/currentUser";
+import { getCurrentPosts, getCurrentUser } from "@/redux/slices/currentUser";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import { resetPosts } from "@/redux/slices/postsSlice";
+import LikePostsCurrentUser from "@/components/LikePostsCurrentUser/LikePostsCurrentUser";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -24,7 +21,6 @@ export function CurrentUser() {
 
   const user = useSelector((state) => state.currentUser.user);
   const posts = useSelector((state) => state.currentUser.currentPosts);
-  const currentLikedPosts = useSelector((state) => state.currentUser.currentLikedPosts);
 
   const dispatch = useDispatch();
 
@@ -34,7 +30,6 @@ export function CurrentUser() {
     dispatch(resetPosts());
     dispatch(getCurrentUser(id));
     dispatch(getCurrentPosts(id));
-    dispatch(getCurrentLikedPosts(id));
   }, [dispatch, id]);
 
   return (
@@ -90,20 +85,7 @@ export function CurrentUser() {
             </TabPanel>
             {/* <TabPanel value="1">Replies</TabPanel> */}
             <TabPanel value="2" sx={{ padding: 0 }}>
-              {!!currentLikedPosts.length &&
-                currentLikedPosts.map((post) => (
-                  <ItemPost
-                    avatarUrl={post.user.avatarUrl}
-                    fullName={post.user.fullName}
-                    key={post.id}
-                    content={post.body}
-                    imageUrls={post.imageUrls}
-                    id={post.id}
-                    likeCount={post.likeCount}
-                    liked={post.liked}
-                    replyCount={post.replyCount}
-                  />
-                ))}
+              <LikePostsCurrentUser id={id} />
             </TabPanel>
           </ProfileTabs>
         </Container>

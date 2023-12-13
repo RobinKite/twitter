@@ -320,7 +320,6 @@ export const getNotifications = () => {
     client
       .get(Endpoint.GET_NOTIFICATIONS, { params: { page: 0, pageSize: 12 } })
       .then((response) => {
-        console.log(response);
         const data = response.data.content;
         dispatch(setNotifications(data));
       });
@@ -330,7 +329,6 @@ export const getNotifications = () => {
 export const getNotificationsCount = () => {
   return (dispatch) => {
     client.get(Endpoint.GET_NOTIFICATIONS_COUNT).then((response) => {
-      console.log(response);
       const data = response.data.count;
       dispatch(setNotificationsCount(data));
     });

@@ -1,15 +1,14 @@
 import TabPanel from "@mui/lab/TabPanel";
-// import { Link } from "react-router-dom";
 import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
-// import { useLoadPost } from "@/hooks/useLoadPost";
 import { Container as AppContainer } from "@/components";
-import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
+import { getUserInfo } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
 
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
+import LikePostsUser from "@/components/LikePostsUser/LikePostsUser";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -20,14 +19,12 @@ const tabs = [
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
-  const likedPosts = useSelector((state) => state.user.likedPosts);
+
   const posts = useSelector((state) => state.posts.myPosts);
   const dispatch = useDispatch();
-  console.log(likedPosts);
   useEffect(() => {
     dispatch(getUserInfo());
     dispatch(getMyPosts());
-    dispatch(getLikedPosts());
   }, [dispatch]);
 
   useEffect(() => {
@@ -40,10 +37,6 @@ export function Profile() {
     };
   }, []);
 
-  // const formattedBirthdate =
-  //   user && user.birthdate
-  //     ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
-  //     : "N/A";
   // useLoadPost();
 
   return (
@@ -106,30 +99,7 @@ export function Profile() {
 
           {/* <TabPanel value="1">Replies</TabPanel> */}
           <TabPanel value="2">
-            {
-              likedPosts.length ? (
-                likedPosts.map((post) => (
-                  <ItemPost
-                    postUser={post.user}
-                    avatarUrl={post.user.avatarUrl}
-                    fullName={post.user.fullName}
-                    key={post.id}
-                    content={post.body}
-                    imageUrls={post.imageUrls}
-                    id={post.id}
-                    likeCount={post.likeCount}
-                    liked={post.liked}
-                    replyCount={post.replyCount}
-                  />
-                ))
-              ) : (
-                <>You don&apos;t have any likes yet</>
-              )
-              // <NotificationTabContent
-              //   title={'You do not have any likes yet'}
-              //   text="Tap the heart on any post to show it some love. When you do, it’ll show up here."
-              // />
-            }
+            <LikePostsUser />
           </TabPanel>
         </ProfileTabs>
       </Container>
