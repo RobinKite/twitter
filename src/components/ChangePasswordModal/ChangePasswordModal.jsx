@@ -1,5 +1,5 @@
 import { Modal, Typography, TextField, Button, Stack } from "@mui/material";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import {
   btnCancellSX,
@@ -11,36 +11,31 @@ import {
   modalTitleSX,
 } from "./styleSX";
 
+import {
+  setCurrentPassword,
+  setNewPassword,
+  setConfirmPassword,
+  resetPasswordFields,
+  changePassword,
+} from "../../redux/slices/userSlice";
+
 export const ChangePasswordModal = ({ open, onClose }) => {
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const dispatch = useDispatch();
+  const { currentPassword, newPassword, confirmPassword } = useSelector(
+    (state) => state.user,
+  );
 
   const handleChangePassword = async () => {
     if (newPassword === confirmPassword && newPassword.length >= 4) {
-      const token = localStorage.getItem("refreshToken");
-      const response = await fetch(
-        "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/users/change-password",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            current_password: currentPassword,
-            new_password: newPassword,
-          }),
-        },
-      );
-      const data = await response.text();
-      console.log(data);
+      dispatch(changePassword({ currentPassword, newPassword }));
+      dispatch(resetPasswordFields());
       onClose();
+    } else if (newPassword.length < 4) {
+      console.error("new password must be at least 4 characters");
+    } else if (newPassword !== confirmPassword) {
+      console.error("New passwords do not match");
     } else {
-      console.error(
-        "Passwords do not match or are less than 4 characters(new password must be at least 4 characters)",
-      );
+      console.error("Incorrect current password");
     }
   };
 
@@ -55,7 +50,7 @@ export const ChangePasswordModal = ({ open, onClose }) => {
           label="Current password"
           type="password"
           value={currentPassword}
-          onChange={(e) => setCurrentPassword(e.target.value)}
+          onChange={(e) => dispatch(setCurrentPassword(e.target.value))}
           fullWidth
           margin="normal"
         />
@@ -64,7 +59,7 @@ export const ChangePasswordModal = ({ open, onClose }) => {
           label="New password"
           type="password"
           value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
+          onChange={(e) => dispatch(setNewPassword(e.target.value))}
           fullWidth
           margin="normal"
         />
@@ -73,7 +68,7 @@ export const ChangePasswordModal = ({ open, onClose }) => {
           label="Confirm password"
           type="password"
           value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          onChange={(e) => dispatch(setConfirmPassword(e.target.value))}
           fullWidth
           margin="normal"
         />

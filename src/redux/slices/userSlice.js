@@ -15,6 +15,9 @@ const userSlice = createSlice({
     likedPosts: [],
     currentLikedPosts: [],
     bookmarkPosts: [],
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   },
   reducers: {
     registerUserAction: (state, action) => {
@@ -68,6 +71,20 @@ const userSlice = createSlice({
         (post) => post.id !== action.payload,
       );
     },
+    setCurrentPassword: (state, action) => {
+      state.currentPassword = action.payload;
+    },
+    setNewPassword: (state, action) => {
+      state.newPassword = action.payload;
+    },
+    setConfirmPassword: (state, action) => {
+      state.confirmPassword = action.payload;
+    },
+    resetPasswordFields: (state) => {
+      state.currentPassword = "";
+      state.newPassword = "";
+      state.confirmPassword = "";
+    },
   },
 });
 
@@ -85,6 +102,10 @@ export const {
   setCurrentLikedPosts,
   setBookmarkPost,
   removeBookmarkPost,
+  setCurrentPassword,
+  setNewPassword,
+  setConfirmPassword,
+  resetPasswordFields,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -300,3 +321,50 @@ export const getAllBookmarkPosts = () => async (dispatch) => {
     console.log("getAllBookmarkPosts error: ", error);
   }
 };
+
+export const changePassword =
+  ({ currentPassword, newPassword }) =>
+  async (dispatch) => {
+    const updatePassword = {
+      current_password: currentPassword,
+      new_password: newPassword,
+    };
+    client.post(Endpoint.CHANGE_PASSWORD, updatePassword).then((response) => {
+      storage.accessToken;
+      dispatch({ type: "user/changePasswordSuccess", payload: response.data });
+      console.log(response.data);
+    });
+  };
+
+// export const changePassword =
+//   ({ currentPassword, newPassword }) =>
+//   async (dispatch) => {
+//     try {
+//       dispatch({ type: "user/changePasswordRequest" });
+
+//       const response = await fetch(
+//         "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/users/change-password",
+//         {
+//           method: "POST",
+//           headers: {
+//             Accept: "application/json",
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${storage.accessToken}`,
+//           },
+//           body: JSON.stringify({
+//             current_password: currentPassword,
+//             new_password: newPassword,
+//           }),
+//         },
+//       );
+
+//       const data = await response.text();
+//       console.log(data);
+
+//       dispatch({ type: "user/changePasswordSuccess", payload: data });
+//     } catch (error) {
+//       console.error(error);
+
+//       dispatch({ type: "user/changePasswordFailure", payload: error.message });
+//     }
+//   };

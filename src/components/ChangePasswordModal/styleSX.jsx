@@ -15,28 +15,31 @@ export const changePasswordModalSX = {
 
 export const modalTitleSX = {
   marginLeft: "24px",
-  marginTop: "20px",
+  marginTop: "25px",
+  marginBottom: "15px",
   fontWeight: "700",
 };
 
 export const inputFieldSX = {
   maxWidth: "350px",
   margin: "0 auto",
-  marginTop: "10px",
-  marginBottom: "10px",
+  marginTop: "15px",
+  marginBottom: "15px",
 };
 
 export const btnContainer = {
   display: "flex",
   flexDirection: "row",
+  marginTop: "15px",
+  marginBottom: "25px",
 };
 
 export const btnChangeSX = {
   maxWidth: "100px",
   minWidth: "100px",
   margin: "0 auto",
-  marginTop: "10px",
-  marginBottom: "20px",
+  // marginTop: "10px",
+  // marginBottom: "20px",
   border: "1px solid rgb(0, 0, 0, 0.8)",
   transition: "background-color 250ms linear, color 250ms linear",
   boxShadow: "none",
@@ -53,8 +56,8 @@ export const btnCancellSX = {
   maxWidth: "100px",
   minWidth: "100px",
   margin: "0 auto",
-  marginTop: "10px",
-  marginBottom: "20px",
+  // marginTop: "10px",
+  // marginBottom: "20px",
   border: "1px solid rgb(210, 210, 210)",
   transition: "background-color 250ms linear, color 250ms linear",
   boxShadow: "none",
