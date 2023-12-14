@@ -4,14 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { tweetImgEvenSX, tweetImgOddSX, tweetImgSX } from "../ItemPost/styleSX";
 import PropTypes from "prop-types";
 import { ContainerSX } from "./styleSX";
+import { PostType } from "@/constants";
+import ReplyItem from "../ReplyItem/ReplyItem";
 
 export const NotificationItem = ({ notification }) => {
-  const types = {
-    like: "LIKE",
-    tweet: "TWEET",
-    follower: "FOLLOWER",
-  };
-
   const { initiator, post } = notification;
   const navigate = useNavigate();
 
@@ -21,7 +17,8 @@ export const NotificationItem = ({ notification }) => {
 
   return (
     <>
-      {notification.type === types.follower && (
+      {notification.type === PostType.REPLY && <ReplyItem reply={notification} />}
+      {notification.type === PostType.FOLLOWER && (
         <ContainerSX direction="row" onClick={() => handleClick(initiator.id)}>
           <Stack>
             <ProfileIcon size={30} fill="#1d9bf0" />
@@ -37,7 +34,7 @@ export const NotificationItem = ({ notification }) => {
           </Stack>
         </ContainerSX>
       )}
-      {notification.type === types.like && (
+      {notification.type === PostType.LIKE && (
         <ContainerSX direction="row" onClick={() => handleClick(initiator.id)}>
           <Stack sx={{ minWidth: "30px" }}>
             <Heart size={30} color="#f91880" />
@@ -76,7 +73,7 @@ export const NotificationItem = ({ notification }) => {
           </Stack>
         </ContainerSX>
       )}
-      {notification.type === types.tweet && (
+      {notification.type === PostType.TWEET && (
         <ContainerSX direction="row" onClick={() => handleClick(initiator.id)}>
           <Stack sx={{ minWidth: "30px" }}>
             <Repost fill="#00ba7c" style={{ width: "30px", height: "30px" }} />
