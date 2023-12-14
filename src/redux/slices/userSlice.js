@@ -40,7 +40,6 @@ const userSlice = createSlice({
       state.user = action.payload;
     },
     getUser: (state, action) => {
-      // console.log(action.payload);
       state.user = action.payload;
     },
     setUsers: (state, action) => {
