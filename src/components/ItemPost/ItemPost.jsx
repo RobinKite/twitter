@@ -37,6 +37,76 @@ import {
 } from "./styleSX";
 import { addBookmarkPost, deleteBookmarkPost } from "@/redux/slices/userSlice";
 
+export function PostActions({
+  id,
+  likeCount,
+  liked,
+  disable,
+  replyCount,
+  bookmarked,
+  openModal,
+}) {
+  const dispatch = useDispatch();
+  const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
+
+  const handleBookmarkClick = (postId) => {
+    isBookmarkedPost
+      ? dispatch(deleteBookmarkPost(postId))
+      : dispatch(addBookmarkPost(postId));
+    setIsBookmarkedPost(!isBookmarkedPost);
+  };
+  return (
+    <Stack sx={tweetActionsSX}>
+      {!disable && (
+        <>
+          <Stack sx={replyCountSX}>
+            <IconButton onClick={openModal}>
+              <Reply />
+            </IconButton>
+            <Typography component="span">{replyCount}</Typography>
+          </Stack>
+          <IconButton sx={tweetRepostSX}>
+            <Repost />
+          </IconButton>
+          <Stack sx={likeCountSX}>
+            <IconButton
+              onClick={() => {
+                liked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
+              }}>
+              {liked ? <LikeFalse /> : <Like />}
+            </IconButton>
+
+            <Typography
+              component="span"
+              sx={{
+                color: liked ? "rgb(249, 24, 128)" : "inherit",
+              }}>
+              {likeCount}
+            </Typography>
+          </Stack>
+          <IconButton sx={replyCountSX} onClick={() => handleBookmarkClick(id)}>
+            {isBookmarkedPost ? (
+              <BookmarkFilled style={{ fill: "hsl(201, 79%, 48%)" }} />
+            ) : (
+              <Bookmark />
+            )}
+          </IconButton>
+        </>
+      )}
+    </Stack>
+  );
+}
+
+PostActions.propTypes = {
+  id: PropTypes.string,
+  likeCount: PropTypes.number,
+  liked: PropTypes.bool,
+  disable: PropTypes.bool,
+  replyCount: PropTypes.number,
+  bookmarked: PropTypes.bool,
+  openModal: PropTypes.func,
+};
+
 export function ItemPost({
   content,
   imageUrls,
@@ -60,18 +130,6 @@ export function ItemPost({
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const profileUser = useSelector((state) => state.user.user);
-
-  const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleBookmarkClick = (postId) => {
-    setIsLoading(true);
-    isBookmarkedPost
-      ? dispatch(deleteBookmarkPost(postId))
-      : dispatch(addBookmarkPost(postId));
-    setIsBookmarkedPost(!isBookmarkedPost);
-    setIsLoading(false);
-  };
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -182,47 +240,15 @@ export function ItemPost({
               ))}
             </Stack>
           )}
-          <Stack sx={tweetActionsSX}>
-            {!disable && (
-              <>
-                <Stack sx={replyCountSX}>
-                  <IconButton onClick={openModal}>
-                    <Reply />
-                  </IconButton>
-                  <Typography component="span">{replyCount}</Typography>
-                </Stack>
-                <IconButton sx={tweetRepostSX}>
-                  <Repost />
-                </IconButton>
-                <Stack sx={likeCountSX}>
-                  <IconButton
-                    onClick={() => {
-                      liked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
-                    }}>
-                    {liked ? <LikeFalse /> : <Like />}
-                  </IconButton>
-
-                  <Typography
-                    component="span"
-                    sx={{
-                      color: liked ? "rgb(249, 24, 128)" : "inherit",
-                    }}>
-                    {likeCount}
-                  </Typography>
-                </Stack>
-                <IconButton
-                  sx={replyCountSX}
-                  onClick={() => handleBookmarkClick(id)}
-                  disabled={isLoading}>
-                  {isBookmarkedPost ? (
-                    <BookmarkFilled style={{ fill: "hsl(201, 79%, 48%)" }} />
-                  ) : (
-                    <Bookmark />
-                  )}
-                </IconButton>
-              </>
-            )}
-          </Stack>
+          <PostActions
+            id={id}
+            likeCount={likeCount}
+            liked={liked}
+            disable={disable}
+            replyCount={replyCount}
+            bookmarked={bookmarked}
+            openModal={openModal}
+          />
         </Stack>
       </Stack>
 

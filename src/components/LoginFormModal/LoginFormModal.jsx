@@ -14,23 +14,12 @@ import {
 } from "./styleSX";
 import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 import { BsTwitterX } from "react-icons/bs";
-// import { useDispatch } from "react-redux";
-// import { loginUser } from "@/redux/slices/userSlice";
-// import { setModal } from "@/redux/slices/appSlice";
-// import { useState } from "react";
 
 export function LoginFormModal({
   handleLoginModalClose,
   handleLoginModalOpen,
   handleSignUpClick,
 }) {
-  // const handleForgotPasswordClick = () => {
-  //   //TODO: Change next line to dispatch password reset modal
-  //   // navigate("/password_reset");
-  // };
-
-  //TODO: close Login modal and open Registration modal upon pressing Sign Up
-
   return (
     <Modal open={handleLoginModalOpen} onClose={handleLoginModalClose}>
       <ContainerSX>
@@ -47,9 +36,6 @@ export function LoginFormModal({
           <Stack sx={{ width: "100%" }}>
             <LoginForm />
           </Stack>
-          {/* <MainButtonSX onClick={handleForgotPasswordClick}>
-            Forgot password?
-          </MainButtonSX> */}
           <LoginTextSX>
             Don&apos;t have an account?&#32;
             <LinkSX onClick={handleSignUpClick}>Sign Up</LinkSX>

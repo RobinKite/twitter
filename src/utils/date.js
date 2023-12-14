@@ -54,3 +54,24 @@ export function getBirthdayInSeconds({ year, month, day }) {
   const seconds = Math.round(selectedDate.getTime() / 1000);
   return seconds;
 }
+
+export const getTimeDifference = (createdAt) => {
+  const postDate = new Date(createdAt);
+  const currentDate = new Date();
+
+  const difference = currentDate - postDate;
+  const seconds = Math.floor(difference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+
+  if (days > 0) {
+    return postDate.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  } else if (hours > 0) {
+    return `${hours}h`;
+  } else if (minutes > 0) {
+    return `${minutes}m`;
+  } else {
+    return `${seconds}s`;
+  }
+};
