@@ -18,7 +18,7 @@ const tabs = [
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
-
+  // console.log(user);
   const posts = useSelector((state) => state.posts.myPosts);
   const dispatch = useDispatch();
   useEffect(() => {

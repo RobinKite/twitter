@@ -6,6 +6,7 @@ import { FollowButton } from "@/components";
 import { fetchUsers } from "@/redux/slices/userSlice";
 import { userCardSX } from "./styleSX";
 import { useNavigate } from "react-router-dom";
+import { setModalPost } from "@/redux/slices/appSlice";
 
 export const UserCard = ({ avatarUrl, fullName, userTag, onClick, children }) => {
   const isMobile = useMediaQuery("(max-width: 767px)");
@@ -48,14 +49,20 @@ export const RecommendedUserCard = ({
   isFollowedByUser,
 }) => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleClick = () => {
     navigate(`/user/${id}`);
+    dispatch(setModalPost(false));
   };
 
   return (
-    <Stack sx={userCardSX} onClick={handleClick}>
-      <UserCard avatarUrl={avatarUrl} fullName={fullName} userTag={userTag} />
+    <Stack sx={userCardSX}>
+      <UserCard
+        avatarUrl={avatarUrl}
+        fullName={fullName}
+        userTag={userTag}
+        onClick={handleClick}
+      />
       {useButton && (
         <FollowButton
           id={id}

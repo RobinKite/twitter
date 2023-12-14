@@ -48,7 +48,7 @@ function ProfileUser({
       setLoading(false);
       dispatch(setModalPost(true));
       dispatch(setContent(component));
-    }, 1000);
+    }, 500);
   };
 
   const formattedBirthdate = birthdate

@@ -48,11 +48,14 @@ const userSlice = createSlice({
     },
     sendFriendRequest: (state, action) => {
       state.friendRequests.push(action.payload);
+      state.user.following += 1;
+      state.usersFollowing.push(action.payload);
     },
     removeFriend: (state, action) => {
       state.friendsList = state.friendsList.filter(
         (friend) => friend.id !== action.payload,
       );
+      state.user.following += -1;
     },
     setFriendSearches: (state, action) => {
       state.friendSearches = action.payload;
