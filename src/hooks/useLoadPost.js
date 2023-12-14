@@ -4,7 +4,7 @@ import { getPopularPosts, getPosts } from "@/redux/slices/postsSlice";
 import { client } from "@/services";
 import { Endpoint } from "@/constants";
 
-export const useLoadPost = () => {
+export const useLoadPost = (callback) => {
   const dispatch = useDispatch();
   const accountUser = useSelector((state) => state.user.user);
   const [currentPage, setCurrentPage] = useState(0);
@@ -30,7 +30,7 @@ export const useLoadPost = () => {
       const morePostsAvailable = await checkIfMorePostsAvailable(currentPage);
 
       if (morePostsAvailable) {
-        dispatch(getPosts(currentPage))
+        dispatch(callback(currentPage))
           .then((response) => {
             // Перевіряємо, чи є ще пости
             const morePosts = response?.data?.content.length > 0;
@@ -70,6 +70,7 @@ export const useLoadPost = () => {
     accountUser.following
       ? dispatch(getPosts(currentPage))
       : dispatch(getPopularPosts(currentPage));
+    // dispatch(callback(currentPage));
 
     window.addEventListener("scroll", handleScroll);
 

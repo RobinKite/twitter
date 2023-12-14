@@ -1,6 +1,7 @@
 import { Avatar, Box, Button, styled } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import PropTypes from "prop-types";
+
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -18,7 +19,7 @@ const ContainerPhoto = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "200px",
   position: "relative",
-  backgroundColor: theme.palette[theme.palette.mode].accent,
+  backgroundColor: theme.palette[theme.palette.mode].accent, //change to grey
   boxSizing: "border-box",
   backgroundSize: "cover",
   backgroundPosition: "center",
@@ -38,7 +39,11 @@ const IconAddPhoto = styled(Box)(({ theme }) => ({
   borderRadius: "50%",
   transform: "translate(-50%, -50%)",
 }));
-
+const IconAddAvatar = styled(Box)(() => ({
+  position: "absolute",
+  top: "183px",
+  left: "44px",
+}));
 export function UserPhoto({
   changeIcon,
   imageUrl,
@@ -82,12 +87,13 @@ export function UserPhoto({
                       margin: "0",
                       // color: "white"
                       color: (theme) => theme.palette[theme.palette.mode].primary,
+                      marginRight: "10px",
                     }}
                   />
                 }
                 sx={{
                   "& .css-9tj150-MuiButton-endIcon": {
-                    margin: "0px",
+                    margin: "0",
                   },
                 }}>
                 <VisuallyHiddenInput
@@ -100,17 +106,20 @@ export function UserPhoto({
           </>
         ) : null}
 
+        <Avatar
+          changeicon={"false"}
+          sx={{
+            width: "100px",
+            height: "100px",
+            position: "absolute",
+            bottom: "-50px",
+            left: "30px",
+          }}
+          alt="Remy Sharp"
+          src={avatarUrl}></Avatar>
+
         {changeIcon ? (
-          <Avatar
-            sx={{
-              width: "100px",
-              height: "100px",
-              position: "absolute",
-              bottom: "-50px",
-              left: "30px",
-            }}
-            alt="Remy Sharp"
-            src={avatarUrl}>
+          <IconAddAvatar>
             <Button
               component="label"
               endIcon={
@@ -119,6 +128,7 @@ export function UserPhoto({
                     margin: "0px",
                     // color: "white"
                     color: (theme) => theme.palette[theme.palette.mode].primary,
+                    marginRight: "10px",
                   }}
                 />
               }
@@ -133,23 +143,13 @@ export function UserPhoto({
                 type="file"
               />
             </Button>
-          </Avatar>
-        ) : (
-          <Avatar
-            sx={{
-              width: "100px",
-              height: "100px",
-              position: "absolute",
-              bottom: "-50px",
-              left: "30px",
-            }}
-            alt="Remy Sharp"
-            src={avatarUrl}>
-            M
-          </Avatar>
-        )}
-
-        <img src={imageUrl} alt="" style={{ width: "100%", maxHeight: "200px" }} />
+          </IconAddAvatar>
+        ) : null}
+        <img
+          src={imageUrl}
+          alt=""
+          style={{ width: "100%", maxHeight: "100%", objectFit: "cover" }}
+        />
       </ContainerPhoto>
     </>
   );

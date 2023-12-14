@@ -1,13 +1,10 @@
 import { useMediaQuery } from "@mui/material";
-
 import Button from "@mui/material/Button";
-
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MoreCircle, Feather } from "@/icons";
 import { CreatePost, PostModal, Navigation } from "../../components";
 import { setModalPost, setContent } from "../../redux/slices/appSlice";
-
 import { moreButtonSX, postButtonSX } from "./styledSX";
 import FooterMobile from "../FooterMobile/FooterMobile";
 import HeaderMobile from "../HeaderMobile/HeaderMobile";

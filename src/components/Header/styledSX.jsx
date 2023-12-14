@@ -39,7 +39,7 @@ export const postButtonSX = {
     fontWeight: 700,
     fontSize: "17px",
     padding: "11px 80px",
-    margin: "1rem 40px 0 0",
+    margin: "1rem 40px 0 4px",
 
     "&:hover": {
       boxShadow: "none",

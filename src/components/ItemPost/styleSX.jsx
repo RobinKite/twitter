@@ -21,6 +21,7 @@ export const tweetSX = {
 };
 
 export const avatarSX = {
+  position: "static",
   margin: 0,
   // bgcolor: "rgb(8, 139, 226)",
 
@@ -123,7 +124,7 @@ export const tweetActionsSX = {
   marginTop: "12px",
 };
 
-const iconSX = {
+export const iconSX = {
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "center",

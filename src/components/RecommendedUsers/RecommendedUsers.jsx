@@ -16,7 +16,7 @@ export const UserCard = ({ avatarUrl, fullName, userTag, onClick, children }) =>
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
       {!isMobile && !isTablet && (
         <>
-          <Stack overflow="hidden" sx={{ marginRight: "auto", marginLeft: "0.75rem" }}>
+          <Stack overflow="hidden" sx={{ marginRight: "auto", marginLeft: "auto" }}>
             <Typography
               fontWeight={700}
               variant="subtitle1"
@@ -31,7 +31,7 @@ export const UserCard = ({ avatarUrl, fullName, userTag, onClick, children }) =>
             </Typography>
             <Typography
               variant="body2"
-              color="textSecondary"
+              align="left"
               sx={{
                 color: (theme) =>
                   theme.palette.mode === "light"
@@ -102,7 +102,11 @@ RecommendedUserCard.defaultProps = {
 export const RecommendedUsers = ({ useButton, usersList, isShowMore }) => {
   const dispatch = useDispatch();
 
-  const renderList = isShowMore ? usersList : usersList.slice(2);
+  const renderList = isShowMore
+    ? usersList
+    : usersList.length > 2
+      ? usersList.slice(2)
+      : usersList;
 
   useEffect(() => {
     dispatch(fetchUsers(5));
@@ -110,9 +114,9 @@ export const RecommendedUsers = ({ useButton, usersList, isShowMore }) => {
 
   return (
     <Stack>
-      {renderList.map((user, index) => (
+      {renderList.map((user) => (
         <RecommendedUserCard
-          key={index}
+          key={user.id}
           {...user}
           id={`${user.id}`}
           useButton={useButton}

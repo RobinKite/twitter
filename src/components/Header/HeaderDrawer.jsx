@@ -10,6 +10,7 @@ import { useState } from "react";
 import { ConfirmationDialog } from "..";
 import { logoutUserAction } from "@/redux/slices/userSlice";
 import { logoutButton } from "./styledSX";
+import { storage } from "@/services";
 
 const HeaderDrawerItem = ({ path, text, getIconComponent }) => {
   const location = useLocation();
@@ -55,8 +56,7 @@ const HeaderDrawer = () => {
     setDialogClick(false);
     if (dialogClick) {
       dispatch(logoutUserAction());
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("accessToken");
+      storage.setTokens();
       navigate("/login");
       console.log("Logged out!");
     }
