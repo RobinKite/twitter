@@ -1,11 +1,11 @@
-import { MenuItem, Select, Stack, useMediaQuery } from "@mui/material";
+import { MenuItem, Stack, useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { ConfirmationDialog } from "..";
+import { ConfirmationDialog, CustomSelect } from "..";
 import { getUserInfo, logoutUserAction } from "@/redux/slices/userSlice";
 import { useEffect, useState } from "react";
 import { MoreMenu } from "@/icons";
 import { UserCard } from "../RecommendedUsers/RecommendedUsers";
-import { WrapperAccountMenuSX, moreSelectMenuPropsSX, moreSelectSX } from "./styledSX";
+import { WrapperAccountMenuSX } from "./styledSX";
 import { storage } from "@/services";
 
 const AccountMenu = () => {
@@ -49,16 +49,11 @@ const AccountMenu = () => {
           userTag={user.userTag}>
           <MoreMenu size={18} color="#0f1419" style={{ display: "block" }} />
         </UserCard>
-        <Select
-          open={isMenuOpen}
-          onClose={() => setIsMenuOpen(false)}
-          sx={moreSelectSX}
-          id="basic-menu"
-          MenuProps={moreSelectMenuPropsSX}>
+        <CustomSelect open={isMenuOpen} onClose={setIsMenuOpen}>
           <MenuItem onClick={handleLogoutClick}>
             Log out @{user.userTag || user.fullName}
           </MenuItem>
-        </Select>
+        </CustomSelect>
         {dialogOpen && (
           <ConfirmationDialog
             open={dialogOpen}

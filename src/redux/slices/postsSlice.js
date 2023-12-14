@@ -294,6 +294,18 @@ export const addPosts = (formData) => async (dispatch) => {
   }
 };
 
+export const createRepostPost = (parentPostId) => async (dispatch) => {
+  console.log(parentPostId);
+  try {
+    const response = await client.post(Endpoint.CREATE_POST, parentPostId);
+    console.log(response);
+    const data = response.data;
+    // dispatch(addPost(data));
+  } catch (error) {
+    console.log("ERROR", error);
+  }
+};
+
 export const deletePost = (id) => async (dispatch) => {
   try {
     await client.delete(Endpoint.DELETE_POST, { params: { id } });
