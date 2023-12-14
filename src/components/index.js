@@ -26,3 +26,4 @@ export { NotificationTabContent } from "./NotificationTabContent/NotificationTab
 export { CustomDateSelector } from "./CustomDateSelector/CustomDateSelector";
 export { WelcomeMessage } from "./WelcomeMessage/WelcomeMessage";
 export { NotificationItem } from "./NotificationItem/NotificationItem";
+export { CustomSelect } from "./CustomSelect/CustomSelect";

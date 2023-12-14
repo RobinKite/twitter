@@ -1,21 +1,3 @@
-export const WrapperAccountMenuSX = {
-  // mr: "10px",
-  borderRadius: "30px",
-  alignItems: "center",
-  justifyContent: "space-between",
-  // gap: "20px",
-  cursor: "pointer",
-  marginTop: "auto",
-  marginBottom: "12px",
-  transition: "background-color 200ms linear",
-  overflow: "hidden",
-  width: "100%",
-
-  "&:hover": {
-    backgroundColor: "rgb(240, 240, 240)",
-  },
-};
-
 export const moreSelectSX = {
   position: "relative",
   clip: "rect(0 0 0 0)",
@@ -27,15 +9,18 @@ export const moreSelectSX = {
 };
 
 export const moreSelectMenuPropsSX = {
+  anchorOrigin: {
+    vertical: "bottom",
+    horizontal: "left",
+  },
   transformOrigin: {
-    vertical: "top",
+    vertical: "bottom",
     horizontal: "right",
   },
   PaperProps: {
     sx: {
       position: "absolute",
-      borderRadius: 4,
-      marginTop: -8,
+      borderRadius: 5,
       "& .css-6hp17o-MuiList-root-MuiMenu-list": {
         paddingTop: 0,
         paddingBottom: 0,
@@ -43,10 +28,9 @@ export const moreSelectMenuPropsSX = {
       },
       "& .MuiMenuItem-root": {
         padding: 2,
-        fontSize: 15,
+        fontSize: 20,
         fontWeight: 700,
-        minWidth: 300,
-
+        minWidth: 318,
         gap: 3,
         "&:hover": {
           backgroundColor: "#eff3f4",

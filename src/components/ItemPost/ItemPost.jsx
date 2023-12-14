@@ -8,104 +8,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
-import { deletePost, handleLike, handleUnlike } from "@/redux/slices/postsSlice";
-import {
-  Reply,
-  LikeFalse,
-  Repost,
-  Like,
-  Delete,
-  Bookmark,
-  BookmarkFilled,
-} from "@/icons";
+import { deletePost } from "@/redux/slices/postsSlice";
+import { Delete } from "@/icons";
 import {
   avatarSX,
   iconDeleteSX,
-  likeCountSX,
-  replyCountSX,
-  tweetActionsSX,
   tweetContentSX,
   tweetHeaderSX,
   tweetImgEvenSX,
   tweetImgOddSX,
   tweetImgSX,
-  tweetRepostSX,
   tweetSX,
   tweetUsernameSX,
   tweetUsertagSX,
   tweetWrapperSX,
 } from "./styleSX";
-import { addBookmarkPost, deleteBookmarkPost } from "@/redux/slices/userSlice";
-
-export function PostActions({
-  id,
-  likeCount,
-  liked,
-  disable,
-  replyCount,
-  bookmarked,
-  openModal,
-}) {
-  const dispatch = useDispatch();
-  const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
-
-  const handleBookmarkClick = (postId) => {
-    isBookmarkedPost
-      ? dispatch(deleteBookmarkPost(postId))
-      : dispatch(addBookmarkPost(postId));
-    setIsBookmarkedPost(!isBookmarkedPost);
-  };
-  return (
-    <Stack sx={tweetActionsSX}>
-      {!disable && (
-        <>
-          <Stack sx={replyCountSX}>
-            <IconButton onClick={openModal}>
-              <Reply />
-            </IconButton>
-            <Typography component="span">{replyCount}</Typography>
-          </Stack>
-          <IconButton sx={tweetRepostSX}>
-            <Repost />
-          </IconButton>
-          <Stack sx={likeCountSX}>
-            <IconButton
-              onClick={() => {
-                liked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
-              }}>
-              {liked ? <LikeFalse /> : <Like />}
-            </IconButton>
-
-            <Typography
-              component="span"
-              sx={{
-                color: liked ? "rgb(249, 24, 128)" : "inherit",
-              }}>
-              {likeCount}
-            </Typography>
-          </Stack>
-          <IconButton sx={replyCountSX} onClick={() => handleBookmarkClick(id)}>
-            {isBookmarkedPost ? (
-              <BookmarkFilled style={{ fill: "hsl(201, 79%, 48%)" }} />
-            ) : (
-              <Bookmark />
-            )}
-          </IconButton>
-        </>
-      )}
-    </Stack>
-  );
-}
-
-PostActions.propTypes = {
-  id: PropTypes.string,
-  likeCount: PropTypes.number,
-  liked: PropTypes.bool,
-  disable: PropTypes.bool,
-  replyCount: PropTypes.number,
-  bookmarked: PropTypes.bool,
-  openModal: PropTypes.func,
-};
+import { PostActions } from "../PostActions/PostActions";
 
 export function ItemPost({
   content,

@@ -2,9 +2,9 @@ import { Avatar, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { tweetImgEvenSX, tweetImgOddSX, tweetImgSX } from "../ItemPost/styleSX";
-import { PostActions } from "../ItemPost/ItemPost";
 import { PostType } from "@/constants";
 import { getTimeDifference } from "@/utils/date";
+import { PostActions } from "../PostActions/PostActions";
 
 const ReplyItem = ({ reply }) => {
   const navigate = useNavigate();
