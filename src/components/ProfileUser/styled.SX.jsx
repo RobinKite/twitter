@@ -1,14 +1,13 @@
-import { styled, Button, Box } from "@mui/material";
+import { styled, Button, Box, Typography } from "@mui/material";
 
 export const HeaderPage = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
-  padding: "10px 20px 5px 20px",
+  padding: "10px 0 5px 20px",
 }));
 
 export const ContainerUserInfo = styled(Box)(() => ({
-  padding: "60px 20px 25px 20px",
-  position: "relative",
+  padding: "40px 20px 25px 20px",
 }));
 
 export const ArrowSvg = styled(Box)(() => ({
@@ -31,14 +30,24 @@ export const ContainerHederText = styled(Box)(() => ({
 }));
 
 export const EditButton = styled(Button)(() => ({
-  position: "absolute",
+  // position: "absolute",
+  display: "flex",
+  marginLeft: "auto",
   borderRadius: "50px",
-  right: "20px",
-  top: "20px",
   border: "1px solid rgb(239, 243, 244)",
   color: "black",
   " &:hover": {
     border: "1px solid rgb(207, 217, 222)",
     background: " rgb(239, 243, 244)",
   },
+}));
+export const BoxInfo = styled(Box)(() => ({
+  display: "flex",
+  gap: 20,
+  color: "rgb(83, 100, 113)",
+  marginBottom: 10,
+}));
+export const TypographyInfo = styled(Typography)(() => ({
+  display: "flex",
+  fontSize: "15px",
 }));

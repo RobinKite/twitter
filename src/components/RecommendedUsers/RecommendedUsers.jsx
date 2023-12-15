@@ -16,11 +16,11 @@ export const UserCard = ({ avatarUrl, fullName, userTag, onClick, children }) =>
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
       {!isMobile && !isTablet && (
         <>
-          <Stack overflow="hidden" sx={{ marginRight: "auto", marginLeft: "0.75rem" }}>
-            <Typography fontWeight={700} variant="subtitle1" noWrap={true}>
+          <Stack overflow="hidden" sx={{ marginRight: "auto", marginLeft: "auto" }}>
+            <Typography fontWeight={700} variant="subtitle1" noWrap={true} align="left">
               {fullName}
             </Typography>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant="body2" color="textSecondary" align="left">
               {userTag ? `@${userTag}` : fullName}
             </Typography>
           </Stack>
@@ -82,18 +82,24 @@ RecommendedUserCard.defaultProps = {
   avatarUrl: "",
 };
 
-export const RecommendedUsers = ({ useButton, usersList }) => {
+export const RecommendedUsers = ({ useButton, usersList, isShowMore }) => {
   const dispatch = useDispatch();
 
+  const renderList = isShowMore
+    ? usersList
+    : usersList.length > 2
+      ? usersList.slice(2)
+      : usersList;
+
   useEffect(() => {
-    dispatch(fetchUsers(3));
+    dispatch(fetchUsers(5));
   }, [dispatch]);
 
   return (
     <Stack>
-      {usersList.map((user, index) => (
+      {renderList.map((user) => (
         <RecommendedUserCard
-          key={index}
+          key={user.id}
           {...user}
           id={`${user.id}`}
           useButton={useButton}
@@ -105,10 +111,12 @@ export const RecommendedUsers = ({ useButton, usersList }) => {
 };
 
 RecommendedUsers.propTypes = {
+  isShowMore: PropTypes.bool.isRequired,
   useButton: PropTypes.bool,
   usersList: PropTypes.arrayOf(PropTypes.object),
 };
 
 RecommendedUsers.defaultProps = {
+  isShowMore: false,
   useButton: false,
 };

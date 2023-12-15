@@ -1,27 +1,16 @@
 import TabPanel from "@mui/lab/TabPanel";
-import { Link } from "react-router-dom";
-import { Typography, Container } from "@mui/material";
+// import { Link } from "react-router-dom";
+import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { UserPhoto, ProfileTabs, ItemPost, ModalEdit } from "@/components";
-import { useLoadPost } from "@/hooks/useLoadPost";
-import { ArrowBack } from "@/icons";
-import {
-  ArrowSvg,
-  ContainerHederText,
-  ContainerUserInfo,
-  EditButton,
-  HeaderPage,
-} from "./styledSX";
-import {
-  // UserPhoto,
-  // ProfileTabs,
-  // ItemPost,
-  // ModalEdit,
-  Container as AppContainer,
-} from "@/components";
+import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
+// import { useLoadPost } from "@/hooks/useLoadPost";
+import { Container as AppContainer } from "@/components";
 import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
+
+import ProfileUser from "@/components/ProfileUser/ProfileUser";
+
 const tabs = [
   { label: "Post", value: "0" },
   // { label: "Replies", value: "1" },
@@ -30,17 +19,14 @@ const tabs = [
 
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const user = useSelector((state) => state.user.user);
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
-
   const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(getLikedPosts());
     dispatch(getUserInfo());
     dispatch(getMyPosts());
+    dispatch(getLikedPosts());
   }, [dispatch]);
 
   useEffect(() => {
@@ -53,68 +39,44 @@ export function Profile() {
     };
   }, []);
 
-  const formattedBirthdate =
-    user && user.birthdate
-      ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
-      : "N/A";
-  useLoadPost();
+  // const formattedBirthdate =
+  //   user && user.birthdate
+  //     ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
+  //     : "N/A";
+  // useLoadPost();
 
   return (
     <AppContainer>
-      <ModalEdit isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
+      <ModalEdit
+        isOpen={isModalOpen}
+        fullName={user.fullName}
+        userTag={user.userTag}
+        location={user.location}
+        bio={user.bio}
+        onClose={() => setIsModalOpen(false)}
+      />
       <Container
         maxWidth="sm"
         disableGutters={true}
         sx={{ border: "1px solid rgb(239, 243, 244)", height: "unset" }}>
-        <HeaderPage>
-          <Link to="/">
-            <ArrowSvg>
-              <ArrowBack size={25} />
-            </ArrowSvg>
-          </Link>
-          <ContainerHederText>
-            <Typography variant="h6">{user && user.fullName}</Typography>
-            {/* <div>post</div> */}
-            {/* <button onClick={() => dispatch(PostAuthorizationAsync(formData))}>
-              test
-            </button>
-            <button onClick={() => dispatch(getUserAsync())}>test2</button> */}
-          </ContainerHederText>
-        </HeaderPage>
-        <UserPhoto
-          changeIcon={false}
-          avatarUrl={user && user.avatarUrl}
-          imageUrl={user && user.imageUrl}
-        />
-        <ContainerUserInfo>
-          <EditButton onClick={() => setIsModalOpen(true)} variant="outlined">
-            Edit profile
-          </EditButton>
-          <Typography variant="h6"> {user && user.fullName}</Typography>
-          <Typography variant="body1">{user && user.userTag}</Typography>
-          <Typography
-            component="div"
-            variant="body1"
-            sx={{
-              padding: "10px 0",
-            }}>
-            {user && user.bio}
-          </Typography>
-          <Typography variant="body2">{formattedBirthdate}</Typography>
-
-          <Typography component="span" variant="body1">
-            {user && user.following} Following
-          </Typography>
-          <Typography
-            component="span"
-            variant="body1"
-            sx={{
-              paddingLeft: "10px",
-            }}>
-            {user && user.followers} Followers
-          </Typography>
-        </ContainerUserInfo>
+        {user && (
+          <ProfileUser
+            id={user.id}
+            key={user.id}
+            fullName={user.fullName}
+            avatarUrl={user.avatarUrl}
+            imageUrl={user.imageUrl}
+            userTag={user.userTag}
+            bio={user.bio}
+            setIsModalOpen={setIsModalOpen}
+            birthdate={user.birthdate}
+            following={user.following}
+            followers={user.followers}
+            showFollowButton={false}
+            location={user.location}
+            createdAt={user.createdAt}
+          />
+        )}
         <ProfileTabs
           tabs={tabs}
           variant="scrollable"
@@ -124,7 +86,7 @@ export function Profile() {
               justifyContent: "space-around",
             },
           }}>
-          <TabPanel sx={{ padding: 0 }} value="0">
+          <TabPanel value="0" sx={{ padding: 0 }}>
             {posts.map((post) => (
               <ItemPost
                 key={post.id}
@@ -140,6 +102,7 @@ export function Profile() {
               />
             ))}
           </TabPanel>
+
           {/* <TabPanel value="1">Replies</TabPanel> */}
           <TabPanel value="2">
             {
@@ -147,8 +110,8 @@ export function Profile() {
                 likedPosts.map((post) => (
                   <ItemPost
                     postUser={post.user}
-                    avatarUrl={user.avatarUrl}
-                    fullName={user.fullName}
+                    avatarUrl={post.user.avatarUrl}
+                    fullName={post.user.fullName}
                     key={post.id}
                     content={post.body}
                     imageUrls={post.imageUrls}

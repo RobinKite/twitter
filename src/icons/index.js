@@ -5,6 +5,8 @@ export { IoSearchOutline as Search } from "react-icons/io5";
 export { IoSearch as SearchFilled } from "react-icons/io5";
 export { IoClose as Cross } from "react-icons/io5";
 export { CgProfile as Avatar } from "react-icons/cg";
+export { PiHeartFill as Heart } from "react-icons/pi";
+export { IoPerson as ProfileIcon } from "react-icons/io5";
 // export { IoListOutline as List } from "react-icons/io5";
 // export { IoList as ListFilled } from "react-icons/io5";
 // export { IoSettingsOutline as Settings } from "react-icons/io5";

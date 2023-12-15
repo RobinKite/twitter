@@ -37,10 +37,6 @@ export const Post = () => {
     dispatch(axiosPostComments(id));
   }, [dispatch, id]);
 
-  // useEffect(() => {
-
-  // }, [dispatch, id]);
-
   return (
     <Container>
       <HeaderPage>
@@ -66,7 +62,7 @@ export const Post = () => {
           />
         </div>
       ) : (
-        <div>Loading...</div>
+        <div>The post is deleted</div>
       )}
 
       <CommentPost id={id} />

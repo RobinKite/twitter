@@ -1,8 +1,11 @@
 export const formFields = [
-  { name: "name", label: "Name", rows: 1, maxLength: 20 },
+  { name: "fullName", label: "Name", rows: 1, maxLength: 20 },
   { name: "bio", label: "Bio", rows: 3, maxLength: 100 },
   { name: "location", label: "Location", rows: 1, maxLength: 55 },
-  { name: "website", label: "Website", rows: 1, maxLength: 20 },
+  { name: "userTag", label: "Tag", rows: 1, maxLength: 55 },
+  // { name: "day", label: "Day", rows: 1, maxLength: 55 },
+  // { name: "month", label: "Month", rows: 1, maxLength: 55 },
+  // { name: "year", label: "Year", rows: 1, maxLength: 55 },
 ];
 
 export const configDateForm = [
