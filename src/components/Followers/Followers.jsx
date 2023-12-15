@@ -26,6 +26,7 @@ function Followers({ id }) {
             avatarUrl={user.avatarUrl}
             useButton={true}
             isFollowedByUser={user.isFollowedByUser}
+            isInModal={true}
           />
         ))}
     </>
