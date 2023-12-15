@@ -1,13 +1,15 @@
 import { Box } from "@mui/material";
+import { useSelector } from "react-redux";
 import { WelcomeMessage } from "@/features/messaging/components";
 import { wrapperSx, messageWrapperSx } from "./styles";
 
-export const Chat = () => {
-  const isEmpty = true;
+export const CurrentConversation = () => {
+  const currentConversation = useSelector((state) => state.messaging.currentConversation);
 
   return (
     <Box sx={wrapperSx}>
-      {isEmpty && (
+      {/* TODO: 👉 Do not show welcome message on load */}
+      {!currentConversation && (
         <Box sx={messageWrapperSx}>
           <WelcomeMessage
             title="Select a message"

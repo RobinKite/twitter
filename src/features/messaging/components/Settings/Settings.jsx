@@ -8,7 +8,7 @@ import { Radio, Checkbox } from "@/features/messaging/components";
 import { settingsSx, titleSx, headerSx, checkboxGroupSx, radioGroupSx } from "./styles";
 import { settingTitleSx, settingDescriptionSx, settingWrapperSx } from "./styles";
 
-export const ChatSettings = () => {
+export const Settings = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState(ReceptionPreference.VERIFIED);
 

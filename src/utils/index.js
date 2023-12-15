@@ -15,3 +15,7 @@ export function capitalize(text) {
   if (text.length <= 1) return text.toUpperCase();
   return text[0].toUpperCase() + text.substr(1).toLowerCase();
 }
+
+export function createRange(start = 0, stop) {
+  return Array.from({ length: stop - start }, (_, index) => start + index);
+}

@@ -24,6 +24,7 @@ export default function AppRoutes() {
         <Route path="messages">
           <Route index element={<Messages />} />
           <Route path="settings" element={<Messages withSettings={true} />} />
+          <Route path=":id" element={<Messages />} />
           <Route path="*" element={<Navigate to="/messages" />} />
         </Route>
         <Route path="profile" element={<Profile />} />

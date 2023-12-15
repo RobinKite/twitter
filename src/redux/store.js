@@ -3,14 +3,14 @@ import appSliceReducer from "./slices/appSlice";
 import postsSliceReducer from "./slices/postsSlice";
 import userSliceReducer from "./slices/userSlice";
 import currentUserSliceReducer from "./slices/currentUser";
-import messagesSlice from "./slices/messagesSlice";
+import messagingSlice from "./slices/messagingSlice";
 
 const store = configureStore({
   reducer: {
     app: appSliceReducer,
     posts: postsSliceReducer,
     user: userSliceReducer,
-    messages: messagesSlice,
+    messaging: messagingSlice,
     currentUser: currentUserSliceReducer,
   },
   middleware: (getDefaultMiddleware) =>

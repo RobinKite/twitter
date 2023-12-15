@@ -15,10 +15,7 @@ export const theme = createTheme({
           borderRadius: "1.5rem",
           boxShadow: "none",
 
-          ":hover": {
-            boxShadow: "none",
-          },
-          ":active": {
+          "&:hover, &:active, &:focus": {
             boxShadow: "none",
           },
         },
