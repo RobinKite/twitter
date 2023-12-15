@@ -26,7 +26,7 @@ export const getDaysInMonth = (month) => {
 };
 
 export const formatBirthdate = (birthdateInSeconds) => {
-  const birthdate = new Date(birthdateInSeconds * 1000); // Multiplying by 1000 to convert seconds to milliseconds
+  const birthdate = new Date(birthdateInSeconds * 1000);
 
   const day = birthdate.getDate();
   const month = monthsArray[birthdate.getMonth()];
