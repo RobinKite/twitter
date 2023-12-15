@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
-import KeyIcon from "@mui/icons-material/Key";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import { KeyIcon } from "@/icons/custom/Key";
 import { Container } from "@/components";
 import { ChangePasswordModal } from "@/components/ChangePasswordModal/ChangePasswordModal";
 
@@ -48,11 +48,14 @@ export const Settings = () => {
               backgroundColor: "rgb(248, 248, 248)",
             },
           }}>
-          <KeyIcon
+          <Stack
             sx={{
-              marginRight: "20px",
-            }}
-          />
+              marginRight: "10px",
+              marginTop: "5px",
+            }}>
+            <KeyIcon />
+          </Stack>
+
           <Typography sx={{ marginRight: "60%" }}>Change password</Typography>
         </Button>
 

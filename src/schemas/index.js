@@ -48,3 +48,9 @@ export const validationSchema = object({
   month: string(),
   year: string(),
 });
+
+export const changePasswordSchema = object().shape({
+  currentPassword: string().trim().required("Current password is required"),
+  newPassword: string().trim().min(4).max(20).required("New password is required"),
+  // confirmPassword: string().trim().required("Confirm new password"),
+});
