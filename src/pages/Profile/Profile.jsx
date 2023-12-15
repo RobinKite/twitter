@@ -10,6 +10,7 @@ import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
 
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -23,27 +24,24 @@ export function Profile() {
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
   const dispatch = useDispatch();
+  const hasMore = useSelector((state) => state.posts.hasMore);
+  const [page, setPage] = useState(1);
+  // console.log(posts);
+  const fetchPosts = () => {
+    setPage((prevState) => prevState + 1);
+
+    if (hasMore) {
+      dispatch(getMyPosts(page));
+    }
+  };
+  useEffect(() => {
+    dispatch(getMyPosts(0));
+  }, [dispatch]);
   useEffect(() => {
     dispatch(getUserInfo());
-    dispatch(getMyPosts());
+    // dispatch(getMyPosts());
     dispatch(getLikedPosts());
   }, [dispatch]);
-
-  useEffect(() => {
-    const unlisten = () => {
-      window.scrollTo(0, 0);
-    };
-
-    return () => {
-      unlisten();
-    };
-  }, []);
-
-  // const formattedBirthdate =
-  //   user && user.birthdate
-  //     ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
-  //     : "N/A";
-  // useLoadPost();
 
   return (
     <AppContainer>
@@ -86,7 +84,13 @@ export function Profile() {
               justifyContent: "space-around",
             },
           }}>
-          <TabPanel value="0" sx={{ padding: 0 }}>
+          <TabPanel value="0" sx={{ padding: 0 }}></TabPanel>
+          <InfiniteScroll
+            dataLength={posts.length}
+            next={fetchPosts}
+            hasMore={true}
+            // loader={posts?<h4>Loading...</h4> : null}
+          >
             {posts.map((post) => (
               <ItemPost
                 key={post.id}
@@ -101,8 +105,7 @@ export function Profile() {
                 imageUrls={post.imageUrls}
               />
             ))}
-          </TabPanel>
-
+          </InfiniteScroll>
           {/* <TabPanel value="1">Replies</TabPanel> */}
           <TabPanel value="2">
             {

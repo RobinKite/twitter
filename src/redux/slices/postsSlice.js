@@ -23,11 +23,37 @@ const postsSlice = createSlice({
       state.posts = action.payload;
     },
 
+    // setMyPosts: (state, action) => {
+    //   // if (!action.payload.length) return;
+    //   // state.myPosts = action.payload;
+    //   if (!action.payload || !action.payload.length) {
+    //     state.hasMore = false;
+    //   } else {
+    //     state.hasMore = true;
+    //     const uniquePosts = action.payload.filter(
+    //       (post) => !state.myPosts.includes(post),
+    //     );
+    //     state.myPosts = [...state.myPosts, ...uniquePosts];
+    //   }
+    // },
     setMyPosts: (state, action) => {
-      if (!action.payload.length) return;
-      state.myPosts = action.payload;
+      if (!action.payload || !action.payload.length) {
+        state.hasMore = false;
+      } else {
+        state.hasMore = true;
+        const uniquePosts = action.payload.filter((post) =>
+          state.myPosts.every(
+            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
+          ),
+        );
+        if (uniquePosts.length && uniquePosts.length < 12) {
+          state.hasMore = false;
+        } else {
+          state.hasMore = true;
+        }
+        state.myPosts = [...state.myPosts, ...uniquePosts];
+      }
     },
-
     addPost: (state, action) => {
       const newPost = action.payload;
       if (newPost.type === "TWEET") {
