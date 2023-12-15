@@ -16,7 +16,9 @@ const usePostData = (type, callback, parentPostId) => {
   const formData = new FormData();
 
   const submit = () => {
-    if (!inputStr) return;
+    if (!inputStr && files.length === 0) {
+      return;
+    }
     formData.append("body", inputStr);
 
     formData.append("type", type);

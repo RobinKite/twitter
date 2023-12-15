@@ -62,7 +62,7 @@ export const Post = () => {
           />
         </div>
       ) : (
-        <div>Loading...</div>
+        <div>The post is deleted</div>
       )}
 
       <CommentPost id={id} />

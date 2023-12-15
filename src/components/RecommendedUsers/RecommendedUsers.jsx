@@ -18,7 +18,7 @@ export const UserCard = ({ avatarUrl, fullName, userTag, onClick, children }) =>
       {!isMobile && !isTablet && (
         <>
           <Stack overflow="hidden" sx={{ marginRight: "auto", marginLeft: "auto" }}>
-            <Typography fontWeight={700} variant="subtitle1" noWrap={true}>
+            <Typography fontWeight={700} variant="subtitle1" noWrap={true} align="left">
               {fullName}
             </Typography>
             <Typography variant="body2" color="textSecondary" align="left">
