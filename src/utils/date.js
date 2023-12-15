@@ -25,6 +25,10 @@ export const getDaysInMonth = (month) => {
   return Array.from({ length: 31 }, (_, i) => i + 1);
 };
 
+export const formatTimestamp = (timestamp) => {
+  return timestamp ? new Date(Number(timestamp) * 1000).toLocaleDateString() : null;
+};
+
 export const formatBirthdate = (birthdateInSeconds) => {
   const birthdate = new Date(birthdateInSeconds * 1000);
 

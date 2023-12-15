@@ -22,6 +22,8 @@ import { Calendar } from "@/icons/custom/Calendar";
 import { Birhdate } from "@/icons/custom/Birthdate";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useState } from "react";
+import { getUserFollowers, getUserFollowing } from "@/redux/slices/userSlice";
+import { formatTimestamp } from "@/utils/date";
 
 function ProfileUser({
   fullName,
@@ -41,22 +43,29 @@ function ProfileUser({
 }) {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const formattedBirthdate = formatTimestamp(birthdate);
+  const registrationDate = formatTimestamp(createdAt);
 
-  const handleLinkClick = (component) => {
+  const handleLinkClick = (component, isFollowers) => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      dispatch(setModalPost(true));
-      dispatch(setContent(component));
-    }, 500);
+    const getUser = isFollowers ? getUserFollowers : getUserFollowing;
+    return new Promise((resolve, reject) => {
+      dispatch(getUser(id))
+        .then(() => {
+          dispatch(setModalPost(true));
+          dispatch(setContent(component));
+          resolve();
+        })
+        .catch((error) => {
+          console.error("Помилка:", error);
+          reject(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    });
   };
 
-  const formattedBirthdate = birthdate
-    ? new Date(Number(birthdate) * 1000).toLocaleDateString()
-    : null;
-  const registrationDate = createdAt
-    ? new Date(Number(createdAt) * 1000).toLocaleDateString()
-    : null;
   const navigate = useNavigate();
   const redirectToPost = () => {
     navigate(`/`, { replace: true });
@@ -126,12 +135,12 @@ function ProfileUser({
           color={"rgb(83, 100, 113)"}
           sx={{ cursor: "pointer" }}
           underline="hover"
-          onClick={() => handleLinkClick(<Following id={id} />)}>
+          onClick={() => handleLinkClick(<Following id={id} />, false)}>
           <span style={{ color: "black", fontWeight: "700" }}>{following} </span>Following
         </Link>
 
         <Link
-          onClick={() => handleLinkClick(<Followers id={id} />)}
+          onClick={() => handleLinkClick(<Followers id={id} />, true)}
           color={"rgb(83, 100, 113)"}
           underline="hover"
           sx={{
