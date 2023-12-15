@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { client, storage } from "@/services";
 import { Endpoint } from "@/constants";
+import { getBirthdayInSeconds } from "@/utils/date";
 
 const userSlice = createSlice({
   name: "user",
@@ -13,8 +14,19 @@ const userSlice = createSlice({
     friendSearches: [],
     likedPosts: [],
     currentLikedPosts: [],
+    bookmarkPosts: [],
+    usersFollowing: [],
+    usersFollowers: [],
+    notifications: [],
+    notificationsCount: 0,
   },
   reducers: {
+    usersFollowers: (state, action) => {
+      state.usersFollowers = action.payload;
+    },
+    usersFollowing: (state, action) => {
+      state.usersFollowing = action.payload;
+    },
     registerUserAction: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload;
@@ -58,6 +70,20 @@ const userSlice = createSlice({
     setCurrentLikedPosts: (state, action) => {
       state.currentLikedPosts = action.payload;
     },
+    setBookmarkPost: (state, action) => {
+      state.bookmarkPosts = action.payload;
+    },
+    removeBookmarkPost: (state, action) => {
+      state.bookmarkPosts = state.bookmarkPosts.filter(
+        (post) => post.id !== action.payload,
+      );
+    },
+    setNotifications: (state, action) => {
+      state.notifications = action.payload;
+    },
+    setNotificationsCount: (state, action) => {
+      state.notificationsCount = action.payload;
+    },
   },
 });
 
@@ -73,44 +99,44 @@ export const {
   logoutUserAction,
   setLikedPosts,
   setCurrentLikedPosts,
+  setBookmarkPost,
+  removeBookmarkPost,
+  usersFollowing,
+  usersFollowers,
+  setNotifications,
+  setNotificationsCount,
 } = userSlice.actions;
 
 export default userSlice.reducer;
-// export function getUserAsync() {
-//   return async function (dispatch) {
-//     const response = await fetch(
-//       `https://danit-final-twitter-8f32e99a3dec.herokuapp.com/users/profile`,
-//       {
-//         method: "GET",
-//         headers: {
-//           Authorization: `Bearer ${localStorage.getItem("token")}`,
-//         },
-//       },
-//     );
-//     const userInfo = await response.json();
-//     console.log(userInfo);
-
-//     dispatch(getUser(userInfo));
-//   };
-// }
 
 export const getUserInfo = () => async (dispatch) => {
   try {
-    const response = await client.get("users/profile");
+    const response = await client.get(Endpoint.USER_PROFILE);
     const data = response.data;
-    console.log(data);
+
     dispatch(getUser(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
   }
 };
-export const getCurrentLikedPosts = () => async (dispatch) => {
+export const getUserFollowers = (userId) => async (dispatch) => {
   try {
-    const response = await client.get(Endpoint.LIKED_POSTS, {
-      params: { page: 0, pageSize: 12 },
+    const response = await client.get(Endpoint.USER_FOLLOWERS, {
+      params: { page: 0, pageSize: 10, userId: userId },
     });
     const data = response.data.content;
-    dispatch(setCurrentLikedPosts(data));
+    dispatch(usersFollowers(data));
+  } catch (error) {
+    console.error("Error fetching liked posts:", error);
+  }
+};
+export const getUserFollowing = (userId) => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.USER_FOLLOWED, {
+      params: { page: 0, pageSize: 10, userId: userId },
+    });
+    const data = response.data.content;
+    dispatch(usersFollowing(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
   }
@@ -118,7 +144,7 @@ export const getCurrentLikedPosts = () => async (dispatch) => {
 
 export const getUsersUpdate = (values) => async (dispatch) => {
   try {
-    const response = await client.put(`/users/update`, values);
+    const response = await client.put(Endpoint.USERS_UPDATE, values);
     const data = response.data;
     console.log(data);
     dispatch(getUser(data));
@@ -126,11 +152,12 @@ export const getUsersUpdate = (values) => async (dispatch) => {
     console.error("Error fetching user:", error);
   }
 };
+
 export const getUsersUpdateAvatarUrl = (avatarUrl) => async (dispatch) => {
   try {
     const formData = new FormData();
     formData.append("file", avatarUrl);
-    const response = await client.post(`/upload/avatar`, formData);
+    const response = await client.post(Endpoint.UPLOAD_AVATAR, formData);
     const data = response.data;
     console.log(data);
     dispatch(getUser(data));
@@ -138,12 +165,13 @@ export const getUsersUpdateAvatarUrl = (avatarUrl) => async (dispatch) => {
     console.error("Error fetching user:", error);
   }
 };
+
 export const getUsersUpdateImageUrl = (imageUrl) => async (dispatch) => {
   try {
     const formData = new FormData();
     formData.append("file", imageUrl);
 
-    const response = await client.post(`/upload/bg_image`, formData);
+    const response = await client.post(Endpoint.UPLOAD_BG_IMAGE, formData);
     const data = response.data;
     console.log(data);
     dispatch(getUser(data));
@@ -163,11 +191,16 @@ export const loginUser = (email, password) => (dispatch) => {
 };
 
 export const registerUser = (user) => {
+  const birthdateInSeconds = getBirthdayInSeconds({
+    day: user.day,
+    month: user.month,
+    year: user.year,
+  });
   const data = {
     fullName: `${user.firstName} ${user.lastName}`,
     email: user.email,
     password: user.password,
-    birthdate: `${user.day}.${user.month}.${user.year}`,
+    birthdate: birthdateInSeconds,
     userTag: user.userName,
   };
   return (dispatch) => {
@@ -191,7 +224,7 @@ export const fetchUsers = (numberOfUsers) => {
   };
 };
 
-export const postSubcribeToUser = (id) => {
+export const postSubscribeToUser = (id) => {
   return (dispatch) => {
     client.post(Endpoint.SUBSCRIPTIONS, { id }).then((response) => {
       const data = response.data;
@@ -242,14 +275,64 @@ export const sendTokenToClient = () => () => {
     client.setAccessToken(storage.accessToken);
   }
 };
-export const getLikedPosts = () => async (dispatch) => {
+export const getLikedPosts = (page) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.LIKED_POSTS, {
-      params: { page: 0, pageSize: 12 },
+      params: { page: page, pageSize: 12 },
     });
     const data = response.data.content;
     dispatch(setLikedPosts(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
   }
+};
+
+export const addBookmarkPost = (postId) => async (dispatch) => {
+  try {
+    await client.post(Endpoint.BOOKMARKS, null, { params: { postId } });
+    dispatch(getAllBookmarkPosts());
+  } catch (error) {
+    console.error("Error adding bookmark post:", error);
+  }
+};
+
+export const deleteBookmarkPost = (postId) => async (dispatch) => {
+  try {
+    await client.delete(Endpoint.BOOKMARKS, { params: { postId } });
+    dispatch(getAllBookmarkPosts());
+  } catch (error) {
+    console.error("Error removing bookmark post:", error);
+  }
+};
+
+export const getAllBookmarkPosts = () => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.BOOKMARKS);
+    const data = response.data.content;
+    dispatch(setBookmarkPost(data));
+  } catch (error) {
+    console.log("getAllBookmarkPosts error: ", error);
+  }
+};
+
+export const getNotifications = () => {
+  return (dispatch) => {
+    client
+      .get(Endpoint.GET_NOTIFICATIONS, { params: { page: 0, pageSize: 12 } })
+      .then((response) => {
+        console.log(response);
+        const data = response.data.content;
+        dispatch(setNotifications(data));
+      });
+  };
+};
+
+export const getNotificationsCount = () => {
+  return (dispatch) => {
+    client.get(Endpoint.GET_NOTIFICATIONS_COUNT).then((response) => {
+      console.log(response);
+      const data = response.data.count;
+      dispatch(setNotificationsCount(data));
+    });
+  };
 };

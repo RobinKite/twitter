@@ -1,12 +1,14 @@
 import { NavLink } from "react-router-dom/dist";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setDrawer } from "@/redux/slices/appSlice";
 
 import { Avatar, Gear, Twitter } from "@/icons";
 
 const HeaderMobile = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+
   const handleOpenDrawer = () => dispatch(setDrawer(true));
 
   return (
@@ -26,7 +28,20 @@ const HeaderMobile = () => {
         }}>
         <li style={{ padding: "10px" }}>
           <NavLink onClick={handleOpenDrawer}>
-            <Avatar size={32} />
+            {user ? (
+              <img
+                src={user.avatarUrl}
+                alt="User Avatar"
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+              />
+            ) : (
+              <Avatar size={32} />
+            )}
           </NavLink>
         </li>
         <li style={{ padding: "10px" }}>

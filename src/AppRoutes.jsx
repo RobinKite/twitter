@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Registration, Home, Notifications, Post, Profile, Messages } from "@/pages";
 import { Settings, Bookmarks } from "@/pages";
 import { CurrentUser } from "./pages/СurrentUser/CurrenUser";
+import Timer from "./pages/Timer/Timer";
 
 export default function AppRoutes() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -15,10 +16,9 @@ export default function AppRoutes() {
       </Routes>
     );
   }
-
   return (
     <Routes>
-      <Route path="/">
+      <Route path="/" element={<Timer />}>
         <Route index element={<Home />} />
         <Route path="notifications" element={<Notifications />} />
         <Route path="messages">

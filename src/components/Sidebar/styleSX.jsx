@@ -1,12 +1,14 @@
 export const sidebarSX = {
   display: "none",
 
-  "@media screen and (min-width: 900px)": {
+  "@media screen and (min-width: 1023px)": {
     display: "block",
     position: "relative",
     marginLeft: "30px",
     width: "100%",
+    minWidth: 360,
     maxWidth: 360,
+
     backgroundColor: "inherit",
   },
 };

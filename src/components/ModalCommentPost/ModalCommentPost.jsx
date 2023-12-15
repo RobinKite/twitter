@@ -40,9 +40,10 @@ export function ModalCommentPost({
   id,
   likeCount,
   liked,
-
+  postUser,
   avatarUrl,
   fullName,
+  bookmarked,
 }) {
   return (
     <div>
@@ -56,6 +57,7 @@ export function ModalCommentPost({
           <div className={styles.postInput}>
             <ItemPost
               key={id}
+              postUser={postUser}
               content={content}
               imageUrls={imageUrls}
               id={id}
@@ -64,6 +66,7 @@ export function ModalCommentPost({
               avatarUrl={avatarUrl}
               fullName={fullName}
               disable={true}
+              bookmarked={bookmarked}
             />
             <CommentPost
               id={id}
@@ -89,4 +92,6 @@ ModalCommentPost.propTypes = {
   updateComment: PropTypes.func,
   avatarUrl: PropTypes.string,
   fullName: PropTypes.string,
+  postUser: PropTypes.object,
+  bookmarked: PropTypes.bool,
 };

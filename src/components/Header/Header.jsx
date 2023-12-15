@@ -1,18 +1,16 @@
 import { useMediaQuery } from "@mui/material";
-
 import Button from "@mui/material/Button";
-
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MoreCircle, Feather } from "@/icons";
 import { CreatePost, PostModal, Navigation } from "../../components";
 import { setModalPost, setContent } from "../../redux/slices/appSlice";
-
 import { moreButtonSX, postButtonSX } from "./styledSX";
 import FooterMobile from "../FooterMobile/FooterMobile";
 import HeaderMobile from "../HeaderMobile/HeaderMobile";
 import HeaderSelect from "@/components/Header/HeaderSelect";
 import HeaderDrawer from "./HeaderDrawer";
+import AcccountMenu from "../AccountMenu/AccountMenu";
 
 export const Header = () => {
   const posts = useSelector((state) => state.posts.posts);
@@ -26,7 +24,16 @@ export const Header = () => {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: isTablet ? "center" : "flex-start",
+        position: "sticky",
+        top: 0,
+        left: 0,
+        height: "100vh",
+      }}>
       {isMobile && (
         <>
           <HeaderDrawer />
@@ -63,6 +70,7 @@ export const Header = () => {
       </Button>
 
       {isActiveModal && <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />}
+      <AcccountMenu />
     </div>
   );
 };

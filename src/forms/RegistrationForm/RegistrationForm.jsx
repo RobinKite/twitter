@@ -1,15 +1,13 @@
-import { CustomDateSelector } from "@/components";
-import { validationSchema } from "@/schemas";
-import { SubmitButtonSX } from "@/components/RegistrationFormModal/styleSX";
+import { useState } from "react";
+import { Form, Formik, Field } from "formik";
 import { TextField, IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Form, Formik, Field } from "formik";
-// import { setCreateProfileModal } from "../../redux/slices/appSlice";
-// import { CloseButton, FormBox, FormTitle, SubmitButton } from "./styleSX";
 import { registerUser } from "@/redux/slices/userSlice";
+import { CustomDateSelector } from "@/components";
+import { validationSchema } from "@/schemas";
+import { SubmitButtonSX } from "@/components/RegistrationFormModal/styleSX";
+import { useDispatch } from "react-redux";
 
 export const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -22,16 +20,17 @@ export const RegistrationForm = () => {
   const initialValues = {
     firstName: "",
     lastName: "",
+    userName: "",
     email: "",
     password: "",
-    day: "",
     month: "",
+    day: "",
     year: "",
   };
 
   const onSubmit = (values, actions) => {
     dispatch(registerUser(values));
-    console.log(values);
+    console.log("Form values:", values);
     actions.resetForm();
   };
 
@@ -53,7 +52,7 @@ export const RegistrationForm = () => {
           <Field
             as={TextField}
             name="firstName"
-            label="First name"
+            label="first name"
             placeholder="First name"
             variant="outlined"
             fullWidth
@@ -81,7 +80,7 @@ export const RegistrationForm = () => {
           <Field
             as={TextField}
             name="userName"
-            label="User name"
+            label="user name"
             placeholder="User name"
             variant="outlined"
             fullWidth
@@ -95,7 +94,7 @@ export const RegistrationForm = () => {
           <Field
             as={TextField}
             name="email"
-            label="Email"
+            label="email"
             placeholder="Email"
             variant="outlined"
             fullWidth
@@ -110,14 +109,14 @@ export const RegistrationForm = () => {
             as={TextField}
             autoComplete="current-password"
             name="password"
-            label="Password"
+            label="password"
             placeholder="Password"
             variant="outlined"
             type={showPassword ? "text" : "password"}
             fullWidth
             required
-            error={touched.password && Boolean(errors.password)} // Corrected field names here
-            helperText={touched.password && errors.password} // Corrected field names here
+            error={touched.password && Boolean(errors.password)}
+            helperText={touched.password && errors.password}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">

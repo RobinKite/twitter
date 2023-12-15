@@ -37,10 +37,6 @@ export const Post = () => {
     dispatch(axiosPostComments(id));
   }, [dispatch, id]);
 
-  // useEffect(() => {
-
-  // }, [dispatch, id]);
-
   return (
     <Container>
       <HeaderPage>
@@ -53,6 +49,7 @@ export const Post = () => {
       {post ? (
         <div>
           <ItemPost
+            postUser={post.user}
             avatarUrl={post.user.avatarUrl}
             fullName={post.user.fullName}
             key={post.id}
@@ -72,6 +69,7 @@ export const Post = () => {
       {/* .sort(compareByDate) */}
       {postComments?.map((e) => (
         <ItemPost
+          postUser={e.user}
           replyCount={e.replyCount}
           key={e.id}
           content={e.body}

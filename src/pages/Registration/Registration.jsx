@@ -20,6 +20,11 @@ export const Registration = () => {
   const [showRegModal, setShowRegModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
+  const handleOpenRegModal = () => {
+    setShowRegModal(true);
+    setShowLoginModal(false);
+  };
+
   const handleGoogleButtonClick = () => {
     window.location.href =
       "https://danit-final-twitter-8f32e99a3dec.herokuapp.com/oauth2/authorization/google?redirect_uri=https://twitter-two-roan.vercel.app/login";
@@ -71,9 +76,7 @@ export const Registration = () => {
       <Footer />
       {showRegModal && (
         <RegistrationFormModal
-          handleRegModalClose={() => {
-            setShowRegModal(false);
-          }}
+          handleRegModalClose={() => setShowRegModal(false)}
           handleRegModalOpen={showRegModal}
         />
       )}
@@ -81,6 +84,7 @@ export const Registration = () => {
         <LoginFormModal
           handleLoginModalClose={() => setShowLoginModal(false)}
           handleLoginModalOpen={showLoginModal}
+          handleSignUpClick={handleOpenRegModal}
         />
       )}
     </Stack>
