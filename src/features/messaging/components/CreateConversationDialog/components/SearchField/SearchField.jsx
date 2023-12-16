@@ -34,6 +34,7 @@ const Input = styled("input")({
 
 export const SearchField = () => {
   const dispach = useDispatch();
+  const recommendedUsers = useSelector((state) => state.messaging.recommendedUsers);
   const selectedUsers = useSelector((state) => state.messaging.selectedUsers);
   const inputRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
@@ -41,12 +42,11 @@ export const SearchField = () => {
 
   useEffect(() => {
     if (!searchQuery) {
-      dispach(setSearchResults([]));
+      dispach(setSearchResults(recommendedUsers));
       return;
     }
-    // FIXME: 👉 Search results are reset earlier than any response is received
     dispach(searchUsers(searchQuery));
-  }, [searchQuery, dispach]);
+  }, [searchQuery, recommendedUsers, dispach]);
 
   useEffect(() => {
     setSearchQuery("");

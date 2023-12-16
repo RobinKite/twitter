@@ -2,7 +2,11 @@ import { Stack, IconButton, Typography, styled } from "@mui/material";
 import { Dialog as MuiDialog, Button as MuiButton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Cross } from "@/icons";
-import { createConversation, setShowDialog } from "@/redux/slices/messagingSlice";
+import {
+  clearDialogData,
+  createConversation,
+  setShowDialog,
+} from "@/redux/slices/messagingSlice";
 import { SearchField, SearchResults } from "./components";
 
 const Dialog = styled(MuiDialog)({
@@ -50,7 +54,11 @@ export const CreateConversationDialog = () => {
   const showDialog = useSelector((state) => state.messaging.showDialog);
   const selectedUsers = useSelector((state) => state.messaging.selectedUsers);
 
-  const handleClose = () => dispatch(setShowDialog(false));
+  const handleClose = () => {
+    dispatch(clearDialogData());
+    dispatch(setShowDialog(false));
+  };
+
   const handleProceed = () => {
     // TODO: 👉 Redirect to existent conversation if found
     dispatch(createConversation(selectedUsers));
@@ -71,7 +79,6 @@ export const CreateConversationDialog = () => {
         </Button>
       </Wrapper>
       <SearchField />
-      {/* TODO: 👉 Show suggested users instead of results initially */}
       <SearchResults />
     </Dialog>
   );

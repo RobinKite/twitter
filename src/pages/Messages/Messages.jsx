@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container } from "@/components";
 import { Settings, CreateConversationDialog } from "@/features/messaging/components";
 import { Conversations, CurrentConversation } from "@/features/messaging/components";
-import { fetchConversations } from "@/redux/slices/messagingSlice";
+import { fetchConversations, fetchRecommendedUsers } from "@/redux/slices/messagingSlice";
 import { setCurrentConversation } from "@/redux/slices/messagingSlice";
 
 export const Messages = ({ withSettings }) => {
@@ -17,6 +17,7 @@ export const Messages = ({ withSettings }) => {
 
   useEffect(() => {
     dispatch(fetchConversations());
+    dispatch(fetchRecommendedUsers());
   }, [dispatch]);
 
   useEffect(() => {

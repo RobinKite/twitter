@@ -13,6 +13,7 @@ const messagingSlice = createSlice({
     showDialog: false,
     selectedUsers: [],
     searchResults: [],
+    recommendedUsers: [],
     conversations: null,
     currentConversation: null,
   },
@@ -21,6 +22,7 @@ const messagingSlice = createSlice({
     setCurrentConversation: createFieldSetter("currentConversation"),
     setShowDialog: createFieldSetter("showDialog"),
     setConversations: createFieldSetter("conversations"),
+    setRecommendedUsers: createFieldSetter("recommendedUsers"),
     toggleUserSelection: (state, action) => {
       const collectedUsers = state.selectedUsers.filter(
         (user) => user.id !== action.payload.id,
@@ -73,8 +75,16 @@ export const fetchConversations = () => async (dispatch) => {
   dispatch(setConversations(conversations));
 };
 
+export const fetchRecommendedUsers = () => async (dispatch) => {
+  const response = await client.get(Endpoint.USERS_RECOMMENDED, {
+    params: { pageSize: 6 },
+  });
+  dispatch(setRecommendedUsers(response.data.content));
+};
+
 export const { setCurrentConversation, setShowDialog, setConversations } =
   messagingSlice.actions;
 export const { setSearchResults, toggleUserSelection, clearDialogData } =
   messagingSlice.actions;
+export const { setRecommendedUsers } = messagingSlice.actions;
 export default messagingSlice.reducer;
