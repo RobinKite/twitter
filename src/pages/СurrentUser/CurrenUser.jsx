@@ -1,6 +1,6 @@
 import TabPanel from "@mui/lab/TabPanel";
 import { Container } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProfileTabs, ItemPost } from "@/components";
 import { Container as AppContainer } from "@/components";
@@ -12,6 +12,8 @@ import {
 } from "@/redux/slices/currentUser";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import { resetPosts } from "@/redux/slices/postsSlice";
+import InfiniteScroll from "react-infinite-scroll-component";
+// import usefetchPosts from "@/components/RenderPost/RenderPost";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -23,19 +25,28 @@ export function CurrentUser() {
   const { id } = useParams();
 
   const user = useSelector((state) => state.currentUser.user);
+  console.log(user);
   const posts = useSelector((state) => state.currentUser.currentPosts);
+  console.log(posts);
   const currentLikedPosts = useSelector((state) => state.currentUser.currentLikedPosts);
-
+  const hasMore = useSelector((state) => state.currentUser.hasMore);
+  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
-  // useLoadPost(getCurrentPosts);
-
+  // const fetchPostsForUser = usefetchPosts(getCurrentPosts, id);
   useEffect(() => {
     dispatch(resetPosts());
     dispatch(getCurrentUser(id));
     dispatch(getCurrentPosts(id));
     dispatch(getCurrentLikedPosts(id));
   }, [dispatch, id]);
+  const fetchPosts = () => {
+    setPage((prevState) => prevState + 1);
+
+    if (hasMore) {
+      dispatch(getCurrentPosts(id, page));
+    }
+  };
 
   return (
     <>
@@ -73,20 +84,22 @@ export function CurrentUser() {
               },
             }}>
             <TabPanel value="0" sx={{ padding: 0 }}>
-              {posts.map((post) => (
-                <ItemPost
-                  key={post.id}
-                  // postUser={post.user}
-                  avatarUrl={post.user?.avatarUrl}
-                  fullName={post.user?.fullName}
-                  replyCount={post.replyCount}
-                  id={post.id}
-                  content={post.body}
-                  likeCount={post.likeCount}
-                  liked={post.liked}
-                  imageUrls={post.imageUrls}
-                />
-              ))}
+              <InfiniteScroll dataLength={posts.length} next={fetchPosts} hasMore={true}>
+                {posts.map((post) => (
+                  <ItemPost
+                    key={post.id}
+                    postUser={post.user}
+                    avatarUrl={post.user?.avatarUrl}
+                    fullName={post.user?.fullName}
+                    replyCount={post.replyCount}
+                    id={post.id}
+                    content={post.body}
+                    likeCount={post.likeCount}
+                    liked={post.liked}
+                    imageUrls={post.imageUrls}
+                  />
+                ))}
+              </InfiniteScroll>
             </TabPanel>
             {/* <TabPanel value="1">Replies</TabPanel> */}
             <TabPanel value="2" sx={{ padding: 0 }}>

@@ -14,20 +14,45 @@ const currentUserSlice = createSlice({
     setCurrentUser: (state, action) => {
       state.user = action.payload;
     },
-    setCurrentPosts: (state, action) => {
-      // state.currentPosts = action.payload;
-      if (action.payload && action.payload.length !== 0) {
-        state.hasMore = true;
-        state.currentPosts = action.payload;
-      } else {
-        state.hasMore = false;
-        state.currentPosts = [];
-      }
-    },
     resetPosts: (state) => {
       state.currentPosts = [];
-      state.hasMore = true;
+      // state.hasMore = true;
     },
+    setCurrentPosts: (state, action) => {
+      if (!action.payload || !action.payload.length) {
+        state.hasMore = false;
+        state.currentPosts = [];
+      } else {
+        state.hasMore = true;
+        const uniquePosts = action.payload.filter((post) =>
+          state.currentPosts.every(
+            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
+          ),
+        );
+        if (uniquePosts.length && uniquePosts.length < 12) {
+          state.hasMore = false;
+        } else {
+          state.hasMore = true;
+        }
+
+        state.currentPosts = [...state.currentPosts, ...uniquePosts];
+      }
+    },
+    // setCurrentPosts: (state, action) => {
+    //   if (!action.payload || !action.payload.length) {
+    //     state.hasMore = false;
+    //     state.currentPosts = [];
+    //   } else {
+    //     state.hasMore = true;
+    //     if (action.payload.length && action.payload.length < 12) {
+    //       state.hasMore = false;
+    //     } else {
+    //       state.hasMore = true;
+    //     }
+    //     // Перезаписати state.currentPosts новим значенням action.payload
+    //     state.currentPosts = action.payload;
+    //   }
+    // },
     setCurrentLikedPosts: (state, action) => {
       state.currentLikedPosts = action.payload;
     },

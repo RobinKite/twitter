@@ -1,16 +1,15 @@
 import TabPanel from "@mui/lab/TabPanel";
-// import { Link } from "react-router-dom";
 import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
-// import { useLoadPost } from "@/hooks/useLoadPost";
 import { Container as AppContainer } from "@/components";
 import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
-
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import InfiniteScroll from "react-infinite-scroll-component";
+
+import useFetchPosts from "@/hooks/useFetchPosts";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -24,22 +23,9 @@ export function Profile() {
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
   const dispatch = useDispatch();
-  const hasMore = useSelector((state) => state.posts.hasMore);
-  const [page, setPage] = useState(1);
-  // console.log(posts);
-  const fetchPosts = () => {
-    setPage((prevState) => prevState + 1);
 
-    if (hasMore) {
-      dispatch(getMyPosts(page));
-    }
-  };
-  useEffect(() => {
-    dispatch(getMyPosts(0));
-  }, [dispatch]);
   useEffect(() => {
     dispatch(getUserInfo());
-    // dispatch(getMyPosts());
     dispatch(getLikedPosts());
   }, [dispatch]);
 
@@ -87,10 +73,8 @@ export function Profile() {
           <TabPanel value="0" sx={{ padding: 0 }}></TabPanel>
           <InfiniteScroll
             dataLength={posts.length}
-            next={fetchPosts}
-            hasMore={true}
-            // loader={posts?<h4>Loading...</h4> : null}
-          >
+            next={useFetchPosts(getMyPosts)}
+            hasMore={true}>
             {posts.map((post) => (
               <ItemPost
                 key={post.id}

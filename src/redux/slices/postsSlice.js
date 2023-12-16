@@ -19,8 +19,24 @@ const postsSlice = createSlice({
       state.hasMore = true;
     },
     setPosts: (state, action) => {
-      if (!action.payload.length) return;
-      state.posts = action.payload;
+      // if (!action.payload.length) return;
+      // state.posts = action.payload;
+      if (!action.payload || !action.payload.length) {
+        state.hasMore = false;
+      } else {
+        state.hasMore = true;
+        const uniquePosts = action.payload.filter((post) =>
+          state.posts.every(
+            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
+          ),
+        );
+        if (uniquePosts.length && uniquePosts.length < 12) {
+          state.hasMore = false;
+        } else {
+          state.hasMore = true;
+        }
+        state.posts = [...state.posts, ...uniquePosts];
+      }
     },
 
     // setMyPosts: (state, action) => {

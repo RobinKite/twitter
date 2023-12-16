@@ -1,10 +1,12 @@
 // import { useLoadPost } from "@/hooks/useLoadPost";
 import { Stack, Typography } from "@mui/material";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import { Container, CreatePost, ItemPost, WelcomeMessage } from "@/components";
 import { homeHeaderSX } from "./stylesSX";
 import { getPosts } from "@/redux/slices/postsSlice";
-import { useEffect } from "react";
+
+import InfiniteScroll from "react-infinite-scroll-component";
+import useFetchPosts from "@/hooks/useFetchPosts";
 
 export const Home = () => {
   const accountUser = useSelector((state) => state.user.user);
@@ -12,10 +14,6 @@ export const Home = () => {
   // const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
   const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
   const renderPosts = accountUser.following ? posts : popularPosts;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
 
   return (
     <Container>
@@ -37,21 +35,26 @@ export const Home = () => {
           />
         )}
         <CreatePost avatarUrl={accountUser.avatarUrl} />
-        {renderPosts.map((post) => (
-          <ItemPost
-            key={post.id}
-            postUser={post.user}
-            avatarUrl={post.user.avatarUrl}
-            fullName={post.user.fullName}
-            content={post.body}
-            replyCount={post.replyCount}
-            imageUrls={post.imageUrls}
-            id={post.id}
-            likeCount={post.likeCount}
-            liked={post.liked}
-            bookmarked={post.bookmarked}
-          />
-        ))}
+        <InfiniteScroll
+          dataLength={posts.length}
+          next={useFetchPosts(getPosts)}
+          hasMore={true}>
+          {renderPosts.map((post) => (
+            <ItemPost
+              key={post.id}
+              postUser={post.user}
+              avatarUrl={post.user.avatarUrl}
+              fullName={post.user.fullName}
+              content={post.body}
+              replyCount={post.replyCount}
+              imageUrls={post.imageUrls}
+              id={post.id}
+              likeCount={post.likeCount}
+              liked={post.liked}
+              bookmarked={post.bookmarked}
+            />
+          ))}
+        </InfiniteScroll>
       </div>
     </Container>
   );
