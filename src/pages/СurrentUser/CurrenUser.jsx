@@ -9,9 +9,10 @@ import {
   getCurrentLikedPosts,
   getCurrentPosts,
   getCurrentUser,
+  resetPosts,
 } from "@/redux/slices/currentUser";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
-import { resetPosts } from "@/redux/slices/postsSlice";
+
 import InfiniteScroll from "react-infinite-scroll-component";
 // import usefetchPosts from "@/components/RenderPost/RenderPost";
 
@@ -30,7 +31,7 @@ export function CurrentUser() {
   console.log(posts);
   const currentLikedPosts = useSelector((state) => state.currentUser.currentLikedPosts);
   const hasMore = useSelector((state) => state.currentUser.hasMore);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const dispatch = useDispatch();
 
   // const fetchPostsForUser = usefetchPosts(getCurrentPosts, id);
@@ -40,12 +41,20 @@ export function CurrentUser() {
     dispatch(getCurrentPosts(id));
     dispatch(getCurrentLikedPosts(id));
   }, [dispatch, id]);
-  const fetchPosts = () => {
-    setPage((prevState) => prevState + 1);
 
-    if (hasMore) {
-      dispatch(getCurrentPosts(id, page));
-    }
+  useEffect(() => {
+    setPage(0);
+  }, [id, page]);
+  const fetchPosts = () => {
+    setPage((prevState) => {
+      const nextPage = prevState + 1;
+
+      if (hasMore) {
+        dispatch(getCurrentPosts(id, nextPage));
+      }
+
+      return nextPage;
+    });
   };
 
   return (

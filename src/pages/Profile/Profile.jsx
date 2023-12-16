@@ -22,12 +22,24 @@ export function Profile() {
   const user = useSelector((state) => state.user.user);
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
+  // const hasMore = useSelector((state) => state.posts.hasMore);
+  // const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUserInfo());
     dispatch(getLikedPosts());
+
+    // getMyPosts()
   }, [dispatch]);
+
+  // const fetchPosts = () => {
+  //   setPage((prevState) => prevState + 1);
+
+  //   if (hasMore) {
+  //     dispatch(getMyPosts(page));
+  //   }
+  // };
 
   return (
     <AppContainer>

@@ -16,12 +16,11 @@ const currentUserSlice = createSlice({
     },
     resetPosts: (state) => {
       state.currentPosts = [];
-      // state.hasMore = true;
+      state.hasMore = true;
     },
     setCurrentPosts: (state, action) => {
       if (!action.payload || !action.payload.length) {
         state.hasMore = false;
-        state.currentPosts = [];
       } else {
         state.hasMore = true;
         const uniquePosts = action.payload.filter((post) =>
@@ -62,7 +61,7 @@ const currentUserSlice = createSlice({
   },
 });
 
-export const { setCurrentUser, setCurrentPosts, setCurrentLikedPosts } =
+export const { setCurrentUser, setCurrentPosts, setCurrentLikedPosts, resetPosts } =
   currentUserSlice.actions;
 // export const selectCurrentUser = (state) => state.currentUser.user;
 export default currentUserSlice.reducer;

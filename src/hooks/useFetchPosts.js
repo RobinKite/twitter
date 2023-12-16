@@ -4,20 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 // import PropTypes from "prop-types";
 import { resetPosts } from "@/redux/slices/postsSlice";
 
-const useFetchPosts = (getPosts, id) => {
+const useFetchPosts = (getPosts) => {
   const hasMore = useSelector((state) => state.posts.hasMore);
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(resetPosts());
-    dispatch(getPosts(id));
+    dispatch(getPosts());
   }, [dispatch]);
 
   const fetchPosts = () => {
     setPage((prevState) => prevState + 1);
 
     if (hasMore) {
-      dispatch(getPosts(id, page));
+      dispatch(getPosts(page));
     }
   };
 
