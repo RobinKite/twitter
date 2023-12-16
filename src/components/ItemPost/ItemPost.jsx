@@ -165,6 +165,8 @@ export function ItemPost({
             replyCount={replyCount}
             bookmarked={bookmarked}
             openModal={openModal}
+            content={content}
+            imageUrls={imageUrls}
           />
         </Stack>
       </Stack>

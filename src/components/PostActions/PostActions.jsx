@@ -8,10 +8,12 @@ import {
 } from "../ItemPost/styleSX";
 import { Bookmark, BookmarkFilled, Like, LikeFalse, Reply, Repost } from "@/icons";
 import { CustomSelect } from "..";
-import { createRepostPost, handleLike, handleUnlike } from "@/redux/slices/postsSlice";
+import { handleLike, handleUnlike } from "@/redux/slices/postsSlice";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import usePostData from "@/hooks/usePostData";
+import { PostType } from "@/constants";
 
 export function PostActions({
   id,
@@ -21,6 +23,8 @@ export function PostActions({
   replyCount,
   bookmarked,
   openModal,
+  content,
+  imageUrls,
 }) {
   const dispatch = useDispatch();
   const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
@@ -33,9 +37,32 @@ export function PostActions({
     setIsBookmarkedPost(!isBookmarkedPost);
   };
 
-  const handleRepostClick = () => {
-    dispatch(createRepostPost(id));
-  };
+  const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, null, id);
+
+  useEffect(() => {
+    const fetchFile = async (imageUrl) => {
+      try {
+        const response = await fetch(imageUrl);
+
+        if (!response.ok) {
+          throw new Error("Error fetching image");
+        }
+
+        const data = await response.blob();
+
+        setFiles((prev) => {
+          if (prev.some((file) => file.size === data.size)) return prev;
+
+          return [...prev, data];
+        });
+      } catch (error) {
+        console.error("Error: ", error.message);
+      }
+    };
+
+    imageUrls.forEach((image) => fetchFile(image));
+    setInputStr(content);
+  }, [content, imageUrls]);
 
   return (
     <Stack sx={tweetActionsSX}>
@@ -51,7 +78,7 @@ export function PostActions({
             <Repost />
           </IconButton>
           <CustomSelect open={isMenuRepostOpen} onClose={setIsMenuRepostOpen}>
-            <MenuItem onClick={handleRepostClick}>
+            <MenuItem onClick={submit}>
               <Repost fill="#000000de" /> Repost
             </MenuItem>
           </CustomSelect>
@@ -92,4 +119,6 @@ PostActions.propTypes = {
   replyCount: PropTypes.number,
   bookmarked: PropTypes.bool,
   openModal: PropTypes.func,
+  content: PropTypes.string,
+  imageUrls: PropTypes.array,
 };
