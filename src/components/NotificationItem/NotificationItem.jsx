@@ -19,7 +19,13 @@ export const NotificationItem = ({ notification }) => {
     <>
       {notification.type === PostType.REPLY && <ReplyItem reply={notification} />}
       {notification.type === PostType.FOLLOWER && (
-        <ContainerSX direction="row" onClick={() => handleClick(initiator.id)}>
+        <ContainerSX
+          direction="row"
+          onClick={() => handleClick(initiator.id)}
+          sx={{
+            transition: "background-color 0.2s linear",
+            "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.03)" },
+          }}>
           <Stack>
             <ProfileIcon size={30} fill="#1d9bf0" />
           </Stack>
@@ -35,7 +41,13 @@ export const NotificationItem = ({ notification }) => {
         </ContainerSX>
       )}
       {notification.type === PostType.LIKE && (
-        <ContainerSX direction="row" onClick={() => handleClick(initiator.id)}>
+        <ContainerSX
+          direction="row"
+          onClick={() => handleClick(initiator.id)}
+          sx={{
+            transition: "background-color 0.2s linear",
+            "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.03)" },
+          }}>
           <Stack sx={{ minWidth: "30px" }}>
             <Heart size={30} color="#f91880" />
           </Stack>
@@ -74,7 +86,13 @@ export const NotificationItem = ({ notification }) => {
         </ContainerSX>
       )}
       {notification.type === PostType.TWEET && (
-        <ContainerSX direction="row" onClick={() => handleClick(initiator.id)}>
+        <ContainerSX
+          direction="row"
+          onClick={() => handleClick(initiator.id)}
+          sx={{
+            transition: "background-color 0.2s linear",
+            "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.03)" },
+          }}>
           <Stack sx={{ minWidth: "30px" }}>
             <Repost fill="#00ba7c" style={{ width: "30px", height: "30px" }} />
           </Stack>

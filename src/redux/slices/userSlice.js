@@ -316,21 +316,35 @@ export const getAllBookmarkPosts = () => async (dispatch) => {
 };
 
 export const getNotifications = () => {
-  return (dispatch) => {
-    client
-      .get(Endpoint.GET_NOTIFICATIONS, { params: { page: 0, pageSize: 12 } })
-      .then((response) => {
-        console.log(response);
+  return async (dispatch) => {
+    try {
+      let page = 0;
+      let allNotifications = [];
+      let hasMore = true;
+      while (hasMore) {
+        const response = await client.get(Endpoint.GET_NOTIFICATIONS, {
+          params: { page, pageSize: 12 },
+        });
         const data = response.data.content;
-        dispatch(setNotifications(data));
-      });
+        if (data.length === 0) {
+          hasMore = false;
+        } else {
+          allNotifications = [...allNotifications, ...data];
+          page++;
+        }
+        console.log(page);
+      }
+      dispatch(setNotifications(allNotifications));
+    } catch (error) {
+      console.log("Error fetching notifications", error);
+    }
   };
 };
 
 export const getNotificationsCount = () => {
   return (dispatch) => {
     client.get(Endpoint.GET_NOTIFICATIONS_COUNT).then((response) => {
-      console.log(response);
+      // console.log(response);
       const data = response.data.count;
       dispatch(setNotificationsCount(data));
     });
