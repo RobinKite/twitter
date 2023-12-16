@@ -1,6 +1,7 @@
 import { Modal, Typography, Stack } from "@mui/material";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import { ChangePasswordForm } from "@/forms/ChangePasswordForm/ChangePasswordForm";
+import { closeChangePasswordModal } from "@/redux/slices/appSlice";
 import {
   changePasswordModalContainerSX,
   changePasswordModalSX,
@@ -8,22 +9,24 @@ import {
   modalTitleSX,
 } from "./styleSX";
 
-export const ChangePasswordModal = ({ open, onClose }) => {
+export const ChangePasswordModal = () => {
+  const dispatch = useDispatch();
+  const open = useSelector((state) => state.app.isChangePasswordModalActive);
+
+  const handleClose = () => {
+    dispatch(closeChangePasswordModal());
+  };
+
   return (
-    <Modal open={open} onClose={onClose} sx={changePasswordModalContainerSX}>
+    <Modal open={open} onClose={handleClose} sx={changePasswordModalContainerSX}>
       <Stack sx={changePasswordModalSX}>
         <Typography sx={modalTitleSX} variant="h6">
           Change your password
         </Typography>
         <Stack sx={formContainerSX}>
-          <ChangePasswordForm onClose={onClose} />
+          <ChangePasswordForm onClose={handleClose} />
         </Stack>
       </Stack>
     </Modal>
   );
-};
-
-ChangePasswordModal.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
 };

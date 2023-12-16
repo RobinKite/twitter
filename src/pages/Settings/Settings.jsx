@@ -1,19 +1,12 @@
-import { useState } from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { KeyIcon } from "@/icons/custom/Key";
 import { Container } from "@/components";
 import { ChangePasswordModal } from "@/components/ChangePasswordModal/ChangePasswordModal";
+import { useDispatch } from "react-redux";
+import { setIsChangePasswordModalActive } from "@/redux/slices/appSlice";
 
 export const Settings = () => {
-  const [changePasswordModalOpen, setChangePasswordModalOpen] = useState(false);
-
-  const handleOpenChangePasswordModal = () => {
-    setChangePasswordModalOpen(true);
-  };
-
-  const handleCloseChangePasswordModal = () => {
-    setChangePasswordModalOpen(false);
-  };
+  const dispatch = useDispatch();
 
   return (
     <Container>
@@ -36,7 +29,7 @@ export const Settings = () => {
         </Typography>
         <Button
           variant="text"
-          onClick={handleOpenChangePasswordModal}
+          onClick={() => dispatch(setIsChangePasswordModalActive(true))}
           sx={{
             width: "100%",
             borderRadius: "0px",
@@ -58,11 +51,7 @@ export const Settings = () => {
 
           <Typography sx={{ marginRight: "60%" }}>Change password</Typography>
         </Button>
-
-        <ChangePasswordModal
-          open={changePasswordModalOpen}
-          onClose={handleCloseChangePasswordModal}
-        />
+        <ChangePasswordModal />
       </Box>
     </Container>
   );

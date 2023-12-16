@@ -1,5 +1,4 @@
 import { Endpoint } from "@/constants";
-// import { loginFormSchema } from "@/schemas";
 import { client } from "@/services";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -34,6 +33,9 @@ const appSlice = createSlice({
     setPasswordMessage: (state, action) => {
       state.passwordMessage = action.payload;
     },
+    setIsChangePasswordModalActive: (state, action) => {
+      state.isChangePasswordModalActive = action.payload;
+    },
   },
 });
 
@@ -44,22 +46,23 @@ export const {
   setContent,
   setDrawer,
   setPasswordMessage,
+  setIsChangePasswordModalActive,
 } = appSlice.actions;
 export default appSlice.reducer;
 
 export const changePassword =
-  ({ currentPassword, newPassword }) =>
+  ({ currentPassword: current_password, newPassword: new_password }) =>
   async (dispatch) => {
-    const updatePassword = {
-      current_password: currentPassword,
-      new_password: newPassword,
-    };
-    dispatch(setPasswordMessage(""));
+    const payload = { current_password, new_password };
     try {
-      const response = await client.post(Endpoint.CHANGE_PASSWORD, updatePassword);
-      console.log(response.status);
-    } catch (err) {
-      console.log("Error while changing password: ", err.response.data.errorMessage);
-      dispatch(setPasswordMessage(err.response.data.errorMessage));
+      const response = await client.post(Endpoint.CHANGE_PASSWORD, payload);
+      if (response.status === 200) dispatch(closeChangePasswordModal());
+    } catch (error) {
+      dispatch(setPasswordMessage(error.response.data.errorMessage));
     }
   };
+
+export const closeChangePasswordModal = () => (dispatch) => {
+  dispatch(setIsChangePasswordModalActive(false));
+  dispatch(setPasswordMessage(""));
+};

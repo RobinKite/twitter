@@ -1,9 +1,9 @@
+import { Button, Stack, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Formik } from "formik";
+import PropTypes from "prop-types";
 import { Input } from "@/components";
 import { changePasswordSchema } from "@/schemas";
-import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
-import { Button, Stack, Typography } from "@mui/material";
 import { changePassword } from "@/redux/slices/appSlice";
 import {
   btnCancellSX,
@@ -24,8 +24,6 @@ export const ChangePasswordForm = ({ onClose }) => {
   };
 
   const onSubmit = (currentPassword, newPassword) => {
-    console.log(currentPassword, newPassword);
-    if (passwordMessage) onClose();
     dispatch(changePassword(currentPassword, newPassword));
   };
 
