@@ -295,10 +295,10 @@ export const sendTokenToClient = () => () => {
 export const getLikedPosts = (page) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.LIKED_POSTS, {
-      params: { page: page, pageSize: 12 },
+      params: { page, pageSize: 12 },
     });
     const data = response.data.content;
-    // console.log(data)
+    console.log(data);
     dispatch(setLikedPosts(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);

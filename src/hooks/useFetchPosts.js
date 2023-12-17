@@ -6,10 +6,14 @@ import { resetPosts } from "@/redux/slices/postsSlice";
 
 const useFetchPosts = (getPosts) => {
   const hasMore = useSelector((state) => state.posts.hasMore);
+
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
+
   useEffect(() => {
+    if (!hasMore) return;
     dispatch(resetPosts());
+
     dispatch(getPosts());
   }, [dispatch]);
 
@@ -20,7 +24,7 @@ const useFetchPosts = (getPosts) => {
       dispatch(getPosts(page));
     }
   };
-
+  if (!hasMore) return () => {};
   return fetchPosts;
 };
 export default useFetchPosts;
