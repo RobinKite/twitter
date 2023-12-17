@@ -42,10 +42,8 @@ export function ItemPost({
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const profileUser = useSelector((state) => state.user.user);
 
@@ -134,7 +132,9 @@ export function ItemPost({
               </Stack>
             )}
           </Stack>
-          <Typography sx={tweetContentSX}>{content}</Typography>
+          <Typography sx={tweetContentSX} onClick={fonnClick}>
+            {content}
+          </Typography>
           {imageUrls.length > 0 && (
             <Stack
               sx={
@@ -143,8 +143,7 @@ export function ItemPost({
                     ? tweetImgOddSX
                     : tweetImgEvenSX
                   : tweetImgSX
-              }
-              onClick={fonnClick}>
+              }>
               {imageUrls.map((imageUrl, index) => (
                 <img
                   style={{
@@ -166,6 +165,8 @@ export function ItemPost({
             replyCount={replyCount}
             bookmarked={bookmarked}
             openModal={openModal}
+            content={content}
+            imageUrls={imageUrls}
           />
         </Stack>
       </Stack>

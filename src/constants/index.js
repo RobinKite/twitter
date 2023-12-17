@@ -3,6 +3,7 @@ export class PostType {
   static REPLY = "REPLY";
   static LIKE = "LIKE";
   static FOLLOWER = "FOLLOWER";
+  static QUOTE = "QUOTE";
 }
 
 export class Endpoint {

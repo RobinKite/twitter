@@ -13,7 +13,7 @@ import ProfileUser from "@/components/ProfileUser/ProfileUser";
 
 const tabs = [
   { label: "Post", value: "0" },
-  // { label: "Replies", value: "1" },
+  { label: "Replies", value: "1" },
   { label: "Likes", value: "2" },
 ];
 
@@ -23,7 +23,6 @@ export function Profile() {
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
   const dispatch = useDispatch();
-  console.log(likedPosts);
   useEffect(() => {
     dispatch(getUserInfo());
     dispatch(getMyPosts());
@@ -104,7 +103,7 @@ export function Profile() {
             ))}
           </TabPanel>
 
-          {/* <TabPanel value="1">Replies</TabPanel> */}
+          <TabPanel value="1">Replies</TabPanel>
           <TabPanel value="2">
             {
               likedPosts.length ? (
