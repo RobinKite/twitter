@@ -23,9 +23,4 @@ const useFetchPosts = (getPosts) => {
 
   return fetchPosts;
 };
-
 export default useFetchPosts;
-
-// usefetchPosts.propTypes = {
-//   getPosts: PropTypes.func,
-// };

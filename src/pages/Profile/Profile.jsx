@@ -2,14 +2,16 @@ import TabPanel from "@mui/lab/TabPanel";
 import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
+import { ProfileTabs, ModalEdit } from "@/components";
 import { Container as AppContainer } from "@/components";
 import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import InfiniteScroll from "react-infinite-scroll-component";
-
 import useFetchPosts from "@/hooks/useFetchPosts";
+import LikedPosts from "@/components/LikedPosts/LikedPosts";
+import useLikedPosts from "@/hooks/useLikedPosts";
+import RenderPosts from "@/components/RenderPosts/RenderPosts";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -20,17 +22,13 @@ const tabs = [
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
-  const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
-  // const hasMore = useSelector((state) => state.posts.hasMore);
-  // const [page, setPage] = useState(1);
   const dispatch = useDispatch();
-
+  const likedPosts = useSelector((state) => state.user.likedPosts);
   useEffect(() => {
     dispatch(getUserInfo());
-    dispatch(getLikedPosts());
-
-    // getMyPosts()
+    // dispatch(getLikedPosts());
+    // dispatch(getMyPosts());
   }, [dispatch]);
 
   // const fetchPosts = () => {
@@ -82,52 +80,24 @@ export function Profile() {
               justifyContent: "space-around",
             },
           }}>
-          <TabPanel value="0" sx={{ padding: 0 }}></TabPanel>
-          <InfiniteScroll
-            dataLength={posts.length}
-            next={useFetchPosts(getMyPosts)}
-            hasMore={true}>
-            {posts.map((post) => (
-              <ItemPost
-                key={post.id}
-                postUser={post.user}
-                avatarUrl={user.avatarUrl}
-                fullName={user.fullName}
-                replyCount={post.replyCount}
-                id={post.id}
-                content={post.body}
-                likeCount={post.likeCount}
-                liked={post.liked}
-                imageUrls={post.imageUrls}
-              />
-            ))}
-          </InfiniteScroll>
+          <TabPanel value="0" sx={{ padding: 0 }}>
+            <InfiniteScroll
+              dataLength={posts.length}
+              next={useFetchPosts(getMyPosts)}
+              hasMore={true}>
+              <RenderPosts statePost={false} />
+            </InfiniteScroll>
+          </TabPanel>
+
           {/* <TabPanel value="1">Replies</TabPanel> */}
+
           <TabPanel value="2">
-            {
-              likedPosts.length ? (
-                likedPosts.map((post) => (
-                  <ItemPost
-                    postUser={post.user}
-                    avatarUrl={post.user.avatarUrl}
-                    fullName={post.user.fullName}
-                    key={post.id}
-                    content={post.body}
-                    imageUrls={post.imageUrls}
-                    id={post.id}
-                    likeCount={post.likeCount}
-                    liked={post.liked}
-                    replyCount={post.replyCount}
-                  />
-                ))
-              ) : (
-                <>You don&apos;t have any likes yet</>
-              )
-              // <NotificationTabContent
-              //   title={'You do not have any likes yet'}
-              //   text="Tap the heart on any post to show it some love. When you do, it’ll show up here."
-              // />
-            }
+            <InfiniteScroll
+              dataLength={likedPosts.length}
+              next={useLikedPosts(getLikedPosts)}
+              hasMoreLiked={true}>
+              <LikedPosts currentUser={false} />
+            </InfiniteScroll>
           </TabPanel>
         </ProfileTabs>
       </Container>

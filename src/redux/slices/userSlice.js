@@ -19,6 +19,7 @@ const userSlice = createSlice({
     usersFollowers: [],
     notifications: [],
     notificationsCount: 0,
+    hasMoreLiked: true,
   },
   reducers: {
     usersFollowers: (state, action) => {
@@ -65,7 +66,23 @@ const userSlice = createSlice({
       state.friendSearches = [];
     },
     setLikedPosts: (state, action) => {
-      state.likedPosts = action.payload;
+      // state.likedPosts = action.payload;
+      if (!action.payload || !action.payload.length) {
+        state.hasMoreLiked = false;
+      } else {
+        state.hasMoreLiked = true;
+        const uniquePosts = action.payload.filter((post) =>
+          state.likedPosts.every(
+            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
+          ),
+        );
+        if (uniquePosts.length && uniquePosts.length < 12) {
+          state.hasMoreLiked = false;
+        } else {
+          state.hasMoreLiked = true;
+        }
+        state.likedPosts = [...state.likedPosts, ...uniquePosts];
+      }
     },
     setCurrentLikedPosts: (state, action) => {
       state.currentLikedPosts = action.payload;
@@ -281,6 +298,7 @@ export const getLikedPosts = (page) => async (dispatch) => {
       params: { page: page, pageSize: 12 },
     });
     const data = response.data.content;
+    // console.log(data)
     dispatch(setLikedPosts(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
