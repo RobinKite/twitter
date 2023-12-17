@@ -18,22 +18,37 @@ const ReplyItem = ({ reply }) => {
       {reply.type === PostType.REPLY && (
         <Stack
           direction="row"
-          sx={{ gap: "12px", borderBottom: "0.6px solid #eff3f4", padding: "12px 16px" }}>
-          <Avatar src={initiator.avatarUrl} alt={`${initiator.fullName}'s avatar`} />
+          sx={{
+            gap: "12px",
+            borderBottom: "0.6px solid #eff3f4",
+            padding: "12px 16px",
+            cursor: "pointer",
+            transition: "background-color 0.2s linear",
+            "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.03)" },
+          }}>
+          <Avatar
+            src={initiator.avatarUrl}
+            alt={`${initiator.fullName}'s avatar`}
+            onClick={() => handleClick(initiator.id)}
+          />
           <Stack sx={{ flexGrow: 1 }}>
             <Stack
               direction="row"
               alignItems="center"
               sx={{ fontSize: 15, color: "#536471" }}>
               <Typography
+                onClick={() => handleClick(initiator.id)}
                 variant="span"
                 sx={{
                   fontWeight: 700,
                   color: "#0f1419",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
                 }}>
                 {initiator.fullName}
               </Typography>
-              <Typography variant="span">
+              <Typography variant="span" onClick={() => handleClick(initiator.id)}>
                 {"\u00A0"}@{initiator.userTag}
               </Typography>
               <Typography variant="span" sx={{ margin: "0 4px" }}>
@@ -45,7 +60,7 @@ const ReplyItem = ({ reply }) => {
               replying to &#32;
               <Typography
                 variant="span"
-                onClick={() => handleClick(initiator.id)}
+                onClick={() => handleClick(post.parentPost.user.id)}
                 sx={{
                   cursor: "pointer",
                   textDecoration: "none",

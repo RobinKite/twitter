@@ -130,3 +130,7 @@ PostActions.propTypes = {
   content: PropTypes.string,
   imageUrls: PropTypes.array,
 };
+
+PostActions.defaultProps = {
+  imageUrls: [],
+};
