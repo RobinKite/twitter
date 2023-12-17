@@ -9,21 +9,23 @@ const currentUserSlice = createSlice({
     currentPosts: [],
     currentLikedPosts: [],
     hasMore: true,
+    pageCurrent: 0,
   },
   reducers: {
     setCurrentUser: (state, action) => {
       state.user = action.payload;
     },
     resetPosts: (state) => {
+      state.currentLikedPosts = [];
       state.currentPosts = [];
       state.hasMore = true;
     },
     setCurrentPosts: (state, action) => {
-      if (!action.payload || !action.payload.length) {
+      if (!action.payload.content || !action.payload.content.length) {
         state.hasMore = false;
       } else {
         state.hasMore = true;
-        const uniquePosts = action.payload.filter((post) =>
+        const uniquePosts = action.payload.content.filter((post) =>
           state.currentPosts.every(
             (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
           ),
@@ -35,6 +37,7 @@ const currentUserSlice = createSlice({
         }
 
         state.currentPosts = [...state.currentPosts, ...uniquePosts];
+        state.pageCurrent = action.payload.number;
       }
     },
     // setCurrentPosts: (state, action) => {
@@ -53,11 +56,26 @@ const currentUserSlice = createSlice({
     //   }
     // },
     setCurrentLikedPosts: (state, action) => {
-      state.currentLikedPosts = action.payload;
+      // state.currentLikedPosts = action.payload;
+      if (!action.payload.content || !action.payload.content.length) {
+        state.hasMore = false;
+      } else {
+        state.hasMore = true;
+        const uniquePosts = action.payload.content.filter((post) =>
+          state.currentLikedPosts.every(
+            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
+          ),
+        );
+        if (uniquePosts.length && uniquePosts.length < 12) {
+          state.hasMore = false;
+        } else {
+          state.hasMore = true;
+        }
+
+        state.currentLikedPosts = [...state.currentLikedPosts, ...uniquePosts];
+        state.pageCurrent = action.payload.number;
+      }
     },
-    // clearCurrentUser: (state) => {
-    //   state.user = null;
-    // },
   },
 });
 
@@ -65,12 +83,12 @@ export const { setCurrentUser, setCurrentPosts, setCurrentLikedPosts, resetPosts
   currentUserSlice.actions;
 // export const selectCurrentUser = (state) => state.currentUser.user;
 export default currentUserSlice.reducer;
-export const getCurrentLikedPosts = (id) => async (dispatch) => {
+export const getCurrentLikedPosts = (id, page) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.LIKED_POSTS, {
-      params: { userId: id, page: 0, pageSize: 12 },
+      params: { userId: id, page: page, pageSize: 12 },
     });
-    const data = response.data.content;
+    const data = response.data;
     dispatch(setCurrentLikedPosts(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
@@ -81,7 +99,7 @@ export const getCurrentPosts = (id, page) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_POSTS, {
       params: { id: id, page: page, pageSize: 12 },
     });
-    const data = response.data.content;
+    const data = response.data;
     dispatch(setCurrentPosts(data));
   } catch (error) {
     console.error("Error fetching user:", error);

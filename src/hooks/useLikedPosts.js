@@ -1,20 +1,23 @@
-import { useEffect, useState } from "react";
+import { resetPosts } from "@/redux/slices/userSlice";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const useLikedPosts = (likedPostsAction) => {
-  const hasMoreLiked = useSelector((state) => state.user.hasMoreLiked);
-  const [pageLiked, setPageLiked] = useState(1);
+  console.log();
+  const hasMore = useSelector((state) => state.user.hasMore);
+
+  const page = useSelector((state) => state.user.pageLiked);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
-    // dispatch(resetPosts());
-    dispatch(likedPostsAction());
+    dispatch(resetPosts());
+    // dispatch(likedPostsAction(page));
   }, [dispatch]);
 
   const fetchPostsLiked = () => {
-    setPageLiked((prevState) => prevState + 1);
-
-    if (hasMoreLiked) {
-      dispatch(likedPostsAction(pageLiked));
+    if (hasMore) {
+      dispatch(likedPostsAction(page + 1));
     }
   };
 

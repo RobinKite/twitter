@@ -13,15 +13,21 @@ const userSlice = createSlice({
     friendRequests: [],
     friendSearches: [],
     likedPosts: [],
-    currentLikedPosts: [],
+    pageLiked: 0,
+    // currentLikedPosts: [],
     bookmarkPosts: [],
     usersFollowing: [],
     usersFollowers: [],
     notifications: [],
     notificationsCount: 0,
-    hasMoreLiked: true,
+    hasMore: true,
   },
   reducers: {
+    resetPosts: (state) => {
+      state.likedPosts = [];
+      // state.currentLikedPosts = [];
+      state.hasMore = true;
+    },
     usersFollowers: (state, action) => {
       state.usersFollowers = action.payload;
     },
@@ -67,26 +73,29 @@ const userSlice = createSlice({
     },
     setLikedPosts: (state, action) => {
       // state.likedPosts = action.payload;
-      if (!action.payload || !action.payload.length) {
-        state.hasMoreLiked = false;
+
+      console.log(action.payload);
+      if (!action.payload.content || !action.payload.content.length) {
+        state.hasMore = false;
       } else {
-        state.hasMoreLiked = true;
-        const uniquePosts = action.payload.filter((post) =>
+        state.hasMore = true;
+        const uniquePosts = action.payload.content.filter((post) =>
           state.likedPosts.every(
             (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
           ),
         );
         if (uniquePosts.length && uniquePosts.length < 12) {
-          state.hasMoreLiked = false;
+          state.hasMore = false;
         } else {
-          state.hasMoreLiked = true;
+          state.hasMore = true;
         }
         state.likedPosts = [...state.likedPosts, ...uniquePosts];
+        state.pageLiked = action.payload.number;
       }
     },
-    setCurrentLikedPosts: (state, action) => {
-      state.currentLikedPosts = action.payload;
-    },
+    // setCurrentLikedPosts: (state, action) => {
+    //   state.currentLikedPosts = action.payload;
+    // },
     setBookmarkPost: (state, action) => {
       state.bookmarkPosts = action.payload;
     },
@@ -115,7 +124,8 @@ export const {
   googleRegisterAction,
   logoutUserAction,
   setLikedPosts,
-  setCurrentLikedPosts,
+  resetPosts,
+  // setCurrentLikedPosts,
   setBookmarkPost,
   removeBookmarkPost,
   usersFollowing,
@@ -295,10 +305,10 @@ export const sendTokenToClient = () => () => {
 export const getLikedPosts = (page) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.LIKED_POSTS, {
-      params: { page, pageSize: 12 },
+      params: { page: page, pageSize: 12 },
     });
-    const data = response.data.content;
-    console.log(data);
+    const data = response.data;
+
     dispatch(setLikedPosts(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);

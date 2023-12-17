@@ -5,10 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { ProfileTabs, ModalEdit } from "@/components";
 import { Container as AppContainer } from "@/components";
 import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
-import { getMyPosts } from "@/redux/slices/postsSlice";
+import { getMyPosts, resetPosts } from "@/redux/slices/postsSlice";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import InfiniteScroll from "react-infinite-scroll-component";
-import useFetchPosts from "@/hooks/useFetchPosts";
 import LikedPosts from "@/components/LikedPosts/LikedPosts";
 import useLikedPosts from "@/hooks/useLikedPosts";
 import RenderPosts from "@/components/RenderPosts/RenderPosts";
@@ -25,19 +24,19 @@ export function Profile() {
   const posts = useSelector((state) => state.posts.myPosts);
   const dispatch = useDispatch();
   const likedPosts = useSelector((state) => state.user.likedPosts);
+  const hasMore = useSelector((state) => state.posts.hasMore);
+  const page = useSelector((state) => state.posts.page);
+
   useEffect(() => {
+    dispatch(resetPosts());
     dispatch(getUserInfo());
-    // dispatch(getLikedPosts());
-    // dispatch(getMyPosts());
   }, [dispatch]);
 
-  // const fetchPosts = () => {
-  //   setPage((prevState) => prevState + 1);
-
-  //   if (hasMore) {
-  //     dispatch(getMyPosts(page));
-  //   }
-  // };
+  const fetchPosts = () => {
+    if (hasMore) {
+      dispatch(getMyPosts(page + 1));
+    }
+  };
 
   return (
     <AppContainer>
@@ -81,10 +80,7 @@ export function Profile() {
             },
           }}>
           <TabPanel value="0" sx={{ padding: 0 }}>
-            <InfiniteScroll
-              dataLength={posts.length}
-              next={useFetchPosts(getMyPosts)}
-              hasMore={true}>
+            <InfiniteScroll dataLength={posts.length} next={fetchPosts} hasMore={true}>
               <RenderPosts statePost={false} />
             </InfiniteScroll>
           </TabPanel>
@@ -95,7 +91,7 @@ export function Profile() {
             <InfiniteScroll
               dataLength={likedPosts.length}
               next={useLikedPosts(getLikedPosts)}
-              hasMoreLiked={true}>
+              hasMore={true}>
               <LikedPosts currentUser={false} />
             </InfiniteScroll>
           </TabPanel>

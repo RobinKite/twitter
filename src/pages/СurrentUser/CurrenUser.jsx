@@ -1,6 +1,6 @@
 import TabPanel from "@mui/lab/TabPanel";
 import { Container } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProfileTabs } from "@/components";
 import { Container as AppContainer } from "@/components";
@@ -10,7 +10,7 @@ import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LikedPosts from "@/components/LikedPosts/LikedPosts";
 import RenderPosts from "@/components/RenderPosts/RenderPosts";
-import useLikedPosts from "@/hooks/useLikedPosts";
+// import useLikedPosts from "@/hooks/useLikedPosts";
 import { getCurrentLikedPosts } from "@/redux/slices/currentUser";
 // import usefetchPosts from "@/components/RenderPost/RenderPost";
 
@@ -28,33 +28,51 @@ export function CurrentUser() {
   const likedPosts = useSelector((state) => state.currentUser.currentLikedPosts);
 
   const hasMore = useSelector((state) => state.currentUser.hasMore);
-  const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const page = useSelector((state) => state.currentUser.pageCurrent);
+  // const [page, setPage] = useState();
+  // const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setPage(0);
-    setLoading(true);
-
-    Promise.all([dispatch(resetPosts()), dispatch(getCurrentUser(id))]).then(() =>
-      setLoading(false),
-    );
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (!loading) {
-      fetchPosts();
-    }
-  }, [loading]);
-
-  const fetchPosts = () => {
-    setPage((prevState) => prevState + 1);
+  // const hasMore = useSelector((state) => state.user.hasMore);
+  // const [pageLiked, setPageLiked] = useState("1");
+  const fetchPostsLiked = () => {
+    // setPageLiked((prevState) => prevState + 1);
 
     if (hasMore) {
-      dispatch(getCurrentPosts(id, page));
+      dispatch(getCurrentLikedPosts(id, page + 1));
     }
   };
-  const fetchPostsLiked = useLikedPosts(() => getCurrentLikedPosts(id));
+
+  useEffect(() => {
+    dispatch(resetPosts());
+    dispatch(getCurrentUser(id));
+    dispatch(getCurrentPosts(id));
+  }, [dispatch, id]);
+
+  // useEffect(() => {
+  //   setPage(0);
+  //   setPageLiked(0)
+  //   setLoading(true);
+
+  //   Promise.all([dispatch(resetPosts()), dispatch(getCurrentUser(id))]).then(() =>
+  //     setLoading(false),
+  //   );
+  // }, [dispatch, id]);
+
+  // useEffect(() => {
+  //   if (!loading) {
+  //     fetchPosts();
+  //     fetchPostsLiked()
+  //   }
+  // }, [loading]);
+
+  const fetchPosts = () => {
+    // setPage((prevState) => prevState + 1);
+
+    if (hasMore) {
+      dispatch(getCurrentPosts(id, page + 1));
+    }
+  };
+  // const fetchPostsLiked = useLikedPosts(() => getCurrentLikedPosts(id));
   return (
     <>
       <AppContainer>
@@ -100,7 +118,7 @@ export function CurrentUser() {
               <InfiniteScroll
                 dataLength={likedPosts.length}
                 next={fetchPostsLiked}
-                hasMoreLiked={true}>
+                hasMore={true}>
                 <LikedPosts id={id} currentUser={true} />
               </InfiniteScroll>
             </TabPanel>

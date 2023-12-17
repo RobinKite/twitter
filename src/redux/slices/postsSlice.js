@@ -11,6 +11,7 @@ const postsSlice = createSlice({
     postComments: [],
     myPosts: [],
     hasMore: true,
+    page: 0,
   },
   reducers: {
     resetPosts: (state) => {
@@ -21,11 +22,12 @@ const postsSlice = createSlice({
     setPosts: (state, action) => {
       // if (!action.payload.length) return;
       // state.posts = action.payload;
-      if (!action.payload || !action.payload.length) {
+      console.log();
+      if (!action.payload.content || !action.payload.content.length) {
         state.hasMore = false;
       } else {
         state.hasMore = true;
-        const uniquePosts = action.payload.filter((post) =>
+        const uniquePosts = action.payload.content.filter((post) =>
           state.posts.every(
             (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
           ),
@@ -36,9 +38,30 @@ const postsSlice = createSlice({
           state.hasMore = true;
         }
         state.posts = [...state.posts, ...uniquePosts];
+        state.page = action.payload.number;
       }
     },
 
+    setMyPosts: (state, action) => {
+      if (!action.payload.content || !action.payload.content.length) {
+        state.hasMore = false;
+      } else {
+        state.hasMore = true;
+        const uniquePosts = action.payload.content.filter((post) =>
+          state.myPosts.every(
+            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
+          ),
+        );
+        if (uniquePosts.length && uniquePosts.length < 12) {
+          state.hasMore = false;
+        } else {
+          state.hasMore = true;
+        }
+        state.myPosts = [...state.myPosts, ...uniquePosts];
+
+        state.page = action.payload.number;
+      }
+    },
     // setMyPosts: (state, action) => {
     //   // if (!action.payload.length) return;
     //   // state.myPosts = action.payload;
@@ -52,23 +75,13 @@ const postsSlice = createSlice({
     //     state.myPosts = [...state.myPosts, ...uniquePosts];
     //   }
     // },
-    setMyPosts: (state, action) => {
-      if (!action.payload || !action.payload.length) {
-        state.hasMore = false;
-      } else {
-        state.hasMore = true;
-        const uniquePosts = action.payload.filter((post) =>
-          state.myPosts.every(
-            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
-          ),
-        );
-        if (uniquePosts.length && uniquePosts.length < 12) {
-          state.hasMore = false;
-        } else {
-          state.hasMore = true;
-        }
-        state.myPosts = [...state.myPosts, ...uniquePosts];
-      }
+    // setMyPosts(state, action) {
+    //   state.myPosts = [...state.myPosts, ...action.payload];
+    //   state.currentPage += 1;
+    // },
+
+    setHasMore(state, action) {
+      state.hasMore = action.payload;
     },
     addPost: (state, action) => {
       const newPost = action.payload;
@@ -232,6 +245,7 @@ export const {
   unlike,
   setMyPosts,
   resetPosts,
+  setHasMore,
   //   setPopularPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
@@ -301,7 +315,7 @@ export const getPosts = (page) => async (dispatch) => {
       params: { page: page, pageSize: 12 },
     });
     // console.log(response)
-    dispatch(setPosts(response.data.content));
+    dispatch(setPosts(response.data));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -325,7 +339,7 @@ export const getMyPosts = (page) => async (dispatch) => {
       params: { page: page, pageSize: 12 },
     });
 
-    dispatch(setMyPosts(response.data.content));
+    dispatch(setMyPosts(response.data));
   } catch (error) {
     console.error("Error fetching posts:", error.errorMessage);
   }
