@@ -24,7 +24,6 @@ const usePostData = (type, callback, parentPostId) => {
     formData.append("type", type);
 
     if (type === PostType.REPLY || type === PostType.QUOTE) {
-      console.log("inside submit");
       formData.append("parentPostId", parentPostId);
     }
     files.forEach((file) => {

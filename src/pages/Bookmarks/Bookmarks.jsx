@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Container, ItemPost } from "@/components";
 import { useEffect } from "react";
 import { getAllBookmarkPosts } from "@/redux/slices/userSlice";
@@ -7,7 +7,7 @@ import { getAllBookmarkPosts } from "@/redux/slices/userSlice";
 export const Bookmarks = () => {
   const dispatch = useDispatch();
   const email = useSelector((state) => state.user.user.userTag);
-  const allBookmarkPosts = useSelector((state) => state.user.bookmarkPosts);
+  const allBookmarkPosts = useSelector((state) => state.user.bookmarkPosts, shallowEqual);
 
   useEffect(() => {
     dispatch(getAllBookmarkPosts());
