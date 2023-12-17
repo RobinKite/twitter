@@ -54,15 +54,21 @@ export function ItemPost({
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const profileUser = useSelector((state) => state.user.user);
-
   const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
   const [isLoading, setIsLoading] = useState(false);
+  const [like, setLike] = useState(liked);
+  const [localLikeCount, setLocalLikeCount] = useState(likeCount);
+
+  const handleLikeClick = async () => {
+    setLike(!like);
+    like ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
+
+    setLocalLikeCount((prevCount) => (like ? prevCount - 1 : prevCount + 1));
+  };
 
   const handleBookmarkClick = (postId) => {
     setIsLoading(true);
@@ -158,7 +164,9 @@ export function ItemPost({
               </Stack>
             )}
           </Stack>
-          <Typography sx={tweetContentSX}>{content}</Typography>
+          <Typography sx={tweetContentSX} onClick={fonnClick}>
+            {content}
+          </Typography>
           {imageUrls.length > 0 && (
             <Stack
               sx={
@@ -167,8 +175,7 @@ export function ItemPost({
                     ? tweetImgOddSX
                     : tweetImgEvenSX
                   : tweetImgSX
-              }
-              onClick={fonnClick}>
+              }>
               {imageUrls.map((imageUrl, index) => (
                 <img
                   style={{
@@ -195,11 +202,8 @@ export function ItemPost({
                   <Repost />
                 </IconButton>
                 <Stack sx={likeCountSX}>
-                  <IconButton
-                    onClick={() => {
-                      liked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
-                    }}>
-                    {liked ? <LikeFalse /> : <Like />}
+                  <IconButton onClick={handleLikeClick}>
+                    {like ? <LikeFalse /> : <Like />}
                   </IconButton>
 
                   <Typography
@@ -208,7 +212,7 @@ export function ItemPost({
                       // color: liked ? "rgb(249, 24, 128)" : "inherit",
                       color: (theme) => (liked ? theme.palette.common.like : "inherit"),
                     }}>
-                    {likeCount}
+                    {localLikeCount}
                   </Typography>
                 </Stack>
                 <IconButton

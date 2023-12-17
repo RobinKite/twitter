@@ -8,12 +8,10 @@ import { Stack } from "@mui/material";
 import { useSelector } from "react-redux";
 import NotificationAlert from "../NotificationAlert/NotificationAlert";
 
-const NavigationItem = ({ path, text, getIconComponent, alert }) => {
+const NavigationItem = ({ path, text, getIconComponent, notificationsCount }) => {
   const { pathname } = useLocation();
   const isActive = (pathname.includes(path) && path !== "/") || path === pathname;
   const Icon = getIconComponent(isActive);
-  const notificationsCount = useSelector((state) => state.user.notificationsCount);
-  const alertCondition = alert && notificationsCount !== 0;
   return (
     <li>
       <NavLink
@@ -33,9 +31,9 @@ const NavigationItem = ({ path, text, getIconComponent, alert }) => {
                   ? theme.palette.light.secondary
                   : theme.palette.dark.light_grey,
             }}
-            size={30}
+            size={26.25}
           />
-          {alertCondition && <NotificationAlert />}
+          {notificationsCount && <NotificationAlert />}
         </Stack>
         <span className={clsx(styles.text, isActive && styles.activeLink)}>{text}</span>
       </NavLink>
@@ -47,11 +45,12 @@ NavigationItem.propTypes = {
   path: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   getIconComponent: PropTypes.func.isRequired,
-  alert: PropTypes.bool,
+  notificationsCount: PropTypes.bool,
 };
 
 export const Navigation = () => {
-  const notifications = useSelector((state) => state.user.notifications);
+  const notificationsCount = useSelector((state) => state.user.notificationsCount);
+
   return (
     <nav className={styles.navigation}>
       <ul className={styles.list}>
@@ -73,7 +72,7 @@ export const Navigation = () => {
             <NavigationItem
               key={item.name}
               {...item}
-              alert={item.name === "notifications" && notifications.length > 0}
+              notificationsCount={item.name === "notifications" && notificationsCount > 0}
             />
           );
         })}

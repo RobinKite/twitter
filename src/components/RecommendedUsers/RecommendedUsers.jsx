@@ -21,6 +21,7 @@ export const UserCard = ({ avatarUrl, fullName, userTag, onClick, children }) =>
               fontWeight={700}
               variant="subtitle1"
               noWrap={true}
+              align="left"
               sx={{
                 color: (theme) =>
                   theme.palette.mode === "light"
