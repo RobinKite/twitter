@@ -13,6 +13,7 @@ export const Home = () => {
   const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
   const renderPosts = accountUser.following ? posts : popularPosts;
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
@@ -50,6 +51,8 @@ export const Home = () => {
             likeCount={post.likeCount}
             liked={post.liked}
             bookmarked={post.bookmarked}
+            parentPost={post.parentPost}
+            type={post.type}
           />
         ))}
       </div>

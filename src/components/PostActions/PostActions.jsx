@@ -29,6 +29,8 @@ export function PostActions({
   const dispatch = useDispatch();
   const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
   const [isMenuRepostOpen, setIsMenuRepostOpen] = useState(false);
+  const [repostCount, setRepostCount] = useState(0);
+  const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, null, id);
 
   const handleBookmarkClick = (postId) => {
     isBookmarkedPost
@@ -37,7 +39,10 @@ export function PostActions({
     setIsBookmarkedPost(!isBookmarkedPost);
   };
 
-  const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, null, id);
+  const handleRepostClick = () => {
+    submit();
+    setRepostCount((prev) => prev + 1);
+  };
 
   useEffect(() => {
     const fetchFile = async (imageUrl) => {
@@ -60,7 +65,7 @@ export function PostActions({
       }
     };
 
-    imageUrls.forEach((image) => fetchFile(image));
+    imageUrls?.forEach((image) => fetchFile(image));
     setInputStr(content);
   }, [content, imageUrls]);
 
@@ -74,11 +79,14 @@ export function PostActions({
             </IconButton>
             <Typography component="span">{replyCount}</Typography>
           </Stack>
-          <IconButton sx={tweetRepostSX} onClick={() => setIsMenuRepostOpen(true)}>
-            <Repost />
-          </IconButton>
+          <Stack direction="row">
+            <IconButton sx={tweetRepostSX} onClick={() => setIsMenuRepostOpen(true)}>
+              <Repost />
+            </IconButton>
+            <Typography component="span">{repostCount > 0 && repostCount}</Typography>
+          </Stack>
           <CustomSelect open={isMenuRepostOpen} onClose={setIsMenuRepostOpen}>
-            <MenuItem onClick={submit}>
+            <MenuItem onClick={handleRepostClick}>
               <Repost fill="#000000de" /> Repost
             </MenuItem>
           </CustomSelect>

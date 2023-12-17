@@ -23,6 +23,7 @@ export function Profile() {
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getUserInfo());
     dispatch(getMyPosts());
@@ -99,6 +100,8 @@ export function Profile() {
                 likeCount={post.likeCount}
                 liked={post.liked}
                 imageUrls={post.imageUrls}
+                parentPost={post.parentPost}
+                type={post.type}
               />
             ))}
           </TabPanel>
@@ -119,6 +122,8 @@ export function Profile() {
                     likeCount={post.likeCount}
                     liked={post.liked}
                     replyCount={post.replyCount}
+                    parentPost={post.parentPost}
+                    type={post.type}
                   />
                 ))
               ) : (

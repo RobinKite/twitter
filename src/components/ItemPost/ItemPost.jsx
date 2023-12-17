@@ -3,16 +3,17 @@ import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
 import { deletePost } from "@/redux/slices/postsSlice";
-import { Delete } from "@/icons";
+import { Delete, Repost } from "@/icons";
 import {
   avatarSX,
   iconDeleteSX,
+  tweetAdditionalInfoSX,
   tweetContentSX,
   tweetHeaderSX,
   tweetImgEvenSX,
@@ -24,6 +25,8 @@ import {
   tweetWrapperSX,
 } from "./styleSX";
 import { PostActions } from "../PostActions/PostActions";
+import { PostType } from "@/constants";
+import { getUserInfo } from "@/redux/slices/userSlice";
 
 export function ItemPost({
   content,
@@ -39,6 +42,8 @@ export function ItemPost({
   fullName,
   postUser,
   bookmarked,
+  type,
+  parentPost,
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,6 +51,12 @@ export function ItemPost({
   const open = Boolean(anchorEl);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const profileUser = useSelector((state) => state.user.user);
+  const isRepost = type === PostType.QUOTE;
+  const accountUser = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    dispatch(getUserInfo());
+  }, [dispatch]);
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -76,8 +87,10 @@ export function ItemPost({
 
   const redirectToUserProfile = () => {
     try {
-      if (postUser && postUser.id) {
+      if (postUser && postUser.id && type !== PostType.QUOTE) {
         navigate(`/user/${postUser.id}`);
+      } else if (isRepost) {
+        navigate(`/user/${parentPost?.user.id}`);
       }
     } catch (error) {
       console.error("Error navigating to user profile:", error);
@@ -92,19 +105,37 @@ export function ItemPost({
 
   return (
     <Stack sx={tweetWrapperSX}>
+      {isRepost && (
+        <Typography
+          sx={tweetAdditionalInfoSX}
+          onClick={
+            accountUser?.id === postUser.id
+              ? () => navigate(`/user/${postUser.id}`)
+              : redirectToUserProfile
+          }>
+          <Repost />
+          <Typography component="span">
+            {accountUser?.fullName === fullName ? "you" : fullName} reposted
+          </Typography>
+        </Typography>
+      )}
       <Stack sx={tweetSX}>
-        <Avatar sx={avatarSX} src={avatarUrl} onClick={redirectToUserProfile} />
+        <Avatar
+          sx={avatarSX}
+          src={isRepost ? parentPost?.user.avatarUrl : avatarUrl}
+          onClick={redirectToUserProfile}
+        />
         <Stack>
           <Stack sx={tweetHeaderSX}>
             <Stack
               onClick={redirectToUserProfile}
               sx={{ flexDirection: "row", alignItems: "center", gap: "4px" }}>
               <Typography component="span" sx={tweetUsernameSX}>
-                {fullName}
+                {isRepost ? parentPost?.user.fullName : fullName}
               </Typography>
               {postUser.userTag && (
                 <Typography component="span" sx={tweetUsertagSX}>
-                  @{postUser.userTag}
+                  @{isRepost ? parentPost.user.userTag : postUser.userTag}
                 </Typography>
               )}
             </Stack>
@@ -202,6 +233,8 @@ ItemPost.propTypes = {
   replyCount: PropTypes.number,
   updateComment: PropTypes.func,
   bookmarked: PropTypes.bool,
+  type: PropTypes.string,
+  parentPost: PropTypes.object,
 };
 
 ItemPost.defaultProps = {
