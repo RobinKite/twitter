@@ -332,7 +332,7 @@ export const getNotifications = () => {
           allNotifications = [...allNotifications, ...data];
           page++;
         }
-        console.log(page);
+        // console.log(page);
       }
       dispatch(setNotifications(allNotifications));
     } catch (error) {
