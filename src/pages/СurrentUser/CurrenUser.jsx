@@ -74,36 +74,13 @@ export function CurrentUser() {
             }}>
             <TabPanel value="0" sx={{ padding: 0 }}>
               {posts.map((post) => (
-                <ItemPost
-                  key={post.id}
-                  // postUser={post.user}
-                  avatarUrl={post.user?.avatarUrl}
-                  fullName={post.user?.fullName}
-                  replyCount={post.replyCount}
-                  id={post.id}
-                  content={post.body}
-                  likeCount={post.likeCount}
-                  liked={post.liked}
-                  imageUrls={post.imageUrls}
-                />
+                <ItemPost key={post.id} post={post} />
               ))}
             </TabPanel>
             {/* <TabPanel value="1">Replies</TabPanel> */}
             <TabPanel value="2" sx={{ padding: 0 }}>
               {!!currentLikedPosts.length &&
-                currentLikedPosts.map((post) => (
-                  <ItemPost
-                    avatarUrl={post.user.avatarUrl}
-                    fullName={post.user.fullName}
-                    key={post.id}
-                    content={post.body}
-                    imageUrls={post.imageUrls}
-                    id={post.id}
-                    likeCount={post.likeCount}
-                    liked={post.liked}
-                    replyCount={post.replyCount}
-                  />
-                ))}
+                currentLikedPosts.map((post) => <ItemPost key={post.id} post={post} />)}
             </TabPanel>
           </ProfileTabs>
         </Container>

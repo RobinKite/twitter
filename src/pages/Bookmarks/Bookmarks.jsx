@@ -43,21 +43,7 @@ export const Bookmarks = () => {
           @{email}
         </Typography>
         {allBookmarkPosts.length > 0 ? (
-          allBookmarkPosts.map((post) => (
-            <ItemPost
-              key={post.id}
-              postUser={post.user}
-              avatarUrl={post.user.avatarUrl}
-              fullName={post.user.fullName}
-              content={post.body}
-              replyCount={post.replyCount}
-              imageUrls={post.imageUrls}
-              id={post.id}
-              likeCount={post.likeCount}
-              liked={post.liked}
-              bookmarked={post.bookmarked}
-            />
-          ))
+          allBookmarkPosts.map((post) => <ItemPost key={post.id} post={post} />)
         ) : (
           <Box
             sx={{ margin: "32px auto", padding: "0 32px", maxWidth: "calc(5 * 80px)" }}>

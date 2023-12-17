@@ -14,6 +14,8 @@ export const Home = () => {
   const renderPosts = accountUser.following ? posts : popularPosts;
   const dispatch = useDispatch();
 
+  // console.log(renderPosts);
+
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
@@ -39,21 +41,7 @@ export const Home = () => {
         )}
         <CreatePost avatarUrl={accountUser.avatarUrl} />
         {renderPosts.map((post) => (
-          <ItemPost
-            key={post.id}
-            postUser={post.user}
-            avatarUrl={post.user.avatarUrl}
-            fullName={post.user.fullName}
-            content={post.body}
-            replyCount={post.replyCount}
-            imageUrls={post.imageUrls}
-            id={post.id}
-            likeCount={post.likeCount}
-            liked={post.liked}
-            bookmarked={post.bookmarked}
-            parentPost={post.parentPost}
-            type={post.type}
-          />
+          <ItemPost key={post.id} post={post} />
         ))}
       </div>
     </Container>

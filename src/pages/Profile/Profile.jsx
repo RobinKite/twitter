@@ -89,20 +89,7 @@ export function Profile() {
           }}>
           <TabPanel value="0" sx={{ padding: 0 }}>
             {posts.map((post) => (
-              <ItemPost
-                key={post.id}
-                postUser={post.user}
-                avatarUrl={user.avatarUrl}
-                fullName={user.fullName}
-                replyCount={post.replyCount}
-                id={post.id}
-                content={post.body}
-                likeCount={post.likeCount}
-                liked={post.liked}
-                imageUrls={post.imageUrls}
-                parentPost={post.parentPost}
-                type={post.type}
-              />
+              <ItemPost key={post.id} post={post} />
             ))}
           </TabPanel>
 
@@ -110,22 +97,7 @@ export function Profile() {
           <TabPanel value="2">
             {
               likedPosts.length ? (
-                likedPosts.map((post) => (
-                  <ItemPost
-                    postUser={post.user}
-                    avatarUrl={post.user.avatarUrl}
-                    fullName={post.user.fullName}
-                    key={post.id}
-                    content={post.body}
-                    imageUrls={post.imageUrls}
-                    id={post.id}
-                    likeCount={post.likeCount}
-                    liked={post.liked}
-                    replyCount={post.replyCount}
-                    parentPost={post.parentPost}
-                    type={post.type}
-                  />
-                ))
+                likedPosts.map((post) => <ItemPost key={post.id} post={post} />)
               ) : (
                 <>You don&apos;t have any likes yet</>
               )

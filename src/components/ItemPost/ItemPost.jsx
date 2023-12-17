@@ -28,23 +28,20 @@ import { PostActions } from "../PostActions/PostActions";
 import { PostType } from "@/constants";
 import { getUserInfo } from "@/redux/slices/userSlice";
 
-export function ItemPost({
-  content,
-  imageUrls,
-  id,
-  likeCount,
-  liked,
-  disable,
-  onPostDeleted,
-  replyCount,
-  updateComment,
-  avatarUrl,
-  fullName,
-  postUser,
-  bookmarked,
-  type,
-  parentPost,
-}) {
+export function ItemPost({ post, disable }) {
+  // console.log(post);
+  const {
+    body: content,
+    imageUrls,
+    id,
+    likeCount,
+    liked,
+    replyCount,
+    user: { avatarUrl, fullName, ...postUser },
+    bookmarked,
+    type,
+    parentPost,
+  } = post;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -76,9 +73,6 @@ export function ItemPost({
 
   const handleDeletePost = () => {
     dispatch(deletePost(id));
-    if (onPostDeleted) {
-      onPostDeleted(id);
-    }
   };
 
   const redirectToPost = () => {
@@ -115,7 +109,7 @@ export function ItemPost({
           }>
           <Repost />
           <Typography component="span">
-            {accountUser?.fullName === fullName ? "you" : fullName} reposted
+            {accountUser?.fullName === fullName ? "You" : fullName} reposted
           </Typography>
         </Typography>
       )}
@@ -198,49 +192,24 @@ export function ItemPost({
             openModal={openModal}
             content={content}
             imageUrls={imageUrls}
+            post={post}
           />
         </Stack>
       </Stack>
-
       <ModalCommentPost
         isOpen={modalIsOpen}
         closeModal={closeModal}
-        content={content}
-        imageUrls={imageUrls}
         id={id}
-        likeCount={likeCount}
-        liked={liked}
-        updateComment={updateComment}
         avatarUrl={avatarUrl}
         fullName={fullName}
-        bookmarked={bookmarked}
+        post={post}
       />
     </Stack>
   );
 }
 
 ItemPost.propTypes = {
-  content: PropTypes.string,
-  imageUrls: PropTypes.array,
-  avatarUrl: PropTypes.string,
-  fullName: PropTypes.string,
-  postUser: PropTypes.object,
-  id: PropTypes.string,
-  likeCount: PropTypes.number,
-  liked: PropTypes.bool,
   disable: PropTypes.bool,
-  onPostDeleted: PropTypes.func,
-  replyCount: PropTypes.number,
-  updateComment: PropTypes.func,
-  bookmarked: PropTypes.bool,
-  type: PropTypes.string,
-  parentPost: PropTypes.object,
-};
 
-ItemPost.defaultProps = {
-  content: "",
-  imageUrls: [],
-  avatarUrl: "",
-  fullName: "",
-  postUser: {},
+  post: PropTypes.object,
 };
