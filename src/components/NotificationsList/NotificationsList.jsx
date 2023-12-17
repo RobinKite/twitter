@@ -10,7 +10,7 @@ const NotificationsList = () => {
   useEffect(() => {
     dispatch(getNotifications());
     dispatch(setNotificationsCount(0));
-  }, []);
+  }, [dispatch]);
 
   if (notifications.length === 0) {
     return (
