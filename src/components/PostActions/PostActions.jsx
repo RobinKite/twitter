@@ -8,29 +8,27 @@ import {
 } from "../ItemPost/styleSX";
 import { Bookmark, BookmarkFilled, Like, LikeFalse, Reply, Repost } from "@/icons";
 import { CustomSelect } from "..";
-import { handleLike, handleUnlike } from "@/redux/slices/postsSlice";
-import { useDispatch } from "react-redux";
+import {
+  addPost,
+  deleteRepostedPost,
+  handleLike,
+  handleUnlike,
+} from "@/redux/slices/postsSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import usePostData from "@/hooks/usePostData";
 import { PostType } from "@/constants";
 
-export function PostActions({
-  id,
-  likeCount,
-  liked,
-  disable,
-  replyCount,
-  bookmarked,
-  openModal,
-  content,
-  imageUrls,
-}) {
+export function PostActions({ disable, openModal, post }) {
+  const { id, likeCount, liked, replyCount, bookmarked, body: content, imageUrls } = post;
   const dispatch = useDispatch();
   const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
   const [isMenuRepostOpen, setIsMenuRepostOpen] = useState(false);
-  const [repostCount, setRepostCount] = useState(0);
   const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, null, id);
+  const repostedPosts = useSelector((state) => state.posts.repostPosts);
+
+  // console.log(repostedPosts);
 
   const handleBookmarkClick = (postId) => {
     isBookmarkedPost
@@ -40,8 +38,16 @@ export function PostActions({
   };
 
   const handleRepostClick = () => {
-    submit();
-    setRepostCount((prev) => prev + 1);
+    const isDeleteRepostedPost = repostedPosts?.findIndex(
+      (repostPost) => repostPost.id === id,
+    );
+
+    if (repostedPosts?.length && isDeleteRepostedPost !== -1) {
+      submit();
+      dispatch(addPost(post));
+    } else {
+      dispatch(deleteRepostedPost(post));
+    }
   };
 
   useEffect(() => {
@@ -83,7 +89,6 @@ export function PostActions({
             <IconButton sx={tweetRepostSX} onClick={() => setIsMenuRepostOpen(true)}>
               <Repost />
             </IconButton>
-            <Typography component="span">{repostCount > 0 && repostCount}</Typography>
           </Stack>
           <CustomSelect open={isMenuRepostOpen} onClose={setIsMenuRepostOpen}>
             <MenuItem onClick={handleRepostClick}>
@@ -120,15 +125,9 @@ export function PostActions({
 }
 
 PostActions.propTypes = {
-  id: PropTypes.string,
-  likeCount: PropTypes.number,
-  liked: PropTypes.bool,
   disable: PropTypes.bool,
-  replyCount: PropTypes.number,
-  bookmarked: PropTypes.bool,
   openModal: PropTypes.func,
-  content: PropTypes.string,
-  imageUrls: PropTypes.array,
+  post: PropTypes.object,
 };
 
 PostActions.defaultProps = {

@@ -34,11 +34,7 @@ export function ItemPost({ post, disable }) {
     body: content,
     imageUrls,
     id,
-    likeCount,
-    liked,
-    replyCount,
     user: { avatarUrl, fullName, ...postUser },
-    bookmarked,
     type,
     parentPost,
   } = post;
@@ -182,18 +178,7 @@ export function ItemPost({ post, disable }) {
               ))}
             </Stack>
           )}
-          <PostActions
-            id={id}
-            likeCount={likeCount}
-            liked={liked}
-            disable={disable}
-            replyCount={replyCount}
-            bookmarked={bookmarked}
-            openModal={openModal}
-            content={content}
-            imageUrls={imageUrls}
-            post={post}
-          />
+          <PostActions disable={disable} openModal={openModal} post={post} />
         </Stack>
       </Stack>
       <ModalCommentPost
@@ -210,6 +195,5 @@ export function ItemPost({ post, disable }) {
 
 ItemPost.propTypes = {
   disable: PropTypes.bool,
-
   post: PropTypes.object,
 };

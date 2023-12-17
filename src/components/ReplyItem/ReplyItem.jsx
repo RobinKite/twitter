@@ -90,14 +90,7 @@ const ReplyItem = ({ reply }) => {
                 ))}
               </Stack>
             )}
-            <PostActions
-              id={post.id}
-              likeCount={post.likeCount}
-              liked={post.liked}
-              disable={post.disable}
-              replyCount={post.replyCount}
-              bookmarked={post.bookmarked}
-            />
+            <PostActions post={post} disable={post.disable} />
           </Stack>
         </Stack>
       )}
