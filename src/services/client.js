@@ -7,7 +7,7 @@ export class Client {
   constructor() {
     this.session = axios.create({ baseURL: this.BASE_URL });
     this.get = this.session.get;
-    this.post = this.session.post;
+    this.post = this.session.post.bind(this.session);
     this.delete = this.session.delete;
     this.put = this.session.put;
 
