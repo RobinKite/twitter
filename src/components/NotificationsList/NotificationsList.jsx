@@ -6,7 +6,6 @@ import { getNotifications, setNotificationsCount } from "@/redux/slices/userSlic
 
 const NotificationsList = () => {
   const notifications = useSelector((state) => state.user.notifications);
-  console.log(notifications);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getNotifications());
