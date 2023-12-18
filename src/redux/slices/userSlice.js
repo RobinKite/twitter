@@ -23,7 +23,7 @@ const userSlice = createSlice({
     hasMore: true,
   },
   reducers: {
-    resetPosts: (state) => {
+    resetPostsLiked: (state) => {
       state.likedPosts = [];
       // state.currentLikedPosts = [];
       state.hasMore = true;
@@ -124,7 +124,7 @@ export const {
   googleRegisterAction,
   logoutUserAction,
   setLikedPosts,
-  resetPosts,
+  resetPostsLiked,
   // setCurrentLikedPosts,
   setBookmarkPost,
   removeBookmarkPost,

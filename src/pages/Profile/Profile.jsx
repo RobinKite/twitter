@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProfileTabs, ModalEdit } from "@/components";
 import { Container as AppContainer } from "@/components";
-import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
+import { getLikedPosts, getUserInfo, resetPostsLiked } from "@/redux/slices/userSlice";
 import { getMyPosts, resetPosts } from "@/redux/slices/postsSlice";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LikedPosts from "@/components/LikedPosts/LikedPosts";
 import useLikedPosts from "@/hooks/useLikedPosts";
 import RenderPosts from "@/components/RenderPosts/RenderPosts";
+import useFetchPosts from "@/hooks/useFetchPosts";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -24,19 +25,21 @@ export function Profile() {
   const posts = useSelector((state) => state.posts.myPosts);
   const dispatch = useDispatch();
   const likedPosts = useSelector((state) => state.user.likedPosts);
-  const hasMore = useSelector((state) => state.posts.hasMore);
-  const page = useSelector((state) => state.posts.page);
+  // const hasMore = useSelector((state) => state.posts.hasMore);
+  // const page = useSelector((state) => state.posts.page);
 
   useEffect(() => {
     dispatch(resetPosts());
+    dispatch(resetPostsLiked());
+
     dispatch(getUserInfo());
   }, [dispatch]);
 
-  const fetchPosts = () => {
-    if (hasMore) {
-      dispatch(getMyPosts(page + 1));
-    }
-  };
+  // const fetchPosts = () => {
+  //   if (hasMore) {
+  //     dispatch(getMyPosts(page + 1));
+  //   }
+  // };
 
   return (
     <AppContainer>
@@ -80,7 +83,10 @@ export function Profile() {
             },
           }}>
           <TabPanel value="0" sx={{ padding: 0 }}>
-            <InfiniteScroll dataLength={posts.length} next={fetchPosts} hasMore={true}>
+            <InfiniteScroll
+              dataLength={posts.length}
+              next={useFetchPosts(getMyPosts)}
+              hasMore={true}>
               <RenderPosts statePost={false} />
             </InfiniteScroll>
           </TabPanel>

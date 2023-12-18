@@ -1,5 +1,3 @@
-import { resetPosts } from "@/redux/slices/userSlice";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const useLikedPosts = (likedPostsAction) => {
@@ -10,10 +8,10 @@ const useLikedPosts = (likedPostsAction) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(resetPosts());
-    // dispatch(likedPostsAction(page));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(resetPostsLiked());
+  //   dispatch(likedPostsAction(page));
+  // }, [dispatch]);
 
   const fetchPostsLiked = () => {
     if (hasMore) {
