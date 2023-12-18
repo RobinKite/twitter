@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -26,7 +26,6 @@ import {
 } from "./styleSX";
 import { PostActions } from "../PostActions/PostActions";
 import { PostType } from "@/constants";
-import { getUserInfo } from "@/redux/slices/userSlice";
 
 export function ItemPost({ post, disable }) {
   // console.log(post);
@@ -47,9 +46,9 @@ export function ItemPost({ post, disable }) {
   const isRepost = type === PostType.QUOTE;
   const accountUser = useSelector((state) => state.user.user);
 
-  useEffect(() => {
-    dispatch(getUserInfo());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getUserInfo());
+  // }, [dispatch]);
 
   const openModal = () => {
     setModalIsOpen(true);

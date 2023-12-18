@@ -1,26 +1,24 @@
 // import { useLoadPost } from "@/hooks/useLoadPost";
 import { Stack, Typography } from "@mui/material";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { Container, CreatePost, ItemPost, WelcomeMessage } from "@/components";
+import { useSelector, useDispatch } from "react-redux";
+import { Container, CreatePost, WelcomeMessage } from "@/components";
 import { homeHeaderSX } from "./stylesSX";
-import { addRepostedPosts, getPosts } from "@/redux/slices/postsSlice";
+import { getPosts } from "@/redux/slices/postsSlice";
 import { useEffect } from "react";
-import { PostType } from "@/constants";
+import HomePostsContainer from "@/components/HomePostsContainer/HomePostsContainer";
 
 export const Home = () => {
   const accountUser = useSelector((state) => state.user.user);
-  const posts = useSelector((state) => state.posts.posts, shallowEqual);
+
   // const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
-  const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
-  const renderPosts = accountUser.following ? posts : popularPosts;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
-    const repostPosts = posts.filter((post) => post.type === PostType.QUOTE);
-    dispatch(addRepostedPosts(repostPosts));
-  }, [dispatch, posts]);
+  }, [dispatch]);
+
+  console.log(accountUser);
 
   return (
     <Container>
@@ -42,9 +40,7 @@ export const Home = () => {
           />
         )}
         <CreatePost avatarUrl={accountUser.avatarUrl} />
-        {renderPosts.map((post) => (
-          <ItemPost key={post.id} post={post} />
-        ))}
+        <HomePostsContainer />
       </div>
     </Container>
   );

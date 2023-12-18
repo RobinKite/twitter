@@ -1,8 +1,4 @@
-import {
-  addBookmarkPost,
-  deleteBookmarkPost,
-  getUserInfo,
-} from "@/redux/slices/userSlice";
+import { addBookmarkPost, deleteBookmarkPost } from "@/redux/slices/userSlice";
 import { IconButton, MenuItem, Stack, Typography } from "@mui/material";
 import {
   likeCountSX,
@@ -53,7 +49,7 @@ export function PostActions({ disable, openModal, post }) {
   };
 
   useEffect(() => {
-    dispatch(getUserInfo());
+    // dispatch(getUserInfo());
     const fetchFile = async (imageUrl) => {
       try {
         const response = await fetch(imageUrl);
