@@ -109,6 +109,10 @@ const postsSlice = createSlice({
       );
     },
 
+    setPopularPosts: (state, action) => {
+      state.popularPosts = action.payload;
+    },
+
     addRepostedPosts: (state, action) => {
       state.repostedPosts = action.payload;
     },
@@ -200,7 +204,7 @@ export const {
   setMyPosts,
   resetPosts,
   addRepostedPosts,
-  //   setPopularPosts,
+  setPopularPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
 
@@ -274,17 +278,17 @@ export const getPosts = (page) => async (dispatch) => {
   }
 };
 
-// export const getPopularPosts = (page) => async (dispatch) => {
-//   try {
-//     const response = await client.get(Endpoint.GET_POPULAR_POSTS, {
-//       params: { page: page, pageSize: 12 },
-//     });
+export const getPopularPosts = (page) => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.GET_POPULAR_POSTS, {
+      params: { page: page, pageSize: 12 },
+    });
 
-//     dispatch(setPopularPosts(response.data.content));
-//   } catch (error) {
-//     console.error("Error fetching posts:", error);
-//   }
-// };
+    dispatch(setPopularPosts(response.data.content));
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+};
 
 export const getMyPosts = (page) => async (dispatch) => {
   try {

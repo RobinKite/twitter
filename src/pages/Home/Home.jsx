@@ -2,16 +2,16 @@ import { Stack, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, CreatePost, HomePostsContainer, WelcomeMessage } from "@/components";
 import { homeHeaderSX } from "./stylesSX";
-import { getPosts } from "@/redux/slices/postsSlice";
+import { getPopularPosts, getPosts } from "@/redux/slices/postsSlice";
 import { useEffect } from "react";
 
 export const Home = () => {
   const accountUser = useSelector((state) => state.user.user);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(getPopularPosts());
   }, [dispatch]);
 
   return (
