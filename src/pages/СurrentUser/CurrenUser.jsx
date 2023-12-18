@@ -12,8 +12,6 @@ import LikedPosts from "@/components/LikedPosts/LikedPosts";
 import RenderPosts from "@/components/RenderPosts/RenderPosts";
 // import useLikedPosts from "@/hooks/useLikedPosts";
 import { getCurrentLikedPosts } from "@/redux/slices/currentUser";
-// import usefetchPosts from "@/components/RenderPost/RenderPost";
-
 const tabs = [
   { label: "Post", value: "0" },
   // { label: "Replies", value: "1" },
@@ -26,19 +24,19 @@ export function CurrentUser() {
   const user = useSelector((state) => state.currentUser.user);
   const posts = useSelector((state) => state.currentUser.currentPosts);
   const likedPosts = useSelector((state) => state.currentUser.currentLikedPosts);
-
   const hasMore = useSelector((state) => state.currentUser.hasMore);
   const page = useSelector((state) => state.currentUser.pageCurrent);
-  // const [page, setPage] = useState();
-  // const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  // const hasMore = useSelector((state) => state.user.hasMore);
-  // const [pageLiked, setPageLiked] = useState("1");
-  const fetchPostsLiked = () => {
-    // setPageLiked((prevState) => prevState + 1);
 
+  const fetchPostsLiked = () => {
     if (hasMore) {
       dispatch(getCurrentLikedPosts(id, page + 1));
+    }
+  };
+
+  const fetchPosts = () => {
+    if (hasMore) {
+      dispatch(getCurrentPosts(id, page + 1));
     }
   };
 
@@ -48,31 +46,6 @@ export function CurrentUser() {
     dispatch(getCurrentPosts(id));
   }, [dispatch, id]);
 
-  // useEffect(() => {
-  //   setPage(0);
-  //   setPageLiked(0)
-  //   setLoading(true);
-
-  //   Promise.all([dispatch(resetPosts()), dispatch(getCurrentUser(id))]).then(() =>
-  //     setLoading(false),
-  //   );
-  // }, [dispatch, id]);
-
-  // useEffect(() => {
-  //   if (!loading) {
-  //     fetchPosts();
-  //     fetchPostsLiked()
-  //   }
-  // }, [loading]);
-
-  const fetchPosts = () => {
-    // setPage((prevState) => prevState + 1);
-
-    if (hasMore) {
-      dispatch(getCurrentPosts(id, page + 1));
-    }
-  };
-  // const fetchPostsLiked = useLikedPosts(() => getCurrentLikedPosts(id));
   return (
     <>
       <AppContainer>

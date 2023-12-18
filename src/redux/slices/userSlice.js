@@ -25,6 +25,8 @@ const userSlice = createSlice({
   reducers: {
     resetPostsLiked: (state) => {
       state.likedPosts = [];
+      state.notifications = [];
+      state.bookmarkPosts = [];
       // state.currentLikedPosts = [];
       state.hasMore = true;
     },
@@ -72,9 +74,6 @@ const userSlice = createSlice({
       state.friendSearches = [];
     },
     setLikedPosts: (state, action) => {
-      // state.likedPosts = action.payload;
-
-      console.log(action.payload);
       if (!action.payload.content || !action.payload.content.length) {
         state.hasMore = false;
       } else {
@@ -93,11 +92,26 @@ const userSlice = createSlice({
         state.pageLiked = action.payload.number;
       }
     },
-    // setCurrentLikedPosts: (state, action) => {
-    //   state.currentLikedPosts = action.payload;
-    // },
+
     setBookmarkPost: (state, action) => {
-      state.bookmarkPosts = action.payload;
+      // state.bookmarkPosts = action.payload;
+      if (!action.payload.content || !action.payload.content.length) {
+        state.hasMore = false;
+      } else {
+        state.hasMore = true;
+        const uniquePosts = action.payload.content.filter((post) =>
+          state.bookmarkPosts.every(
+            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
+          ),
+        );
+        if (uniquePosts.length && uniquePosts.length < 12) {
+          state.hasMore = false;
+        } else {
+          state.hasMore = true;
+        }
+        state.bookmarkPosts = [...state.bookmarkPosts, ...uniquePosts];
+        state.pageLiked = action.payload.number;
+      }
     },
     removeBookmarkPost: (state, action) => {
       state.bookmarkPosts = state.bookmarkPosts.filter(
@@ -105,7 +119,25 @@ const userSlice = createSlice({
       );
     },
     setNotifications: (state, action) => {
-      state.notifications = action.payload;
+      // console.log(action.payload)
+      // state.notifications = action.payload.content;
+      if (!action.payload.content || !action.payload.content.length) {
+        state.hasMore = false;
+      } else {
+        state.hasMore = true;
+        const uniquePosts = action.payload.content.filter((post) =>
+          state.notifications.every(
+            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
+          ),
+        );
+        if (uniquePosts.length && uniquePosts.length < 12) {
+          state.hasMore = false;
+        } else {
+          state.hasMore = true;
+        }
+        state.notifications = [...state.notifications, ...uniquePosts];
+        state.pageLiked = action.payload.number;
+      }
     },
     setNotificationsCount: (state, action) => {
       state.notificationsCount = action.payload;
@@ -333,22 +365,24 @@ export const deleteBookmarkPost = (postId) => async (dispatch) => {
   }
 };
 
-export const getAllBookmarkPosts = () => async (dispatch) => {
+export const getAllBookmarkPosts = (page) => async (dispatch) => {
   try {
-    const response = await client.get(Endpoint.BOOKMARKS);
-    const data = response.data.content;
+    const response = await client.get(Endpoint.BOOKMARKS, {
+      params: { page: page, pageSize: 12 },
+    });
+    const data = response.data;
     dispatch(setBookmarkPost(data));
   } catch (error) {
     console.log("getAllBookmarkPosts error: ", error);
   }
 };
 
-export const getNotifications = () => {
+export const getNotifications = (page) => {
   return (dispatch) => {
     client
-      .get(Endpoint.GET_NOTIFICATIONS, { params: { page: 0, pageSize: 12 } })
+      .get(Endpoint.GET_NOTIFICATIONS, { params: { page: page, pageSize: 12 } })
       .then((response) => {
-        const data = response.data.content;
+        const data = response.data;
         dispatch(setNotifications(data));
       });
   };
@@ -358,6 +392,7 @@ export const getNotificationsCount = () => {
   return (dispatch) => {
     client.get(Endpoint.GET_NOTIFICATIONS_COUNT).then((response) => {
       const data = response.data.count;
+
       dispatch(setNotificationsCount(data));
     });
   };

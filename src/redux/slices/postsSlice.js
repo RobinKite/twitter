@@ -16,13 +16,11 @@ const postsSlice = createSlice({
   reducers: {
     resetPosts: (state) => {
       state.posts = [];
+      state.postComments = [];
       state.myPosts = [];
       state.hasMore = true;
     },
     setPosts: (state, action) => {
-      // if (!action.payload.length) return;
-      // state.posts = action.payload;
-      console.log();
       if (!action.payload.content || !action.payload.content.length) {
         state.hasMore = false;
       } else {
@@ -164,9 +162,23 @@ const postsSlice = createSlice({
       state.selectedPost = post;
     },
     getPostComents: (state, action) => {
-      const comments = action.payload;
-
-      state.postComments = [...comments];
+      if (!action.payload.content || !action.payload.content.length) {
+        state.hasMore = false;
+      } else {
+        state.hasMore = true;
+        const uniquePosts = action.payload.content.filter((post) =>
+          state.postComments.every(
+            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
+          ),
+        );
+        if (uniquePosts.length && uniquePosts.length < 12) {
+          state.hasMore = false;
+        } else {
+          state.hasMore = true;
+        }
+        state.postComments = [...state.postComments, ...uniquePosts];
+        state.page = action.payload.number;
+      }
     },
 
     like: (state, action) => {
@@ -292,7 +304,7 @@ export const axiosPostComments = (id, page) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_POST_REPLIES, {
       params: { postId: id, page: page, pageSize: 12 },
     });
-    const comments = response.data.content;
+    const comments = response.data;
     dispatch(getPostComents(comments));
   } catch (error) {
     console.error("Error fetching posts:", error);

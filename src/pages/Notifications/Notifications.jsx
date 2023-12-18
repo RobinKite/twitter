@@ -4,6 +4,10 @@ import { NotificationTabContent, Container, ProfileTabs } from "@/components";
 import imageVerification from "@/assets/images/verification.png";
 import { title } from "./styleSX";
 import NotificationsList from "@/components/NotificationsList/NotificationsList";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useSelector } from "react-redux";
+import { getNotifications } from "@/redux/slices/userSlice";
+import useLikedPosts from "@/hooks/useLikedPosts";
 
 const tabs = [
   { label: "All", value: "0" },
@@ -12,6 +16,8 @@ const tabs = [
 ];
 
 export const Notifications = () => {
+  const notifications = useSelector((state) => state.user.notifications);
+
   return (
     <Container>
       <Stack
@@ -29,7 +35,12 @@ export const Notifications = () => {
             },
           }}>
           <TabPanel value="0" sx={{ padding: 0 }}>
-            <NotificationsList />
+            <InfiniteScroll
+              dataLength={notifications.length}
+              next={useLikedPosts(getNotifications)}
+              hasMore={true}>
+              <NotificationsList />
+            </InfiniteScroll>
           </TabPanel>
           <TabPanel value="1" sx={{ padding: 0 }}>
             <NotificationTabContent

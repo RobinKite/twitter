@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { CommentPost, ItemPost, Container } from "@/components";
 import { ArrowBack } from "@/icons";
-import { axiosPostComments, getPostById } from "@/redux/slices/postsSlice";
+import { axiosPostComments, getPostById, resetPosts } from "@/redux/slices/postsSlice";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { sortByCreatedAt } from "@/utils";
 // import { compareByDate } from "@/utils";
 
 const HeaderPage = styled(Box)(() => ({
@@ -17,22 +19,23 @@ const HeaderPage = styled(Box)(() => ({
 export const Post = () => {
   const { id } = useParams();
   const post = useSelector((state) => state.posts.selectedPost);
-
+  const hasMore = useSelector((state) => state.posts.hasMore);
+  const page = useSelector((state) => state.posts.page);
   const postComments = useSelector((state) => state.posts.postComments);
-  // console.log(postComments);
-  const dispatch = useDispatch();
-  // Налаштування infinity Scrol покищо не дуже працює
 
-  // Роутер навігації переходу між сторінками
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const redirectToPost = () => {
     navigate(`/`, { replace: true });
   };
+  const fetchPosts = () => {
+    if (hasMore) {
+      dispatch(axiosPostComments(id, page + 1));
+    }
+  };
 
-  // Оновлення  додавання коментаря
-
-  // Код для сторінки PegesPost
   useEffect(() => {
+    dispatch(resetPosts());
     dispatch(getPostById(id));
     dispatch(axiosPostComments(id));
   }, [dispatch, id]);
@@ -67,20 +70,22 @@ export const Post = () => {
 
       <CommentPost id={id} />
       {/* .sort(compareByDate) */}
-      {postComments?.map((e) => (
-        <ItemPost
-          postUser={e.user}
-          replyCount={e.replyCount}
-          key={e.id}
-          content={e.body}
-          imageUrls={e.imageUrls}
-          id={e.id}
-          likeCount={e.likeCount}
-          liked={e.liked}
-          avatarUrl={e.user.avatarUrl}
-          fullName={e.user.fullName}
-        />
-      ))}
+      <InfiniteScroll dataLength={postComments.length} next={fetchPosts} hasMore={true}>
+        {sortByCreatedAt(postComments)?.map((e) => (
+          <ItemPost
+            postUser={e.user}
+            replyCount={e.replyCount}
+            key={e.id}
+            content={e.body}
+            imageUrls={e.imageUrls}
+            id={e.id}
+            likeCount={e.likeCount}
+            liked={e.liked}
+            avatarUrl={e.user.avatarUrl}
+            fullName={e.user.fullName}
+          />
+        ))}
+      </InfiniteScroll>
     </Container>
   );
 };

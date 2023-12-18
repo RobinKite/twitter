@@ -6,23 +6,18 @@ import { homeHeaderSX } from "./stylesSX";
 import { getPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect } from "react";
+import useFetchPosts from "@/hooks/useFetchPosts";
 
 export const Home = () => {
   const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
-  console.log(posts);
-  // const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
+
   const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
   const renderPosts = accountUser.following ? posts : popularPosts;
-  const page = useSelector((state) => state.posts.page);
-  const hasMore = useSelector((state) => state.posts.hasMore);
+  // const page = useSelector((state) => state.posts.page);
+  // const hasMore = useSelector((state) => state.posts.hasMore);
   const dispatch = useDispatch();
 
-  const fetchPosts = () => {
-    if (hasMore) {
-      dispatch(getPosts(page + 1));
-    }
-  };
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
@@ -46,7 +41,10 @@ export const Home = () => {
           />
         )}
         <CreatePost avatarUrl={accountUser.avatarUrl} />
-        <InfiniteScroll dataLength={posts.length} next={fetchPosts} hasMore={true}>
+        <InfiniteScroll
+          dataLength={posts.length}
+          next={useFetchPosts(getPosts)}
+          hasMore={true}>
           {renderPosts.map((post) => (
             <ItemPost
               key={post.id}

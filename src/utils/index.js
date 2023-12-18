@@ -15,3 +15,7 @@ export function capitalize(text) {
   if (text.length <= 1) return text.toUpperCase();
   return text[0].toUpperCase() + text.substr(1).toLowerCase();
 }
+
+export const sortByCreatedAt = (posts) => {
+  return posts.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+};
