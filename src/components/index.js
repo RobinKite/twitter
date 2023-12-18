@@ -27,3 +27,4 @@ export { CustomDateSelector } from "./CustomDateSelector/CustomDateSelector";
 export { WelcomeMessage } from "./WelcomeMessage/WelcomeMessage";
 export { NotificationItem } from "./NotificationItem/NotificationItem";
 export { CustomSelect } from "./CustomSelect/CustomSelect";
+export { HomePostsContainer } from "./HomePostsContainer/HomePostsContainer";

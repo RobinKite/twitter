@@ -31,13 +31,13 @@ const postsSlice = createSlice({
 
     addPost: (state, action) => {
       const newPost = action.payload;
-      console.log(newPost);
       if (newPost.type === PostType.TWEET) {
         state.myPosts.unshift(newPost);
         state.posts.unshift(newPost);
       }
       if (newPost.type === PostType.QUOTE) {
         state.myPosts.unshift(newPost);
+        state.posts.unshift(newPost);
       }
       if (newPost.type === PostType.REPLY) {
         const parentPostExistsInComments = state.postComments.some(
@@ -110,7 +110,6 @@ const postsSlice = createSlice({
     },
 
     addRepostedPosts: (state, action) => {
-      // state.repostedPosts.unshift(action.payload);
       state.repostedPosts = action.payload;
     },
 
@@ -269,7 +268,6 @@ export const getPosts = (page) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_ALL_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-    // console.log(response)
     dispatch(setPosts(response.data.content));
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -319,18 +317,3 @@ export const deletePost = (id) => async (dispatch) => {
     console.error("Сталася помилка при видаленні поста:", error);
   }
 };
-
-// export const {
-//   setPosts,
-//   addPost,
-//   deleteComment,
-//   deleteFromPost,
-//   getPostId,
-//   getPostComents,
-//   like,
-//   addComent,
-//   unlike,
-//   setMyPosts,
-//   setPopularPosts,
-// } = postsSlice.actions;
-// export default postsSlice.reducer;

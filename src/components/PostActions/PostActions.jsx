@@ -49,7 +49,6 @@ export function PostActions({ disable, openModal, post }) {
   };
 
   useEffect(() => {
-    // dispatch(getUserInfo());
     const fetchFile = async (imageUrl) => {
       try {
         const response = await fetch(imageUrl);

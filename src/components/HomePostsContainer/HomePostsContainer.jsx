@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { PostType } from "@/constants";
 import { addRepostedPosts } from "@/redux/slices/postsSlice";
 
-const HomePostsContainer = () => {
+export const HomePostsContainer = () => {
   const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
   const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
@@ -24,5 +24,3 @@ const HomePostsContainer = () => {
     </>
   );
 };
-
-export default HomePostsContainer;

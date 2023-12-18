@@ -1,16 +1,12 @@
-// import { useLoadPost } from "@/hooks/useLoadPost";
 import { Stack, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, CreatePost, WelcomeMessage } from "@/components";
+import { Container, CreatePost, HomePostsContainer, WelcomeMessage } from "@/components";
 import { homeHeaderSX } from "./stylesSX";
 import { getPosts } from "@/redux/slices/postsSlice";
 import { useEffect } from "react";
-import HomePostsContainer from "@/components/HomePostsContainer/HomePostsContainer";
 
 export const Home = () => {
   const accountUser = useSelector((state) => state.user.user);
-
-  // const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
 
   const dispatch = useDispatch();
 
@@ -18,11 +14,9 @@ export const Home = () => {
     dispatch(getPosts());
   }, [dispatch]);
 
-  console.log(accountUser);
-
   return (
     <Container>
-      <div style={{ border: "1px solid rgb(239, 243, 244)" }}>
+      <Stack sx={{ border: "1px solid rgb(239, 243, 244)" }}>
         <Stack sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
           <Typography variant="h2" component="h2" sx={homeHeaderSX}>
             Following
@@ -41,7 +35,7 @@ export const Home = () => {
         )}
         <CreatePost avatarUrl={accountUser.avatarUrl} />
         <HomePostsContainer />
-      </div>
+      </Stack>
     </Container>
   );
 };
