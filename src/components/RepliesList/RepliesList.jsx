@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NotificationTabContent } from "..";
 import { Stack } from "@mui/material";
-import ReplyItem from "../ReplyItem/ReplyItem";
+import ReplyItem from "../NotificationItem/ReplyItem";
 
 const RepliesList = () => {
   const dispatch = useDispatch();

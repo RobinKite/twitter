@@ -320,20 +320,16 @@ export const getNotifications = () => {
     try {
       let page = 0;
       let allNotifications = [];
-      let hasMore = true;
-      while (hasMore) {
+      let totalPages = 0;
+      do {
         const response = await client.get(Endpoint.GET_NOTIFICATIONS, {
           params: { page, pageSize: 12 },
         });
         const data = response.data.content;
-        if (data.length === 0) {
-          hasMore = false;
-        } else {
-          allNotifications = [...allNotifications, ...data];
-          page++;
-        }
-        // console.log(page);
-      }
+        totalPages = response.data.totalPages;
+        allNotifications = [...allNotifications, ...data];
+        page++;
+      } while (page < totalPages);
       dispatch(setNotifications(allNotifications));
     } catch (error) {
       console.log("Error fetching notifications", error);
@@ -344,7 +340,6 @@ export const getNotifications = () => {
 export const getNotificationsCount = () => {
   return (dispatch) => {
     client.get(Endpoint.GET_NOTIFICATIONS_COUNT).then((response) => {
-      // console.log(response);
       const data = response.data.count;
       dispatch(setNotificationsCount(data));
     });
