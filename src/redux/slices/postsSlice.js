@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { client } from "@/services";
-import { Endpoint } from "@/constants";
+import { Endpoint, PostType } from "@/constants";
 
 const postsSlice = createSlice({
   name: "posts",
@@ -10,6 +10,7 @@ const postsSlice = createSlice({
     selectedPost: null,
     postComments: [],
     myPosts: [],
+    repostedPosts: [],
     hasMore: true,
   },
   reducers: {
@@ -30,11 +31,15 @@ const postsSlice = createSlice({
 
     addPost: (state, action) => {
       const newPost = action.payload;
-      if (newPost.type === "TWEET") {
+      console.log(newPost);
+      if (newPost.type === PostType.TWEET) {
         state.myPosts.unshift(newPost);
         state.posts.unshift(newPost);
       }
-      if (newPost.type === "REPLY") {
+      if (newPost.type === PostType.QUOTE) {
+        state.myPosts.unshift(newPost);
+      }
+      if (newPost.type === PostType.REPLY) {
         const parentPostExistsInComments = state.postComments.some(
           (comment) => comment.id === newPost.parentPost?.id,
         );
@@ -102,6 +107,11 @@ const postsSlice = createSlice({
       state.postComments = state.postComments.filter(
         (post) => post.id !== postIdToDelete,
       );
+    },
+
+    addRepostedPosts: (state, action) => {
+      // state.repostedPosts.unshift(action.payload);
+      state.repostedPosts = action.payload;
     },
 
     getPostId: (state, action) => {
@@ -190,6 +200,7 @@ export const {
   unlike,
   setMyPosts,
   resetPosts,
+  addRepostedPosts,
   //   setPopularPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
@@ -294,18 +305,6 @@ export const addPosts = (formData) => async (dispatch) => {
     const response = await client.post(Endpoint.CREATE_POST, formData);
     const data = response.data;
     dispatch(addPost(data));
-  } catch (error) {
-    console.log("ERROR", error);
-  }
-};
-
-export const createRepostPost = (parentPostId) => async (dispatch) => {
-  console.log(parentPostId);
-  try {
-    const response = await client.post(Endpoint.CREATE_POST, parentPostId);
-    console.log(response);
-    const data = response.data;
-    // dispatch(addPost(data));
   } catch (error) {
     console.log("ERROR", error);
   }

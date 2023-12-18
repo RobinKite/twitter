@@ -1,4 +1,8 @@
-import { addBookmarkPost, deleteBookmarkPost } from "@/redux/slices/userSlice";
+import {
+  addBookmarkPost,
+  deleteBookmarkPost,
+  getUserInfo,
+} from "@/redux/slices/userSlice";
 import { IconButton, MenuItem, Stack, Typography } from "@mui/material";
 import {
   likeCountSX,
@@ -8,12 +12,7 @@ import {
 } from "../ItemPost/styleSX";
 import { Bookmark, BookmarkFilled, Like, LikeFalse, Reply, Repost } from "@/icons";
 import { CustomSelect } from "..";
-import {
-  addPost,
-  deleteRepostedPost,
-  handleLike,
-  handleUnlike,
-} from "@/redux/slices/postsSlice";
+import { deletePost, handleLike, handleUnlike } from "@/redux/slices/postsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
@@ -21,14 +20,22 @@ import usePostData from "@/hooks/usePostData";
 import { PostType } from "@/constants";
 
 export function PostActions({ disable, openModal, post }) {
-  const { id, likeCount, liked, replyCount, bookmarked, body: content, imageUrls } = post;
+  const {
+    id,
+    likeCount,
+    liked,
+    replyCount,
+    bookmarked,
+    body: content,
+    imageUrls,
+    user: { id: userId },
+  } = post;
   const dispatch = useDispatch();
   const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
   const [isMenuRepostOpen, setIsMenuRepostOpen] = useState(false);
   const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, null, id);
-  const repostedPosts = useSelector((state) => state.posts.repostPosts);
-
-  // console.log(repostedPosts);
+  const accountUser = useSelector((state) => state.user.user);
+  const isReposted = post.type === PostType.QUOTE;
 
   const handleBookmarkClick = (postId) => {
     isBookmarkedPost
@@ -38,19 +45,15 @@ export function PostActions({ disable, openModal, post }) {
   };
 
   const handleRepostClick = () => {
-    const isDeleteRepostedPost = repostedPosts?.findIndex(
-      (repostPost) => repostPost.id === id,
-    );
-
-    if (repostedPosts?.length && isDeleteRepostedPost !== -1) {
+    if (!(isReposted && accountUser?.id === userId)) {
       submit();
-      dispatch(addPost(post));
-    } else {
-      dispatch(deleteRepostedPost(post));
+    } else if (isReposted && accountUser?.id === userId) {
+      dispatch(deletePost(id));
     }
   };
 
   useEffect(() => {
+    dispatch(getUserInfo());
     const fetchFile = async (imageUrl) => {
       try {
         const response = await fetch(imageUrl);
@@ -85,14 +88,22 @@ export function PostActions({ disable, openModal, post }) {
             </IconButton>
             <Typography component="span">{replyCount}</Typography>
           </Stack>
-          <Stack direction="row">
-            <IconButton sx={tweetRepostSX} onClick={() => setIsMenuRepostOpen(true)}>
-              <Repost />
-            </IconButton>
-          </Stack>
-          <CustomSelect open={isMenuRepostOpen} onClose={setIsMenuRepostOpen}>
+          <IconButton sx={tweetRepostSX} onClick={() => setIsMenuRepostOpen(true)}>
+            <Repost
+              fill={
+                isReposted && accountUser?.id === userId
+                  ? "hsl(134, 66%, 57%)"
+                  : "#536471"
+              }
+            />
+          </IconButton>
+          <CustomSelect
+            open={isMenuRepostOpen}
+            onClose={setIsMenuRepostOpen}
+            customStyles={{ width: "100%", fontSize: "15px", gap: "12px" }}>
             <MenuItem onClick={handleRepostClick}>
-              <Repost fill="#000000de" /> Repost
+              <Repost fill="#000000de" />
+              {isReposted && accountUser?.id === userId ? "Undo repost" : "Repost"}
             </MenuItem>
           </CustomSelect>
           <Stack sx={likeCountSX}>
@@ -115,7 +126,7 @@ export function PostActions({ disable, openModal, post }) {
             {isBookmarkedPost ? (
               <BookmarkFilled style={{ fill: "hsl(201, 79%, 48%)" }} />
             ) : (
-              <Bookmark />
+              <Bookmark fill="#536471" />
             )}
           </IconButton>
         </>

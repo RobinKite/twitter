@@ -10,6 +10,7 @@ import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
 
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
+import { PostType } from "@/constants";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -22,6 +23,7 @@ export function Profile() {
   const user = useSelector((state) => state.user.user);
   const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
+  const repostPosts = posts.filter((post) => post.type === PostType.QUOTE);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -93,8 +95,14 @@ export function Profile() {
             ))}
           </TabPanel>
 
-          <TabPanel value="1">Replies</TabPanel>
-          <TabPanel value="2">
+          <TabPanel value="1" sx={{ padding: 0 }}>
+            {repostPosts.length ? (
+              repostPosts.map((post) => <ItemPost key={post.id} post={post} />)
+            ) : (
+              <>You don&apos;t have any reposts yet</>
+            )}
+          </TabPanel>
+          <TabPanel value="2" sx={{ padding: 0 }}>
             {
               likedPosts.length ? (
                 likedPosts.map((post) => <ItemPost key={post.id} post={post} />)

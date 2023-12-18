@@ -105,7 +105,7 @@ export function ItemPost({ post, disable }) {
           }>
           <Repost />
           <Typography component="span">
-            {accountUser?.fullName === fullName ? "You" : fullName} reposted
+            {accountUser?.id === postUser.id ? "You" : fullName} reposted
           </Typography>
         </Typography>
       )}

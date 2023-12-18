@@ -3,8 +3,9 @@ import { Stack, Typography } from "@mui/material";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { Container, CreatePost, ItemPost, WelcomeMessage } from "@/components";
 import { homeHeaderSX } from "./stylesSX";
-import { getPosts } from "@/redux/slices/postsSlice";
+import { addRepostedPosts, getPosts } from "@/redux/slices/postsSlice";
 import { useEffect } from "react";
+import { PostType } from "@/constants";
 
 export const Home = () => {
   const accountUser = useSelector((state) => state.user.user);
@@ -12,13 +13,14 @@ export const Home = () => {
   // const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
   const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
   const renderPosts = accountUser.following ? posts : popularPosts;
-  const dispatch = useDispatch();
 
-  // console.log(renderPosts);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [dispatch]);
+    const repostPosts = posts.filter((post) => post.type === PostType.QUOTE);
+    dispatch(addRepostedPosts(repostPosts));
+  }, [dispatch, posts]);
 
   return (
     <Container>

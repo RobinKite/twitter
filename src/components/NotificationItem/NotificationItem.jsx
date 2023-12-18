@@ -85,7 +85,7 @@ export const NotificationItem = ({ notification }) => {
           </Stack>
         </ContainerSX>
       )}
-      {notification.type === PostType.TWEET && (
+      {notification.type === PostType.QUOTE && (
         <ContainerSX
           direction="row"
           onClick={() => handleClick(initiator.id)}
