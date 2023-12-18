@@ -8,7 +8,7 @@ export const HomePostsContainer = () => {
   const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
   const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
-  const renderPosts = accountUser.following ? posts : popularPosts;
+  const renderPosts = !accountUser.following && !posts.length ? popularPosts : posts;
   const repostPosts = posts.filter((post) => post.type === PostType.QUOTE);
   const dispatch = useDispatch();
 
