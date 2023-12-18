@@ -49,7 +49,10 @@ const AccountMenu = () => {
           userTag={user.userTag}>
           <MoreMenu size={18} color="#0f1419" style={{ display: "block" }} />
         </UserCard>
-        <CustomSelect open={isMenuOpen} onClose={setIsMenuOpen}>
+        <CustomSelect
+          open={isMenuOpen}
+          onClose={setIsMenuOpen}
+          customStyles={{ width: "300px", fontSize: "15px" }}>
           <MenuItem onClick={handleLogoutClick}>
             Log out @{user.userTag || user.fullName}
           </MenuItem>

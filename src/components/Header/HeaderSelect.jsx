@@ -6,7 +6,10 @@ import { CustomSelect } from "..";
 
 const HeaderSelect = ({ open, onClose }) => {
   return (
-    <CustomSelect open={open} onClose={onClose}>
+    <CustomSelect
+      open={open}
+      onClose={onClose}
+      customStyles={{ width: "318px", fontSize: 20, gap: 3 }}>
       <MenuItem component={Link} to="/settings">
         <Gear size={22} />
         Settings
