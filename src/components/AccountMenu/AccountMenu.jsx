@@ -73,7 +73,8 @@ const AccountMenu = () => {
                 theme.palette.mode === "light"
                   ? theme.palette.light.secondary
                   : theme.palette.dark.light_grey,
-
+              boxShadow: (theme) =>
+                `0 0 15px ${theme.palette[theme.palette.mode].box_shadow}`,
               "&.Mui-selected": {
                 backgroundColor: (theme) => theme.palette[theme.palette.mode].primary,
               },

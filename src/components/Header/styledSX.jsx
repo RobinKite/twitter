@@ -122,6 +122,7 @@ export const moreSelectMenuPropsSX = {
     sx: {
       position: "absolute",
       borderRadius: 5,
+
       "& .css-6hp17o-MuiList-root-MuiMenu-list": {
         paddingTop: 0,
         paddingBottom: 0,

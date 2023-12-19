@@ -12,7 +12,8 @@ export const theme = createTheme({
       banner: "#cfd9de",
       hover: "#00000050",
       hover_accent: "#1a8cd8",
-      box_shadow: "#65778620",
+      // box_shadow: "#657786",
+      box_shadow: "#303030",
     },
     dark: {
       primary: "#000000",
@@ -25,7 +26,7 @@ export const theme = createTheme({
       banner: "#333639",
       hover: "#16181C",
       hover_accent: "#1a8cd8",
-      box_shadow: "",
+      box_shadow: "#e0e0e0",
     },
     common: {
       primary: "#536471", //grey (text+border)

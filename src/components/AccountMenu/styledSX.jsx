@@ -25,9 +25,6 @@ export const moreSelectSX = {
   overflow: "hidden",
   whiteSpace: "nowrap",
   width: "1px",
-  // boxShadowWidth:"15px",
-  // boxShadowColor:(theme)=>theme.palette.light.box_shadow,
-  boxShadow: (theme) => `0 0 15px ${theme.palette[theme.palette.mode].box_shadow}`,
 };
 
 export const moreSelectMenuPropsSX = {
@@ -40,7 +37,7 @@ export const moreSelectMenuPropsSX = {
       position: "absolute",
       borderRadius: 4,
       marginTop: -8,
-
+      boxShadow: (theme) => `0 0 15px ${theme.palette[theme.palette.mode].box_shadow}`,
       "& .css-6hp17o-MuiList-root-MuiMenu-list": {
         paddingTop: 0,
         paddingBottom: 0,
