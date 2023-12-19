@@ -89,7 +89,6 @@ export function DisplayModal({ open, onClose }) {
                     value="Default"
                     name="radio-buttons"
                     inputProps={{ "aria-label": "Default" }}
-                    defaultChecked
                     onChange={handleChange}
                     sx={{
                       "& .MuiSvgIcon-root ": {
@@ -131,7 +130,6 @@ export function DisplayModal({ open, onClose }) {
                     value="Light out"
                     name="radio-buttons"
                     inputProps={{ "aria-label": "Light out" }}
-                    defaultChecked
                     onChange={handleChange}
                     sx={{
                       "& .MuiSvgIcon-root ": {
