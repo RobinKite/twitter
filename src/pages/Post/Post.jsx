@@ -48,18 +48,7 @@ export const Post = () => {
       </HeaderPage>
       {post ? (
         <div>
-          <ItemPost
-            postUser={post.user}
-            avatarUrl={post.user.avatarUrl}
-            fullName={post.user.fullName}
-            key={post.id}
-            content={post.body}
-            imageUrls={post.imageUrls}
-            id={post.id}
-            likeCount={post.likeCount}
-            liked={post.liked}
-            replyCount={post.replyCount}
-          />
+          <ItemPost key={post.id} post={post} />
         </div>
       ) : (
         <div>The post is deleted</div>
@@ -67,19 +56,8 @@ export const Post = () => {
 
       <CommentPost id={id} />
       {/* .sort(compareByDate) */}
-      {postComments?.map((e) => (
-        <ItemPost
-          postUser={e.user}
-          replyCount={e.replyCount}
-          key={e.id}
-          content={e.body}
-          imageUrls={e.imageUrls}
-          id={e.id}
-          likeCount={e.likeCount}
-          liked={e.liked}
-          avatarUrl={e.user.avatarUrl}
-          fullName={e.user.fullName}
-        />
+      {postComments?.map((post) => (
+        <ItemPost key={post.id} post={post} />
       ))}
     </Container>
   );

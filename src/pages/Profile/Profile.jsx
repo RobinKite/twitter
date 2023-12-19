@@ -7,11 +7,12 @@ import { Container as AppContainer } from "@/components";
 import { getUserInfo } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
+import { PostType } from "@/constants";
 import LikedPosts from "@/components/LikedPosts/LikedPosts";
 
 const tabs = [
   { label: "Post", value: "0" },
-  // { label: "Replies", value: "1" },
+  { label: "Replies", value: "1" },
   { label: "Likes", value: "2" },
 ];
 
@@ -19,7 +20,9 @@ export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.myPosts);
+  const repostPosts = posts.filter((post) => post.type === PostType.QUOTE);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getUserInfo());
     dispatch(getMyPosts());
@@ -80,23 +83,18 @@ export function Profile() {
           }}>
           <TabPanel value="0" sx={{ padding: 0 }}>
             {posts.map((post) => (
-              <ItemPost
-                key={post.id}
-                postUser={post.user}
-                avatarUrl={user.avatarUrl}
-                fullName={user.fullName}
-                replyCount={post.replyCount}
-                id={post.id}
-                content={post.body}
-                likeCount={post.likeCount}
-                liked={post.liked}
-                imageUrls={post.imageUrls}
-              />
+              <ItemPost key={post.id} post={post} />
             ))}
           </TabPanel>
 
-          {/* <TabPanel value="1">Replies</TabPanel> */}
-          <TabPanel value="2">
+          <TabPanel value="1" sx={{ padding: 0 }}>
+            {repostPosts.length ? (
+              repostPosts.map((post) => <ItemPost key={post.id} post={post} />)
+            ) : (
+              <>You don&apos;t have any reposts yet</>
+            )}
+          </TabPanel>
+          <TabPanel value="2" sx={{ padding: 0 }}>
             <LikedPosts currentUser={false} />
           </TabPanel>
         </ProfileTabs>

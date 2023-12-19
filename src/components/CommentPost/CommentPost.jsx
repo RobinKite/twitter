@@ -22,12 +22,10 @@ export const CommentPost = ({
 
 CommentPost.propTypes = {
   closeModal: PropTypes.func,
-  // updateComment: PropTypes.func,
   avatarUrl: PropTypes.string,
   id: PropTypes.string,
 };
 
 CommentPost.defaultProps = {
   closeModal: () => {},
-  // updateComment: () => {},
 };

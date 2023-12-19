@@ -7,7 +7,4 @@ export const ContainerSX = styled(Stack)({
   borderBottom: "0.6px solid #eff3f4",
   cursor: "pointer",
   gap: "12px",
-  "&:hover": {
-    backgroundColor: "#00000006",
-  },
 });

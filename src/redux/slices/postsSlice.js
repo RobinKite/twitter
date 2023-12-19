@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { client } from "@/services";
-import { Endpoint } from "@/constants";
+import { Endpoint, PostType } from "@/constants";
 
 const postsSlice = createSlice({
   name: "posts",
@@ -10,6 +10,7 @@ const postsSlice = createSlice({
     selectedPost: null,
     postComments: [],
     myPosts: [],
+    repostedPosts: [],
     hasMore: true,
   },
   reducers: {
@@ -30,11 +31,15 @@ const postsSlice = createSlice({
 
     addPost: (state, action) => {
       const newPost = action.payload;
-      if (newPost.type === "TWEET") {
+      if (newPost.type === PostType.TWEET) {
         state.myPosts.unshift(newPost);
         state.posts.unshift(newPost);
       }
-      if (newPost.type === "REPLY") {
+      if (newPost.type === PostType.QUOTE) {
+        state.myPosts.unshift(newPost);
+        state.posts.unshift(newPost);
+      }
+      if (newPost.type === PostType.REPLY) {
         const parentPostExistsInComments = state.postComments.some(
           (comment) => comment.id === newPost.parentPost?.id,
         );
@@ -102,6 +107,14 @@ const postsSlice = createSlice({
       state.postComments = state.postComments.filter(
         (post) => post.id !== postIdToDelete,
       );
+    },
+
+    setPopularPosts: (state, action) => {
+      state.popularPosts = action.payload;
+    },
+
+    addRepostedPosts: (state, action) => {
+      state.repostedPosts = action.payload;
     },
 
     getPostId: (state, action) => {
@@ -190,7 +203,8 @@ export const {
   unlike,
   setMyPosts,
   resetPosts,
-  //   setPopularPosts,
+  addRepostedPosts,
+  setPopularPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
 
@@ -258,24 +272,23 @@ export const getPosts = (page) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_ALL_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-    // console.log(response)
     dispatch(setPosts(response.data.content));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
 };
 
-// export const getPopularPosts = (page) => async (dispatch) => {
-//   try {
-//     const response = await client.get(Endpoint.GET_POPULAR_POSTS, {
-//       params: { page: page, pageSize: 12 },
-//     });
+export const getPopularPosts = (page) => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.GET_POPULAR_POSTS, {
+      params: { page: page, pageSize: 12 },
+    });
 
-//     dispatch(setPopularPosts(response.data.content));
-//   } catch (error) {
-//     console.error("Error fetching posts:", error);
-//   }
-// };
+    dispatch(setPopularPosts(response.data.content));
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+};
 
 export const getMyPosts = (page) => async (dispatch) => {
   try {
@@ -308,18 +321,3 @@ export const deletePost = (id) => async (dispatch) => {
     console.error("Сталася помилка при видаленні поста:", error);
   }
 };
-
-// export const {
-//   setPosts,
-//   addPost,
-//   deleteComment,
-//   deleteFromPost,
-//   getPostId,
-//   getPostComents,
-//   like,
-//   addComent,
-//   unlike,
-//   setMyPosts,
-//   setPopularPosts,
-// } = postsSlice.actions;
-// export default postsSlice.reducer;

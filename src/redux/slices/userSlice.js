@@ -320,13 +320,24 @@ export const getAllBookmarkPosts = () => async (dispatch) => {
 };
 
 export const getNotifications = () => {
-  return (dispatch) => {
-    client
-      .get(Endpoint.GET_NOTIFICATIONS, { params: { page: 0, pageSize: 12 } })
-      .then((response) => {
+  return async (dispatch) => {
+    try {
+      let page = 0;
+      let allNotifications = [];
+      let totalPages = 0;
+      do {
+        const response = await client.get(Endpoint.GET_NOTIFICATIONS, {
+          params: { page, pageSize: 12 },
+        });
         const data = response.data.content;
-        dispatch(setNotifications(data));
-      });
+        totalPages = response.data.totalPages;
+        allNotifications = [...allNotifications, ...data];
+        page++;
+      } while (page < totalPages);
+      dispatch(setNotifications(allNotifications));
+    } catch (error) {
+      console.log("Error fetching notifications", error);
+    }
   };
 };
 

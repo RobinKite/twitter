@@ -5,11 +5,11 @@ export const WrapperAccountMenuSX = {
   justifyContent: "space-between",
   // gap: "20px",
   cursor: "pointer",
-
   marginTop: "auto",
   marginBottom: "12px",
   transition: "background-color 200ms linear",
   overflow: "hidden",
+  width: "100%",
 
   "&:hover": {
     backgroundColor: "rgb(240, 240, 240)",

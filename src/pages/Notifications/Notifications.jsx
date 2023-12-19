@@ -4,10 +4,11 @@ import { NotificationTabContent, Container, ProfileTabs } from "@/components";
 import imageVerification from "@/assets/images/verification.png";
 import { title } from "./styleSX";
 import NotificationsList from "@/components/NotificationsList/NotificationsList";
+import RepliesList from "@/components/RepliesList/RepliesList";
 
 const tabs = [
   { label: "All", value: "0" },
-  { label: "Verified", value: "1" },
+  // { label: "Verified", value: "1" },
   { label: "Mentions", value: "2" },
 ];
 
@@ -31,18 +32,15 @@ export const Notifications = () => {
           <TabPanel value="0" sx={{ padding: 0 }}>
             <NotificationsList />
           </TabPanel>
-          <TabPanel value="1" sx={{ padding: 0 }}>
+          {/* <TabPanel value="1" sx={{ padding: 0 }}>
             <NotificationTabContent
               title="Nothing to see here — yet"
               imageUrl={imageVerification}
               text="Likes, mentions, reposts, and a whole lot more — when it comes from a verified account, you&#39;ll find it here."
             />
-          </TabPanel>
+          </TabPanel> */}
           <TabPanel value="2" sx={{ padding: 0 }}>
-            <NotificationTabContent
-              title="Nothing to see here — yet"
-              text="When someone mentions you, you&#39;ll find it here."
-            />
+            <RepliesList />
           </TabPanel>
         </ProfileTabs>
       </Stack>

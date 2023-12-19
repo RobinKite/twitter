@@ -24,8 +24,8 @@ export const UserCard = ({
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
       {(isInModal || (!isMobile && !isTablet)) && (
         <>
-          <Stack overflow="hidden" sx={{ marginRight: "auto", marginLeft: "auto" }}>
-            <Typography fontWeight={700} variant="subtitle1" noWrap={true} align="left">
+          <Stack overflow="hidden" sx={{ marginRight: "auto" }}>
+            <Typography fontWeight={700} variant="subtitle1" noWrap={true}>
               {fullName}
             </Typography>
             <Typography variant="body2" color="textSecondary" align="left">

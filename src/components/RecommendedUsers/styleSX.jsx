@@ -5,6 +5,7 @@ export const userCardSX = {
   alignItems: "center",
   padding: "6px 8px",
   transition: "background-color 200ms linear",
+  flex: 1,
   // width: "100%",
 
   "&:hover": {
