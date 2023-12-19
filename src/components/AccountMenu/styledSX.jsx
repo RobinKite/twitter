@@ -1,14 +1,13 @@
 export const WrapperAccountMenuSX = {
-  // mr: "10px",
   borderRadius: "30px",
   alignItems: "center",
   justifyContent: "space-between",
-  // gap: "20px",
   cursor: "pointer",
   marginTop: "auto",
   marginBottom: "12px",
   transition: "background-color 200ms linear",
   overflow: "hidden",
+  marginRight: "0.425rem",
   width: "100%",
 
   "&:hover": {

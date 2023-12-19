@@ -10,9 +10,6 @@ const usePostData = (type, callback, parentPostId) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   const dispatch = useDispatch();
-
-  // Creation of an object with post data
-
   const formData = new FormData();
 
   const submit = () => {
@@ -43,7 +40,6 @@ const usePostData = (type, callback, parentPostId) => {
     // }
   };
 
-  // Drawing emoticons
   const onEmojiClick = (event) => {
     setInputStr((prevInput) => {
       return (prevInput += event.emoji);

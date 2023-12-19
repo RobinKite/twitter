@@ -28,7 +28,19 @@ import { PostActions } from "../PostActions/PostActions";
 import { PostType } from "@/constants";
 
 export function ItemPost({ post, disable }) {
-  // console.log(post);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const profileUser = useSelector((state) => state.user.user);
+  const accountUser = useSelector((state) => state.user.user);
+
+  if (!post) {
+    return null;
+  }
+
   const {
     body: content,
     imageUrls,
@@ -37,14 +49,9 @@ export function ItemPost({ post, disable }) {
     type,
     parentPost,
   } = post;
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = useState(null);
+
   const open = Boolean(anchorEl);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const profileUser = useSelector((state) => state.user.user);
   const isRepost = type === PostType.QUOTE;
-  const accountUser = useSelector((state) => state.user.user);
 
   // useEffect(() => {
   //   dispatch(getUserInfo());
@@ -138,14 +145,24 @@ export function ItemPost({ post, disable }) {
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "center",
+                    horizontal: "right",
+                  }}
                   sx={{
                     "& .css-6hp17o-MuiList-root-MuiMenu-list": {
                       paddingTop: 0,
                       paddingBottom: 0,
                     },
                   }}>
-                  <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
-                    <Delete fill="red" />
+                  <MenuItem
+                    onClick={handleDeletePost}
+                    sx={{ fontWeight: 500, color: "red" }}>
+                    <Delete fill="red" style={{ marginRight: "0.25rem" }} />
                     Delete
                   </MenuItem>
                 </Menu>
@@ -155,7 +172,7 @@ export function ItemPost({ post, disable }) {
           <Typography sx={tweetContentSX} onClick={fonnClick}>
             {content}
           </Typography>
-          {imageUrls.length > 0 && (
+          {imageUrls?.length > 0 && (
             <Stack
               sx={
                 imageUrls.length > 1

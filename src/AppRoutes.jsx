@@ -1,12 +1,26 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { Registration, Home, Notifications, Post, Profile, Messages } from "@/pages";
-import { Settings, Bookmarks } from "@/pages";
-import { CurrentUser } from "./pages/СurrentUser/CurrenUser";
-import Timer from "./pages/Timer/Timer";
+import { CurrentUser, Settings, Bookmarks, Timer } from "@/pages";
+import { Loader } from "@/components";
+import { storage } from "@/services";
+import { fetchUser } from "@/redux/slices/userSlice";
+import { setIsLoading } from "@/redux/slices/appSlice";
 
 export default function AppRoutes() {
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const isAuthenticated = Object.keys(user).length !== 0;
+  const isLoading = useSelector((state) => state.app.isLoading);
+
+  useEffect(() => {
+    const value = !!storage.accessToken;
+    dispatch(setIsLoading(value));
+    if (storage.accessToken || storage.refreshToken) dispatch(fetchUser());
+  }, [dispatch]);
+
+  if (isLoading) return <Loader />;
 
   if (!isAuthenticated) {
     return (
@@ -16,6 +30,7 @@ export default function AppRoutes() {
       </Routes>
     );
   }
+
   return (
     <Routes>
       <Route path="/" element={<Timer />}>

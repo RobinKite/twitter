@@ -5,6 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const appSlice = createSlice({
   name: "app",
   initialState: {
+    isLoading: true,
     isLoginModalActive: false,
     isProfileModalActive: false,
     isPostModalActive: false,
@@ -36,6 +37,9 @@ const appSlice = createSlice({
     setIsChangePasswordModalActive: (state, action) => {
       state.isChangePasswordModalActive = action.payload;
     },
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
@@ -46,6 +50,7 @@ export const {
   setContent,
   setDrawer,
   setPasswordMessage,
+  setIsLoading,
   setIsChangePasswordModalActive,
 } = appSlice.actions;
 export default appSlice.reducer;

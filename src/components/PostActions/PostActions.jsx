@@ -119,9 +119,9 @@ export function PostActions({ disable, openModal, post }) {
           </Stack>
           <IconButton sx={replyCountSX} onClick={() => handleBookmarkClick(id)}>
             {isBookmarkedPost ? (
-              <BookmarkFilled style={{ fill: "hsl(201, 79%, 48%)" }} />
+              <BookmarkFilled style={{ fill: "#1a97db" }} />
             ) : (
-              <Bookmark fill="#536471" />
+              <Bookmark style={{ fill: "#536471" }} />
             )}
           </IconButton>
         </>

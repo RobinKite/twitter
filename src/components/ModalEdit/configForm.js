@@ -3,9 +3,6 @@ export const formFields = [
   { name: "bio", label: "Bio", rows: 3, maxLength: 100 },
   { name: "location", label: "Location", rows: 1, maxLength: 55 },
   { name: "userTag", label: "Tag", rows: 1, maxLength: 55 },
-  // { name: "day", label: "Day", rows: 1, maxLength: 55 },
-  // { name: "month", label: "Month", rows: 1, maxLength: 55 },
-  // { name: "year", label: "Year", rows: 1, maxLength: 55 },
 ];
 
 export const configDateForm = [
@@ -32,12 +29,11 @@ export const configDateForm = [
     name: "day",
     label: "day",
     rows: 1,
-    // options: Array.from({ length: 31 }, (_, i) => i + 1),
   },
   {
     name: "year",
     label: "year",
     rows: 1,
-    options: Array.from({ length: 112 }, (_, i) => 1910 + i), // Генерируем годы
+    options: Array.from({ length: 112 }, (_, i) => 1910 + i),
   },
 ];

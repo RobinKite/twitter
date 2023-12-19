@@ -6,7 +6,7 @@ import { getCurrentLikedPosts } from "@/redux/slices/currentUser";
 import { getLikedPosts } from "@/redux/slices/userSlice";
 import { ItemPost } from "..";
 
-function LikedPosts({ id, currentUser }) {
+export function LikedPosts({ id, currentUser }) {
   const dispatch = useDispatch();
   const likedPosts = useSelector((state) =>
     currentUser ? state.currentUser.currentLikedPosts : state.user.likedPosts,
@@ -30,8 +30,6 @@ function LikedPosts({ id, currentUser }) {
     </>
   );
 }
-
-export default LikedPosts;
 
 LikedPosts.propTypes = {
   id: PropTypes.string,

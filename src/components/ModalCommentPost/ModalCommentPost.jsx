@@ -1,11 +1,12 @@
 import Modal from "@mui/material/Modal";
-import { CommentPost, ItemPost } from "..";
+import { CommentPost, ItemPost } from "@/components";
+import { PostType } from "@/constants";
 import { Cross } from "@/icons";
 import styles from "../PostModal/PostModal.module.scss";
 import PropTypes from "prop-types";
 import { ModalBody } from "./styleSX";
 
-export function ModalCommentPost({ isOpen, closeModal, id, avatarUrl, fullName, post }) {
+export function ModalCommentPost({ isOpen, closeModal, id, post }) {
   return (
     <div>
       <Modal open={isOpen}>
@@ -20,8 +21,9 @@ export function ModalCommentPost({ isOpen, closeModal, id, avatarUrl, fullName, 
             <CommentPost
               id={id}
               closeModal={closeModal}
-              avatarUrl={avatarUrl}
-              fullName={fullName}
+              placeholder="Post your reply"
+              buttonName="Reply"
+              type={PostType.REPLY}
             />
           </div>
         </ModalBody>

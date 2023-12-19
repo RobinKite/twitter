@@ -2,13 +2,11 @@ import TabPanel from "@mui/lab/TabPanel";
 import { Container } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProfileTabs, ItemPost } from "@/components";
+import { ProfileTabs, ItemPost, ProfileUser, LikedPosts } from "@/components";
 import { Container as AppContainer } from "@/components";
 import { useParams } from "react-router-dom";
 import { getCurrentPosts, getCurrentUser } from "@/redux/slices/currentUser";
-import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import { resetPosts } from "@/redux/slices/postsSlice";
-import LikedPosts from "@/components/LikedPosts/LikedPosts";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -18,13 +16,8 @@ const tabs = [
 
 export function CurrentUser() {
   const { id } = useParams();
-
-  const user = useSelector((state) => state.currentUser.user);
-  const posts = useSelector((state) => state.currentUser.currentPosts);
-
   const dispatch = useDispatch();
-
-  // useLoadPost(getCurrentPosts);
+  const posts = useSelector((state) => state.currentUser.currentPosts);
 
   useEffect(() => {
     dispatch(resetPosts());
@@ -39,25 +32,7 @@ export function CurrentUser() {
           maxWidth="sm"
           disableGutters={true}
           sx={{ border: "1px solid rgb(239, 243, 244)" }}>
-          {user && (
-            <ProfileUser
-              id={user.id}
-              key={user.id}
-              fullName={user.fullName}
-              avatarUrl={user.avatarUrl}
-              imageUrl={user.imageUrl}
-              userTag={user.userTag}
-              bio={user.bio}
-              birthdate={user.birthdate}
-              following={user.following}
-              followers={user.followers}
-              isFollowedByUser={user.isFollowedByUser}
-              showFollowButton={true}
-              location={user.location}
-              createdAt={user.createdAt}
-            />
-          )}
-
+          <ProfileUser isSelf={false} />
           <ProfileTabs
             tabs={tabs}
             variant="scrollable"

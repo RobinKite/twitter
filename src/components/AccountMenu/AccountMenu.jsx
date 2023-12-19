@@ -1,24 +1,22 @@
 import { MenuItem, Stack, useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { ConfirmationDialog, CustomSelect } from "..";
-import { getUserInfo, logoutUserAction } from "@/redux/slices/userSlice";
+import { fetchUser, logoutUserAction } from "@/redux/slices/userSlice";
 import { useEffect, useState } from "react";
-import { MoreMenu } from "@/icons";
+import { More } from "@/icons";
 import { UserCard } from "../RecommendedUsers/RecommendedUsers";
-import { WrapperAccountMenuSX } from "./styledSX";
 import { storage } from "@/services";
+import { WrapperAccountMenuSX } from "./styledSX";
 
 const AccountMenu = () => {
   const dispatch = useDispatch();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
-
-  // const isTablet = useMediaQuery("(min-width: 768px) and (max-width:1023px)");
   const isMobile = useMediaQuery("(max-width: 767px)");
 
   useEffect(() => {
-    dispatch(getUserInfo());
+    dispatch(fetchUser());
   }, [dispatch]);
 
   const handleLogoutClick = () => {
@@ -47,7 +45,9 @@ const AccountMenu = () => {
           avatarUrl={user.avatarUrl}
           fullName={user.fullName}
           userTag={user.userTag}>
-          <MoreMenu size={18} color="#0f1419" style={{ display: "block" }} />
+          <Stack sx={{ flexGrow: 1, justifyContent: "center", marginLeft: "0.75rem" }}>
+            <More size={18.75} color="#0f1419" style={{ display: "block" }} />
+          </Stack>
         </UserCard>
         <CustomSelect
           open={isMenuOpen}

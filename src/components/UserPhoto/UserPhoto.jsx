@@ -52,9 +52,6 @@ export function UserPhoto({
   setFileForServer,
   setFileForServerAvatar,
 }) {
-  // const [image, setImage] = useState("");
-  // const [avatar, setAvatar] = useState("");
-  // const image = URL.createObjectURL(file)
   const handleFileChange = (e) => {
     const file = e.target.files[0];
 

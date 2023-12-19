@@ -1,7 +1,6 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
-import { KeyIcon } from "@/icons/custom/Key";
-import { Container } from "@/components";
-import { ChangePasswordModal } from "@/components/ChangePasswordModal/ChangePasswordModal";
+import { Button, Stack, Typography } from "@mui/material";
+import { Key } from "@/icons";
+import { Container, ChangePasswordModal } from "@/components";
 import { useDispatch } from "react-redux";
 import { setIsChangePasswordModalActive } from "@/redux/slices/appSlice";
 
@@ -10,11 +9,11 @@ export const Settings = () => {
 
   return (
     <Container>
-      <Box
+      <Stack
         sx={{
+          flexGrow: 1,
           borderRight: "1px solid #EFF3F4",
           borderLeft: "1px solid #EFF3F4",
-          height: "100vh",
         }}>
         <Typography
           variant="h1"
@@ -29,30 +28,29 @@ export const Settings = () => {
         </Typography>
         <Button
           variant="text"
+          disableFocusRipple={true}
           onClick={() => dispatch(setIsChangePasswordModalActive(true))}
           sx={{
-            width: "100%",
-            borderRadius: "0px",
-            textAlign: "begin",
+            display: "flex",
+            justifyContent: "start",
+            flexDirection: "row",
+            paddingInline: "1rem",
+            paddingBlock: "1.25rem",
+            alignItems: "center",
+            borderRadius: 0,
             color: "#0F1419",
-            fontSize: "16px",
-            marginTop: "20px",
+            fontSize: "1rem",
+            marginTop: "1rem",
+
             ":hover": {
               backgroundColor: "rgb(248, 248, 248)",
             },
           }}>
-          <Stack
-            sx={{
-              marginRight: "10px",
-              marginTop: "5px",
-            }}>
-            <KeyIcon />
-          </Stack>
-
-          <Typography sx={{ marginRight: "60%" }}>Change password</Typography>
+          <Key size={18.75} style={{ marginRight: "0.5rem" }} />
+          <Typography>Change password</Typography>
         </Button>
         <ChangePasswordModal />
-      </Box>
+      </Stack>
     </Container>
   );
 };

@@ -6,7 +6,6 @@ export { RecommendedUsers } from "./RecommendedUsers/RecommendedUsers";
 export { RecommendedUserCard } from "./RecommendedUsers/RecommendedUsers";
 export { ProfileTabs } from "./ProfileTabs/ProfileTabs";
 export { PostModal } from "./PostModal/PostModal";
-export { CreatePost } from "./CreatePost/CreatePost";
 export { Navigation } from "./Navigation/Navigation";
 export { ModalEdit } from "./ModalEdit/ModalEdit";
 export { ModalCommentPost } from "./ModalCommentPost/ModalCommentPost";
@@ -26,5 +25,9 @@ export { NotificationTabContent } from "./NotificationTabContent/NotificationTab
 export { CustomDateSelector } from "./CustomDateSelector/CustomDateSelector";
 export { WelcomeMessage } from "./WelcomeMessage/WelcomeMessage";
 export { NotificationItem } from "./NotificationItem/NotificationItem";
+export { Loader } from "./Loader/Loader";
 export { CustomSelect } from "./CustomSelect/CustomSelect";
 export { HomePostsContainer } from "./HomePostsContainer/HomePostsContainer";
+export { ChangePasswordModal } from "./ChangePasswordModal/ChangePasswordModal";
+export { ProfileUser } from "./ProfileUser/ProfileUser";
+export { LikedPosts } from "./LikedPosts/LikedPosts";

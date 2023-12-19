@@ -11,12 +11,8 @@ export const postButtonSX = {
     width: "50px",
     minWidth: 0,
     position: "fixed",
-
-    // "&:hover": {
-    //   backgroundColor: "#1a8cd8",
-
-    // },
   },
+
   tablet: {
     position: "unset",
     height: "50px",
@@ -26,6 +22,7 @@ export const postButtonSX = {
     borderRadius: "100%",
     alignSelf: "center",
   },
+
   desktop: {
     color: "#ffffff",
     boxShadow: "none",
@@ -35,7 +32,7 @@ export const postButtonSX = {
     fontWeight: 700,
     fontSize: "17px",
     padding: "11px 80px",
-    margin: "1rem 40px 0 4px",
+    margin: "1rem 2rem 0 0",
 
     "&:hover": {
       boxShadow: "none",

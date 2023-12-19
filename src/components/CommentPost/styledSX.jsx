@@ -1,5 +1,5 @@
-import TextField from "@mui/material/TextField";
 import { Stack, styled } from "@mui/material";
+import TextField from "@mui/material/TextField";
 import MuiButton from "@mui/material/Button";
 
 export const VisuallyHiddenInput = styled("input")({
@@ -26,21 +26,21 @@ export const InputField = styled(TextField)({
     lineHeight: 1.2,
   },
 });
+
 export const ButtonPost = styled(MuiButton)(({ theme }) => ({
   marginLeft: "12px",
   border: "1px solid #dadce0",
   borderRadius: "35px",
   padding: "0 16px",
   minHeight: "36px",
-
   backgroundColor: "rgb(29, 150, 240)",
-
   fontSize: "15px",
   fontWeight: 500,
   color: "white",
   textTransform: "capitalize",
 
   "&:hover": { backgroundColor: "#1a8cd8" },
+
   [theme.breakpoints.down("sm")]: {
     fontSize: 14,
   },
@@ -67,14 +67,3 @@ export const WrapperImgSX = styled(Stack)({
   paddingTop: "8px",
   fontSize: "15px",
 });
-
-export const conteinerFooterPostSX = {
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-};
-
-export const conteinerSvgPostSX = {
-  display: "flex",
-  flexDirection: "row",
-};
