@@ -7,7 +7,7 @@ export const Main = ({ children }) => {
   return (
     <Stack
       sx={{
-        flexDirection: "row",
+        // flexDirection: "row",
         ...(isMobile && { mt: "52px" }),
       }}>
       {children}
