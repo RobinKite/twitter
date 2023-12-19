@@ -35,4 +35,5 @@ export class Endpoint {
   static UPLOAD_BG_IMAGE = "/upload/bg_image";
   static GET_NOTIFICATIONS = "/notifications";
   static GET_NOTIFICATIONS_COUNT = "/notifications/count";
+  static CHANGE_PASSWORD = "/users/change-password";
 }

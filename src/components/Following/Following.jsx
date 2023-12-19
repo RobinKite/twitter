@@ -1,18 +1,10 @@
-import { getUserFollowing } from "@/redux/slices/userSlice";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useSelector } from "react-redux";
 import { RecommendedUserCard } from "../RecommendedUsers/RecommendedUsers";
 
-function Following({ id }) {
+function Following() {
   const usersFollowing = useSelector((state) => state.user.usersFollowing);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getUserFollowing(id));
-  }, [dispatch]);
+  console.log(usersFollowing);
 
   return (
     <>
@@ -26,6 +18,7 @@ function Following({ id }) {
             avatarUrl={user.avatarUrl}
             useButton={true}
             isFollowedByUser={user.isFollowedByUser}
+            isInModal={true}
           />
         ))}
     </>

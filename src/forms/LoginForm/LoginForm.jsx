@@ -13,7 +13,6 @@ export const LoginForm = () => {
     password: "",
   };
   const onSubmit = (values) => {
-    console.log(values);
     dispatch(loginUser(values.email, values.password));
   };
 

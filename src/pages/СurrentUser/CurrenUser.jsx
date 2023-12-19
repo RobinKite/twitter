@@ -5,13 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { ProfileTabs, ItemPost } from "@/components";
 import { Container as AppContainer } from "@/components";
 import { useParams } from "react-router-dom";
-import {
-  getCurrentLikedPosts,
-  getCurrentPosts,
-  getCurrentUser,
-} from "@/redux/slices/currentUser";
+import { getCurrentPosts, getCurrentUser } from "@/redux/slices/currentUser";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import { resetPosts } from "@/redux/slices/postsSlice";
+import LikedPosts from "@/components/LikedPosts/LikedPosts";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -24,7 +21,6 @@ export function CurrentUser() {
 
   const user = useSelector((state) => state.currentUser.user);
   const posts = useSelector((state) => state.currentUser.currentPosts);
-  const currentLikedPosts = useSelector((state) => state.currentUser.currentLikedPosts);
 
   const dispatch = useDispatch();
 
@@ -34,7 +30,6 @@ export function CurrentUser() {
     dispatch(resetPosts());
     dispatch(getCurrentUser(id));
     dispatch(getCurrentPosts(id));
-    dispatch(getCurrentLikedPosts(id));
   }, [dispatch, id]);
 
   return (
@@ -79,8 +74,7 @@ export function CurrentUser() {
             </TabPanel>
             {/* <TabPanel value="1">Replies</TabPanel> */}
             <TabPanel value="2" sx={{ padding: 0 }}>
-              {!!currentLikedPosts.length &&
-                currentLikedPosts.map((post) => <ItemPost key={post.id} post={post} />)}
+              <LikedPosts id={id} currentUser={true} />
             </TabPanel>
           </ProfileTabs>
         </Container>

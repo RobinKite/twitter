@@ -34,6 +34,7 @@ NavigationItem.propTypes = {
 
 export const Navigation = () => {
   const notificationsCount = useSelector((state) => state.user.notificationsCount);
+
   return (
     <nav className={styles.navigation}>
       <ul className={styles.list}>
