@@ -7,7 +7,7 @@ import { ArrowBack } from "@/icons";
 import { axiosPostComments, getPostById, resetPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { sortByCreatedAt } from "@/utils";
-// import { compareByDate } from "@/utils";
+import useInfinstyScroll from "@/hooks/useInfinstyScroll";
 
 const HeaderPage = styled(Box)(() => ({
   display: "flex",
@@ -19,8 +19,6 @@ const HeaderPage = styled(Box)(() => ({
 export const Post = () => {
   const { id } = useParams();
   const post = useSelector((state) => state.posts.selectedPost);
-  const hasMore = useSelector((state) => state.posts.hasMore);
-  const page = useSelector((state) => state.posts.page);
   const postComments = useSelector((state) => state.posts.postComments);
 
   const dispatch = useDispatch();
@@ -28,16 +26,11 @@ export const Post = () => {
   const redirectToPost = () => {
     navigate(`/`, { replace: true });
   };
-  const fetchPosts = () => {
-    if (hasMore) {
-      dispatch(axiosPostComments(id, page + 1));
-    }
-  };
 
   useEffect(() => {
     dispatch(resetPosts());
     dispatch(getPostById(id));
-    dispatch(axiosPostComments(id));
+    dispatch(axiosPostComments(null, id));
   }, [dispatch, id]);
 
   return (
@@ -69,8 +62,15 @@ export const Post = () => {
       )}
 
       <CommentPost id={id} />
-      {/* .sort(compareByDate) */}
-      <InfiniteScroll dataLength={postComments.length} next={fetchPosts} hasMore={true}>
+
+      <InfiniteScroll
+        dataLength={postComments.length}
+        next={useInfinstyScroll({
+          callback: axiosPostComments,
+          slice: "posts",
+          id: id,
+        })}
+        hasMore={true}>
         {sortByCreatedAt(postComments)?.map((e) => (
           <ItemPost
             postUser={e.user}

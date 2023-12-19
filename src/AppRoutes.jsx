@@ -2,7 +2,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Registration, Home, Notifications, Post, Profile, Messages } from "@/pages";
 import { Settings, Bookmarks } from "@/pages";
-import { CurrentUser } from "./pages/СurrentUser/CurrenUser";
+import { CurrentUser } from "./pages/СurrentUser/CurrentUser";
 import Timer from "./pages/Timer/Timer";
 
 export default function AppRoutes() {

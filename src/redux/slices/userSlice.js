@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { client, storage } from "@/services";
 import { Endpoint } from "@/constants";
 import { getBirthdayInSeconds } from "@/utils/date";
+import { setPostsTemplate } from "@/utils";
 
 const userSlice = createSlice({
   name: "user",
@@ -13,8 +14,7 @@ const userSlice = createSlice({
     friendRequests: [],
     friendSearches: [],
     likedPosts: [],
-    pageLiked: 0,
-    // currentLikedPosts: [],
+    page: 0,
     bookmarkPosts: [],
     usersFollowing: [],
     usersFollowers: [],
@@ -27,7 +27,7 @@ const userSlice = createSlice({
       state.likedPosts = [];
       state.notifications = [];
       state.bookmarkPosts = [];
-      // state.currentLikedPosts = [];
+      state.page = 0;
       state.hasMore = true;
     },
     usersFollowers: (state, action) => {
@@ -74,44 +74,11 @@ const userSlice = createSlice({
       state.friendSearches = [];
     },
     setLikedPosts: (state, action) => {
-      if (!action.payload.content || !action.payload.content.length) {
-        state.hasMore = false;
-      } else {
-        state.hasMore = true;
-        const uniquePosts = action.payload.content.filter((post) =>
-          state.likedPosts.every(
-            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
-          ),
-        );
-        if (uniquePosts.length && uniquePosts.length < 12) {
-          state.hasMore = false;
-        } else {
-          state.hasMore = true;
-        }
-        state.likedPosts = [...state.likedPosts, ...uniquePosts];
-        state.pageLiked = action.payload.number;
-      }
+      setPostsTemplate(state, action, "likedPosts");
     },
 
     setBookmarkPost: (state, action) => {
-      // state.bookmarkPosts = action.payload;
-      if (!action.payload.content || !action.payload.content.length) {
-        state.hasMore = false;
-      } else {
-        state.hasMore = true;
-        const uniquePosts = action.payload.content.filter((post) =>
-          state.bookmarkPosts.every(
-            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
-          ),
-        );
-        if (uniquePosts.length && uniquePosts.length < 12) {
-          state.hasMore = false;
-        } else {
-          state.hasMore = true;
-        }
-        state.bookmarkPosts = [...state.bookmarkPosts, ...uniquePosts];
-        state.pageLiked = action.payload.number;
-      }
+      setPostsTemplate(state, action, "bookmarkPosts");
     },
     removeBookmarkPost: (state, action) => {
       state.bookmarkPosts = state.bookmarkPosts.filter(
@@ -119,25 +86,7 @@ const userSlice = createSlice({
       );
     },
     setNotifications: (state, action) => {
-      // console.log(action.payload)
-      // state.notifications = action.payload.content;
-      if (!action.payload.content || !action.payload.content.length) {
-        state.hasMore = false;
-      } else {
-        state.hasMore = true;
-        const uniquePosts = action.payload.content.filter((post) =>
-          state.notifications.every(
-            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
-          ),
-        );
-        if (uniquePosts.length && uniquePosts.length < 12) {
-          state.hasMore = false;
-        } else {
-          state.hasMore = true;
-        }
-        state.notifications = [...state.notifications, ...uniquePosts];
-        state.pageLiked = action.payload.number;
-      }
+      setPostsTemplate(state, action, "notifications");
     },
     setNotificationsCount: (state, action) => {
       state.notificationsCount = action.payload;

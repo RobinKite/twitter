@@ -3,22 +3,21 @@ import { Stack, Typography } from "@mui/material";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { Container, CreatePost, ItemPost, WelcomeMessage } from "@/components";
 import { homeHeaderSX } from "./stylesSX";
-import { getPosts } from "@/redux/slices/postsSlice";
+import { getPosts, resetPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect } from "react";
-import useFetchPosts from "@/hooks/useFetchPosts";
+import useInfinstyScroll from "@/hooks/useInfinstyScroll";
 
 export const Home = () => {
   const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
-
   const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
   const renderPosts = accountUser.following ? posts : popularPosts;
-  // const page = useSelector((state) => state.posts.page);
-  // const hasMore = useSelector((state) => state.posts.hasMore);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(resetPosts());
     dispatch(getPosts());
   }, [dispatch]);
   return (
@@ -43,7 +42,7 @@ export const Home = () => {
         <CreatePost avatarUrl={accountUser.avatarUrl} />
         <InfiniteScroll
           dataLength={posts.length}
-          next={useFetchPosts(getPosts)}
+          next={useInfinstyScroll({ callback: getPosts, slice: "posts" })}
           hasMore={true}>
           {renderPosts.map((post) => (
             <ItemPost

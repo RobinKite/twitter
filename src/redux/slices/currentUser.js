@@ -1,5 +1,6 @@
 import { Endpoint } from "@/constants";
 import { client } from "@/services";
+import { setPostsTemplate } from "@/utils";
 import { createSlice } from "@reduxjs/toolkit";
 
 const currentUserSlice = createSlice({
@@ -9,7 +10,7 @@ const currentUserSlice = createSlice({
     currentPosts: [],
     currentLikedPosts: [],
     hasMore: true,
-    pageCurrent: 0,
+    page: 0,
   },
   reducers: {
     setCurrentUser: (state, action) => {
@@ -18,63 +19,15 @@ const currentUserSlice = createSlice({
     resetPosts: (state) => {
       state.currentLikedPosts = [];
       state.currentPosts = [];
+      state.page = 0;
       state.hasMore = true;
     },
     setCurrentPosts: (state, action) => {
-      if (!action.payload.content || !action.payload.content.length) {
-        state.hasMore = false;
-      } else {
-        state.hasMore = true;
-        const uniquePosts = action.payload.content.filter((post) =>
-          state.currentPosts.every(
-            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
-          ),
-        );
-        if (uniquePosts.length && uniquePosts.length < 12) {
-          state.hasMore = false;
-        } else {
-          state.hasMore = true;
-        }
-
-        state.currentPosts = [...state.currentPosts, ...uniquePosts];
-        state.pageCurrent = action.payload.number;
-      }
+      setPostsTemplate(state, action, "currentPosts");
     },
-    // setCurrentPosts: (state, action) => {
-    //   if (!action.payload || !action.payload.length) {
-    //     state.hasMore = false;
-    //     state.currentPosts = [];
-    //   } else {
-    //     state.hasMore = true;
-    //     if (action.payload.length && action.payload.length < 12) {
-    //       state.hasMore = false;
-    //     } else {
-    //       state.hasMore = true;
-    //     }
-    //     // Перезаписати state.currentPosts новим значенням action.payload
-    //     state.currentPosts = action.payload;
-    //   }
-    // },
-    setCurrentLikedPosts: (state, action) => {
-      // state.currentLikedPosts = action.payload;
-      if (!action.payload.content || !action.payload.content.length) {
-        state.hasMore = false;
-      } else {
-        state.hasMore = true;
-        const uniquePosts = action.payload.content.filter((post) =>
-          state.currentLikedPosts.every(
-            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
-          ),
-        );
-        if (uniquePosts.length && uniquePosts.length < 12) {
-          state.hasMore = false;
-        } else {
-          state.hasMore = true;
-        }
 
-        state.currentLikedPosts = [...state.currentLikedPosts, ...uniquePosts];
-        state.pageCurrent = action.payload.number;
-      }
+    setCurrentLikedPosts: (state, action) => {
+      setPostsTemplate(state, action, "currentLikedPosts");
     },
   },
 });
@@ -83,7 +36,7 @@ export const { setCurrentUser, setCurrentPosts, setCurrentLikedPosts, resetPosts
   currentUserSlice.actions;
 // export const selectCurrentUser = (state) => state.currentUser.user;
 export default currentUserSlice.reducer;
-export const getCurrentLikedPosts = (id, page) => async (dispatch) => {
+export const getCurrentLikedPosts = (page, id) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.LIKED_POSTS, {
       params: { userId: id, page: page, pageSize: 12 },
@@ -94,7 +47,8 @@ export const getCurrentLikedPosts = (id, page) => async (dispatch) => {
     console.error("Error fetching liked posts:", error);
   }
 };
-export const getCurrentPosts = (id, page) => async (dispatch) => {
+export const getCurrentPosts = (page, id) => async (dispatch) => {
+  console.log("page: ", page, ", id: ", id);
   try {
     const response = await client.get(Endpoint.GET_POSTS, {
       params: { id: id, page: page, pageSize: 12 },

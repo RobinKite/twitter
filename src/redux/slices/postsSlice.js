@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { client } from "@/services";
 import { Endpoint } from "@/constants";
+import { setPostsTemplate } from "@/utils";
 
 const postsSlice = createSlice({
   name: "posts",
@@ -18,65 +19,16 @@ const postsSlice = createSlice({
       state.posts = [];
       state.postComments = [];
       state.myPosts = [];
+      state.page = 0;
       state.hasMore = true;
     },
     setPosts: (state, action) => {
-      if (!action.payload.content || !action.payload.content.length) {
-        state.hasMore = false;
-      } else {
-        state.hasMore = true;
-        const uniquePosts = action.payload.content.filter((post) =>
-          state.posts.every(
-            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
-          ),
-        );
-        if (uniquePosts.length && uniquePosts.length < 12) {
-          state.hasMore = false;
-        } else {
-          state.hasMore = true;
-        }
-        state.posts = [...state.posts, ...uniquePosts];
-        state.page = action.payload.number;
-      }
+      setPostsTemplate(state, action, "posts");
     },
 
     setMyPosts: (state, action) => {
-      if (!action.payload.content || !action.payload.content.length) {
-        state.hasMore = false;
-      } else {
-        state.hasMore = true;
-        const uniquePosts = action.payload.content.filter((post) =>
-          state.myPosts.every(
-            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
-          ),
-        );
-        if (uniquePosts.length && uniquePosts.length < 12) {
-          state.hasMore = false;
-        } else {
-          state.hasMore = true;
-        }
-        state.myPosts = [...state.myPosts, ...uniquePosts];
-
-        state.page = action.payload.number;
-      }
+      setPostsTemplate(state, action, "myPosts");
     },
-    // setMyPosts: (state, action) => {
-    //   // if (!action.payload.length) return;
-    //   // state.myPosts = action.payload;
-    //   if (!action.payload || !action.payload.length) {
-    //     state.hasMore = false;
-    //   } else {
-    //     state.hasMore = true;
-    //     const uniquePosts = action.payload.filter(
-    //       (post) => !state.myPosts.includes(post),
-    //     );
-    //     state.myPosts = [...state.myPosts, ...uniquePosts];
-    //   }
-    // },
-    // setMyPosts(state, action) {
-    //   state.myPosts = [...state.myPosts, ...action.payload];
-    //   state.currentPage += 1;
-    // },
 
     setHasMore(state, action) {
       state.hasMore = action.payload;
@@ -121,14 +73,11 @@ const postsSlice = createSlice({
     deleteFromPost: (state, action) => {
       const postIdToDelete = action.payload;
       state.posts = state.posts.filter((post) => post.id !== postIdToDelete);
-      // state.selectedPost = state.selectedPost.filter((post) => post.id !== postIdToDelete);
       if (state.selectedPost && state.selectedPost.id === postIdToDelete) {
         const commentsToDelete = state.postComments.filter(
           (comment) => comment.parentPost.id === postIdToDelete,
         );
-        // state.postComments = state.postComments.filter(
-        //   (comment) => comment.parentPost.id !== postIdToDelete,
-        // );
+
         state.selectedPost.replyCount = Math.max(
           (state.selectedPost.replyCount || 0) - commentsToDelete.length,
           0,
@@ -140,20 +89,9 @@ const postsSlice = createSlice({
           0,
         );
       }
-      // const parentPostId = state.postComments.find((post) => post.id === postIdToDelete)
-      //   ?.parentPost?.id;
-
-      // if (parentPostId) {
-      //   const parentPost = state.myPosts.find((post) => post.id === parentPostId);
-
-      //   if (parentPost) {
-      //     parentPost.replyCount = Math.max((parentPost.replyCount || 0) - 1, 0);
-      //   }
-      // }
       state.myPosts = state.myPosts.filter((post) => post.id !== postIdToDelete);
-
       state.postComments = state.postComments.filter(
-        (post) => post.id !== postIdToDelete,
+        (comment) => comment.parentPost.id !== postIdToDelete,
       );
     },
 
@@ -162,23 +100,7 @@ const postsSlice = createSlice({
       state.selectedPost = post;
     },
     getPostComents: (state, action) => {
-      if (!action.payload.content || !action.payload.content.length) {
-        state.hasMore = false;
-      } else {
-        state.hasMore = true;
-        const uniquePosts = action.payload.content.filter((post) =>
-          state.postComments.every(
-            (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
-          ),
-        );
-        if (uniquePosts.length && uniquePosts.length < 12) {
-          state.hasMore = false;
-        } else {
-          state.hasMore = true;
-        }
-        state.postComments = [...state.postComments, ...uniquePosts];
-        state.page = action.payload.number;
-      }
+      setPostsTemplate(state, action, "postComments");
     },
 
     like: (state, action) => {
@@ -258,7 +180,7 @@ export const {
   setMyPosts,
   resetPosts,
   setHasMore,
-  //   setPopularPosts,
+  setPopularPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
 
@@ -299,7 +221,7 @@ export const handleLikeSPosts = (page) => async () => {
   }
 };
 
-export const axiosPostComments = (id, page) => async (dispatch) => {
+export const axiosPostComments = (page, id) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.GET_POST_REPLIES, {
       params: { postId: id, page: page, pageSize: 12 },
@@ -326,24 +248,23 @@ export const getPosts = (page) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_ALL_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-    // console.log(response)
     dispatch(setPosts(response.data));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
 };
 
-// export const getPopularPosts = (page) => async (dispatch) => {
-//   try {
-//     const response = await client.get(Endpoint.GET_POPULAR_POSTS, {
-//       params: { page: page, pageSize: 12 },
-//     });
+export const getPopularPosts = (page) => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.GET_POPULAR_POSTS, {
+      params: { page: page, pageSize: 12 },
+    });
 
-//     dispatch(setPopularPosts(response.data.content));
-//   } catch (error) {
-//     console.error("Error fetching posts:", error);
-//   }
-// };
+    dispatch(setPopularPosts(response.data.content));
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+};
 
 export const getMyPosts = (page) => async (dispatch) => {
   try {
@@ -371,7 +292,6 @@ export const deletePost = (id) => async (dispatch) => {
   try {
     await client.delete(Endpoint.DELETE_POST, { params: { id } });
     await dispatch(deleteFromPost(id));
-    // dispatch(getPosts());
   } catch (error) {
     console.error("Сталася помилка при видаленні поста:", error);
   }

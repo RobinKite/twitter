@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import PropTypes from "prop-types";
 import { getCurrentLikedPosts } from "@/redux/slices/currentUser";
 import { getLikedPosts } from "@/redux/slices/userSlice";
@@ -17,7 +16,7 @@ function LikedPosts({ id, currentUser }) {
     dispatch(resetPosts());
 
     if (currentUser) {
-      dispatch(getCurrentLikedPosts(id));
+      dispatch(getCurrentLikedPosts(null, id));
     } else {
       dispatch(getLikedPosts());
     }

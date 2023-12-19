@@ -9,9 +9,8 @@ import { getMyPosts, resetPosts } from "@/redux/slices/postsSlice";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LikedPosts from "@/components/LikedPosts/LikedPosts";
-import useLikedPosts from "@/hooks/useLikedPosts";
 import RenderPosts from "@/components/RenderPosts/RenderPosts";
-import useFetchPosts from "@/hooks/useFetchPosts";
+import useInfinstyScroll from "@/hooks/useInfinstyScroll";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -25,21 +24,12 @@ export function Profile() {
   const posts = useSelector((state) => state.posts.myPosts);
   const dispatch = useDispatch();
   const likedPosts = useSelector((state) => state.user.likedPosts);
-  // const hasMore = useSelector((state) => state.posts.hasMore);
-  // const page = useSelector((state) => state.posts.page);
 
   useEffect(() => {
     dispatch(resetPosts());
     dispatch(resetPostsLiked());
-
     dispatch(getUserInfo());
   }, [dispatch]);
-
-  // const fetchPosts = () => {
-  //   if (hasMore) {
-  //     dispatch(getMyPosts(page + 1));
-  //   }
-  // };
 
   return (
     <AppContainer>
@@ -85,7 +75,7 @@ export function Profile() {
           <TabPanel value="0" sx={{ padding: 0 }}>
             <InfiniteScroll
               dataLength={posts.length}
-              next={useFetchPosts(getMyPosts)}
+              next={useInfinstyScroll({ callback: getMyPosts, slice: "posts" })}
               hasMore={true}>
               <RenderPosts statePost={false} />
             </InfiniteScroll>
@@ -96,7 +86,7 @@ export function Profile() {
           <TabPanel value="2">
             <InfiniteScroll
               dataLength={likedPosts.length}
-              next={useLikedPosts(getLikedPosts)}
+              next={useInfinstyScroll({ callback: getLikedPosts, slice: "user" })}
               hasMore={true}>
               <LikedPosts currentUser={false} />
             </InfiniteScroll>

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, ItemPost } from "@/components";
 import { useEffect } from "react";
 import { getAllBookmarkPosts, resetPostsLiked } from "@/redux/slices/userSlice";
-import useLikedPosts from "@/hooks/useLikedPosts";
 import InfiniteScroll from "react-infinite-scroll-component";
+import useInfinstyScroll from "@/hooks/useInfinstyScroll";
 
 export const Bookmarks = () => {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ export const Bookmarks = () => {
         </Typography>
         <InfiniteScroll
           dataLength={allBookmarkPosts.length}
-          next={useLikedPosts(getAllBookmarkPosts)}
+          next={useInfinstyScroll({ callback: getAllBookmarkPosts, slice: "user" })}
           hasMore={true}>
           {allBookmarkPosts.length > 0 ? (
             allBookmarkPosts.map((post) => (

@@ -10,7 +10,6 @@ import {
 
 const NotificationsList = () => {
   const notifications = useSelector((state) => state.user.notifications);
-  console.log(notifications);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(resetPostsLiked());

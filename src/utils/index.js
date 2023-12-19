@@ -19,3 +19,23 @@ export function capitalize(text) {
 export const sortByCreatedAt = (posts) => {
   return posts.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 };
+
+export const setPostsTemplate = (state, action, postsType) => {
+  if (!action.payload.content || !action.payload.content.length) {
+    state.hasMore = false;
+  } else {
+    state.hasMore = true;
+    const uniquePosts = action.payload.content.filter((post) =>
+      state[postsType]?.every(
+        (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
+      ),
+    );
+    if (action.payload.number >= action.payload.totalPages) {
+      state.hasMore = false;
+    } else {
+      state.hasMore = true;
+    }
+    state[postsType] = [...state[postsType], ...uniquePosts];
+    state.page = action.payload.number;
+  }
+};

@@ -7,7 +7,7 @@ import NotificationsList from "@/components/NotificationsList/NotificationsList"
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
 import { getNotifications } from "@/redux/slices/userSlice";
-import useLikedPosts from "@/hooks/useLikedPosts";
+import useInfinstyScroll from "@/hooks/useInfinstyScroll";
 
 const tabs = [
   { label: "All", value: "0" },
@@ -37,7 +37,7 @@ export const Notifications = () => {
           <TabPanel value="0" sx={{ padding: 0 }}>
             <InfiniteScroll
               dataLength={notifications.length}
-              next={useLikedPosts(getNotifications)}
+              next={useInfinstyScroll({ callback: getNotifications, slice: "user" })}
               hasMore={true}>
               <NotificationsList />
             </InfiniteScroll>

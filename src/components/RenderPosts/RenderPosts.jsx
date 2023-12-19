@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import { getCurrentPosts } from "@/redux/slices/currentUser";
 
 function RenderPosts({ id, statePost }) {
-  //   const posts = useSelector((state) => state.posts.myPosts);
   const posts = useSelector((state) =>
     statePost ? state.currentUser.currentPosts : state.posts.myPosts,
   );
@@ -14,7 +13,7 @@ function RenderPosts({ id, statePost }) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (statePost) {
-      dispatch(getCurrentPosts(id));
+      dispatch(getCurrentPosts(null, id));
     } else {
       dispatch(getMyPosts());
     }
