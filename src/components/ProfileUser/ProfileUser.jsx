@@ -13,9 +13,8 @@ import {
   TypographyInfo,
 } from "./styled.SX";
 import { setContent, setModalPost } from "@/redux/slices/appSlice";
-import Following from "@/components/Following/Following";
-import Followers from "@/components/Followers/Followers";
-import { useDispatch } from "react-redux";
+import { RecommendedUserCard } from "@/components";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Location } from "@/icons/custom/Location";
 import { Calendar } from "@/icons/custom/Calendar";
@@ -25,28 +24,62 @@ import { useState } from "react";
 import { getUserFollowers, getUserFollowing } from "@/redux/slices/userSlice";
 import { formatTimestamp } from "@/utils/date";
 
-function ProfileUser({
-  fullName,
-  avatarUrl,
-  imageUrl,
-  userTag,
-  bio,
-  setIsModalOpen,
-  birthdate,
-  following,
-  followers,
-  showFollowButton,
-  id,
-  isFollowedByUser,
-  location,
-  createdAt,
-}) {
+const LinkedUsers = ({ type }) => {
+  const currentUser = useSelector((state) => state.user.user);
+  const fieldName = type === "followers" ? "usersFollowers" : "usersFollowing";
+  const users = useSelector((state) => state.user[fieldName]);
+
+  return (
+    <>
+      {users.map((user) => (
+        <RecommendedUserCard
+          key={user.id}
+          id={user.id}
+          fullName={user.fullName}
+          userTag={user.userTag}
+          avatarUrl={user.avatarUrl}
+          useButton={user.id !== currentUser.id}
+          isFollowedByUser={user.isFollowedByUser}
+          isInModal={true}
+        />
+      ))}
+    </>
+  );
+};
+
+LinkedUsers.propTypes = {
+  type: PropTypes.string.isRequired,
+};
+
+function ProfileUser({ isSelf, setIsModalOpen }) {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const getUserFromState = (state) => (isSelf ? state.user.user : state.currentUser.user);
+  const user = useSelector(getUserFromState);
+  if (!user) return null;
+  const {
+    id,
+    fullName,
+    avatarUrl,
+    imageUrl,
+    userTag,
+    bio,
+    birthdate,
+    following,
+    followers,
+    createdAt,
+    location,
+    isFollowedByUser,
+  } = user;
   const formattedBirthdate = formatTimestamp(birthdate);
   const registrationDate = formatTimestamp(createdAt);
 
   const handleLinkClick = (component, isFollowers) => {
+    if ((isFollowers && followers === 0) || (!isFollowers && following === 0)) {
+      return;
+    }
+
     setLoading(true);
     const getUser = isFollowers ? getUserFollowers : getUserFollowing;
     return new Promise((resolve, reject) => {
@@ -57,7 +90,7 @@ function ProfileUser({
           resolve();
         })
         .catch((error) => {
-          console.error("Помилка:", error);
+          console.error("Error:", error);
           reject(error);
         })
         .finally(() => {
@@ -66,7 +99,6 @@ function ProfileUser({
     });
   };
 
-  const navigate = useNavigate();
   const redirectToPost = () => {
     navigate(`/`, { replace: true });
   };
@@ -85,16 +117,16 @@ function ProfileUser({
       </HeaderPage>
       <UserPhoto changeIcon={false} avatarUrl={avatarUrl} imageUrl={imageUrl} />
       <ContainerUserInfo>
-        {showFollowButton ? (
+        {isSelf ? (
+          <EditButton onClick={() => setIsModalOpen(true)} variant="outlined">
+            Edit profile
+          </EditButton>
+        ) : (
           <FollowButton
             id={id}
             userName={userTag ? userTag : fullName}
             isFollowedByUser={isFollowedByUser}
           />
-        ) : (
-          <EditButton onClick={() => setIsModalOpen(true)} variant="outlined">
-            Edit profile
-          </EditButton>
         )}
         <Typography variant="h6" sx={{ fontSize: "20px", fontWeight: "800" }}>
           {fullName}
@@ -135,12 +167,12 @@ function ProfileUser({
           color={"rgb(83, 100, 113)"}
           sx={{ cursor: "pointer" }}
           underline="hover"
-          onClick={() => handleLinkClick(<Following id={id} />, false)}>
+          onClick={() => handleLinkClick(<LinkedUsers type="following" />, false)}>
           <span style={{ color: "black", fontWeight: "700" }}>{following} </span>Following
         </Link>
 
         <Link
-          onClick={() => handleLinkClick(<Followers id={id} />, true)}
+          onClick={() => handleLinkClick(<LinkedUsers type="followers" />, true)}
           color={"rgb(83, 100, 113)"}
           underline="hover"
           sx={{
@@ -167,18 +199,6 @@ function ProfileUser({
 
 export default ProfileUser;
 ProfileUser.propTypes = {
+  isSelf: PropTypes.bool.isRequired,
   setIsModalOpen: PropTypes.func,
-  avatarUrl: PropTypes.string,
-  fullName: PropTypes.string,
-  imageUrl: PropTypes.string,
-  bio: PropTypes.string,
-  userTag: PropTypes.string,
-  birthdate: PropTypes.string,
-  following: PropTypes.number,
-  id: PropTypes.string,
-  followers: PropTypes.number,
-  isFollowedByUser: PropTypes.bool,
-  showFollowButton: PropTypes.bool,
-  location: PropTypes.string,
-  createdAt: PropTypes.string,
 };

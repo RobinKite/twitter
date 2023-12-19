@@ -1,7 +1,8 @@
 import { styled } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
-import { CommentPost, ItemPost } from "..";
+import { CommentPost, ItemPost } from "@/components";
+import { PostType } from "@/constants";
 import { Cross } from "@/icons";
 import styles from "../PostModal/PostModal.module.scss";
 import PropTypes from "prop-types";
@@ -13,7 +14,6 @@ export const ModalBody = styled(Box)(() => ({
   transform: "translate(-50%, -50%)",
   maxWidth: "600px",
   width: "100%",
-  // minHeight: "30em",
   maxHeight: "40em",
   overflowY: "auto",
   overflowX: "hidden",
@@ -71,8 +71,9 @@ export function ModalCommentPost({
             <CommentPost
               id={id}
               closeModal={closeModal}
-              avatarUrl={avatarUrl}
-              fullName={fullName}
+              placeholder="Post your reply"
+              buttonName="Reply"
+              type={PostType.REPLY}
             />
           </div>
         </ModalBody>

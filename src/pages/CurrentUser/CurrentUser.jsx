@@ -18,13 +18,8 @@ const tabs = [
 
 export function CurrentUser() {
   const { id } = useParams();
-
-  const user = useSelector((state) => state.currentUser.user);
-  const posts = useSelector((state) => state.currentUser.currentPosts);
-
   const dispatch = useDispatch();
-
-  // useLoadPost(getCurrentPosts);
+  const posts = useSelector((state) => state.currentUser.currentPosts);
 
   useEffect(() => {
     dispatch(resetPosts());
@@ -39,25 +34,7 @@ export function CurrentUser() {
           maxWidth="sm"
           disableGutters={true}
           sx={{ border: "1px solid rgb(239, 243, 244)" }}>
-          {user && (
-            <ProfileUser
-              id={user.id}
-              key={user.id}
-              fullName={user.fullName}
-              avatarUrl={user.avatarUrl}
-              imageUrl={user.imageUrl}
-              userTag={user.userTag}
-              bio={user.bio}
-              birthdate={user.birthdate}
-              following={user.following}
-              followers={user.followers}
-              isFollowedByUser={user.isFollowedByUser}
-              showFollowButton={true}
-              location={user.location}
-              createdAt={user.createdAt}
-            />
-          )}
-
+          <ProfileUser isSelf={false} />
           <ProfileTabs
             tabs={tabs}
             variant="scrollable"
@@ -71,7 +48,7 @@ export function CurrentUser() {
               {posts.map((post) => (
                 <ItemPost
                   key={post.id}
-                  // postUser={post.user}
+                  postUser={post.user}
                   avatarUrl={post.user?.avatarUrl}
                   fullName={post.user?.fullName}
                   replyCount={post.replyCount}

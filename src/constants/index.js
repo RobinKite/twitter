@@ -7,6 +7,7 @@ export class Endpoint {
   static LOGIN = "/auth/login";
   static REGISTER = "/auth/register";
   static LIKE = "/likes/like";
+  static LIKED_POSTS = "/posts/liked";
   static UNLIKE = "/likes/unlike";
   static CREATE_POST = "/posts/create";
   static GET_POST = "/posts/post";
@@ -19,9 +20,9 @@ export class Endpoint {
   static SUBSCRIPTIONS = "/subscriptions";
   static USERS_SEARCH = "/users/search";
   static USERS_RECOMMENDED = "/users/recommended";
-  static LIKED_POSTS = "/posts/liked";
   static BOOKMARKS = "/bookmarks";
   static CHATS = "/chats";
+  static USERS = "/users";
   static USERS_FOLLOWERS = "/users/followers";
   static GOOGLE_REGISTRATION = "/oauth2/exchange-code/google";
   static USER_FOLLOWED = "/users/followed";
@@ -33,4 +34,5 @@ export class Endpoint {
   static GET_NOTIFICATIONS = "/notifications";
   static GET_NOTIFICATIONS_COUNT = "/notifications/count";
   static CHANGE_PASSWORD = "/users/change-password";
+  static REFRESH_TOKEN = "/auth/refresh-token";
 }

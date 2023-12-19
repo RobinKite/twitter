@@ -1,12 +1,12 @@
 import { Avatar, Stack, Typography, useMediaQuery } from "@mui/material";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { FollowButton } from "@/components";
 import { fetchUsers } from "@/redux/slices/userSlice";
-import { userCardSX } from "./styleSX";
-import { useNavigate } from "react-router-dom";
 import { setModalPost } from "@/redux/slices/appSlice";
+import { userCardSX } from "./styleSX";
 
 export const UserCard = ({
   avatarUrl,
@@ -23,17 +23,22 @@ export const UserCard = ({
     <Stack onClick={onClick} sx={userCardSX}>
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
       {(isInModal || (!isMobile && !isTablet)) && (
-        <>
-          <Stack overflow="hidden" sx={{ marginRight: "auto", marginLeft: "auto" }}>
-            <Typography fontWeight={700} variant="subtitle1" noWrap={true} align="left">
+        <Stack
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "1fr min-content",
+            overflow: "hidden",
+          }}>
+          <Stack sx={{ overflow: "hidden" }}>
+            <Typography variant="subtitle1" sx={{ fontWeight: 700, textWrap: "nowrap" }}>
               {fullName}
             </Typography>
             <Typography variant="body2" color="textSecondary" align="left">
-              {userTag ? `@${userTag}` : fullName}
+              @{userTag}
             </Typography>
           </Stack>
-          {children}
-        </>
+          <Stack>{children}</Stack>
+        </Stack>
       )}
     </Stack>
   );

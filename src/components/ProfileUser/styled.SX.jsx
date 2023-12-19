@@ -30,13 +30,13 @@ export const ContainerHederText = styled(Box)(() => ({
 }));
 
 export const EditButton = styled(Button)(() => ({
-  // position: "absolute",
   display: "flex",
   marginLeft: "auto",
   borderRadius: "50px",
   border: "1px solid rgb(239, 243, 244)",
   color: "black",
-  " &:hover": {
+
+  "&:hover": {
     border: "1px solid rgb(207, 217, 222)",
     background: " rgb(239, 243, 244)",
   },

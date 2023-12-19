@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, ItemPost } from "@/components";
 import { useEffect } from "react";
@@ -15,11 +15,11 @@ export const Bookmarks = () => {
 
   return (
     <Container>
-      <Box
+      <Stack
         sx={{
+          flexGrow: 1,
           borderRight: "1px solid #EFF3F4",
           borderLeft: "1px solid #EFF3F4",
-          height: "100vh",
         }}>
         <Typography
           variant="h1"
@@ -76,7 +76,7 @@ export const Bookmarks = () => {
             </Typography>
           </Box>
         )}
-      </Box>
+      </Stack>
     </Container>
   );
 };

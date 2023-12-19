@@ -5,7 +5,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { registerUser } from "@/redux/slices/userSlice";
 import { CustomDateSelector } from "@/components";
-import { validationSchema } from "@/schemas";
+import { registrationFormSchema } from "@/schemas";
 import { SubmitButtonSX } from "@/components/RegistrationFormModal/styleSX";
 import { useDispatch } from "react-redux";
 
@@ -46,7 +46,7 @@ export const RegistrationForm = () => {
       onDataChange={handleRegistrationDataChange}
       initialValues={initialValues}
       onSubmit={onSubmit}
-      validationSchema={validationSchema}>
+      validationSchema={registrationFormSchema}>
       {({ errors, touched, isValid }) => (
         <Form>
           <Field

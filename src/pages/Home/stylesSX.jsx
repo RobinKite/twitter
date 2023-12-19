@@ -6,7 +6,6 @@ export const homeHeaderSX = {
   lineHeight: 1.33,
   textAlign: "center",
   color: "rgb(15, 20, 25)",
-  // color: "rgb(83, 100, 113)",
 
   "&::after": {
     content: '""',

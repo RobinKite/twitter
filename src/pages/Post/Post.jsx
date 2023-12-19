@@ -2,10 +2,10 @@ import { IconButton, Typography, styled, Box } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { CommentPost, ItemPost, Container } from "@/components";
+import { ItemPost, Container, CommentPost } from "@/components";
 import { ArrowBack } from "@/icons";
+import { PostType } from "@/constants";
 import { axiosPostComments, getPostById } from "@/redux/slices/postsSlice";
-// import { compareByDate } from "@/utils";
 
 const HeaderPage = styled(Box)(() => ({
   display: "flex",
@@ -17,21 +17,14 @@ const HeaderPage = styled(Box)(() => ({
 export const Post = () => {
   const { id } = useParams();
   const post = useSelector((state) => state.posts.selectedPost);
-
   const postComments = useSelector((state) => state.posts.postComments);
-  // console.log(postComments);
   const dispatch = useDispatch();
-  // Налаштування infinity Scrol покищо не дуже працює
-
-  // Роутер навігації переходу між сторінками
   const navigate = useNavigate();
+
   const redirectToPost = () => {
     navigate(`/`, { replace: true });
   };
 
-  // Оновлення  додавання коментаря
-
-  // Код для сторінки PegesPost
   useEffect(() => {
     dispatch(getPostById(id));
     dispatch(axiosPostComments(id));
@@ -65,20 +58,24 @@ export const Post = () => {
         <div>The post is deleted</div>
       )}
 
-      <CommentPost id={id} />
-      {/* .sort(compareByDate) */}
-      {postComments?.map((e) => (
+      <CommentPost
+        id={id}
+        placeholder="Post your reply"
+        buttonName="Reply"
+        type={PostType.REPLY}
+      />
+      {postComments?.map((comment) => (
         <ItemPost
-          postUser={e.user}
-          replyCount={e.replyCount}
-          key={e.id}
-          content={e.body}
-          imageUrls={e.imageUrls}
-          id={e.id}
-          likeCount={e.likeCount}
-          liked={e.liked}
-          avatarUrl={e.user.avatarUrl}
-          fullName={e.user.fullName}
+          postUser={comment.user}
+          replyCount={comment.replyCount}
+          key={comment.id}
+          content={comment.body}
+          imageUrls={comment.imageUrls}
+          id={comment.id}
+          likeCount={comment.likeCount}
+          liked={comment.liked}
+          avatarUrl={comment.user.avatarUrl}
+          fullName={comment.user.fullName}
         />
       ))}
     </Container>

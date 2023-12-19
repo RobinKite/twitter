@@ -33,7 +33,6 @@ import {
   tweetSX,
   tweetUsernameSX,
   tweetUsertagSX,
-  tweetWrapperSX,
 } from "./styleSX";
 import { addBookmarkPost, deleteBookmarkPost } from "@/redux/slices/userSlice";
 
@@ -123,7 +122,7 @@ export function ItemPost({
   };
 
   return (
-    <Stack sx={tweetWrapperSX}>
+    <Stack>
       <Stack sx={tweetSX}>
         <Avatar sx={avatarSX} src={avatarUrl} onClick={redirectToUserProfile} />
         <Stack>
@@ -150,14 +149,24 @@ export function ItemPost({
                   anchorEl={anchorEl}
                   open={open}
                   onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "center",
+                    horizontal: "right",
+                  }}
                   sx={{
                     "& .css-6hp17o-MuiList-root-MuiMenu-list": {
                       paddingTop: 0,
                       paddingBottom: 0,
                     },
                   }}>
-                  <MenuItem onClick={handleDeletePost} sx={{ color: "red" }}>
-                    <Delete fill="red" />
+                  <MenuItem
+                    onClick={handleDeletePost}
+                    sx={{ fontWeight: 500, color: "red" }}>
+                    <Delete fill="red" style={{ marginRight: "0.25rem" }} />
                     Delete
                   </MenuItem>
                 </Menu>
@@ -219,9 +228,9 @@ export function ItemPost({
                   onClick={() => handleBookmarkClick(id)}
                   disabled={isLoading}>
                   {isBookmarkedPost ? (
-                    <BookmarkFilled style={{ fill: "hsl(201, 79%, 48%)" }} />
+                    <BookmarkFilled style={{ fill: "#1a97db" }} />
                   ) : (
-                    <Bookmark />
+                    <Bookmark style={{ fill: "#536471" }} />
                   )}
                 </IconButton>
               </>

@@ -1,5 +1,3 @@
-export const tweetWrapperSX = {};
-
 export const tweetSX = {
   borderBottom: "1px solid rgb(239, 243, 244)",
   paddingTop: "12px",
@@ -10,6 +8,7 @@ export const tweetSX = {
   gridTemplateColumns: "40px 1fr",
   gap: "12px",
   cursor: "pointer",
+  position: "relative",
   transition: "background-color 300ms linear",
 
   "&:hover": {
@@ -29,7 +28,6 @@ export const avatarSX = {
 };
 
 export const tweetHeaderSX = {
-  position: "relative",
   display: "flex",
   flexDirection: "row",
   alignItems: "flex-start",
@@ -56,8 +54,8 @@ export const tweetUsertagSX = {
 
 export const iconDeleteSX = {
   position: "absolute",
-  top: "-2px",
-  right: "6px",
+  top: "0.25rem",
+  right: "0.375rem",
 };
 
 export const tweetContentSX = {
@@ -65,6 +63,7 @@ export const tweetContentSX = {
   color: "rgb(15, 20, 25)",
   fontSize: "15px",
   lineHeight: 1.333,
+  overflowWrap: "anywhere",
 };
 
 export const tweetImgSX = {

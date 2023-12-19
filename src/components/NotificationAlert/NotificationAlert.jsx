@@ -1,10 +1,9 @@
 import { Stack, Typography } from "@mui/material";
-// import { useSelector } from "react-redux";
 
 const NotificationAlert = () => {
-  //   const notifications = useSelector((state) => state.user.notifications);
-  //   const unreadCount = notifications.unreadNotificationsCount || 0;
-  //TODO: filter unread notifications and then show this component
+  // const notifications = useSelector((state) => state.user.notifications);
+  // const unreadCount = notifications.unreadNotificationsCount || 0;
+  // TODO: filter unread notifications and then show this component
   return (
     <>
       <Stack>

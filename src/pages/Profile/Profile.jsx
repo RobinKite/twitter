@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
 import { Container as AppContainer } from "@/components";
-import { getUserInfo } from "@/redux/slices/userSlice";
+import { fetchUser } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
 import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import LikedPosts from "@/components/LikedPosts/LikedPosts";
@@ -20,8 +20,9 @@ export function Profile() {
   const user = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.myPosts);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getUserInfo());
+    dispatch(fetchUser());
     dispatch(getMyPosts());
   }, [dispatch]);
 
@@ -34,8 +35,6 @@ export function Profile() {
       unlisten();
     };
   }, []);
-
-  // useLoadPost();
 
   return (
     <AppContainer>
@@ -51,24 +50,7 @@ export function Profile() {
         maxWidth="sm"
         disableGutters={true}
         sx={{ border: "1px solid rgb(239, 243, 244)", height: "unset" }}>
-        {user && (
-          <ProfileUser
-            id={user.id}
-            key={user.id}
-            fullName={user.fullName}
-            avatarUrl={user.avatarUrl}
-            imageUrl={user.imageUrl}
-            userTag={user.userTag}
-            bio={user.bio}
-            setIsModalOpen={setIsModalOpen}
-            birthdate={user.birthdate}
-            following={user.following}
-            followers={user.followers}
-            showFollowButton={false}
-            location={user.location}
-            createdAt={user.createdAt}
-          />
-        )}
+        <ProfileUser setIsModalOpen={setIsModalOpen} isSelf={true} />
         <ProfileTabs
           tabs={tabs}
           variant="scrollable"
