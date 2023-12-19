@@ -30,7 +30,6 @@ export const RegistrationForm = () => {
 
   const onSubmit = (values, actions) => {
     dispatch(registerUser(values));
-    console.log("Form values:", values);
     actions.resetForm();
   };
 

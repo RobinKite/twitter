@@ -1,12 +1,9 @@
-export const tweetSX = {
+export const tweetWrapperSX = {
   borderBottom: "1px solid rgb(239, 243, 244)",
   paddingTop: "12px",
   paddingBottom: "12px",
   paddingLeft: "16px",
   paddingRight: "16px",
-  display: "grid",
-  gridTemplateColumns: "40px 1fr",
-  gap: "12px",
   cursor: "pointer",
   position: "relative",
   transition: "background-color 300ms linear",
@@ -17,6 +14,34 @@ export const tweetSX = {
   "&:focus": {
     backgroundColor: "rgba(0,0,0,0.03)",
   },
+};
+
+export const tweetAdditionalInfoSX = {
+  display: "flex",
+  flexDirection: "row",
+  marginBottom: "2px",
+  paddingLeft: "14px",
+  fontSize: "13px",
+  fontWeight: "700",
+  color: "rgb(83, 100, 113)",
+
+  "& span": {
+    marginLeft: "16px",
+    fontSize: "13px",
+    fontWeight: "700",
+    color: "rgb(83, 100, 113)",
+  },
+
+  "&:hover": {
+    cursor: "pointer",
+    textDecoration: "underline",
+  },
+};
+
+export const tweetSX = {
+  display: "grid",
+  gridTemplateColumns: "40px 1fr",
+  gap: "12px",
 };
 
 export const avatarSX = {

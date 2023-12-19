@@ -26,3 +26,8 @@ export { CustomDateSelector } from "./CustomDateSelector/CustomDateSelector";
 export { WelcomeMessage } from "./WelcomeMessage/WelcomeMessage";
 export { NotificationItem } from "./NotificationItem/NotificationItem";
 export { Loader } from "./Loader/Loader";
+export { CustomSelect } from "./CustomSelect/CustomSelect";
+export { HomePostsContainer } from "./HomePostsContainer/HomePostsContainer";
+export { ChangePasswordModal } from "./ChangePasswordModal/ChangePasswordModal";
+export { ProfileUser } from "./ProfileUser/ProfileUser";
+export { LikedPosts } from "./LikedPosts/LikedPosts";

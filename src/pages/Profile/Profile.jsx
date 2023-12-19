@@ -2,16 +2,15 @@ import TabPanel from "@mui/lab/TabPanel";
 import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
+import { ProfileTabs, ItemPost, ModalEdit, ProfileUser, LikedPosts } from "@/components";
 import { Container as AppContainer } from "@/components";
 import { fetchUser } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
-import ProfileUser from "@/components/ProfileUser/ProfileUser";
-import LikedPosts from "@/components/LikedPosts/LikedPosts";
+import { PostType } from "@/constants";
 
 const tabs = [
   { label: "Post", value: "0" },
-  // { label: "Replies", value: "1" },
+  { label: "Replies", value: "1" },
   { label: "Likes", value: "2" },
 ];
 
@@ -19,6 +18,7 @@ export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.myPosts);
+  const repostPosts = posts.filter((post) => post.type === PostType.QUOTE);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -62,23 +62,18 @@ export function Profile() {
           }}>
           <TabPanel value="0" sx={{ padding: 0 }}>
             {posts.map((post) => (
-              <ItemPost
-                key={post.id}
-                postUser={post.user}
-                avatarUrl={user.avatarUrl}
-                fullName={user.fullName}
-                replyCount={post.replyCount}
-                id={post.id}
-                content={post.body}
-                likeCount={post.likeCount}
-                liked={post.liked}
-                imageUrls={post.imageUrls}
-              />
+              <ItemPost key={post.id} post={post} />
             ))}
           </TabPanel>
 
-          {/* <TabPanel value="1">Replies</TabPanel> */}
-          <TabPanel value="2">
+          <TabPanel value="1" sx={{ padding: 0 }}>
+            {repostPosts.length ? (
+              repostPosts.map((post) => <ItemPost key={post.id} post={post} />)
+            ) : (
+              <>You don&apos;t have any reposts yet</>
+            )}
+          </TabPanel>
+          <TabPanel value="2" sx={{ padding: 0 }}>
             <LikedPosts currentUser={false} />
           </TabPanel>
         </ProfileTabs>

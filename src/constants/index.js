@@ -1,6 +1,9 @@
 export class PostType {
   static TWEET = "TWEET";
   static REPLY = "REPLY";
+  static LIKE = "LIKE";
+  static FOLLOWER = "FOLLOWER";
+  static QUOTE = "QUOTE";
 }
 
 export class Endpoint {

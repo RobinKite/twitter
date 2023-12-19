@@ -1,19 +1,20 @@
 import { Stack, Typography, Box } from "@mui/material";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { Container, ItemPost, WelcomeMessage, CommentPost } from "@/components";
+import { Container, WelcomeMessage, HomePostsContainer, CommentPost } from "@/components";
 import { PostType } from "@/constants";
 import { homeHeaderSX } from "./stylesSX";
-import { getPosts } from "@/redux/slices/postsSlice";
+import { getPopularPosts, getPosts } from "@/redux/slices/postsSlice";
 import { useEffect } from "react";
 
 export const Home = () => {
   const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
-  const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
-  const renderPosts = accountUser.following ? posts : popularPosts;
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(getPopularPosts());
   }, [dispatch]);
 
   return (
@@ -30,7 +31,7 @@ export const Home = () => {
           buttonName="Post"
           type={PostType.TWEET}
         />
-        {!accountUser.following && (
+        {!accountUser.following && !posts.length && (
           <WelcomeMessage
             stylesSX={{
               marginTop: "0.75rem",
@@ -41,21 +42,7 @@ export const Home = () => {
             }}
           />
         )}
-        {renderPosts.map((post) => (
-          <ItemPost
-            key={post.id}
-            postUser={post.user}
-            avatarUrl={post.user.avatarUrl}
-            fullName={post.user.fullName}
-            content={post.body}
-            replyCount={post.replyCount}
-            imageUrls={post.imageUrls}
-            id={post.id}
-            likeCount={post.likeCount}
-            liked={post.liked}
-            bookmarked={post.bookmarked}
-          />
-        ))}
+        <HomePostsContainer />
       </Box>
     </Container>
   );

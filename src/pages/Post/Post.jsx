@@ -41,18 +41,7 @@ export const Post = () => {
       </HeaderPage>
       {post ? (
         <div>
-          <ItemPost
-            postUser={post.user}
-            avatarUrl={post.user.avatarUrl}
-            fullName={post.user.fullName}
-            key={post.id}
-            content={post.body}
-            imageUrls={post.imageUrls}
-            id={post.id}
-            likeCount={post.likeCount}
-            liked={post.liked}
-            replyCount={post.replyCount}
-          />
+          <ItemPost key={post.id} post={post} />
         </div>
       ) : (
         <div>The post is deleted</div>
@@ -64,19 +53,8 @@ export const Post = () => {
         buttonName="Reply"
         type={PostType.REPLY}
       />
-      {postComments?.map((comment) => (
-        <ItemPost
-          postUser={comment.user}
-          replyCount={comment.replyCount}
-          key={comment.id}
-          content={comment.body}
-          imageUrls={comment.imageUrls}
-          id={comment.id}
-          likeCount={comment.likeCount}
-          liked={comment.liked}
-          avatarUrl={comment.user.avatarUrl}
-          fullName={comment.user.fullName}
-        />
+      {postComments?.map((post) => (
+        <ItemPost key={post.id} post={post} />
       ))}
     </Container>
   );

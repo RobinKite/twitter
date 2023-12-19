@@ -1,7 +1,6 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { Key } from "@/icons";
-import { Container } from "@/components";
-import { ChangePasswordModal } from "@/components/ChangePasswordModal/ChangePasswordModal";
+import { Container, ChangePasswordModal } from "@/components";
 import { useDispatch } from "react-redux";
 import { setIsChangePasswordModalActive } from "@/redux/slices/appSlice";
 

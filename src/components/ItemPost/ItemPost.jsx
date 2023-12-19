@@ -8,75 +8,54 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
-import { deletePost, handleLike, handleUnlike } from "@/redux/slices/postsSlice";
-import {
-  Reply,
-  LikeFalse,
-  Repost,
-  Like,
-  Delete,
-  Bookmark,
-  BookmarkFilled,
-} from "@/icons";
+import { deletePost } from "@/redux/slices/postsSlice";
+import { Delete, Repost } from "@/icons";
 import {
   avatarSX,
   iconDeleteSX,
-  likeCountSX,
-  replyCountSX,
-  tweetActionsSX,
+  tweetAdditionalInfoSX,
   tweetContentSX,
   tweetHeaderSX,
   tweetImgEvenSX,
   tweetImgOddSX,
   tweetImgSX,
-  tweetRepostSX,
   tweetSX,
   tweetUsernameSX,
   tweetUsertagSX,
+  tweetWrapperSX,
 } from "./styleSX";
-import { addBookmarkPost, deleteBookmarkPost } from "@/redux/slices/userSlice";
+import { PostActions } from "../PostActions/PostActions";
+import { PostType } from "@/constants";
 
-export function ItemPost({
-  content,
-  imageUrls,
-  id,
-  likeCount,
-  liked,
-  disable,
-  onPostDeleted,
-  replyCount,
-  updateComment,
-  avatarUrl,
-  fullName,
-  postUser,
-  bookmarked,
-}) {
+export function ItemPost({ post, disable }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const profileUser = useSelector((state) => state.user.user);
-  const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
-  const [isLoading, setIsLoading] = useState(false);
-  const [like, setLike] = useState(liked);
-  const [localLikeCount, setLocalLikeCount] = useState(likeCount);
+  const accountUser = useSelector((state) => state.user.user);
 
-  const handleLikeClick = async () => {
-    setLike(!like);
-    like ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
+  if (!post) {
+    return null;
+  }
 
-    setLocalLikeCount((prevCount) => (like ? prevCount - 1 : prevCount + 1));
-  };
+  const {
+    body: content,
+    imageUrls,
+    id,
+    user: { avatarUrl, fullName, ...postUser },
+    type,
+    parentPost,
+  } = post;
 
-  const handleBookmarkClick = (postId) => {
-    setIsLoading(true);
-    isBookmarkedPost
-      ? dispatch(deleteBookmarkPost(postId))
-      : dispatch(addBookmarkPost(postId));
-    setIsBookmarkedPost(!isBookmarkedPost);
-    setIsLoading(false);
-  };
+  const open = Boolean(anchorEl);
+  const isRepost = type === PostType.QUOTE;
+
+  // useEffect(() => {
+  //   dispatch(getUserInfo());
+  // }, [dispatch]);
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -96,9 +75,6 @@ export function ItemPost({
 
   const handleDeletePost = () => {
     dispatch(deletePost(id));
-    if (onPostDeleted) {
-      onPostDeleted(id);
-    }
   };
 
   const redirectToPost = () => {
@@ -107,8 +83,10 @@ export function ItemPost({
 
   const redirectToUserProfile = () => {
     try {
-      if (postUser && postUser.id) {
+      if (postUser && postUser.id && type !== PostType.QUOTE) {
         navigate(`/user/${postUser.id}`);
+      } else if (isRepost) {
+        navigate(`/user/${parentPost?.user.id}`);
       }
     } catch (error) {
       console.error("Error navigating to user profile:", error);
@@ -122,20 +100,38 @@ export function ItemPost({
   };
 
   return (
-    <Stack>
+    <Stack sx={tweetWrapperSX}>
+      {isRepost && (
+        <Typography
+          sx={tweetAdditionalInfoSX}
+          onClick={
+            accountUser?.id === postUser.id
+              ? () => navigate(`/user/${postUser.id}`)
+              : redirectToUserProfile
+          }>
+          <Repost />
+          <Typography component="span">
+            {accountUser?.id === postUser.id ? "You" : fullName} reposted
+          </Typography>
+        </Typography>
+      )}
       <Stack sx={tweetSX}>
-        <Avatar sx={avatarSX} src={avatarUrl} onClick={redirectToUserProfile} />
+        <Avatar
+          sx={avatarSX}
+          src={isRepost ? parentPost?.user.avatarUrl : avatarUrl}
+          onClick={redirectToUserProfile}
+        />
         <Stack>
           <Stack sx={tweetHeaderSX}>
             <Stack
               onClick={redirectToUserProfile}
               sx={{ flexDirection: "row", alignItems: "center", gap: "4px" }}>
               <Typography component="span" sx={tweetUsernameSX}>
-                {fullName}
+                {isRepost ? parentPost?.user.fullName : fullName}
               </Typography>
               {postUser.userTag && (
                 <Typography component="span" sx={tweetUsertagSX}>
-                  @{postUser.userTag}
+                  @{isRepost ? parentPost.user.userTag : postUser.userTag}
                 </Typography>
               )}
             </Stack>
@@ -176,7 +172,7 @@ export function ItemPost({
           <Typography sx={tweetContentSX} onClick={fonnClick}>
             {content}
           </Typography>
-          {imageUrls.length > 0 && (
+          {imageUrls?.length > 0 && (
             <Stack
               sx={
                 imageUrls.length > 1
@@ -198,84 +194,22 @@ export function ItemPost({
               ))}
             </Stack>
           )}
-          <Stack sx={tweetActionsSX}>
-            {!disable && (
-              <>
-                <Stack sx={replyCountSX}>
-                  <IconButton onClick={openModal}>
-                    <Reply />
-                  </IconButton>
-                  <Typography component="span">{replyCount}</Typography>
-                </Stack>
-                <IconButton sx={tweetRepostSX}>
-                  <Repost />
-                </IconButton>
-                <Stack sx={likeCountSX}>
-                  <IconButton onClick={handleLikeClick}>
-                    {like ? <LikeFalse /> : <Like />}
-                  </IconButton>
-
-                  <Typography
-                    component="span"
-                    sx={{
-                      color: like ? "rgb(249, 24, 128)" : "inherit",
-                    }}>
-                    {localLikeCount}
-                  </Typography>
-                </Stack>
-                <IconButton
-                  sx={replyCountSX}
-                  onClick={() => handleBookmarkClick(id)}
-                  disabled={isLoading}>
-                  {isBookmarkedPost ? (
-                    <BookmarkFilled style={{ fill: "#1a97db" }} />
-                  ) : (
-                    <Bookmark style={{ fill: "#536471" }} />
-                  )}
-                </IconButton>
-              </>
-            )}
-          </Stack>
+          <PostActions disable={disable} openModal={openModal} post={post} />
         </Stack>
       </Stack>
-
       <ModalCommentPost
         isOpen={modalIsOpen}
         closeModal={closeModal}
-        content={content}
-        imageUrls={imageUrls}
         id={id}
-        likeCount={likeCount}
-        liked={liked}
-        updateComment={updateComment}
         avatarUrl={avatarUrl}
         fullName={fullName}
-        bookmarked={bookmarked}
+        post={post}
       />
     </Stack>
   );
 }
 
 ItemPost.propTypes = {
-  content: PropTypes.string,
-  imageUrls: PropTypes.array,
-  avatarUrl: PropTypes.string,
-  fullName: PropTypes.string,
-  postUser: PropTypes.object,
-  id: PropTypes.string,
-  likeCount: PropTypes.number,
-  liked: PropTypes.bool,
   disable: PropTypes.bool,
-  onPostDeleted: PropTypes.func,
-  replyCount: PropTypes.number,
-  updateComment: PropTypes.func,
-  bookmarked: PropTypes.bool,
-};
-
-ItemPost.defaultProps = {
-  content: "",
-  imageUrls: [],
-  avatarUrl: "",
-  fullName: "",
-  postUser: {},
+  post: PropTypes.object,
 };

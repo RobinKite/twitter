@@ -2,13 +2,11 @@ import TabPanel from "@mui/lab/TabPanel";
 import { Container } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProfileTabs, ItemPost } from "@/components";
+import { ProfileTabs, ItemPost, ProfileUser, LikedPosts } from "@/components";
 import { Container as AppContainer } from "@/components";
 import { useParams } from "react-router-dom";
 import { getCurrentPosts, getCurrentUser } from "@/redux/slices/currentUser";
-import ProfileUser from "@/components/ProfileUser/ProfileUser";
 import { resetPosts } from "@/redux/slices/postsSlice";
-import LikedPosts from "@/components/LikedPosts/LikedPosts";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -46,18 +44,7 @@ export function CurrentUser() {
             }}>
             <TabPanel value="0" sx={{ padding: 0 }}>
               {posts.map((post) => (
-                <ItemPost
-                  key={post.id}
-                  postUser={post.user}
-                  avatarUrl={post.user?.avatarUrl}
-                  fullName={post.user?.fullName}
-                  replyCount={post.replyCount}
-                  id={post.id}
-                  content={post.body}
-                  likeCount={post.likeCount}
-                  liked={post.liked}
-                  imageUrls={post.imageUrls}
-                />
+                <ItemPost key={post.id} post={post} />
               ))}
             </TabPanel>
             {/* <TabPanel value="1">Replies</TabPanel> */}

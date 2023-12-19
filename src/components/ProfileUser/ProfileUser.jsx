@@ -51,7 +51,7 @@ LinkedUsers.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-function ProfileUser({ isSelf, setIsModalOpen }) {
+export function ProfileUser({ isSelf, setIsModalOpen }) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -197,7 +197,6 @@ function ProfileUser({ isSelf, setIsModalOpen }) {
   );
 }
 
-export default ProfileUser;
 ProfileUser.propTypes = {
   isSelf: PropTypes.bool.isRequired,
   setIsModalOpen: PropTypes.func,
