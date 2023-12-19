@@ -16,6 +16,7 @@ const currentUserSlice = createSlice({
     setCurrentUser: (state, action) => {
       state.user = action.payload;
     },
+
     resetPosts: (state) => {
       state.currentLikedPosts = [];
       state.currentPosts = [];
@@ -34,7 +35,6 @@ const currentUserSlice = createSlice({
 
 export const { setCurrentUser, setCurrentPosts, setCurrentLikedPosts, resetPosts } =
   currentUserSlice.actions;
-// export const selectCurrentUser = (state) => state.currentUser.user;
 export default currentUserSlice.reducer;
 export const getCurrentLikedPosts = (page, id) => async (dispatch) => {
   try {
@@ -48,13 +48,13 @@ export const getCurrentLikedPosts = (page, id) => async (dispatch) => {
   }
 };
 export const getCurrentPosts = (page, id) => async (dispatch) => {
-  console.log("page: ", page, ", id: ", id);
+  // console.log("page: ", page, ", id: ", id);
   try {
     const response = await client.get(Endpoint.GET_POSTS, {
       params: { id: id, page: page, pageSize: 12 },
     });
-    const data = response.data;
-    dispatch(setCurrentPosts(data));
+    console.log(response);
+    dispatch(setCurrentPosts(response.data));
   } catch (error) {
     console.error("Error fetching user:", error);
   }
@@ -62,10 +62,8 @@ export const getCurrentPosts = (page, id) => async (dispatch) => {
 
 export const getCurrentUser = (id) => async (dispatch) => {
   try {
-    const response = await client.get(`users/${id}`);
-    const data = response.data;
-
-    dispatch(setCurrentUser(data));
+    const response = await client.get(`${Endpoint.USERS}/${id}`);
+    dispatch(setCurrentUser(response.data));
   } catch (error) {
     console.error("Error fetching user:", error);
   }

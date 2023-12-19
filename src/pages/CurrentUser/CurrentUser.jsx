@@ -2,16 +2,19 @@ import TabPanel from "@mui/lab/TabPanel";
 import { Container } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProfileTabs } from "@/components";
+import { ProfileTabs, ItemPost, ProfileUser } from "@/components";
 import { Container as AppContainer } from "@/components";
 import { useParams } from "react-router-dom";
-import { getCurrentPosts, getCurrentUser, resetPosts } from "@/redux/slices/currentUser";
-import ProfileUser from "@/components/ProfileUser/ProfileUser";
+import {
+  getCurrentLikedPosts,
+  getCurrentPosts,
+  getCurrentUser,
+} from "@/redux/slices/currentUser";
+import { resetPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
-import LikedPosts from "@/components/LikedPosts/LikedPosts";
-import RenderPosts from "@/components/RenderPosts/RenderPosts";
-import { getCurrentLikedPosts } from "@/redux/slices/currentUser";
 import useInfinstyScroll from "@/hooks/useInfinstyScroll";
+import { sortByCreatedAt } from "@/utils";
+
 const tabs = [
   { label: "Post", value: "0" },
   // { label: "Replies", value: "1" },
@@ -20,16 +23,15 @@ const tabs = [
 
 export function CurrentUser() {
   const { id } = useParams();
-
-  const user = useSelector((state) => state.currentUser.user);
+  const dispatch = useDispatch();
   const posts = useSelector((state) => state.currentUser.currentPosts);
   const likedPosts = useSelector((state) => state.currentUser.currentLikedPosts);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(resetPosts());
     dispatch(getCurrentUser(id));
     dispatch(getCurrentPosts(null, id));
+    dispatch(getCurrentLikedPosts(null, id));
   }, [dispatch, id]);
 
   return (
@@ -39,25 +41,7 @@ export function CurrentUser() {
           maxWidth="sm"
           disableGutters={true}
           sx={{ border: "1px solid rgb(239, 243, 244)" }}>
-          {user && (
-            <ProfileUser
-              id={user.id}
-              key={user.id}
-              fullName={user.fullName}
-              avatarUrl={user.avatarUrl}
-              imageUrl={user.imageUrl}
-              userTag={user.userTag}
-              bio={user.bio}
-              birthdate={user.birthdate}
-              following={user.following}
-              followers={user.followers}
-              isFollowedByUser={user.isFollowedByUser}
-              showFollowButton={true}
-              location={user.location}
-              createdAt={user.createdAt}
-            />
-          )}
-
+          <ProfileUser isSelf={false} />
           <ProfileTabs
             tabs={tabs}
             variant="scrollable"
@@ -76,7 +60,9 @@ export function CurrentUser() {
                   id: id,
                 })}
                 hasMore={true}>
-                <RenderPosts id={id} statePost={true} />
+                {sortByCreatedAt(posts).map((post) => (
+                  <ItemPost key={post.id} post={post} />
+                ))}
               </InfiniteScroll>
             </TabPanel>
             {/* <TabPanel value="1">Replies</TabPanel> */}
@@ -89,7 +75,9 @@ export function CurrentUser() {
                   id: id,
                 })}
                 hasMore={true}>
-                <LikedPosts id={id} currentUser={true} />
+                {sortByCreatedAt(likedPosts)?.map((post) => (
+                  <ItemPost key={post.id} post={post} />
+                ))}
               </InfiniteScroll>
             </TabPanel>
           </ProfileTabs>

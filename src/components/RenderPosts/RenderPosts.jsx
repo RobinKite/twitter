@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ItemPost } from "..";
 import PropTypes from "prop-types";
 import { getCurrentPosts } from "@/redux/slices/currentUser";
+import { sortByCreatedAt } from "@/utils";
 
 function RenderPosts({ id, statePost }) {
   const posts = useSelector((state) =>
@@ -21,21 +22,8 @@ function RenderPosts({ id, statePost }) {
 
   return (
     <>
-      {posts.length ? (
-        posts.map((post) => (
-          <ItemPost
-            key={post.id}
-            postUser={post.user}
-            avatarUrl={post.user.avatarUrl}
-            fullName={post.user.fullName}
-            replyCount={post.replyCount}
-            id={post.id}
-            content={post.body}
-            likeCount={post.likeCount}
-            liked={post.liked}
-            imageUrls={post.imageUrls}
-          />
-        ))
+      {sortByCreatedAt(posts).length ? (
+        posts.map((post) => <ItemPost key={post.id} post={post} />)
       ) : (
         <>{statePost ? "User has no posts" : "You don't have any posts yet"}</>
       )}

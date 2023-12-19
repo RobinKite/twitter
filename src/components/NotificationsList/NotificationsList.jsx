@@ -10,12 +10,13 @@ import {
 
 const NotificationsList = () => {
   const notifications = useSelector((state) => state.user.notifications);
+  console.log(notifications);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(resetPostsLiked());
     dispatch(getNotifications());
     dispatch(setNotificationsCount(0));
-  }, []);
+  }, [dispatch]);
 
   if (notifications.length === 0) {
     return (

@@ -3,6 +3,8 @@ import { client, storage } from "@/services";
 import { Endpoint } from "@/constants";
 import { getBirthdayInSeconds } from "@/utils/date";
 import { setPostsTemplate } from "@/utils";
+import { getCurrentUser } from "./currentUser";
+import { setIsLoading } from "./appSlice";
 
 const userSlice = createSlice({
   name: "user",
@@ -48,19 +50,11 @@ const userSlice = createSlice({
       state.isAuthenticated = true;
       state.user = action.payload;
     },
-    getUser: (state, action) => {
+    setUser: (state, action) => {
       state.user = action.payload;
     },
     setUsers: (state, action) => {
       state.usersList = action.payload;
-    },
-    sendFriendRequest: (state, action) => {
-      state.friendRequests.push(action.payload);
-    },
-    removeFriend: (state, action) => {
-      state.friendsList = state.friendsList.filter(
-        (friend) => friend.id !== action.payload,
-      );
     },
     setFriendSearches: (state, action) => {
       state.friendSearches = action.payload;
@@ -78,6 +72,7 @@ const userSlice = createSlice({
     },
 
     setBookmarkPost: (state, action) => {
+      console.log(action.payload);
       setPostsTemplate(state, action, "bookmarkPosts");
     },
     removeBookmarkPost: (state, action) => {
@@ -86,7 +81,9 @@ const userSlice = createSlice({
       );
     },
     setNotifications: (state, action) => {
-      setPostsTemplate(state, action, "notifications");
+      console.log(action.payload);
+      // setPostsTemplate(state, action, "notifications");
+      state.notifications = action.payload;
     },
     setNotificationsCount: (state, action) => {
       state.notificationsCount = action.payload;
@@ -96,11 +93,9 @@ const userSlice = createSlice({
 
 export const {
   loginUserAction,
-  getUser,
+  setUser,
   registerUserAction,
   setUsers,
-  sendFriendRequest,
-  removeFriend,
   setFriendSearches,
   googleRegisterAction,
   logoutUserAction,
@@ -117,14 +112,13 @@ export const {
 
 export default userSlice.reducer;
 
-export const getUserInfo = () => async (dispatch) => {
+export const fetchUser = () => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.USER_PROFILE);
-    const data = response.data;
-
-    dispatch(getUser(data));
+    dispatch(setUser(response.data));
+    dispatch(setIsLoading(false));
   } catch (error) {
-    console.error("Error fetching liked posts:", error);
+    console.error("Error:", error);
   }
 };
 export const getUserFollowers = (userId) => async (dispatch) => {
@@ -132,10 +126,9 @@ export const getUserFollowers = (userId) => async (dispatch) => {
     const response = await client.get(Endpoint.USER_FOLLOWERS, {
       params: { page: 0, pageSize: 10, userId: userId },
     });
-    const data = response.data.content;
-    dispatch(usersFollowers(data));
+    dispatch(usersFollowers(response.data.content));
   } catch (error) {
-    console.error("Error fetching liked posts:", error);
+    console.error("Error:", error);
   }
 };
 export const getUserFollowing = (userId) => async (dispatch) => {
@@ -143,19 +136,16 @@ export const getUserFollowing = (userId) => async (dispatch) => {
     const response = await client.get(Endpoint.USER_FOLLOWED, {
       params: { page: 0, pageSize: 10, userId: userId },
     });
-    const data = response.data.content;
-    dispatch(usersFollowing(data));
+    dispatch(usersFollowing(response.data.content));
   } catch (error) {
-    console.error("Error fetching liked posts:", error);
+    console.error("Error:", error);
   }
 };
 
 export const getUsersUpdate = (values) => async (dispatch) => {
   try {
     const response = await client.put(Endpoint.USERS_UPDATE, values);
-    const data = response.data;
-    console.log(data);
-    dispatch(getUser(data));
+    dispatch(setUser(response.data));
   } catch (error) {
     console.error("Error fetching user:", error);
   }
@@ -166,9 +156,7 @@ export const getUsersUpdateAvatarUrl = (avatarUrl) => async (dispatch) => {
     const formData = new FormData();
     formData.append("file", avatarUrl);
     const response = await client.post(Endpoint.UPLOAD_AVATAR, formData);
-    const data = response.data;
-    console.log(data);
-    dispatch(getUser(data));
+    dispatch(setUser(response.data));
   } catch (error) {
     console.error("Error fetching user:", error);
   }
@@ -180,9 +168,7 @@ export const getUsersUpdateImageUrl = (imageUrl) => async (dispatch) => {
     formData.append("file", imageUrl);
 
     const response = await client.post(Endpoint.UPLOAD_BG_IMAGE, formData);
-    const data = response.data;
-    console.log(data);
-    dispatch(getUser(data));
+    dispatch(setUser(response.data));
   } catch (error) {
     console.error("Error fetching user:", error);
   }
@@ -193,7 +179,6 @@ export const loginUser = (email, password) => (dispatch) => {
   client.post(Endpoint.LOGIN, payload).then((response) => {
     const { access_token: accessToken, refresh_token: refreshToken } = response.data;
     storage.setTokens(accessToken, refreshToken);
-    client.setAccessToken(accessToken);
     dispatch(loginUserAction(response.data.user));
   });
 };
@@ -215,7 +200,6 @@ export const registerUser = (user) => {
     client.post(Endpoint.REGISTER, data).then((response) => {
       const { access_token: accessToken, refresh_token: refreshToken } = response.data;
       storage.setTokens(accessToken, refreshToken);
-      client.setAccessToken(accessToken);
       dispatch(registerUserAction(data));
     });
   };
@@ -234,19 +218,18 @@ export const fetchUsers = (numberOfUsers) => {
 
 export const postSubscribeToUser = (id) => {
   return (dispatch) => {
-    client.post(Endpoint.SUBSCRIPTIONS, { id }).then((response) => {
-      const data = response.data;
-      dispatch(sendFriendRequest(data));
+    client.post(Endpoint.SUBSCRIPTIONS, { id }).then(() => {
+      dispatch(fetchUser());
+      dispatch(getCurrentUser(id));
     });
   };
 };
 
 export const deleteSubscribeToUser = (id) => {
   return (dispatch) => {
-    client.delete(Endpoint.SUBSCRIPTIONS, { params: { id } }).then((response) => {
-      const data = response.data;
-      dispatch(removeFriend(id));
-      return data;
+    client.delete(Endpoint.SUBSCRIPTIONS, { params: { id } }).then(() => {
+      dispatch(fetchUser());
+      dispatch(getCurrentUser(id));
     });
   };
 };
@@ -270,19 +253,13 @@ export const googleRegister = (code, state) => (dispatch) => {
     .then((response) => {
       const { access_token: accessToken, refresh_token: refreshToken } = response.data;
       storage.setTokens(accessToken, refreshToken);
-      client.setAccessToken(accessToken);
       dispatch(googleRegisterAction(response.data.user));
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 };
 
-export const sendTokenToClient = () => () => {
-  if (storage.accessToken !== null) {
-    client.setAccessToken(storage.accessToken);
-  }
-};
 export const getLikedPosts = (page) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.LIKED_POSTS, {
@@ -322,18 +299,29 @@ export const getAllBookmarkPosts = (page) => async (dispatch) => {
     const data = response.data;
     dispatch(setBookmarkPost(data));
   } catch (error) {
-    console.log("getAllBookmarkPosts error: ", error);
+    console.error("Error: ", error);
   }
 };
 
-export const getNotifications = (page) => {
-  return (dispatch) => {
-    client
-      .get(Endpoint.GET_NOTIFICATIONS, { params: { page: page, pageSize: 12 } })
-      .then((response) => {
-        const data = response.data;
-        dispatch(setNotifications(data));
-      });
+export const getNotifications = () => {
+  return async (dispatch) => {
+    try {
+      let page = 0;
+      let allNotifications = [];
+      let totalPages = 0;
+      do {
+        const response = await client.get(Endpoint.GET_NOTIFICATIONS, {
+          params: { page, pageSize: 12 },
+        });
+        const data = response.data.content;
+        totalPages = response.data.totalPages;
+        allNotifications = [...allNotifications, ...data];
+        page++;
+      } while (page < totalPages);
+      dispatch(setNotifications(allNotifications));
+    } catch (error) {
+      console.error("Error fetching notifications", error);
+    }
   };
 };
 

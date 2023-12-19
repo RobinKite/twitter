@@ -30,11 +30,11 @@ export const setPostsTemplate = (state, action, postsType) => {
         (existingPost) => JSON.stringify(existingPost) !== JSON.stringify(post),
       ),
     );
-    if (action.payload.number >= action.payload.totalPages) {
-      state.hasMore = false;
-    } else {
-      state.hasMore = true;
-    }
+    // if (action.payload.number >= action.payload.totalPages) {
+    //   state.hasMore = false;
+    // } else {
+    //   state.hasMore = true;
+    // }
     state[postsType] = [...state[postsType], ...uniquePosts];
     state.page = action.payload.number;
   }

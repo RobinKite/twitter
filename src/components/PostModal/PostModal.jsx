@@ -1,11 +1,8 @@
+import { Modal, Box, IconButton, Stack, styled } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import Modal from "@mui/material/Modal";
-import { styled } from "@mui/material";
-import { Box } from "@mui/system";
-import { setModalPost } from "../../redux/slices/appSlice";
-import { Cross } from "@/icons";
-import styles from "./PostModal.module.scss";
 import PropTypes from "prop-types";
+import { Cross } from "@/icons";
+import { setModalPost } from "@/redux/slices/appSlice";
 
 export const ModalBody = styled(Box)(() => ({
   position: "absolute",
@@ -37,18 +34,25 @@ export function PostModal({ isOpen }) {
   const dispatch = useDispatch();
   const content = useSelector((state) => state.app.postModalContent);
 
+  const handleClose = () => {
+    dispatch(setModalPost(false));
+  };
+
   return (
     <div>
-      <Modal open={isOpen}>
-        <ModalBody>
-          <div>
-            <button
-              onClick={() => isOpen && dispatch(setModalPost())}
-              className={styles.close}>
-              <Cross size={30} />
-            </button>
-          </div>
-          <div className={styles.postInput}>{content}</div>
+      <Modal onClose={handleClose} open={isOpen}>
+        <ModalBody
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "start",
+            padding: "0.5rem",
+            borderRadius: "1rem",
+          }}>
+          <IconButton onClick={handleClose}>
+            <Cross />
+          </IconButton>
+          <Stack sx={{ width: "100%", justifyContent: "space-between" }}>{content}</Stack>
         </ModalBody>
       </Modal>
     </div>

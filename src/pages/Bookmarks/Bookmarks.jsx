@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { Box, Typography, Stack } from "@mui/material";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Container, ItemPost } from "@/components";
 import { useEffect } from "react";
 import { getAllBookmarkPosts, resetPostsLiked } from "@/redux/slices/userSlice";
@@ -9,7 +9,7 @@ import useInfinstyScroll from "@/hooks/useInfinstyScroll";
 export const Bookmarks = () => {
   const dispatch = useDispatch();
   const email = useSelector((state) => state.user.user.userTag);
-  const allBookmarkPosts = useSelector((state) => state.user.bookmarkPosts);
+  const allBookmarkPosts = useSelector((state) => state.user.bookmarkPosts, shallowEqual);
 
   useEffect(() => {
     dispatch(resetPostsLiked());
@@ -18,11 +18,11 @@ export const Bookmarks = () => {
 
   return (
     <Container>
-      <Box
+      <Stack
         sx={{
+          flexGrow: 1,
           borderRight: "1px solid #EFF3F4",
           borderLeft: "1px solid #EFF3F4",
-          height: "100vh",
         }}>
         <Typography
           variant="h1"
@@ -50,21 +50,7 @@ export const Bookmarks = () => {
           next={useInfinstyScroll({ callback: getAllBookmarkPosts, slice: "user" })}
           hasMore={true}>
           {allBookmarkPosts.length > 0 ? (
-            allBookmarkPosts.map((post) => (
-              <ItemPost
-                key={post.id}
-                postUser={post.user}
-                avatarUrl={post.user.avatarUrl}
-                fullName={post.user.fullName}
-                content={post.body}
-                replyCount={post.replyCount}
-                imageUrls={post.imageUrls}
-                id={post.id}
-                likeCount={post.likeCount}
-                liked={post.liked}
-                bookmarked={post.bookmarked}
-              />
-            ))
+            allBookmarkPosts.map((post) => <ItemPost key={post.id} post={post} />)
           ) : (
             <Box
               sx={{ margin: "32px auto", padding: "0 32px", maxWidth: "calc(5 * 80px)" }}>
@@ -84,7 +70,7 @@ export const Bookmarks = () => {
             </Box>
           )}
         </InfiniteScroll>
-      </Box>
+      </Stack>
     </Container>
   );
 };

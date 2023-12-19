@@ -11,6 +11,10 @@ const useInfinstyScroll = ({ callback, slice, id }) => {
       dispatch(callback(page + 1, id));
     }
   };
-  return fetchPosts;
+  const delayedFetchPosts = () => {
+    setTimeout(fetchPosts, 300);
+  };
+
+  return delayedFetchPosts;
 };
 export default useInfinstyScroll;

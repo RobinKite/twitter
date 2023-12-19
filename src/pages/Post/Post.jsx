@@ -2,12 +2,14 @@ import { IconButton, Typography, styled, Box } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { CommentPost, ItemPost, Container } from "@/components";
+import { ItemPost, Container, CommentPost } from "@/components";
 import { ArrowBack } from "@/icons";
+import { PostType } from "@/constants";
 import { axiosPostComments, getPostById, resetPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { sortByCreatedAt } from "@/utils";
 import useInfinstyScroll from "@/hooks/useInfinstyScroll";
+// import { compareByDate } from "@/utils";
 
 const HeaderPage = styled(Box)(() => ({
   display: "flex",
@@ -23,6 +25,7 @@ export const Post = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const redirectToPost = () => {
     navigate(`/`, { replace: true });
   };
@@ -44,25 +47,18 @@ export const Post = () => {
       </HeaderPage>
       {post ? (
         <div>
-          <ItemPost
-            postUser={post.user}
-            avatarUrl={post.user.avatarUrl}
-            fullName={post.user.fullName}
-            key={post.id}
-            content={post.body}
-            imageUrls={post.imageUrls}
-            id={post.id}
-            likeCount={post.likeCount}
-            liked={post.liked}
-            replyCount={post.replyCount}
-          />
+          <ItemPost key={post.id} post={post} />
         </div>
       ) : (
         <div>The post is deleted</div>
       )}
 
-      <CommentPost id={id} />
-
+      <CommentPost
+        id={id}
+        placeholder="Post your reply"
+        buttonName="Reply"
+        type={PostType.REPLY}
+      />
       <InfiniteScroll
         dataLength={postComments.length}
         next={useInfinstyScroll({
@@ -71,19 +67,8 @@ export const Post = () => {
           id: id,
         })}
         hasMore={true}>
-        {sortByCreatedAt(postComments)?.map((e) => (
-          <ItemPost
-            postUser={e.user}
-            replyCount={e.replyCount}
-            key={e.id}
-            content={e.body}
-            imageUrls={e.imageUrls}
-            id={e.id}
-            likeCount={e.likeCount}
-            liked={e.liked}
-            avatarUrl={e.user.avatarUrl}
-            fullName={e.user.fullName}
-          />
+        {sortByCreatedAt(postComments)?.map((post) => (
+          <ItemPost key={post.id} post={post} />
         ))}
       </InfiniteScroll>
     </Container>

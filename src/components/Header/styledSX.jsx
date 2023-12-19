@@ -11,12 +11,8 @@ export const postButtonSX = {
     width: "50px",
     minWidth: 0,
     position: "fixed",
-
-    // "&:hover": {
-    //   backgroundColor: "#1a8cd8",
-
-    // },
   },
+
   tablet: {
     position: "unset",
     height: "50px",
@@ -26,6 +22,7 @@ export const postButtonSX = {
     borderRadius: "100%",
     alignSelf: "center",
   },
+
   desktop: {
     color: "#ffffff",
     boxShadow: "none",
@@ -35,7 +32,7 @@ export const postButtonSX = {
     fontWeight: 700,
     fontSize: "17px",
     padding: "11px 80px",
-    margin: "1rem 40px 0 4px",
+    margin: "1rem 2rem 0 0",
 
     "&:hover": {
       boxShadow: "none",
@@ -69,16 +66,6 @@ export const moreButtonSX = {
   },
 };
 
-export const moreSelectSX = {
-  position: "relative",
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: "1px",
-  overflow: "hidden",
-  whiteSpace: "nowrap",
-  width: "1px",
-};
-
 export const logoutButton = {
   width: "100%",
   color: "#0f1419",
@@ -92,38 +79,5 @@ export const logoutButton = {
   marginTop: "auto",
   "&:hover": {
     backgroundColor: "#fff",
-  },
-};
-
-export const moreSelectMenuPropsSX = {
-  anchorOrigin: {
-    vertical: "bottom",
-    horizontal: "left",
-  },
-  transformOrigin: {
-    vertical: "bottom",
-    horizontal: "left",
-  },
-  PaperProps: {
-    sx: {
-      position: "absolute",
-      borderRadius: 5,
-      "& .css-6hp17o-MuiList-root-MuiMenu-list": {
-        paddingTop: 0,
-        paddingBottom: 0,
-        backgroundColor: "#ffffff",
-      },
-      "& .MuiMenuItem-root": {
-        padding: 2,
-        fontSize: 20,
-        fontWeight: 700,
-        minWidth: 318,
-
-        gap: 3,
-        "&:hover": {
-          backgroundColor: "#eff3f4",
-        },
-      },
-    },
   },
 };

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { client } from "@/services";
-import { Endpoint } from "@/constants";
+import { Endpoint, PostType } from "@/constants";
 import { setPostsTemplate } from "@/utils";
 
 const postsSlice = createSlice({
@@ -11,6 +11,7 @@ const postsSlice = createSlice({
     selectedPost: null,
     postComments: [],
     myPosts: [],
+    repostedPosts: [],
     hasMore: true,
     page: 0,
   },
@@ -35,11 +36,15 @@ const postsSlice = createSlice({
     },
     addPost: (state, action) => {
       const newPost = action.payload;
-      if (newPost.type === "TWEET") {
+      if (newPost.type === PostType.TWEET) {
         state.myPosts.unshift(newPost);
         state.posts.unshift(newPost);
       }
-      if (newPost.type === "REPLY") {
+      if (newPost.type === PostType.QUOTE) {
+        state.myPosts.unshift(newPost);
+        state.posts.unshift(newPost);
+      }
+      if (newPost.type === PostType.REPLY) {
         const parentPostExistsInComments = state.postComments.some(
           (comment) => comment.id === newPost.parentPost?.id,
         );
@@ -93,6 +98,14 @@ const postsSlice = createSlice({
       state.postComments = state.postComments.filter(
         (comment) => comment.parentPost.id !== postIdToDelete,
       );
+    },
+
+    setPopularPosts: (state, action) => {
+      state.popularPosts = action.payload;
+    },
+
+    addRepostedPosts: (state, action) => {
+      state.repostedPosts = action.payload;
     },
 
     getPostId: (state, action) => {
@@ -181,6 +194,7 @@ export const {
   resetPosts,
   setHasMore,
   setPopularPosts,
+  addRepostedPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
 
@@ -209,12 +223,13 @@ export const handleLike = (id) => async (dispatch) => {
     console.error("Error liking the post:", error);
   }
 };
-export const handleLikeSPosts = (page) => async () => {
+
+// TODO: 👉 Implement
+export const handleLikedPosts = (page) => async () => {
   try {
-    const response = await client.post(Endpoint.LIKE, {
+    const response = await client.get(Endpoint.LIKED_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-
     console.log(response);
   } catch (error) {
     console.error("Error liking the post:", error);
@@ -226,8 +241,8 @@ export const axiosPostComments = (page, id) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_POST_REPLIES, {
       params: { postId: id, page: page, pageSize: 12 },
     });
-    const comments = response.data;
-    dispatch(getPostComents(comments));
+
+    dispatch(getPostComents(response.data));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -236,8 +251,7 @@ export const axiosPostComments = (page, id) => async (dispatch) => {
 export const getPostById = (id) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.GET_POST, { params: { id } });
-    const data = response.data;
-    dispatch(getPostId(data));
+    dispatch(getPostId(response.data));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -274,17 +288,16 @@ export const getMyPosts = (page) => async (dispatch) => {
 
     dispatch(setMyPosts(response.data));
   } catch (error) {
-    console.error("Error fetching posts:", error.errorMessage);
+    console.error("Error fetching posts:", error);
   }
 };
 
 export const addPosts = (formData) => async (dispatch) => {
   try {
     const response = await client.post(Endpoint.CREATE_POST, formData);
-    const data = response.data;
-    dispatch(addPost(data));
+    dispatch(addPost(response.data));
   } catch (error) {
-    console.log("ERROR", error);
+    console.error("Error:", error);
   }
 };
 
@@ -293,21 +306,6 @@ export const deletePost = (id) => async (dispatch) => {
     await client.delete(Endpoint.DELETE_POST, { params: { id } });
     await dispatch(deleteFromPost(id));
   } catch (error) {
-    console.error("Сталася помилка при видаленні поста:", error);
+    console.error("Error deleting post:", error);
   }
 };
-
-// export const {
-//   setPosts,
-//   addPost,
-//   deleteComment,
-//   deleteFromPost,
-//   getPostId,
-//   getPostComents,
-//   like,
-//   addComent,
-//   unlike,
-//   setMyPosts,
-//   setPopularPosts,
-// } = postsSlice.actions;
-// export default postsSlice.reducer;
