@@ -1,5 +1,5 @@
 // import { useLoadPost } from "@/hooks/useLoadPost";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, useTheme } from "@mui/material";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { Container, CreatePost, ItemPost, WelcomeMessage } from "@/components";
 import { homeHeaderSX } from "./stylesSX";
@@ -7,6 +7,7 @@ import { getPosts } from "@/redux/slices/postsSlice";
 import { useEffect } from "react";
 
 export const Home = () => {
+  const theme = useTheme();
   const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
   // const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
@@ -19,7 +20,16 @@ export const Home = () => {
 
   return (
     <Container>
-      <div style={{ border: "1px solid rgb(239, 243, 244)" }}>
+      <div
+        style={{
+          // border: "1px solid rgb(239, 243, 244)"
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor:
+            theme.palette.mode === "light"
+              ? theme.palette.dark.light_grey
+              : theme.palette.dark.border_grey,
+        }}>
         <Stack sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
           <Typography variant="h2" component="h2" sx={homeHeaderSX}>
             Following

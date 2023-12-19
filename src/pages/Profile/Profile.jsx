@@ -60,7 +60,8 @@ export function Profile() {
         disableGutters={true}
         // sx={{ border: "1px solid rgb(239, 243, 244)", height: "unset" }}
         sx={{
-          border: "1px solid ", //TODO : borderWidth, borderStyle, borderColor
+          borderWidth: "1px",
+          borderStyle: "solid",
           borderColor: (theme) =>
             theme.palette.mode === "light"
               ? theme.palette.dark.light_grey
@@ -94,7 +95,11 @@ export function Profile() {
               justifyContent: "space-around",
             },
           }}>
-          <TabPanel value="0" sx={{ padding: 0 }}>
+          <TabPanel
+            value="0"
+            sx={{
+              padding: 0,
+            }}>
             {posts.map((post) => (
               <ItemPost
                 key={post.id}

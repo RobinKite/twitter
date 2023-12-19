@@ -75,7 +75,13 @@ export function UserPhoto({
   };
   return (
     <>
-      <ContainerPhoto>
+      <ContainerPhoto
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.light.banner
+              : theme.palette.dark.banner,
+        }}>
         {changeIcon ? (
           <>
             <IconAddPhoto>

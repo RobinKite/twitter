@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDrawer } from "@/redux/slices/appSlice";
 
 import { Avatar, Gear, Twitter } from "@/icons";
+import { theme } from "@/themes/theme";
 
 const HeaderMobile = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,11 @@ const HeaderMobile = () => {
             )}
           </NavLink>
         </li>
-        <li style={{ padding: "10px" }}>
+        <li
+          style={{
+            padding: "10px",
+            fill: theme.palette[theme.palette.mode].secondary,
+          }}>
           <NavLink to="/">
             <Twitter size={25} />
           </NavLink>

@@ -11,6 +11,10 @@ export const sidebarSX = {
 
     backgroundColor: "inherit",
   },
+
+  ".css-1p47gu2-MuiTypography-root-MuiLink-root:hover": {
+    backgroundColor: "unset",
+  },
 };
 
 export const containerSX = {
@@ -40,8 +44,8 @@ export const showMoreSX = {
   color: (theme) => theme.palette[theme.palette.mode].accent,
   transition: "background-color 200ms",
 
-  ":hover": {
-    backgroundColor: "rgb(240, 240, 240)",
+  "&:hover": {
+    backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
   },
   ":focus": {
     backgroundColor: "rgb(240, 240, 240)",

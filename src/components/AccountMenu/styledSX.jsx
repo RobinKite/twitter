@@ -12,8 +12,9 @@ export const WrapperAccountMenuSX = {
   overflow: "hidden",
 
   "&:hover": {
-    backgroundColor: "rgb(240, 240, 240)",
+    backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
   },
+  "  .css-1vn8s31-MuiStack-root:hover": { backgroundColor: "unset" },
 };
 
 export const moreSelectSX = {
@@ -24,6 +25,9 @@ export const moreSelectSX = {
   overflow: "hidden",
   whiteSpace: "nowrap",
   width: "1px",
+  // boxShadowWidth:"15px",
+  // boxShadowColor:(theme)=>theme.palette.light.box_shadow,
+  boxShadow: (theme) => `0 0 15px ${theme.palette[theme.palette.mode].box_shadow}`,
 };
 
 export const moreSelectMenuPropsSX = {
@@ -36,11 +40,13 @@ export const moreSelectMenuPropsSX = {
       position: "absolute",
       borderRadius: 4,
       marginTop: -8,
+
       "& .css-6hp17o-MuiList-root-MuiMenu-list": {
         paddingTop: 0,
         paddingBottom: 0,
-        backgroundColor: "#ffffff",
+        // backgroundColor: "#ffffff",
       },
+
       "& .MuiMenuItem-root": {
         padding: 2,
         fontSize: 15,

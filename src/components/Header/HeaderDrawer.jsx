@@ -1,4 +1,4 @@
-import { Button, Drawer } from "@mui/material";
+import { Button, Drawer, useTheme } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setDrawer } from "@/redux/slices/appSlice";
@@ -39,6 +39,7 @@ HeaderDrawerItem.propTypes = {
   getIconComponent: PropTypes.func.isRequired,
 };
 const HeaderDrawer = () => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const open = useSelector((state) => state.app.isDrawerActive);
@@ -67,12 +68,17 @@ const HeaderDrawer = () => {
   };
 
   return (
-    <Drawer anchor="left" open={open} onClose={onClose}>
+    <Drawer anchor="left" open={open} onClose={onClose} sx={{}}>
       <ul
         style={{
           display: "flex",
           justifyContent: "space-between",
           flexDirection: "column",
+          backgroundColor: theme.palette[theme.palette.mode].primary,
+          color:
+            theme.palette.mode === "light"
+              ? theme.palette.light.secondary
+              : theme.palette.dark.light_grey,
         }}>
         <NavLink>
           {headerDrawerItems.map((item) => {
@@ -89,7 +95,7 @@ const HeaderDrawer = () => {
           open={dialogOpen}
           title="Log out of X?"
           description="You can always log back in at any time. If you just want to switch accounts, you can do that by adding an existing account."
-          actionButton={{ title: "Log out", callback: handleConfirmation }}
+          actionButton={{ title: "", callback: handleConfirmation }}
           closeButton={{ title: "Cancel", callback: handleCloseDialog }}
         />
       )}

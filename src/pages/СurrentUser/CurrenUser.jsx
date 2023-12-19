@@ -1,5 +1,5 @@
 import TabPanel from "@mui/lab/TabPanel";
-import { Container } from "@mui/material";
+import { Container, useTheme } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProfileTabs, ItemPost } from "@/components";
@@ -20,6 +20,7 @@ const tabs = [
 ];
 
 export function CurrentUser() {
+  const theme = useTheme();
   const { id } = useParams();
 
   const user = useSelector((state) => state.currentUser.user);
@@ -43,7 +44,15 @@ export function CurrentUser() {
         <Container
           maxWidth="sm"
           disableGutters={true}
-          sx={{ border: "1px solid rgb(239, 243, 244)" }}>
+          sx={{
+            // border: "1px solid rgb(239, 243, 244)"
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderColor:
+              theme.palette.mode === "light"
+                ? theme.palette.dark.light_grey
+                : theme.palette.dark.border_grey,
+          }}>
           {user && (
             <ProfileUser
               id={user.id}

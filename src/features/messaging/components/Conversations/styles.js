@@ -1,12 +1,27 @@
 export const wrapperSx = {
   padding: "0.5rem 1rem",
-  borderLeft: "1px solid rgb(239, 243, 244)",
-  borderRight: "1px solid rgb(239, 243, 244)",
+  borderRightWidth: "1px",
+  borderRightStyle: "solid",
+  borderRightColor: (theme) =>
+    theme.palette.mode === "light"
+      ? theme.palette.dark.light_grey
+      : theme.palette.dark.border_grey,
+
+  borderLefttWidth: "1px",
+  borderLeftStyle: "solid",
+  borderLeftColor: (theme) =>
+    theme.palette.mode === "light"
+      ? theme.palette.dark.light_grey
+      : theme.palette.dark.border_grey,
 };
 
 export const titleSx = {
   fontSize: "1.2rem",
   fontWeight: 600,
+  color: (theme) =>
+    theme.palette.mode === "light"
+      ? theme.palette.common.secondary
+      : theme.palette.dark.light_grey,
 };
 
 export const headerSx = {
@@ -18,9 +33,4 @@ export const headerSx = {
 
 export const buttonsSx = {
   flexDirection: "row",
-};
-
-export const iconStyle = {
-  // color: "rgb(15, 20, 25)",
-  color: (theme) => theme.palette.common.secondary,
 };

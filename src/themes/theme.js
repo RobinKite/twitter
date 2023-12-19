@@ -7,8 +7,12 @@ export const theme = createTheme({
       primary: "#ffffff",
       secondary: "#000000",
       accent: "#1d9bf0",
-      search_light: "#EFF3F4",
+      search_light: "#EFF3F4", // search, border
       background_light: "#f7f9f9",
+      banner: "#cfd9de",
+      hover: "#00000050",
+      hover_accent: "#1a8cd8",
+      box_shadow: "#65778620",
     },
     dark: {
       primary: "#000000",
@@ -18,11 +22,15 @@ export const theme = createTheme({
       text_grey: "#71767B",
       border_grey: "#2F3336",
       background_dark: "#202327",
+      banner: "#333639",
+      hover: "#16181C",
+      hover_accent: "#1a8cd8",
+      box_shadow: "",
     },
     common: {
       primary: "#536471", //grey (text+border)
       secondary: "#0f1419", //black
-      borderMain: "#32F3336",
+
       like: "#f91880",
     },
   },

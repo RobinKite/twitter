@@ -15,7 +15,18 @@ export const Notifications = () => {
   return (
     <Container>
       <Stack
-        sx={{ border: "1px solid rgb(239, 243, 244)", height: "unset", flexGrow: 1 }}>
+        sx={{
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.dark.light_grey
+              : theme.palette.dark.border_grey,
+
+          // border: "1px solid rgb(239, 243, 244)"
+          height: "unset",
+          flexGrow: 1,
+        }}>
         <Typography variant="h2" sx={title}>
           Notifications
         </Typography>

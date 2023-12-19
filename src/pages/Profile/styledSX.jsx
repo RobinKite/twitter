@@ -22,7 +22,7 @@ export const ArrowSvg = styled(Box)(({ theme }) => ({
   height: "40px",
   transition: "background-color 0.3s",
   "&:hover": {
-    backgroundColor: "rgb(133, 125, 125)",
+    backgroundColor: theme.palette[theme.palette.mode].hover,
   },
 }));
 
@@ -42,6 +42,6 @@ export const EditButton = styled(Button)(({ theme }) => ({
   // color: "black",
   " &:hover": {
     border: "1px solid rgb(207, 217, 222)",
-    background: " rgb(239, 243, 244)",
+    backgroundColor: theme.palette[theme.palette.mode].hover,
   },
 }));

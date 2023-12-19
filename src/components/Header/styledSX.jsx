@@ -15,7 +15,7 @@ export const postButtonSX = {
     position: "fixed",
 
     "&:hover": {
-      backgroundColor: "#1a8cd8",
+      backgroundColor: (theme) => theme.palette[theme.palette.mode].hover_accent,
     },
   },
   tablet: {
@@ -63,7 +63,9 @@ export const moreButtonSX = {
   lineHeight: 1,
 
   "&:hover": {
-    backgroundColor: "rgb(221, 217, 217)",
+    // backgroundColor: "rgb(221, 217, 217)",
+
+    backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
   },
 
   "& .css-1tnmhci-MuiButtonBase-root-MuiButton-root": {
@@ -82,12 +84,18 @@ export const moreSelectSX = {
   overflow: "hidden",
   whiteSpace: "nowrap",
   width: "1px",
+  backgroundColor: (theme) => theme.palette[theme.palette.mode].secondary,
 };
 
 export const logoutButton = {
   width: "100%",
   // color: "#0f1419",
   color: (theme) => theme.palette[theme.palette.mode].secondary,
+  backgroundColor: (theme) =>
+    theme.palette.mode === "light"
+      ? theme.palette.light.secondary
+      : theme.palette.dark.light_grey,
+
   fontSize: "20px",
   fontWeight: 700,
   display: "flex",
@@ -128,7 +136,7 @@ export const moreSelectMenuPropsSX = {
 
         gap: 3,
         "&:hover": {
-          backgroundColor: "#eff3f4",
+          backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
         },
       },
     },

@@ -13,9 +13,9 @@
   padding: 0.625rem;
   border-radius: 50%;
 
-  &:hover {
-    background-color: #e7e7e8;
-  }
+  // &:hover {
+  //   background-color: #e7e7e8;
+  // }
 }
 
 .link {
@@ -26,9 +26,9 @@
   padding: 0.75rem;
   border-radius: 2rem;
 
-  &:hover {
-    background-color: #e7e7e8;
-  }
+  // &:hover {
+  //   background-color: #e7e7e8;
+  // }
 }
 
 .activeLink {
@@ -42,5 +42,21 @@
 @media (max-width: 1023px) {
   .text {
     display: none;
+  }
+}
+
+.dark {
+  color: #e7e9ea;
+  fill: #fff;
+  &:hover {
+    background-color: #16181c;
+  }
+}
+
+.light {
+  color: #000;
+  fill: #000;
+  &:hover {
+    background-color: #ddd9d9;
   }
 }

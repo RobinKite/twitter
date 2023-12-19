@@ -71,9 +71,24 @@ export function ModalEdit({ isOpen, onClose }) {
       <ModalContainer>
         <ModalContent>
           <ModalHeader disableGutters={true}>
-            <Typography variant="h5" sx={{ display: "flex", alignItems: "center" }}>
-              <CloseOutlinedIcon sx={{ marginRight: "20px" }} onClick={onClose} /> Edit
-              profile
+            <Typography
+              variant="h5"
+              sx={{
+                color: (theme) =>
+                  theme.palette.mode === "light"
+                    ? theme.palette.common.secondary
+                    : theme.palette.dark.light_grey,
+                display: "flex",
+                alignItems: "center",
+              }}>
+              <CloseOutlinedIcon
+                sx={(theme) => ({
+                  fill: theme.palette[theme.palette.mode].secondary,
+                  marginRight: "20px",
+                })}
+                onClick={onClose}
+              />{" "}
+              Edit profile
             </Typography>
 
             <CustomButton
@@ -115,6 +130,10 @@ export function ModalEdit({ isOpen, onClose }) {
                 sx={{
                   width: "100%",
                   marginTop: "25px",
+                  color: (theme) =>
+                    theme.palette.mode === "light"
+                      ? theme.palette.common.primary
+                      : theme.palette.dark.text_grey,
                   "& .MuiOutlinedInput-input": {
                     paddingTop: "5px",
                   },
@@ -123,6 +142,10 @@ export function ModalEdit({ isOpen, onClose }) {
                 helperText={formik.touched[field.name] && formik.errors[field.name]}
                 InputProps={{
                   sx: {
+                    color: (theme) =>
+                      theme.palette.mode === "light"
+                        ? theme.palette.common.primary
+                        : theme.palette.dark.text_grey,
                     padding: "16px 10px",
                   },
                   endAdornment:
@@ -141,6 +164,10 @@ export function ModalEdit({ isOpen, onClose }) {
                 InputLabelProps={{
                   shrink: false,
                   sx: {
+                    color: (theme) =>
+                      theme.palette.mode === "light"
+                        ? theme.palette.common.primary
+                        : theme.palette.dark.text_grey,
                     transform: formik.values[field.name] ? "translate(10px, 4px)" : null,
                     fontSize: formik.values[field.name] ? "14px" : "16px",
                     transition: "transform 0.3s, font-size 0.3s",
@@ -155,7 +182,13 @@ export function ModalEdit({ isOpen, onClose }) {
             <ContainerDate>
               {configDateForm.map((field) => (
                 <TextField
-                  sx={{ width: "150px" }}
+                  sx={{
+                    width: "150px",
+                    color: (theme) =>
+                      theme.palette.mode === "light"
+                        ? theme.palette.common.primary
+                        : theme.palette.dark.text_grey,
+                  }}
                   key={field.name}
                   name={field.name}
                   id={field.name}

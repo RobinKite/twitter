@@ -20,6 +20,6 @@ export const homeHeaderSX = {
     height: "4px",
     width: "100%",
     borderRadius: "2px",
-    backgroundColor: "rgb(29, 150, 240)",
+    backgroundColor: (theme) => theme.palette.dark.accent,
   },
 };

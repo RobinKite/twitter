@@ -1,10 +1,11 @@
-import { MenuItem, Select } from "@mui/material";
+import { MenuItem, Select, useTheme } from "@mui/material";
 import { moreSelectMenuPropsSX, moreSelectSX } from "./styledSX";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Display, Gear } from "@/icons";
 
 const HeaderSelect = ({ open, onClose }) => {
+  const theme = useTheme();
   return (
     <>
       <Select
@@ -13,12 +14,36 @@ const HeaderSelect = ({ open, onClose }) => {
         sx={moreSelectSX}
         id="basic-menu"
         MenuProps={moreSelectMenuPropsSX}>
-        <MenuItem component={Link} to="/settings">
-          <Gear size={22} />
+        <MenuItem
+          component={Link}
+          to="/settings"
+          sx={{
+            color:
+              theme.palette.mode === "light"
+                ? theme.palette.common.secondary
+                : theme.palette.dark.light_grey,
+          }}>
+          <Gear
+            size={22}
+            style={{
+              fill: theme.palette[theme.palette.mode].secondary,
+            }}
+          />
           Settings
         </MenuItem>
-        <MenuItem>
-          <Display size={22} />
+        <MenuItem
+          sx={{
+            color:
+              theme.palette.mode === "light"
+                ? theme.palette.common.secondary
+                : theme.palette.dark.light_grey,
+          }}>
+          <Display
+            size={22}
+            style={{
+              fill: theme.palette[theme.palette.mode].secondary,
+            }}
+          />
           Display
         </MenuItem>
       </Select>

@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 import Link from "@mui/material/Link";
 import { FollowButton, UserPhoto } from "@/components";
 import PropTypes from "prop-types";
@@ -39,6 +39,7 @@ function ProfileUser({
   location,
   createdAt,
 }) {
+  const theme = useTheme();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -64,19 +65,20 @@ function ProfileUser({
   return (
     <>
       <HeaderPage>
-        <ArrowSvg
-          onClick={redirectToPost}
-          sx={{
-            fill: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.light.primary
-                : theme.palette.dark.secondary,
-          }}>
+        <ArrowSvg onClick={redirectToPost}>
           <ArrowBack size={25} />
         </ArrowSvg>
 
         <ContainerHederText>
-          <Typography variant="h6" sx={{ fontWeight: "700" }}>
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: "700",
+              color: (theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette.light.secondary
+                  : theme.palette.dark.light_grey,
+            }}>
             {fullName}
           </Typography>
         </ContainerHederText>
@@ -132,7 +134,13 @@ function ProfileUser({
         </Typography>
         <BoxInfo>
           {formattedBirthdate && (
-            <TypographyInfo>
+            <TypographyInfo
+              style={{
+                color: (theme) =>
+                  theme.palette.mode === "light"
+                    ? theme.palette.common.primary
+                    : theme.palette.dark.text_grey,
+              }}>
               <Birhdate />
               {formattedBirthdate}
             </TypographyInfo>
@@ -155,7 +163,17 @@ function ProfileUser({
           sx={{ cursor: "pointer" }}
           underline="hover"
           onClick={() => handleLinkClick(<Following id={id} />)}>
-          <span style={{ color: "black", fontWeight: "700" }}>{following} </span>Following
+          <span
+            style={{
+              color:
+                theme.palette.mode === "light"
+                  ? theme.palette.common.secondary
+                  : theme.palette.dark.light_grey,
+              fontWeight: "700",
+            }}>
+            {following}{" "}
+          </span>
+          Following
         </Link>
 
         <Link
@@ -166,7 +184,17 @@ function ProfileUser({
             cursor: "pointer",
             paddingLeft: "10px",
           }}>
-          <span style={{ color: "black", fontWeight: "700" }}>{followers} </span>Followers
+          <span
+            style={{
+              color:
+                theme.palette.mode === "light"
+                  ? theme.palette.common.secondary
+                  : theme.palette.dark.light_grey,
+              fontWeight: "700",
+            }}>
+            {followers}{" "}
+          </span>
+          Followers
         </Link>
         {loading && (
           <div

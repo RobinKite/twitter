@@ -11,7 +11,7 @@ export const ContainerSX = styled(Box)(({ theme }) => ({
   transform: "translate(-50%, -50%)",
   width: "600px",
   height: "650px",
-  backgroundColor: theme.palette[theme.palette.mode].primary,
+  backgroundColor: theme.palette.light.primary,
   // backgroundColor: "#fff",
   borderRadius: 14,
   boxShadow: 24,
@@ -57,7 +57,7 @@ export const LoginTextSX = styled(Typography)(({ theme }) => ({
 
 export const LinkSX = styled(Link)(({ theme }) => ({
   // color: "#1d9bf0",
-  color: theme.palette[theme.palette.mode].accent,
+  color: theme.palette.light.accent,
   textDecoration: "none",
   cursor: "pointer",
   "&:hover": {
@@ -74,8 +74,22 @@ export const LinesSpanSX = styled(Typography)(({ theme }) => ({
   color: theme.palette.common.secondary,
   margin: "10px 0",
   fontSize: "17px",
-  "&::before": { content: "''", border: "1px solid #eff3f4", width: "45%" },
-  "&::after": { content: "''", border: "1px solid #eff3f4", width: "45%" },
+  "&::before": {
+    content: "''",
+    // border: "1px solid #eff3f4",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderColor: theme.palette.light.search_light,
+    width: "45%",
+  },
+  "&::after": {
+    content: "''",
+    // border: "1px solid #eff3f4",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderColor: theme.palette.light.search_light,
+    width: "45%",
+  },
 }));
 
 export const MainButtonSX = styled(Button)(({ theme }) => ({
@@ -85,14 +99,14 @@ export const MainButtonSX = styled(Button)(({ theme }) => ({
   borderRadius: 150,
   fontSize: 15,
   fontWeight: 700,
-  backgroundColor: theme.palette[theme.palette.mode].primary,
+  backgroundColor: theme.palette.light.primary,
   color: theme.palette.common.secondary,
   // backgroundColor: "#fff",
   // color: "#0f1419",
   textTransform: "none",
   padding: "0 16px",
   "&:hover": {
-    backgroundColor: "#dadce0",
+    backgroundColor: theme.palette.light.search_light,
   },
 }));
 
@@ -103,14 +117,14 @@ export const NextButtonSX = styled(Button)(({ theme }) => ({
   borderRadius: 150,
   fontSize: 15,
   fontWeight: 700,
-  backgroundColor: theme.palette[theme.palette.mode].secondary,
-  color: theme.palette[theme.palette.mode].primary,
+  backgroundColor: theme.palette.light.secondary,
+  color: theme.palette.light.primary,
   // backgroundColor: "#000",
   // color: "#fff",
   textTransform: "none",
   padding: "0 16px",
   margin: "12px 0",
   "&:hover": {
-    backgroundColor: "#3c3a3a",
+    backgroundColor: theme.palette.dark.hover,
   },
 }));

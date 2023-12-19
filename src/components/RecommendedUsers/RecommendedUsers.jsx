@@ -72,7 +72,14 @@ export const RecommendedUserCard = ({
   };
 
   return (
-    <Stack sx={userCardSX} onClick={handleClick}>
+    <Stack
+      sx={{
+        ...userCardSX,
+        "&:hover": {
+          backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
+        },
+      }}
+      onClick={handleClick}>
       <UserCard avatarUrl={avatarUrl} fullName={fullName} userTag={userTag} />
       {useButton && (
         <FollowButton

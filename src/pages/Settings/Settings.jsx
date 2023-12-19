@@ -6,8 +6,19 @@ export const Settings = () => {
     <Container>
       <Box
         sx={{
-          borderRight: "1px solid #EFF3F4",
-          borderLeft: "1px solid #EFF3F4",
+          borderRightWidth: "1px",
+          borderRightStyle: "solid",
+          borderRightColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.dark.light_grey
+              : theme.palette.dark.border_grey,
+
+          borderLefttWidth: "1px",
+          borderLeftStyle: "solid",
+          borderLeftColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.dark.light_grey
+              : theme.palette.dark.border_grey,
           paddingLeft: "16px",
           height: "100vh",
         }}>
@@ -15,7 +26,11 @@ export const Settings = () => {
           variant="h1"
           sx={{
             // color: "#0F1419",
-            color: (theme) => theme.palette.common.secondary,
+            color: (theme) =>
+              theme.palette.mode === "light"
+                ? theme.palette.common.secondary
+                : theme.palette.dark.light_grey,
+
             fontSize: "20px",
             fontWeight: 700,
             marginTop: "10px",

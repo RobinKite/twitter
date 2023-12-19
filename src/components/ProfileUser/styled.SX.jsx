@@ -10,8 +10,8 @@ export const ContainerUserInfo = styled(Box)(() => ({
   padding: "40px 20px 25px 20px",
 }));
 
-export const ArrowSvg = styled(Box)(() => ({
-  backgroundColor: "white",
+export const ArrowSvg = styled(Box)(({ theme }) => ({
+  fill: theme.palette[theme.palette.mode].secondary,
   borderRadius: "50%",
   display: "flex",
   justifyContent: "center",
@@ -29,16 +29,36 @@ export const ContainerHederText = styled(Box)(() => ({
   color: "black",
 }));
 
-export const EditButton = styled(Button)(() => ({
+export const EditButton = styled(Button)(({ theme }) => ({
   // position: "absolute",
   display: "flex",
   marginLeft: "auto",
   borderRadius: "50px",
-  border: "1px solid rgb(239, 243, 244)",
-  color: "black",
+  // border: "1px solid rgb(239, 243, 244)",
+  borderStyle: "solid",
+  borderWidth: "1px",
+  borderColor:
+    theme.palette.mode === "light"
+      ? theme.palette.light.banner
+      : theme.palette.common.primary,
+  color:
+    theme.palette.mode === "light"
+      ? theme.palette.common.secondary
+      : theme.palette.dark.light_grey,
+
+  backgroundColor: theme.palette[theme.palette.mode].primary,
+
   " &:hover": {
-    border: "1px solid rgb(207, 217, 222)",
-    background: " rgb(239, 243, 244)",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderColor:
+      theme.palette.mode === "light"
+        ? theme.palette.light.banner
+        : theme.palette.common.primary,
+    background:
+      theme.palette.mode === "light"
+        ? theme.palette.light.banner
+        : theme.palette.dark.hover,
   },
 }));
 export const BoxInfo = styled(Box)(() => ({

@@ -14,21 +14,26 @@ export const VisuallyHiddenInput = styled("input")({
   width: 30,
 });
 
-export const InputField = styled(TextField)({
-  borderBottom: "1px solid rgb(239, 243, 244)",
+export const InputField = styled(TextField)(({ theme }) => ({
   width: "100%",
   padding: 0,
   paddingBottom: "8px",
   cursor: "text",
 
-  "& textarea": {
+  " textarea": {
     fontSize: "20px",
     lineHeight: 1.2,
+    color:
+      theme.palette.mode === "light"
+        ? theme.palette.light.secondary
+        : theme.palette.dark.light_grey,
   },
-});
+  // "textarea::placeholder": {
+  //   color:"red"
+  // }
+}));
 export const ButtonPost = styled(MuiButton)(({ theme }) => ({
   marginLeft: "12px",
-
   borderRadius: "35px",
   padding: "0 16px",
   minHeight: "36px",
@@ -42,19 +47,35 @@ export const ButtonPost = styled(MuiButton)(({ theme }) => ({
   color: theme.palette.light.primary,
   textTransform: "capitalize",
 
-  "&:hover": { backgroundColor: "#1a8cd8" },
+  "&:hover": {
+    backgroundColor: theme.palette[theme.palette.mode].hover_accent,
+  },
   [theme.breakpoints.down("sm")]: {
     fontSize: 14,
   },
 }));
 
-export const WrapperSX = styled(Stack)({
+export const WrapperSX = styled(Stack)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
-  borderTop: "1px solid rgb(239, 243, 244)",
-  borderBottom: "1px solid rgb(239, 243, 244)",
+  // borderTop: "1px solid rgb(239, 243, 244)",
+  // borderBottom: "1px solid rgb(239, 243, 244)",
+  borderToptWidth: "1px",
+  borderTopStyle: "solid",
+  borderTopColor:
+    theme.palette.mode === "light"
+      ? theme.palette.dark.light_grey
+      : theme.palette.dark.border_grey,
+  borderBottomtWidth: "1px",
+  borderBottomStyle: "solid",
+  borderBottomColor:
+    theme.palette.mode === "light"
+      ? theme.palette.dark.light_grey
+      : theme.palette.dark.border_grey,
+  backgroundColor: theme.palette[theme.palette.mode].primary,
+
   padding: "16px 16px 8px",
-});
+}));
 
 export const ConteinerPostSX = styled(Stack)({
   display: "flex",

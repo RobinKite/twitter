@@ -1,4 +1,4 @@
-import { MenuItem, Select, Stack, useMediaQuery } from "@mui/material";
+import { MenuItem, Select, Stack, useMediaQuery, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { ConfirmationDialog } from "..";
 import { getUserInfo, logoutUserAction } from "@/redux/slices/userSlice";
@@ -9,6 +9,7 @@ import { WrapperAccountMenuSX, moreSelectMenuPropsSX, moreSelectSX } from "./sty
 import { storage } from "@/services";
 
 const AccountMenu = () => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,13 +51,12 @@ const AccountMenu = () => {
           <MoreMenu
             size={18}
             // color="#0f1419"
-            sx={{
-              // color: (theme) => theme.palette.common.secondary,
-              fill: (theme) =>
-                theme.palette.mode === "light"
-                  ? theme.palette.common.secondary
-                  : theme.palette.light.primary,
+            style={{
               display: "block",
+              fill:
+                theme.palette.mode === "light"
+                  ? theme.palette.light.secondary
+                  : theme.palette.dark.light_grey,
             }}
           />
         </UserCard>
@@ -73,10 +73,13 @@ const AccountMenu = () => {
                 theme.palette.mode === "light"
                   ? theme.palette.light.secondary
                   : theme.palette.dark.light_grey,
-              backgroundColor: (theme) =>
-                theme.palette.mode === "light"
-                  ? theme.palette.light.primary
-                  : theme.palette.light.secondary,
+
+              "&.Mui-selected": {
+                backgroundColor: (theme) => theme.palette[theme.palette.mode].primary,
+              },
+              "&.Mui-selected:hover": {
+                backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
+              },
             }}>
             Log out @{user.userTag || user.fullName}
           </MenuItem>

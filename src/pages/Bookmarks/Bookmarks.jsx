@@ -17,8 +17,20 @@ export const Bookmarks = () => {
     <Container>
       <Box
         sx={{
-          borderRight: "1px solid #EFF3F4",
-          borderLeft: "1px solid #EFF3F4",
+          borderRightWidth: "1px",
+          borderRightStyle: "solid",
+          borderRightColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.dark.light_grey
+              : theme.palette.dark.border_grey,
+
+          borderLefttWidth: "1px",
+          borderLeftStyle: "solid",
+          borderLeftColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.dark.light_grey
+              : theme.palette.dark.border_grey,
+
           height: "100vh",
         }}>
         <Typography

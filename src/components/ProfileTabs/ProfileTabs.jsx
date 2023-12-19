@@ -27,10 +27,19 @@ export function ProfileTabs({ children, tabs, style }) {
                 sx={{
                   textTransform: "none",
                   fontSize: 15,
-                  color: "#536471",
-                  "&:focus": { color: "#0f1419", fontWeight: 700 },
+                  color: (theme) =>
+                    theme.palette.mode === "light"
+                      ? theme.palette.common.primary
+                      : theme.palette.dark.text_grey,
+                  "&:focus": {
+                    color: (theme) =>
+                      theme.palette.mode === "light"
+                        ? theme.palette.common.secondary
+                        : theme.palette.dark.light_grey,
+                    fontWeight: 700,
+                  },
                   "&:hover": {
-                    backgroundColor: "rgba(15, 20, 25, 0.1)",
+                    backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
                     transitionDuration: "0.2s",
                   },
                 }}

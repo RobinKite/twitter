@@ -1,20 +1,21 @@
 import { Toolbar, Button, styled, Box } from "@mui/material";
 
-export const ModalContainer = styled(Box)({
+export const ModalContainer = styled(Box)(({ theme }) => ({
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   maxWidth: "600px",
   width: "100%",
-  // backgroundColor: theme.palette.background.paper,
+  backgroundColor: theme.palette[theme.palette.mode].primary,
+
   border: "1px solid #000",
   boxShadow: "24px",
   padding: "0",
   borderRadius: "16px",
   height: "600px",
   overflow: "hidden",
-});
+}));
 
 export const CustomButton = styled(Button)(({ theme }) => ({
   // backgroundColor: "black",
@@ -23,7 +24,8 @@ export const CustomButton = styled(Button)(({ theme }) => ({
   color: theme.palette[theme.palette.mode].primary,
   borderRadius: "15px",
   "&:hover": {
-    backgroundColor: "black",
+    backgroundColor: theme.palette[theme.palette.mode].primary,
+    color: theme.palette[theme.palette.mode].secondary,
   },
 }));
 

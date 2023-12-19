@@ -4,29 +4,22 @@ import { clsx } from "clsx";
 import PropTypes from "prop-types";
 import { items } from "@/constants/navigation";
 import styles from "./Navigation.module.scss";
-import { Stack } from "@mui/material";
+import { Stack, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import NotificationAlert from "../NotificationAlert/NotificationAlert";
 
 const NavigationItem = ({ path, text, getIconComponent, notificationsCount }) => {
+  const theme = useTheme();
   const { pathname } = useLocation();
   const isActive = (pathname.includes(path) && path !== "/") || path === pathname;
   const Icon = getIconComponent(isActive);
   return (
     <li>
-      <NavLink
-        sx={{
-          color: (theme) =>
-            theme.palette.mode === "light"
-              ? theme.palette.light.secondary
-              : theme.palette.dark.light_grey,
-        }}
-        to={path}
-        className={styles.link}>
+      <NavLink to={path} className={`${styles.link} ${styles[theme.palette.mode]}`}>
         <Stack sx={{ position: "relative" }}>
           <Icon
-            sx={{
-              fill: (theme) =>
+            style={{
+              fill:
                 theme.palette.mode === "light"
                   ? theme.palette.light.secondary
                   : theme.palette.dark.light_grey,
@@ -49,6 +42,7 @@ NavigationItem.propTypes = {
 };
 
 export const Navigation = () => {
+  const theme = useTheme();
   const notificationsCount = useSelector((state) => state.user.notificationsCount);
 
   return (
@@ -57,13 +51,8 @@ export const Navigation = () => {
         <li>
           <NavLink
             to="/"
-            className={styles.logoLink}
-            sx={{
-              color: (theme) =>
-                theme.palette.mode === "light"
-                  ? theme.palette.common.secondary
-                  : theme.palette.dark.light_grey,
-            }}>
+            // className={styles.logoLink}
+            className={`${styles.logoLink} ${styles[theme.palette.mode]}`}>
             <Twitter size={30} />
           </NavLink>
         </li>

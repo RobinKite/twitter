@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,6 +13,7 @@ import HeaderDrawer from "./HeaderDrawer";
 import AcccountMenu from "../AccountMenu/AccountMenu";
 
 export const Header = () => {
+  const theme = useTheme();
   const posts = useSelector((state) => state.posts.posts);
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
   const isActiveModal = useSelector((state) => state.app.isPostModalActive);
@@ -50,7 +51,16 @@ export const Header = () => {
             id="basic-button"
             onClick={() => setIsSelectOpen(true)}
             sx={moreButtonSX}>
-            <MoreCircle size={30} /> {isDesktop && "More"}
+            <MoreCircle
+              size={30}
+              style={{
+                fill:
+                  theme.palette.mode === "light"
+                    ? theme.palette.light.secondary
+                    : theme.palette.dark.light_grey,
+              }}
+            />
+            {isDesktop && "More"}
           </Button>
           <HeaderSelect open={isSelectOpen} onClose={() => setIsSelectOpen(false)} />
         </>

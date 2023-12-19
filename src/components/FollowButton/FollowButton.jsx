@@ -31,12 +31,7 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
         onClick={isFollowing ? () => setOpenDialog(true) : handleFollow}
         isFollowing={isFollowing}
         onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-        sx={{
-          minWidth: "110px",
-          backgroundColor: (theme) => theme.palette[theme.palette.mode].secondary,
-          color: (theme) => theme.palette[theme.palette.mode].primary,
-        }}>
+        onMouseLeave={() => setIsHovering(false)}>
         {isHovering ? (
           <p>{isFollowing ? "Unfollow" : "Follow"}</p>
         ) : (

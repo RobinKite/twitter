@@ -1,7 +1,12 @@
 export const tweetWrapperSX = {};
 
 export const tweetSX = {
-  borderBottom: "1px solid rgb(239, 243, 244)",
+  borderBottomColor: (theme) =>
+    theme.palette.mode === "light"
+      ? theme.palette.light.search_light
+      : theme.palette.dark.border_grey,
+  borderBottomStyle: "solid",
+  borderBottomWidth: "1px",
   paddingTop: "12px",
   paddingBottom: "12px",
   paddingLeft: "16px",
