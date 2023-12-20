@@ -15,6 +15,7 @@ import PropTypes from "prop-types";
 import usePostData from "@/hooks/usePostData";
 import { PostType } from "@/constants";
 import { Themes } from "@/themes/theme";
+import { setModalPost } from "@/redux/slices/appSlice";
 
 export function PostActions({ disable, openModal, post, onPostClick }) {
   const {
@@ -32,7 +33,9 @@ export function PostActions({ disable, openModal, post, onPostClick }) {
   const containerRef = useRef(null);
   const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
   const [isMenuRepostOpen, setIsMenuRepostOpen] = useState(false);
-  const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, id);
+  const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, id, () =>
+    dispatch(setModalPost(false)),
+  );
   const accountUser = useSelector((state) => state.user.user);
   const isReposted = post.type === PostType.QUOTE;
 

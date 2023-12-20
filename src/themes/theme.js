@@ -28,7 +28,7 @@ export const theme = createTheme({
       hover: "#16181C",
       hover_accent: "#1a8cd8",
       box_shadow:
-        "rgba(255, 255, 255, 0.2) 0px 0px 15px, rgba(255, 255, 255, 0.15) 0px 0px 3px 1px",
+        "0px 0px 15px rgba(255, 255, 255, 0.2), 0px 0px 3px 1px rgba(255, 255, 255, 0.15)",
     },
     common: {
       primary: "#536471", //grey (text+border)

@@ -54,7 +54,7 @@ export const Navigation = () => {
             to="/"
             // className={styles.logoLink}
             className={`${styles.logoLink} ${styles[theme.palette.mode]}`}>
-            <Twitter size={30} />
+            <Twitter size={26.25} />
           </NavLink>
         </li>
         {items.map((item) => {

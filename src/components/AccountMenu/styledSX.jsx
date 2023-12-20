@@ -35,7 +35,7 @@ export const moreSelectMenuPropsSX = {
       position: "absolute",
       borderRadius: 4,
       marginTop: -8,
-      boxShadow: (theme) => `0 0 15px ${theme.palette[theme.palette.mode].box_shadow}`,
+      boxShadow: (theme) => theme.palette[theme.palette.mode].box_shadow,
       "& .css-6hp17o-MuiList-root-MuiMenu-list": {
         paddingTop: 0,
         paddingBottom: 0,

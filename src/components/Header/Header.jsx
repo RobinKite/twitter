@@ -18,7 +18,7 @@ export const Header = () => {
   const theme = useTheme();
   const posts = useSelector((state) => state.posts.posts);
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
-  const isActiveModal = useSelector((state) => state.app.isPostModalActive);
+  const isPostModalActive = useSelector((state) => state.app.isPostModalActive);
   const dispatch = useDispatch();
   const isMobile = useMediaQuery("(max-width: 767px)");
   const isTablet = useMediaQuery("(min-width: 767px) and (max-width: 1023px)");
@@ -90,7 +90,8 @@ export const Header = () => {
         {isDesktop ? "Post" : <Feather size={22} style={{ fill: "#fff" }} />}
       </Button>
 
-      {isActiveModal && <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />}
+      <PostModal avatarUrl={avatarUrl} isOpen={isPostModalActive} />
+
       <AcccountMenu />
     </div>
   );

@@ -17,7 +17,14 @@ export function ProfileTabs({ children, tabs, style }) {
   return (
     <Box sx={{ width: "100%" }}>
       <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Box
+          sx={{
+            borderBottom: 1,
+            borderColor: (theme) =>
+              theme.palette.mode === Themes.LIGHT
+                ? theme.palette.dark.light_grey
+                : theme.palette.dark.border_grey,
+          }}>
           <TabList onChange={handleChange} sx={style}>
             {tabs.map((tab) => (
               <Tab

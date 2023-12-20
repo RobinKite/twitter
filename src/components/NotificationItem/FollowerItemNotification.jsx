@@ -20,7 +20,7 @@ export function FollowerItemNotification(initiator) {
         "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.03)" },
       }}>
       <Stack>
-        <ProfileIcon size={30} fill="#1d9bf0" />
+        <ProfileIcon size={26.25} fill="#1d9bf0" />
       </Stack>
       <Stack flexGrow={1}>
         <Avatar src={initiator.avatarUrl} alt={`${initiator.fullName}'s avatar`} />

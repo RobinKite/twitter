@@ -35,6 +35,7 @@ export const UserCard = ({
             <Typography
               variant="subtitle1"
               sx={{
+                textAlign: "left",
                 fontWeight: 700,
                 textWrap: "nowrap",
                 color: (theme) =>
@@ -89,15 +90,7 @@ export const RecommendedUserCard = ({
   };
 
   return (
-    <Stack
-      sx={[
-        userCardSX,
-        {
-          "&:hover": {
-            backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
-          },
-        },
-      ]}>
+    <Stack sx={userCardSX}>
       <UserCard
         avatarUrl={avatarUrl}
         fullName={fullName}

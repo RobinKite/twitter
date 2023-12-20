@@ -23,7 +23,6 @@ export const moreSelectMenuPropsSX = ({ width, gap, fontSize }) => {
         position: "absolute",
         borderRadius: 5,
 
-        // boxShadow: "rgba(255, 255, 255, 0.2) 0px 0px 15px, rgba(255, 255, 255, 0.15) 0px 0px 3px 1px",
         boxShadow: (theme) => theme.palette[theme.palette.mode].box_shadow,
         "& .css-6hp17o-MuiList-root-MuiMenu-list": {
           paddingTop: 0,

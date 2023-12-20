@@ -11,7 +11,7 @@ const FooterMobileItem = ({ path, getIconComponent }) => {
   return (
     <li style={{ padding: "10px" }}>
       <NavLink to={path}>
-        <Icon size={30} />
+        <Icon size={26.25} />
       </NavLink>
     </li>
   );
