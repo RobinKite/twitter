@@ -130,9 +130,7 @@ export function PostActions({ disable, openModal, post, onPostClick }) {
               {likeCount}
             </Typography>
           </Stack>
-          <IconButton
-            sx={replyCountSX}
-            onClick={(event) => handleBookmarkClick(event, id)}>
+          <IconButton sx={replyCountSX} onClick={() => handleBookmarkClick(id)}>
             {isBookmarkedPost ? (
               <BookmarkFilled fill="#1a97db" />
             ) : (
