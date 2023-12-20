@@ -76,8 +76,6 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
   const formattedBirthdate = formatTimestamp(birthdate);
   const registrationDate = formatTimestamp(createdAt);
 
-  console.log(isFollowedByUser);
-
   const handleLinkClick = (component, isFollowers) => {
     if ((isFollowers && followers === 0) || (!isFollowers && following === 0)) {
       return;
