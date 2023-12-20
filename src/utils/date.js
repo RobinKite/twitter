@@ -106,7 +106,7 @@ export function convertDateFormat(inputDate) {
 
 export function convertToDelta(date) {
   const deltaInSeconds = Math.floor((new Date() - new Date(date)) / 1000);
-  if (deltaInSeconds < 0) return "Now";
+  if (deltaInSeconds <= 0) return "Now";
   if (deltaInSeconds < 60) return `${deltaInSeconds}s`;
 
   const deltaInMinutes = Math.floor(deltaInSeconds / 60);

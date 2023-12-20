@@ -1,35 +1,32 @@
 import { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Stomp from "stompjs";
+import { receiveMessage as receiveMessage } from "@/redux/slices/messagingSlice";
 
 const useWebSockets = (topic) => {
   const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
   const stompRef = useRef(null);
   const reconnectTimeoutRef = useRef(null);
 
-  const stompFailureCallback = (error) => {
-    // console.log("STOMP: " + error);
+  const stompFailureCallback = () => {
     if (reconnectTimeoutRef.current) {
       clearTimeout(reconnectTimeoutRef.current);
       reconnectTimeoutRef.current = null;
     }
     reconnectTimeoutRef.current = setTimeout(stompConnect, 1000);
-    // console.log("STOMP: Reconnecting in 1 second");
   };
 
   const stompConnect = () => {
-    // console.log("STOMP: Attempting connection");
     stompRef.current = Stomp.over(
-      new WebSocket("ws://danit-final-twitter-8f32e99a3dec.herokuapp.com/ws"),
+      new WebSocket("wss://danit-final-twitter-8f32e99a3dec.herokuapp.com/ws"),
     );
     stompRef.current.connect({}, handleSocketOpen, stompFailureCallback);
   };
 
   const handleSocketOpen = () => {
-    // console.log("SockJS connection opened");
-
     stompRef.current.subscribe(`/${topic}/${user.id}`, (message) => {
-      console.log("Message received:", message.body);
+      dispatch(receiveMessage(JSON.parse(message.body)));
     });
 
     if (reconnectTimeoutRef.current) {
@@ -42,7 +39,6 @@ const useWebSockets = (topic) => {
     stompConnect();
 
     return () => {
-      // console.log("Cleaning up SockJS connection");
       if (stompRef.current && stompRef.current.connected) {
         stompRef.current.disconnect();
       }
@@ -52,17 +48,8 @@ const useWebSockets = (topic) => {
         reconnectTimeoutRef.current = null;
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const sendMessage = (destination, headers, body) => {
-    if (stompRef.current && stompRef.current.connected) {
-      stompRef.current.send(destination, headers, body);
-    } else {
-      console.warn("WebSocket not connected. Message not sent.");
-    }
-  };
-
-  return { sendMessage };
 };
 
 export default useWebSockets;

@@ -9,7 +9,7 @@ export class Parser {
   }
 
   static #parsePrivateConversation(conversation) {
-    const { id, users, messageDate, messageText } =
+    const { id, users, messageDate, messageText, creator } =
       this.#getConversationCommonFields(conversation);
     const [recipient] = users;
     return {
@@ -18,6 +18,7 @@ export class Parser {
       titleText: recipient.fullName,
       metaText: "@" + recipient.userTag + (messageDate ? ` · ${messageDate}` : ""),
       messageText: messageText,
+      creator,
     };
   }
 

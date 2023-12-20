@@ -118,13 +118,31 @@ export const fetchMessages = () => async (dispatch, getState) => {
   dispatch(setMessages(messages));
 };
 
-export const createMessage = (body) => async (dispatch, getState) => {
+export const createMessage = (body) => async (getState) => {
   const conversationId = getState().messaging.currentConversation.id;
   const formData = new FormData();
   formData.append("body", body);
   await client.post(`${Endpoint.CHATS}/${conversationId}`, formData);
-  dispatch(fetchMessages(conversationId));
-  dispatch(fetchConversations());
+};
+
+export const receiveMessage = (message) => async (dispatch, getState) => {
+  const conversations = getState().messaging.conversations;
+  const currentConversation = getState().messaging.currentConversation;
+  const messages = getState().messaging.messages;
+
+  const cutConversations = conversations.filter((entity) => entity.id !== message.chatId);
+  const [conversation] = conversations.filter((entity) => entity.id === message.chatId);
+
+  if (conversation) {
+    const newConversation = JSON.parse(JSON.stringify(conversation));
+    newConversation.lastMessage = message;
+    dispatch(setConversations([newConversation, ...cutConversations]));
+  } else {
+    dispatch(fetchConversations());
+  }
+  if (currentConversation?.id === message.chatId) {
+    dispatch(setMessages([...messages, message]));
+  }
 };
 
 export const { setCurrentConversation, setShowDialog, setConversations } =
