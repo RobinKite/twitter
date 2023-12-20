@@ -36,3 +36,4 @@ export { More } from "./custom/More";
 export { Media } from "./custom/Media";
 export { Emoji } from "./custom/Emoji";
 export { Key } from "./custom/Key";
+export { RepostFilled } from "./custom/RepostFilled";

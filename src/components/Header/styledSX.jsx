@@ -29,10 +29,10 @@ export const postButtonSX = {
     backgroundColor: " #1d9bf0",
     borderRadius: "45px",
     alignSelf: "flex-start",
-    fontWeight: 700,
-    fontSize: "17px",
+    fontWeight: 600,
+    fontSize: "16px",
     padding: "11px 80px",
-    margin: "1rem 2rem 0 0",
+    margin: "0.5rem 2rem 0 0",
 
     "&:hover": {
       boxShadow: "none",
@@ -43,16 +43,17 @@ export const postButtonSX = {
 
 export const moreButtonSX = {
   color: "black",
-  fontSize: "1.2rem",
+  fontSize: "1.225rem",
   borderRadius: "2rem",
   display: "flex",
-  gap: "1rem",
+  gap: "1.25rem",
   position: "relative",
   fontWeight: 400,
   padding: "12px",
   textTransform: "capitalize",
   minWidth: 0,
   lineHeight: 1,
+  alignSelf: "start",
 
   "&:hover": {
     backgroundColor: "rgb(221, 217, 217)",

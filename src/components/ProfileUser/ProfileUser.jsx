@@ -168,7 +168,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
           sx={{ cursor: "pointer" }}
           underline="hover"
           onClick={() => handleLinkClick(<LinkedUsers type="following" />, false)}>
-          <span style={{ color: "black", fontWeight: "700" }}>{following} </span>Following
+          <span style={{ color: "black", fontWeight: 600 }}>{following} </span>Following
         </Link>
 
         <Link

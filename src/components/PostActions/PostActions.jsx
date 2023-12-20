@@ -10,12 +10,12 @@ import { Bookmark, BookmarkFilled, Like, LikeFalse, Reply, Repost } from "@/icon
 import { CustomSelect } from "..";
 import { deletePost, handleLike, handleUnlike } from "@/redux/slices/postsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import usePostData from "@/hooks/usePostData";
 import { PostType } from "@/constants";
 
-export function PostActions({ disable, openModal, post }) {
+export function PostActions({ disable, openModal, post, onPostClick }) {
   const {
     id,
     likeCount,
@@ -27,6 +27,7 @@ export function PostActions({ disable, openModal, post }) {
     user: { id: userId },
   } = post;
   const dispatch = useDispatch();
+  const containerRef = useRef(null);
   const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
   const [isMenuRepostOpen, setIsMenuRepostOpen] = useState(false);
   const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, id);
@@ -48,17 +49,27 @@ export function PostActions({ disable, openModal, post }) {
     }
   };
 
+  const handleOpenRepostMenu = () => {
+    setIsMenuRepostOpen(true);
+  };
+
+  const handleLikeClick = () => {
+    liked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
+  };
+
+  const onContainerClick = ({ target }) => {
+    if (target === containerRef.current) onPostClick();
+  };
+
   useEffect(() => {
     const fetchFile = async (imageUrl) => {
       try {
         const response = await fetch(imageUrl);
-
         if (!response.ok) {
           throw new Error("Error fetching image");
         }
 
         const data = await response.blob();
-
         setFiles((prev) => {
           if (prev.some((file) => file.size === data.size)) return prev;
 
@@ -71,19 +82,24 @@ export function PostActions({ disable, openModal, post }) {
 
     imageUrls?.forEach((image) => fetchFile(image));
     setInputStr(content);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content, imageUrls]);
 
   return (
-    <Stack sx={tweetActionsSX}>
+    <Stack ref={containerRef} sx={tweetActionsSX} onClick={onContainerClick}>
       {!disable && (
         <>
           <Stack sx={replyCountSX}>
-            <IconButton onClick={openModal}>
+            <IconButton
+              onClick={(event) => {
+                event.stopPropagation();
+                openModal();
+              }}>
               <Reply />
             </IconButton>
             <Typography component="span">{replyCount}</Typography>
           </Stack>
-          <IconButton sx={tweetRepostSX} onClick={() => setIsMenuRepostOpen(true)}>
+          <IconButton sx={tweetRepostSX} onClick={handleOpenRepostMenu}>
             <Repost
               fill={
                 isReposted && accountUser?.id === userId
@@ -102,26 +118,25 @@ export function PostActions({ disable, openModal, post }) {
             </MenuItem>
           </CustomSelect>
           <Stack sx={likeCountSX}>
-            <IconButton
-              onClick={() => {
-                liked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
-              }}>
+            <IconButton onClick={handleLikeClick}>
               {liked ? <LikeFalse /> : <Like />}
             </IconButton>
-
             <Typography
               component="span"
               sx={{
+                minWidth: "2ch",
                 color: liked ? "rgb(249, 24, 128)" : "inherit",
               }}>
               {likeCount}
             </Typography>
           </Stack>
-          <IconButton sx={replyCountSX} onClick={() => handleBookmarkClick(id)}>
+          <IconButton
+            sx={replyCountSX}
+            onClick={(event) => handleBookmarkClick(event, id)}>
             {isBookmarkedPost ? (
-              <BookmarkFilled style={{ fill: "#1a97db" }} />
+              <BookmarkFilled fill="#1a97db" />
             ) : (
-              <Bookmark style={{ fill: "#536471" }} />
+              <Bookmark fill="#536471" />
             )}
           </IconButton>
         </>
@@ -134,8 +149,10 @@ PostActions.propTypes = {
   disable: PropTypes.bool,
   openModal: PropTypes.func,
   post: PropTypes.object,
+  onPostClick: PropTypes.func,
 };
 
 PostActions.defaultProps = {
   imageUrls: [],
+  onPostClick: () => {},
 };

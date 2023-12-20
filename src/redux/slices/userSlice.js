@@ -117,6 +117,7 @@ export const fetchUser = () => async (dispatch) => {
     console.error("Error:", error);
   }
 };
+
 export const getUserFollowers = (userId) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.USER_FOLLOWERS, {
@@ -127,6 +128,7 @@ export const getUserFollowers = (userId) => async (dispatch) => {
     console.error("Error:", error);
   }
 };
+
 export const getUserFollowing = (userId) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.USER_FOLLOWED, {

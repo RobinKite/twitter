@@ -3,13 +3,13 @@ import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ModalCommentPost } from "../../components";
 import { deletePost } from "@/redux/slices/postsSlice";
-import { Delete, Repost } from "@/icons";
+import { Delete, RepostFilled } from "@/icons";
 import {
   avatarSX,
   iconDeleteSX,
@@ -30,6 +30,7 @@ import { PostType } from "@/constants";
 export function ItemPost({ post, disable }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const containerRef = useRef(null);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -89,38 +90,42 @@ export function ItemPost({ post, disable }) {
     }
   };
 
-  const fonnClick = (event) => {
+  const backgroundClick = (event) => {
     if (event.currentTarget === event.target) {
       redirectToPost();
     }
   };
 
+  const handleUserClick = () => {
+    accountUser?.id === postUser.id
+      ? navigate(`/user/${postUser.id}`)
+      : redirectToUserProfile();
+  };
+
+  const handleNavigateToPost = ({ target }) => {
+    if (target === containerRef.current) navigate(`/post/${id}`);
+  };
+
   return (
-    <Stack sx={tweetWrapperSX}>
+    <Stack ref={containerRef} onClick={handleNavigateToPost} sx={tweetWrapperSX}>
       {isRepost && (
-        <Typography
-          sx={tweetAdditionalInfoSX}
-          onClick={
-            accountUser?.id === postUser.id
-              ? () => navigate(`/user/${postUser.id}`)
-              : redirectToUserProfile
-          }>
-          <Repost />
+        <Stack sx={tweetAdditionalInfoSX} onClick={handleUserClick}>
+          <RepostFilled fill="#536471" size={16} />
           <Typography component="span">
             {accountUser?.id === postUser.id ? "You" : fullName} reposted
           </Typography>
-        </Typography>
+        </Stack>
       )}
       <Stack sx={tweetSX}>
         <Avatar
           sx={avatarSX}
           src={isRepost ? parentPost?.user.avatarUrl : avatarUrl}
-          onClick={redirectToUserProfile}
+          onClick={handleUserClick}
         />
         <Stack>
           <Stack sx={tweetHeaderSX}>
             <Stack
-              onClick={redirectToUserProfile}
+              onClick={handleUserClick}
               sx={{ flexDirection: "row", alignItems: "center", gap: "4px" }}>
               <Typography component="span" sx={tweetUsernameSX}>
                 {isRepost ? parentPost?.user.fullName : fullName}
@@ -165,7 +170,7 @@ export function ItemPost({ post, disable }) {
               </Stack>
             )}
           </Stack>
-          <Typography sx={tweetContentSX} onClick={fonnClick}>
+          <Typography sx={tweetContentSX} onClick={backgroundClick}>
             {content}
           </Typography>
           {imageUrls?.length > 0 && (
@@ -182,7 +187,7 @@ export function ItemPost({ post, disable }) {
                   style={{
                     border: imageUrls.length > 1 ? "" : "1px solid rgb(207,217,222)",
                   }}
-                  onClick={fonnClick}
+                  onClick={backgroundClick}
                   key={index}
                   src={imageUrl}
                   alt={`${index}`}
@@ -190,7 +195,12 @@ export function ItemPost({ post, disable }) {
               ))}
             </Stack>
           )}
-          <PostActions disable={disable} openModal={openModal} post={post} />
+          <PostActions
+            disable={disable}
+            openModal={openModal}
+            post={post}
+            onPostClick={redirectToPost}
+          />
         </Stack>
       </Stack>
       <ModalCommentPost

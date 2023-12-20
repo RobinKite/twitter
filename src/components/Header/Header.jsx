@@ -29,7 +29,7 @@ export const Header = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        alignItems: isTablet ? "center" : "flex-start",
+        alignItems: isTablet ? "center" : "unset",
         position: !isMobile ? "sticky" : "static",
         top: 0,
         left: 0,
@@ -52,7 +52,7 @@ export const Header = () => {
             id="basic-button"
             onClick={() => setIsSelectOpen(true)}
             sx={moreButtonSX}>
-            <MoreCircle size={30} /> {isDesktop && "More"}
+            <MoreCircle size={26.25} /> {isDesktop && "More"}
           </Button>
           <HeaderSelect open={isSelectOpen} onClose={() => setIsSelectOpen(false)} />
         </>
