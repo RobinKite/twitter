@@ -11,9 +11,6 @@ import useInfinstyScroll from "@/hooks/useInfinstyScroll";
 export const Home = () => {
   const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
-  // const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
-  // const popularPosts = useSelector((state) => state.posts.popularPosts, shallowEqual);
-  // const renderPosts = accountUser.following ? posts : popularPosts;
   const dispatch = useDispatch();
 
   useEffect(() => {

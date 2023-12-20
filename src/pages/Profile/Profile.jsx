@@ -8,10 +8,7 @@ import { getLikedPosts, fetchUser, resetPostsLiked } from "@/redux/slices/userSl
 import { getMyPosts, resetPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { PostType } from "@/constants";
-// import RenderPosts from "@/components/RenderPosts/RenderPosts";
 import useInfinstyScroll from "@/hooks/useInfinstyScroll";
-// import LikedPosts from "@/components/LikedPosts/LikedPosts";
-// import RenderPosts from "@/components/RenderPosts/RenderPosts";
 import { sortByCreatedAt } from "@/utils";
 
 const tabs = [

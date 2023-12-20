@@ -17,7 +17,6 @@ import { sortByCreatedAt } from "@/utils";
 
 const tabs = [
   { label: "Post", value: "0" },
-  // { label: "Replies", value: "1" },
   { label: "Likes", value: "2" },
 ];
 

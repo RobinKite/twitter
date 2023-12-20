@@ -11,7 +11,6 @@ import useInfinstyScroll from "@/hooks/useInfinstyScroll";
 
 const tabs = [
   { label: "All", value: "0" },
-  // { label: "Verified", value: "1" },
   { label: "Mentions", value: "2" },
 ];
 

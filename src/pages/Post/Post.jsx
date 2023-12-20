@@ -9,7 +9,6 @@ import { axiosPostComments, getPostById, resetPosts } from "@/redux/slices/posts
 import InfiniteScroll from "react-infinite-scroll-component";
 import { sortByCreatedAt } from "@/utils";
 import useInfinstyScroll from "@/hooks/useInfinstyScroll";
-// import { compareByDate } from "@/utils";
 
 const HeaderPage = styled(Box)(() => ({
   display: "flex",

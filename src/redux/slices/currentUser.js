@@ -48,7 +48,6 @@ export const getCurrentLikedPosts = (page, id) => async (dispatch) => {
   }
 };
 export const getCurrentPosts = (page, id) => async (dispatch) => {
-  // console.log("page: ", page, ", id: ", id);
   try {
     const response = await client.get(Endpoint.GET_POSTS, {
       params: { id: id, page: page, pageSize: 12 },

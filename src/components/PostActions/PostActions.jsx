@@ -29,7 +29,7 @@ export function PostActions({ disable, openModal, post }) {
   const dispatch = useDispatch();
   const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
   const [isMenuRepostOpen, setIsMenuRepostOpen] = useState(false);
-  const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, null, id);
+  const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, id);
   const accountUser = useSelector((state) => state.user.user);
   const isReposted = post.type === PostType.QUOTE;
 

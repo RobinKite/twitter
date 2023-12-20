@@ -53,10 +53,6 @@ export function ItemPost({ post, disable }) {
   const open = Boolean(anchorEl);
   const isRepost = type === PostType.QUOTE;
 
-  // useEffect(() => {
-  //   dispatch(getUserInfo());
-  // }, [dispatch]);
-
   const openModal = () => {
     setModalIsOpen(true);
   };

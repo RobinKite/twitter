@@ -32,11 +32,9 @@ export const useLoadPost = (callback) => {
       if (morePostsAvailable) {
         dispatch(callback(currentPage))
           .then((response) => {
-            // Перевіряємо, чи є ще пости
             const morePosts = response?.data?.content.length > 0;
 
             if (!morePosts) {
-              // Якщо не залишилося більше постів, зупиняємо скролінг
               setAllPostsLoaded(true);
               window.removeEventListener("scroll", handleScroll);
             }
@@ -50,7 +48,6 @@ export const useLoadPost = (callback) => {
             setLoading(false);
           });
       } else {
-        // Зупиняємо скролінг, оскільки немає більше постів
         setAllPostsLoaded(true);
         window.removeEventListener("scroll", handleScroll);
         setLoading(false);
@@ -70,7 +67,6 @@ export const useLoadPost = (callback) => {
     accountUser.following
       ? dispatch(getPosts(currentPage))
       : dispatch(getPopularPosts(currentPage));
-    // dispatch(callback(currentPage));
 
     window.addEventListener("scroll", handleScroll);
 

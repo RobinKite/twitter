@@ -82,7 +82,6 @@ const userSlice = createSlice({
     },
     setNotifications: (state, action) => {
       console.log(action.payload);
-      // setPostsTemplate(state, action, "notifications");
       state.notifications = action.payload;
     },
     setNotificationsCount: (state, action) => {
@@ -101,7 +100,6 @@ export const {
   logoutUserAction,
   setLikedPosts,
   resetPostsLiked,
-  // setCurrentLikedPosts,
   setBookmarkPost,
   removeBookmarkPost,
   usersFollowing,
