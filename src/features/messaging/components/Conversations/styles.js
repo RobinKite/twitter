@@ -9,7 +9,7 @@ export const wrapperSx = {
       ? theme.palette.dark.light_grey
       : theme.palette.dark.border_grey,
 
-  borderLefttWidth: "1px",
+  borderLeftWidth: "1px",
   borderLeftStyle: "solid",
   borderLeftColor: (theme) =>
     theme.palette.mode === Themes.LIGHT

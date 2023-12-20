@@ -53,13 +53,13 @@ export const ButtonPost = styled(MuiButton)(({ theme }) => ({
 
 export const WrapperSX = styled(Stack)(({ theme }) => ({
   flexDirection: "row",
-  borderToptWidth: "1px",
+  borderTopWidth: "1px",
   borderTopStyle: "solid",
   borderTopColor:
     theme.palette.mode === Themes.LIGHT
       ? theme.palette.dark.light_grey
       : theme.palette.dark.border_grey,
-  borderBottomtWidth: "1px",
+  borderBottomWidth: "1px",
   borderBottomStyle: "solid",
   borderBottomColor:
     theme.palette.mode === Themes.LIGHT

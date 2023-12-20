@@ -48,7 +48,11 @@ const AccountMenu = () => {
           fullName={user.fullName}
           userTag={user.userTag}>
           <Stack sx={{ flexGrow: 1, justifyContent: "center", marginLeft: "0.75rem" }}>
-            <More size={18.75} color="#0f1419" style={{ display: "block" }} />
+            <More
+              size={18.75}
+              fill={theme.palette[theme.palette.mode].secondary}
+              style={{ display: "block" }}
+            />
           </Stack>
         </UserCard>
         <CustomSelect
