@@ -5,7 +5,7 @@ export const ModalBoxSX = styled(Box)(({ theme }) => ({
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  backgroundColor: "#fff",
+  backgroundColor: theme.palette[theme.palette.mode].primary,
   boxShadow: 24,
   padding: "16px 80px 20px",
   borderRadius: "15px",
@@ -28,15 +28,18 @@ export const ModalTitleSX = styled(Box)(({ theme }) => ({
   marginBottom: "20px",
   fontSize: "30px",
   fontWeight: "700",
-  color: "#0f1419",
+  // color: "#0f1419",
+  color: theme.palette.common.secondary,
   [theme.breakpoints.down("767")]: {
     fontSize: "26px",
   },
 }));
 
-export const SubmitButtonSX = styled(Button)({
-  backgroundColor: "#0f1419",
-  color: "#fff",
+export const SubmitButtonSX = styled(Button)(({ theme }) => ({
+  // backgroundColor: "#0f1419",
+  // color: "#fff",
+  color: theme.palette[theme.palette.mode].primary,
+  backgroundColor: theme.palette.common.secondary,
   padding: "0 32px",
   width: "100%",
   height: "50px",
@@ -51,11 +54,12 @@ export const SubmitButtonSX = styled(Button)({
     backgroundColor: "#6d6d6d",
     cursor: "not-allowed",
   },
-});
+}));
 
-export const CloseButtonSX = styled(IconButton)({
+export const CloseButtonSX = styled(IconButton)(({ theme }) => ({
   position: "absolute",
   left: "16px",
   top: "16px",
-  color: "#0f1419",
-});
+  // color: "#0f1419",
+  color: theme.palette.common.secondary,
+}));

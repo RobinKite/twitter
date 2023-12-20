@@ -24,7 +24,7 @@ export function LoginFormModal({
     <Modal open={handleLoginModalOpen} onClose={handleLoginModalClose}>
       <ContainerSX>
         <CloseButtonSX onClick={handleLoginModalClose}>
-          <CloseSharpIcon size={30} />
+          <CloseSharpIcon size={26.25} />
         </CloseButtonSX>
         <Stack>
           <BsTwitterX size={28} />

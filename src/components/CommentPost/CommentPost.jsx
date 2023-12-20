@@ -15,7 +15,7 @@ import {
 import { useSelector } from "react-redux";
 
 export const CommentPost = (props) => {
-  const { id, placeholder, buttonName, type } = props;
+  const { id, placeholder, buttonName, type, onClose } = props;
 
   const {
     inputStr,
@@ -26,7 +26,7 @@ export const CommentPost = (props) => {
     setFiles,
     setShowEmojiPicker,
     submit,
-  } = usePostData(type, id);
+  } = usePostData(type, id, onClose);
 
   const avatarURL = useSelector((state) => state.user.user.avatarUrl);
 
@@ -68,7 +68,7 @@ export const CommentPost = (props) => {
           }}
         />
 
-        <WrapperImgSX>
+        <WrapperImgSX onClick={() => setFiles([])}>
           {files.map((file, index) => (
             <img
               key={index}
@@ -77,7 +77,7 @@ export const CommentPost = (props) => {
                 objectFit: "cover",
               }}
               src={URL.createObjectURL(file)}
-              alt=""
+              alt="image"
               onClick={() => {
                 setFiles((prevState) => prevState.filter((_, i) => i !== index));
               }}
@@ -112,7 +112,10 @@ export const CommentPost = (props) => {
               <Emoji size={20} fill="#1D9BF0" />
             </IconButton>
           </Stack>
-          <ButtonPost type="submit" disabled={!inputStr.trim()} onClick={submit}>
+          <ButtonPost
+            type="submit"
+            disabled={!inputStr.trim() && !files.length}
+            onClick={submit}>
             {buttonName}
           </ButtonPost>
         </Stack>
@@ -126,4 +129,5 @@ CommentPost.propTypes = {
   buttonName: PropTypes.string,
   id: PropTypes.string,
   type: PropTypes.string,
+  onClose: PropTypes.func,
 };

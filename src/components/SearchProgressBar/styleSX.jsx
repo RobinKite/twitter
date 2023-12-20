@@ -1,3 +1,5 @@
+import { Themes } from "@/themes/theme";
+
 export const searchProgressBarContainerSX = {
   position: "absolute",
   top: "48px",
@@ -15,7 +17,8 @@ export const searchBoxSX = {
   padding: "16px",
   fontSize: "15px",
   lineHeight: "1.33",
-  color: "rgb(15,20,25)",
+  // color: "rgb(15,20,25)",
+  color: (theme) => theme.palette[theme.palette.mode].secondary,
   transition: "background-color 250ms linear",
 
   "&:hover": {
@@ -29,7 +32,13 @@ export const searchBoxSX = {
 
 export const searchLineSX = {
   height: "1px",
-  border: "1px solid rgba(239, 243, 244, 1.0)",
+  // border: "1px solid rgba(239, 243, 244, 1.0)",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: (theme) =>
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.dark.light_grey
+      : theme.palette.dark.border_grey,
   width: "100%",
   marginBottom: "4px",
   marginTop: "4px",

@@ -47,3 +47,41 @@ a {
   display: flex;
   min-height: 100vh;
 }
+
+.light {
+  background-color: #fff;
+}
+
+.dark {
+  background-color: #000;
+}
+
+/* For Webkit (Chrome, Safari, Edge) */
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #eee; /* Light color for the track */
+}
+
+/* For Firefox and other browsers that support scrollbar-color */
+html {
+  scrollbar-color: #eee #fff;
+}
+
+.dark::-webkit-scrollbar-thumb {
+  background-color: #2b2b2b; /* Dark color for the thumb */
+}
+
+.dark::-webkit-scrollbar-track {
+  background-color: #333; /* Dark color for the track */
+}
+
+.dark {
+  scrollbar-color: #2b2b2b #333;
+}

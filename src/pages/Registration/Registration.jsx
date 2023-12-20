@@ -49,16 +49,34 @@ export const Registration = () => {
         <ContentStackSX>
           <TitleSX variant="span">Happening now</TitleSX>
           <TextSX variant="span">Join today.</TextSX>
-          <Button onClick={handleGoogleButtonClick} endIcon={<Google size={22} />}>
+          <Button
+            sx={{
+              color: (theme) => theme.palette.common.secondary,
+              backgroundColor: (theme) => theme.palette.light.primary,
+              "&:hover": {
+                backgroundColor: (theme) => theme.palette.light.search_light,
+              },
+            }}
+            onClick={handleGoogleButtonClick}
+            endIcon={<Google size={22} />}>
             Sign up with Google
           </Button>
           <LinesSpanSX variant="span">or</LinesSpanSX>
           <Button
             onClick={() => setShowRegModal(true)}
             sx={{
-              color: "white",
-              backgroundColor: "#1d9bf0",
-              "&:hover": { backgroundColor: "#1a8cd8" },
+              color: (theme) => theme.palette.light.primary,
+              backgroundColor: (theme) => theme.palette.light.accent,
+              // color: "white",
+              // backgroundColor: "#1d9bf0",
+              "&:hover": {
+                backgroundColor: (theme) =>
+                  theme.palette[theme.palette.mode].hover_accent,
+                color: (theme) => theme.palette.light.primary,
+              },
+              "&.css-10gu2vc-MuiButtonBase-root-MuiButton-root:hover ": {
+                backgroundColor: "unset",
+              },
             }}>
             Create a profile
           </Button>
@@ -67,7 +85,13 @@ export const Registration = () => {
             onClick={() => setShowLoginModal(true)}
             sx={{
               margin: "0 0 8px",
-              color: "#1d9bf0",
+              color: (theme) => theme.palette.light.accent,
+              backgroundColor: (theme) => theme.palette.light.primary,
+              // color: "#1d9bf0",
+              "&:hover": {
+                color: (theme) => theme.palette.dark.accent,
+                backgroundColor: (theme) => theme.palette.light.search_light,
+              },
             }}>
             Sign in
           </Button>

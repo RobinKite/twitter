@@ -23,6 +23,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useState } from "react";
 import { getUserFollowers, getUserFollowing } from "@/redux/slices/userSlice";
 import { formatTimestamp } from "@/utils/date";
+import { Themes } from "@/themes/theme";
 
 const LinkedUsers = ({ type }) => {
   const currentUser = useSelector((state) => state.user.user);
@@ -52,12 +53,14 @@ LinkedUsers.propTypes = {
 };
 
 export function ProfileUser({ isSelf, setIsModalOpen }) {
+  // const theme = useTheme();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const getUserFromState = (state) => (isSelf ? state.user.user : state.currentUser.user);
   const user = useSelector(getUserFromState);
   if (!user) return null;
+
   const {
     id,
     fullName,
@@ -74,7 +77,6 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
   } = user;
   const formattedBirthdate = formatTimestamp(birthdate);
   const registrationDate = formatTimestamp(createdAt);
-
   const handleLinkClick = (component, isFollowers) => {
     if ((isFollowers && followers === 0) || (!isFollowers && following === 0)) {
       return;
@@ -82,6 +84,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
 
     setLoading(true);
     const getUser = isFollowers ? getUserFollowers : getUserFollowing;
+
     return new Promise((resolve, reject) => {
       dispatch(getUser(id))
         .then(() => {
@@ -102,6 +105,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
   const redirectToPost = () => {
     navigate(`/`, { replace: true });
   };
+
   return (
     <>
       <HeaderPage>
@@ -110,7 +114,15 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
         </ArrowSvg>
 
         <ContainerHederText>
-          <Typography variant="h6" sx={{ fontWeight: "700" }}>
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: "700",
+              color: (theme) =>
+                theme.palette.mode === Themes.LIGHT
+                  ? theme.palette.light.secondary
+                  : theme.palette.dark.light_grey,
+            }}>
             {fullName}
           </Typography>
         </ContainerHederText>
@@ -128,10 +140,27 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
             isFollowedByUser={isFollowedByUser}
           />
         )}
-        <Typography variant="h6" sx={{ fontSize: "20px", fontWeight: "800" }}>
+        <Typography
+          variant="h6"
+          sx={{
+            fontSize: "20px",
+            fontWeight: "800",
+            color: (theme) =>
+              theme.palette.mode === Themes.LIGHT
+                ? theme.palette.common.secondary
+                : theme.palette.dark.light_grey,
+          }}>
           {fullName}
         </Typography>
-        <Typography variant="body1" color={"rgb(83, 100, 113)"}>
+        <Typography
+          variant="body1"
+          // color={"rgb(83, 100, 113)"}
+          sx={{
+            color: (theme) =>
+              theme.palette.mode === Themes.LIGHT
+                ? theme.palette.common.primary
+                : theme.palette.dark.text_grey,
+          }}>
           @{userTag}
         </Typography>
         <Typography
@@ -140,12 +169,22 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
           color={"rgb(83, 100, 113)"}
           sx={{
             padding: "10px 0",
+            color: (theme) =>
+              theme.palette.mode === Themes.LIGHT
+                ? theme.palette.common.secondary
+                : theme.palette.dark.light_grey,
           }}>
           {bio}
         </Typography>
         <BoxInfo>
           {formattedBirthdate && (
-            <TypographyInfo>
+            <TypographyInfo
+              sx={{
+                color: (theme) =>
+                  theme.palette.mode === Themes.LIGHT
+                    ? theme.palette.common.primary
+                    : theme.palette.dark.text_grey,
+              }}>
               <Birhdate />
               {formattedBirthdate}
             </TypographyInfo>
@@ -168,7 +207,18 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
           sx={{ cursor: "pointer" }}
           underline="hover"
           onClick={() => handleLinkClick(<LinkedUsers type="following" />, false)}>
-          <span style={{ color: "black", fontWeight: 600 }}>{following} </span>Following
+          <Typography
+            variant="span"
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === Themes.LIGHT
+                  ? theme.palette.common.secondary
+                  : theme.palette.dark.light_grey,
+              fontWeight: 600,
+            }}>
+            {following}{" "}
+          </Typography>
+          Following
         </Link>
 
         <Link
@@ -179,7 +229,18 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
             cursor: "pointer",
             paddingLeft: "10px",
           }}>
-          <span style={{ color: "black", fontWeight: "700" }}>{followers} </span>Followers
+          <Typography
+            variant="span"
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === Themes.LIGHT
+                  ? theme.palette.common.secondary
+                  : theme.palette.dark.light_grey,
+              fontWeight: "700",
+            }}>
+            {followers}{" "}
+          </Typography>
+          Followers
         </Link>
         {loading && (
           <div

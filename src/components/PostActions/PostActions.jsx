@@ -1,5 +1,5 @@
 import { addBookmarkPost, deleteBookmarkPost } from "@/redux/slices/userSlice";
-import { IconButton, MenuItem, Stack, Typography } from "@mui/material";
+import { IconButton, MenuItem, Stack, Typography, useTheme } from "@mui/material";
 import {
   likeCountSX,
   replyCountSX,
@@ -14,6 +14,8 @@ import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import usePostData from "@/hooks/usePostData";
 import { PostType } from "@/constants";
+import { Themes } from "@/themes/theme";
+import { setModalPost } from "@/redux/slices/appSlice";
 
 export function PostActions({ disable, openModal, post, onPostClick }) {
   const {
@@ -26,11 +28,14 @@ export function PostActions({ disable, openModal, post, onPostClick }) {
     imageUrls,
     user: { id: userId },
   } = post;
+  const theme = useTheme();
   const dispatch = useDispatch();
   const containerRef = useRef(null);
   const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
   const [isMenuRepostOpen, setIsMenuRepostOpen] = useState(false);
-  const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, id);
+  const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, id, () =>
+    dispatch(setModalPost(false)),
+  );
   const accountUser = useSelector((state) => state.user.user);
   const isReposted = post.type === PostType.QUOTE;
 
@@ -112,8 +117,21 @@ export function PostActions({ disable, openModal, post, onPostClick }) {
             open={isMenuRepostOpen}
             onClose={setIsMenuRepostOpen}
             customStyles={{ width: "100%", fontSize: "15px", gap: "12px" }}>
-            <MenuItem onClick={handleRepostClick}>
-              <Repost fill="#000000de" />
+            <MenuItem
+              onClick={handleRepostClick}
+              sx={{
+                color:
+                  theme.palette.mode === Themes.LIGHT
+                    ? theme.palette.common.secondary
+                    : theme.palette.dark.light_grey,
+              }}>
+              <Repost
+                fill={
+                  theme.palette.mode === Themes.LIGHT
+                    ? theme.palette.common.secondary
+                    : theme.palette.dark.light_grey
+                }
+              />
               {isReposted && accountUser?.id === userId ? "Undo repost" : "Repost"}
             </MenuItem>
           </CustomSelect>
@@ -130,9 +148,7 @@ export function PostActions({ disable, openModal, post, onPostClick }) {
               {likeCount}
             </Typography>
           </Stack>
-          <IconButton
-            sx={replyCountSX}
-            onClick={(event) => handleBookmarkClick(event, id)}>
+          <IconButton sx={replyCountSX} onClick={() => handleBookmarkClick(id)}>
             {isBookmarkedPost ? (
               <BookmarkFilled fill="#1a97db" />
             ) : (

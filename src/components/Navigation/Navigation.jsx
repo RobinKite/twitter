@@ -4,19 +4,29 @@ import { clsx } from "clsx";
 import PropTypes from "prop-types";
 import { items } from "@/constants/navigation";
 import styles from "./Navigation.module.scss";
-import { Stack } from "@mui/material";
+import { Stack, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import NotificationAlert from "../NotificationAlert/NotificationAlert";
+import { Themes } from "@/themes/theme";
 
 const NavigationItem = ({ path, text, getIconComponent, notificationsCount }) => {
+  const theme = useTheme();
   const { pathname } = useLocation();
   const isActive = (pathname.includes(path) && path !== "/") || path === pathname;
   const Icon = getIconComponent(isActive);
   return (
     <li>
-      <NavLink to={path} className={styles.link}>
+      <NavLink to={path} className={`${styles.link} ${styles[theme.palette.mode]}`}>
         <Stack sx={{ position: "relative" }}>
-          <Icon size={26.25} />
+          <Icon
+            style={{
+              fill:
+                theme.palette.mode === Themes.LIGHT
+                  ? theme.palette.light.secondary
+                  : theme.palette.dark.light_grey,
+            }}
+            size={26.25}
+          />
           {notificationsCount && <NotificationAlert />}
         </Stack>
         <span className={clsx(styles.text, isActive && styles.activeLink)}>{text}</span>
@@ -33,14 +43,18 @@ NavigationItem.propTypes = {
 };
 
 export const Navigation = () => {
+  const theme = useTheme();
   const notificationsCount = useSelector((state) => state.user.notificationsCount);
 
   return (
     <nav className={styles.navigation}>
       <ul className={styles.list}>
         <li>
-          <NavLink to="/" className={styles.logoLink}>
-            <Twitter size={30} />
+          <NavLink
+            to="/"
+            // className={styles.logoLink}
+            className={`${styles.logoLink} ${styles[theme.palette.mode]}`}>
+            <Twitter size={26.25} />
           </NavLink>
         </li>
         {items.map((item) => {

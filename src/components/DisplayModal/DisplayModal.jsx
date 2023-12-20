@@ -14,7 +14,6 @@ import {
 import { ButtonPost } from "../CommentPost/styledSX";
 import { Twitter } from "@/icons";
 import { MdVerified } from "react-icons/md";
-import { useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import {
   DialogArticleSX,
@@ -28,12 +27,18 @@ import {
   TwitterAvatarSX,
   checkIconSX,
 } from "./stylesSX";
+import { Themes } from "@/themes/theme";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentTheme } from "@/redux/slices/appSlice";
 
 export function DisplayModal({ open, onClose }) {
-  const [selectedValue, setSelectedValue] = useState("Default");
+  const dispatch = useDispatch();
+  const currentTheme = useSelector((state) => state.app.currentTheme);
 
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+  const handleChange = () => {
+    const newTheme = currentTheme === Themes.LIGHT ? Themes.DARK : Themes.LIGHT;
+
+    dispatch(setCurrentTheme(newTheme));
   };
 
   return (
@@ -85,7 +90,7 @@ export function DisplayModal({ open, onClose }) {
               control={
                 <Stack sx={{ position: "relative" }}>
                   <Radio
-                    checked={selectedValue === "Default"}
+                    checked={currentTheme === Themes.LIGHT}
                     value="Default"
                     name="radio-buttons"
                     inputProps={{ "aria-label": "Default" }}
@@ -93,10 +98,10 @@ export function DisplayModal({ open, onClose }) {
                     sx={{
                       "& .MuiSvgIcon-root ": {
                         color:
-                          selectedValue === "Default"
+                          currentTheme === Themes.LIGHT
                             ? "transparent"
                             : "rgb(66, 83, 100)",
-                        opacity: selectedValue === "Default" ? 0 : 1,
+                        opacity: currentTheme === Themes.LIGHT ? 0 : 1,
                       },
 
                       "& .css-1hhw7if-MuiSvgIcon-root": {
@@ -104,7 +109,7 @@ export function DisplayModal({ open, onClose }) {
                       },
                     }}
                   />
-                  {selectedValue === "Default" && (
+                  {currentTheme === Themes.LIGHT && (
                     <BsCheckLg size={20} color="#fff" style={checkIconSX} />
                   )}
                 </Stack>
@@ -126,7 +131,7 @@ export function DisplayModal({ open, onClose }) {
               control={
                 <Stack sx={{ position: "relative" }}>
                   <Radio
-                    checked={selectedValue === "Light out"}
+                    checked={currentTheme === Themes.DARK}
                     value="Light out"
                     name="radio-buttons"
                     inputProps={{ "aria-label": "Light out" }}
@@ -134,10 +139,10 @@ export function DisplayModal({ open, onClose }) {
                     sx={{
                       "& .MuiSvgIcon-root ": {
                         color:
-                          selectedValue === "Light out"
+                          currentTheme === Themes.DARK
                             ? "transparent"
                             : "rgb(66, 83, 100)",
-                        opacity: selectedValue === "Light out" ? 0 : 1,
+                        opacity: currentTheme === Themes.DARK ? 0 : 1,
                       },
                       "& .css-1hhw7if-MuiSvgIcon-root": {
                         display: "none",
@@ -145,7 +150,7 @@ export function DisplayModal({ open, onClose }) {
                     }}
                   />
 
-                  {selectedValue === "Light out" && (
+                  {currentTheme === Themes.DARK && (
                     <BsCheckLg size={20} color="#fff" style={checkIconSX} />
                   )}
                 </Stack>

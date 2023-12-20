@@ -1,5 +1,5 @@
 import { Endpoint } from "@/constants";
-import { client } from "@/services";
+import { client, storage } from "@/services";
 import { createSlice } from "@reduxjs/toolkit";
 
 const appSlice = createSlice({
@@ -14,8 +14,13 @@ const appSlice = createSlice({
     isModalActive: false,
     isChangePasswordModalActive: false,
     passwordMessage: "",
+    currentTheme: "",
   },
   reducers: {
+    setCurrentTheme: (state, action) => {
+      state.currentTheme = action.payload;
+      storage.setTheme(action.payload);
+    },
     setModal: (state) => {
       state.isLoginModalActive = !state.isLoginModalActive;
     },
@@ -52,6 +57,7 @@ export const {
   setPasswordMessage,
   setIsLoading,
   setIsChangePasswordModalActive,
+  setCurrentTheme,
 } = appSlice.actions;
 export default appSlice.reducer;
 

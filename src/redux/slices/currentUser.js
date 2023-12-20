@@ -16,7 +16,6 @@ const currentUserSlice = createSlice({
     setCurrentUser: (state, action) => {
       state.user = action.payload;
     },
-
     resetPosts: (state) => {
       state.currentLikedPosts = [];
       state.currentPosts = [];
@@ -26,7 +25,6 @@ const currentUserSlice = createSlice({
     setCurrentPosts: (state, action) => {
       setPostsTemplate(state, action, "currentPosts");
     },
-
     setCurrentLikedPosts: (state, action) => {
       setPostsTemplate(state, action, "currentLikedPosts");
     },

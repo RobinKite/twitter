@@ -9,11 +9,12 @@ import {
   getCurrentLikedPosts,
   getCurrentPosts,
   getCurrentUser,
+  resetPosts,
 } from "@/redux/slices/currentUser";
-import { resetPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useInfinityScroll from "@/hooks/useInfinityScroll";
 import { sortByCreatedAt } from "@/utils";
+import { Themes } from "@/themes/theme";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -39,7 +40,13 @@ export function CurrentUser() {
         <Container
           maxWidth="sm"
           disableGutters={true}
-          sx={{ border: "1px solid rgb(239, 243, 244)" }}>
+          sx={{
+            border: "1px solid",
+            borderColor: (theme) =>
+              theme.palette.mode === Themes.LIGHT
+                ? theme.palette.dark.light_grey
+                : theme.palette.dark.border_grey,
+          }}>
           <ProfileUser isSelf={false} />
           <ProfileTabs
             tabs={tabs}

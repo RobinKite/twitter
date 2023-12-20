@@ -1,11 +1,11 @@
-import { Box, Stack, Typography, IconButton, styled } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Stack, Typography, IconButton, styled, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Gear, MessagePlus } from "@/icons";
 import { setShowDialog } from "@/redux/slices/messagingSlice";
 import { WelcomeMessage, ConversationItem } from "@/features/messaging/components";
 import { Parser } from "@/features/messaging/services";
+import { useEffect, useState } from "react";
 
 const Wrapper = styled(Stack, { shouldForwardProp: (prop) => prop !== "maxHeight" })(
   ({ maxHeight }) => ({
@@ -42,7 +42,7 @@ export const Conversations = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  const theme = useTheme();
   return (
     <Wrapper maxHeight={maxHeight}>
       <Header>
@@ -51,10 +51,18 @@ export const Conversations = () => {
         </Typography>
         <Stack sx={{ flexDirection: "row" }}>
           <IconButton onClick={() => navigate("/messages/settings")}>
-            <Gear fill="#0F1419" size={21} />
+            <Gear
+              // fill="#0F1419"
+              fill={theme.palette[theme.palette.mode].secondary}
+              size={21}
+            />
           </IconButton>
           <IconButton onClick={() => dispatch(setShowDialog(true))}>
-            <MessagePlus fill="#0F1419" size={20} />
+            <MessagePlus
+              // fill="#0F1419"
+              fill={theme.palette[theme.palette.mode].secondary}
+              size={20}
+            />
           </IconButton>
         </Stack>
       </Header>

@@ -1,4 +1,4 @@
-import { Stack, Typography, Box } from "@mui/material";
+import { Stack, Typography, useTheme, Box } from "@mui/material";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { Container, WelcomeMessage, HomePostsContainer, CommentPost } from "@/components";
 import { PostType } from "@/constants";
@@ -7,8 +7,10 @@ import { getPosts, getPopularPosts, resetPosts } from "@/redux/slices/postsSlice
 import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useInfinityScroll from "@/hooks/useInfinityScroll";
+import { Themes } from "@/themes/theme";
 
 export const Home = () => {
+  const theme = useTheme();
   const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
   const dispatch = useDispatch();
@@ -20,8 +22,17 @@ export const Home = () => {
   }, [dispatch]);
   return (
     <Container>
-      <Box style={{ border: "1px solid rgb(239, 243, 244)", flexGrow: 1 }}>
-        <Stack sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+      <Box
+        style={{
+          flexGrow: 1,
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor:
+            theme.palette.mode === Themes.LIGHT
+              ? theme.palette.dark.light_grey
+              : theme.palette.dark.border_grey,
+        }}>
+        <Stack sx={{ flexDirection: "row", justifyContent: "center" }}>
           <Typography variant="h2" component="h2" sx={homeHeaderSX}>
             Following
           </Typography>
@@ -32,17 +43,7 @@ export const Home = () => {
           buttonName="Post"
           type={PostType.TWEET}
         />
-        {!accountUser.following && !posts.length && (
-          <WelcomeMessage
-            stylesSX={{
-              marginTop: "0.75rem",
-              marginBottom: "1rem",
-              padding: "0 20px",
-              fontWeight: 500,
-              textAlign: "center",
-            }}
-          />
-        )}
+        {!accountUser.following && !posts.length && <WelcomeMessage />}
         <InfiniteScroll
           dataLength={posts.length}
           next={useInfinityScroll({ callback: getPosts, slice: "posts" })}

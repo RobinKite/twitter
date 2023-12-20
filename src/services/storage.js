@@ -2,6 +2,7 @@ export class Storage {
   constructor() {
     this.accessToken = this._get("accessToken");
     this.refreshToken = this._get("refreshToken");
+    this.theme = this._get("theme");
   }
 
   setTokens(accessToken, refreshToken) {
@@ -11,6 +12,11 @@ export class Storage {
     }
     this._set("accessToken", accessToken);
     this._set("refreshToken", refreshToken);
+  }
+
+  setTheme(value) {
+    if (!value) localStorage.clear("theme");
+    this._set("theme", value);
   }
 
   _set(fieldName, value) {

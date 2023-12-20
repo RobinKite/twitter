@@ -8,13 +8,14 @@ export const Button = styled(MuiButton)(({ theme }) => ({
   borderRadius: 150,
   fontSize: 15,
   fontWeight: 700,
-  backgroundColor: "#fff",
-  color: "#0f1419",
+
+  backgroundColor: theme.palette[theme.palette.mode].primary,
+  color: theme.palette.common.secondary,
   textTransform: "none",
   padding: "0 16px",
   fontFamily: "inherit",
   "&:hover": {
-    backgroundColor: "#dadce0",
+    backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
   },
   [theme.breakpoints.down("sm")]: {
     fontSize: 14,
