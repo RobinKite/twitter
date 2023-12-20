@@ -10,10 +10,11 @@ export const theme = createTheme({
       search_light: "#EFF3F4", // search, border
       background_light: "#f7f9f9",
       banner: "#cfd9de",
-      hover: "#00000050",
+      hover: "#f0f0f0",
       hover_accent: "#1a8cd8",
+      hover_header: "#ddd9d9",
       // box_shadow: "#657786",
-      box_shadow: "#303030",
+      box_shadow: "0 0 15px rgba(101,119,134,0.2), 0 0 3px 1px rgba(101,119,134,0.15)",
     },
     dark: {
       primary: "#000000",
@@ -26,7 +27,8 @@ export const theme = createTheme({
       banner: "#333639",
       hover: "#16181C",
       hover_accent: "#1a8cd8",
-      box_shadow: "#e0e0e0",
+      box_shadow:
+        "rgba(255, 255, 255, 0.2) 0px 0px 15px, rgba(255, 255, 255, 0.15) 0px 0px 3px 1px",
     },
     common: {
       primary: "#536471", //grey (text+border)

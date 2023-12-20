@@ -1,9 +1,10 @@
-import { NavLink } from "react-router-dom/dist";
+import { Avatar } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setDrawer } from "@/redux/slices/appSlice";
 
-import { Avatar, Gear, Twitter } from "@/icons";
+import { Gear, Twitter } from "@/icons";
 import { theme } from "@/themes/theme";
 
 const HeaderMobile = () => {
@@ -20,7 +21,8 @@ const HeaderMobile = () => {
         left: 0,
         right: 0,
         zIndex: 10,
-        // backgroundColor: "#FFFFFF",
+        backdropFilter: "blur(12px)",
+        backgroundColor: "rgba(255,255,255,0.85)",
       }}>
       <ul
         style={{
@@ -29,20 +31,14 @@ const HeaderMobile = () => {
         }}>
         <li style={{ padding: "10px" }}>
           <NavLink onClick={handleOpenDrawer}>
-            {user ? (
-              <img
-                src={user.avatarUrl}
-                alt="User Avatar"
-                style={{
-                  width: "32px",
-                  height: "32px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                }}
-              />
-            ) : (
-              <Avatar size={32} />
-            )}
+            <Avatar
+              src={user.avatarUrl}
+              sx={{
+                width: 32,
+                height: 32,
+                borderRadius: "50%",
+              }}
+            />
           </NavLink>
         </li>
         <li

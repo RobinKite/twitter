@@ -7,13 +7,9 @@ import { NextButtonSX } from "@/components/LoginFormModal/styleSX";
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+  const initialValues = { email: "", password: "" };
 
-  const initialValues = {
-    email: "",
-    password: "",
-  };
   const onSubmit = (values) => {
-    console.log(values);
     dispatch(loginUser(values.email, values.password));
   };
 
@@ -37,11 +33,7 @@ export const LoginForm = () => {
           variant="password"
           sx={{ marginBottom: "12px" }}
         />
-        <NextButtonSX
-          // onClick={handleButtonClick}
-          type="submit">
-          Next
-        </NextButtonSX>
+        <NextButtonSX type="submit">Next</NextButtonSX>
       </Form>
     </Formik>
   );

@@ -1,28 +1,40 @@
 import { Avatar, Stack, Typography, useMediaQuery } from "@mui/material";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { FollowButton } from "@/components";
 import { fetchUsers } from "@/redux/slices/userSlice";
+import { setModalPost } from "@/redux/slices/appSlice";
 import { userCardSX } from "./styleSX";
-import { useNavigate } from "react-router-dom";
 
-export const UserCard = ({ avatarUrl, fullName, userTag, onClick, children }) => {
+export const UserCard = ({
+  avatarUrl,
+  fullName,
+  userTag,
+  onClick,
+  children,
+  isInModal,
+}) => {
   const isMobile = useMediaQuery("(max-width: 767px)");
   const isTablet = useMediaQuery("(min-width: 767px) and (max-width: 1023px)");
 
   return (
     <Stack onClick={onClick} sx={userCardSX}>
       <Avatar src={avatarUrl} alt={`${fullName}'s avatar`} />
-      {!isMobile && !isTablet && (
-        <>
-          <Stack overflow="hidden" sx={{ marginRight: "auto", marginLeft: "auto" }}>
+      {(isInModal || (!isMobile && !isTablet)) && (
+        <Stack
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "1fr min-content",
+            overflow: "hidden",
+          }}>
+          <Stack sx={{ overflow: "hidden" }}>
             <Typography
-              fontWeight={700}
               variant="subtitle1"
-              noWrap={true}
-              align="left"
               sx={{
+                fontWeight: 700,
+                textWrap: "nowrap",
                 color: (theme) =>
                   theme.palette.mode === "light"
                     ? theme.palette.light.secondary
@@ -39,11 +51,11 @@ export const UserCard = ({ avatarUrl, fullName, userTag, onClick, children }) =>
                     ? theme.palette.common.primary
                     : theme.palette.dark.text_grey,
               }}>
-              {userTag ? `@${userTag}` : fullName}
+              @{userTag}
             </Typography>
           </Stack>
-          {children}
-        </>
+          <Stack>{children}</Stack>
+        </Stack>
       )}
     </Stack>
   );
@@ -55,6 +67,7 @@ UserCard.propTypes = {
   userTag: PropTypes.string,
   onClick: PropTypes.func,
   children: PropTypes.object,
+  isInModal: PropTypes.bool,
 };
 
 export const RecommendedUserCard = ({
@@ -64,25 +77,35 @@ export const RecommendedUserCard = ({
   avatarUrl,
   useButton,
   isFollowedByUser,
+  isInModal,
 }) => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleClick = () => {
     navigate(`/user/${id}`);
+    dispatch(setModalPost(false));
   };
 
   return (
     <Stack
-      sx={{
-        ...userCardSX,
-        "&:hover": {
-          backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
+      sx={[
+        userCardSX,
+        {
+          "&:hover": {
+            backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
+          },
         },
-      }}
-      onClick={handleClick}>
-      <UserCard avatarUrl={avatarUrl} fullName={fullName} userTag={userTag} />
+      ]}>
+      <UserCard
+        avatarUrl={avatarUrl}
+        fullName={fullName}
+        userTag={userTag}
+        onClick={handleClick}
+        isInModal={isInModal}
+      />
       {useButton && (
         <FollowButton
+          key={id}
           id={id}
           userName={userTag || fullName}
           isFollowedByUser={isFollowedByUser}
@@ -99,6 +122,7 @@ RecommendedUserCard.propTypes = {
   useButton: PropTypes.bool,
   id: PropTypes.string.isRequired,
   isFollowedByUser: PropTypes.bool.isRequired,
+  isInModal: PropTypes.bool,
 };
 
 RecommendedUserCard.defaultProps = {

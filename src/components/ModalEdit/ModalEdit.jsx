@@ -46,7 +46,7 @@ export function ModalEdit({ isOpen, onClose }) {
       const birthdateInSeconds = new Date(`${month} ${day}, ${year}`).getTime() / 1000;
 
       values = { ...values, fullName: values.fullName, birthdate: birthdateInSeconds };
-      console.log(birthdateInSeconds);
+
       await dispatch(getUsersUpdate(values));
       if (imageUrl) {
         await dispatch(getUsersUpdateImageUrl(fileForServer));

@@ -3,9 +3,10 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MoreCircle, Feather } from "@/icons";
-import { CreatePost, PostModal, Navigation } from "../../components";
-import { setModalPost, setContent } from "../../redux/slices/appSlice";
+import { PostModal, Navigation, CommentPost } from "@/components";
+import { setModalPost, setContent } from "@/redux/slices/appSlice";
 import { moreButtonSX, postButtonSX } from "./styledSX";
+import { PostType } from "@/constants";
 import FooterMobile from "../FooterMobile/FooterMobile";
 import HeaderMobile from "../HeaderMobile/HeaderMobile";
 import HeaderSelect from "@/components/Header/HeaderSelect";
@@ -30,10 +31,11 @@ export const Header = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: isTablet ? "center" : "flex-start",
-        position: "sticky",
+        position: !isMobile ? "sticky" : "static",
         top: 0,
         left: 0,
         height: "100vh",
+        maxWidth: 275,
       }}>
       {isMobile && (
         <>
@@ -69,7 +71,15 @@ export const Header = () => {
       <Button
         onClick={() => {
           dispatch(setModalPost(true));
-          dispatch(setContent(<CreatePost avatarUrl={avatarUrl} />));
+          dispatch(
+            setContent(
+              <CommentPost
+                placeholder="What is happening?!!"
+                buttonName="Post"
+                type={PostType.TWEET}
+              />,
+            ),
+          );
         }}
         sx={
           (isDesktop && postButtonSX.desktop) ||

@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { Box, Typography, Stack } from "@mui/material";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Container, ItemPost } from "@/components";
 import { useEffect } from "react";
 import { getAllBookmarkPosts } from "@/redux/slices/userSlice";
@@ -7,7 +7,7 @@ import { getAllBookmarkPosts } from "@/redux/slices/userSlice";
 export const Bookmarks = () => {
   const dispatch = useDispatch();
   const email = useSelector((state) => state.user.user.userTag);
-  const allBookmarkPosts = useSelector((state) => state.user.bookmarkPosts);
+  const allBookmarkPosts = useSelector((state) => state.user.bookmarkPosts, shallowEqual);
 
   useEffect(() => {
     dispatch(getAllBookmarkPosts());
@@ -15,7 +15,7 @@ export const Bookmarks = () => {
 
   return (
     <Container>
-      <Box
+      <Stack
         sx={{
           borderRightWidth: "1px",
           borderRightStyle: "solid",
@@ -63,21 +63,7 @@ export const Bookmarks = () => {
           @{email}
         </Typography>
         {allBookmarkPosts.length > 0 ? (
-          allBookmarkPosts.map((post) => (
-            <ItemPost
-              key={post.id}
-              postUser={post.user}
-              avatarUrl={post.user.avatarUrl}
-              fullName={post.user.fullName}
-              content={post.body}
-              replyCount={post.replyCount}
-              imageUrls={post.imageUrls}
-              id={post.id}
-              likeCount={post.likeCount}
-              liked={post.liked}
-              bookmarked={post.bookmarked}
-            />
-          ))
+          allBookmarkPosts.map((post) => <ItemPost key={post.id} post={post} />)
         ) : (
           <Box
             sx={{ margin: "32px auto", padding: "0 32px", maxWidth: "calc(5 * 80px)" }}>
@@ -110,7 +96,7 @@ export const Bookmarks = () => {
             </Typography>
           </Box>
         )}
-      </Box>
+      </Stack>
     </Container>
   );
 };

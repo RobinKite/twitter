@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { client } from "@/services";
-import { Endpoint } from "@/constants";
+import { Endpoint, PostType } from "@/constants";
 
 const postsSlice = createSlice({
   name: "posts",
@@ -10,6 +10,7 @@ const postsSlice = createSlice({
     selectedPost: null,
     postComments: [],
     myPosts: [],
+    repostedPosts: [],
     hasMore: true,
   },
   reducers: {
@@ -30,11 +31,15 @@ const postsSlice = createSlice({
 
     addPost: (state, action) => {
       const newPost = action.payload;
-      if (newPost.type === "TWEET") {
+      if (newPost.type === PostType.TWEET) {
         state.myPosts.unshift(newPost);
         state.posts.unshift(newPost);
       }
-      if (newPost.type === "REPLY") {
+      if (newPost.type === PostType.QUOTE) {
+        state.myPosts.unshift(newPost);
+        state.posts.unshift(newPost);
+      }
+      if (newPost.type === PostType.REPLY) {
         const parentPostExistsInComments = state.postComments.some(
           (comment) => comment.id === newPost.parentPost?.id,
         );
@@ -68,14 +73,10 @@ const postsSlice = createSlice({
     deleteFromPost: (state, action) => {
       const postIdToDelete = action.payload;
       state.posts = state.posts.filter((post) => post.id !== postIdToDelete);
-      // state.selectedPost = state.selectedPost.filter((post) => post.id !== postIdToDelete);
       if (state.selectedPost && state.selectedPost.id === postIdToDelete) {
         const commentsToDelete = state.postComments.filter(
           (comment) => comment.parentPost.id === postIdToDelete,
         );
-        // state.postComments = state.postComments.filter(
-        //   (comment) => comment.parentPost.id !== postIdToDelete,
-        // );
         state.selectedPost.replyCount = Math.max(
           (state.selectedPost.replyCount || 0) - commentsToDelete.length,
           0,
@@ -87,21 +88,18 @@ const postsSlice = createSlice({
           0,
         );
       }
-      // const parentPostId = state.postComments.find((post) => post.id === postIdToDelete)
-      //   ?.parentPost?.id;
-
-      // if (parentPostId) {
-      //   const parentPost = state.myPosts.find((post) => post.id === parentPostId);
-
-      //   if (parentPost) {
-      //     parentPost.replyCount = Math.max((parentPost.replyCount || 0) - 1, 0);
-      //   }
-      // }
       state.myPosts = state.myPosts.filter((post) => post.id !== postIdToDelete);
-
       state.postComments = state.postComments.filter(
         (post) => post.id !== postIdToDelete,
       );
+    },
+
+    setPopularPosts: (state, action) => {
+      state.popularPosts = action.payload;
+    },
+
+    addRepostedPosts: (state, action) => {
+      state.repostedPosts = action.payload;
     },
 
     getPostId: (state, action) => {
@@ -190,7 +188,8 @@ export const {
   unlike,
   setMyPosts,
   resetPosts,
-  //   setPopularPosts,
+  addRepostedPosts,
+  setPopularPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
 
@@ -219,12 +218,13 @@ export const handleLike = (id) => async (dispatch) => {
     console.error("Error liking the post:", error);
   }
 };
-export const handleLikeSPosts = (page) => async () => {
+
+// TODO: 👉 Implement
+export const handleLikedPosts = (page) => async () => {
   try {
-    const response = await client.post(Endpoint.LIKE, {
+    const response = await client.get(Endpoint.LIKED_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-
     console.log(response);
   } catch (error) {
     console.error("Error liking the post:", error);
@@ -236,8 +236,7 @@ export const axiosPostComments = (id, page) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_POST_REPLIES, {
       params: { postId: id, page: page, pageSize: 12 },
     });
-    const comments = response.data.content;
-    dispatch(getPostComents(comments));
+    dispatch(getPostComents(response.data.content));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -246,8 +245,7 @@ export const axiosPostComments = (id, page) => async (dispatch) => {
 export const getPostById = (id) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.GET_POST, { params: { id } });
-    const data = response.data;
-    dispatch(getPostId(data));
+    dispatch(getPostId(response.data));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -258,45 +256,41 @@ export const getPosts = (page) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_ALL_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-    // console.log(response)
-
     dispatch(setPosts(response.data.content));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
 };
 
-// export const getPopularPosts = (page) => async (dispatch) => {
-//   try {
-//     const response = await client.get(Endpoint.GET_POPULAR_POSTS, {
-//       params: { page: page, pageSize: 12 },
-//     });
+export const getPopularPosts = (page) => async (dispatch) => {
+  try {
+    const response = await client.get(Endpoint.GET_POPULAR_POSTS, {
+      params: { page: page, pageSize: 12 },
+    });
 
-//     dispatch(setPopularPosts(response.data.content));
-//   } catch (error) {
-//     console.error("Error fetching posts:", error);
-//   }
-// };
+    dispatch(setPopularPosts(response.data.content));
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+};
 
 export const getMyPosts = (page) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.GET_MY_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-
     dispatch(setMyPosts(response.data.content));
   } catch (error) {
-    console.error("Error fetching posts:", error.errorMessage);
+    console.error("Error fetching posts:", error);
   }
 };
 
 export const addPosts = (formData) => async (dispatch) => {
   try {
     const response = await client.post(Endpoint.CREATE_POST, formData);
-    const data = response.data;
-    dispatch(addPost(data));
+    dispatch(addPost(response.data));
   } catch (error) {
-    console.log("ERROR", error);
+    console.error("Error:", error);
   }
 };
 
@@ -304,23 +298,7 @@ export const deletePost = (id) => async (dispatch) => {
   try {
     await client.delete(Endpoint.DELETE_POST, { params: { id } });
     await dispatch(deleteFromPost(id));
-    // dispatch(getPosts());
   } catch (error) {
-    console.error("Сталася помилка при видаленні поста:", error);
+    console.error("Error deleting post:", error);
   }
 };
-
-// export const {
-//   setPosts,
-//   addPost,
-//   deleteComment,
-//   deleteFromPost,
-//   getPostId,
-//   getPostComents,
-//   like,
-//   addComent,
-//   unlike,
-//   setMyPosts,
-//   setPopularPosts,
-// } = postsSlice.actions;
-// export default postsSlice.reducer;

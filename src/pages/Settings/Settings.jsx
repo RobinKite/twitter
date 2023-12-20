@@ -1,11 +1,17 @@
-import { Box, Typography } from "@mui/material";
-import { Container } from "@/components";
+import { Button, Stack, Typography } from "@mui/material";
+import { Key } from "@/icons";
+import { Container, ChangePasswordModal } from "@/components";
+import { useDispatch } from "react-redux";
+import { setIsChangePasswordModalActive } from "@/redux/slices/appSlice";
 
 export const Settings = () => {
+  const dispatch = useDispatch();
+
   return (
     <Container>
-      <Box
+      <Stack
         sx={{
+          flexGrow: 1,
           borderRightWidth: "1px",
           borderRightStyle: "solid",
           borderRightColor: (theme) =>
@@ -19,8 +25,6 @@ export const Settings = () => {
             theme.palette.mode === "light"
               ? theme.palette.dark.light_grey
               : theme.palette.dark.border_grey,
-          paddingLeft: "16px",
-          height: "100vh",
         }}>
         <Typography
           variant="h1"
@@ -32,12 +36,37 @@ export const Settings = () => {
                 : theme.palette.dark.light_grey,
 
             fontSize: "20px",
-            fontWeight: 700,
+            fontWeight: "700",
             marginTop: "10px",
+            paddingLeft: "16px",
           }}>
           Settings
         </Typography>
-      </Box>
+        <Button
+          variant="text"
+          disableFocusRipple={true}
+          onClick={() => dispatch(setIsChangePasswordModalActive(true))}
+          sx={{
+            display: "flex",
+            justifyContent: "start",
+            flexDirection: "row",
+            paddingInline: "1rem",
+            paddingBlock: "1.25rem",
+            alignItems: "center",
+            borderRadius: 0,
+            color: "#0F1419",
+            fontSize: "1rem",
+            marginTop: "1rem",
+
+            ":hover": {
+              backgroundColor: "rgb(248, 248, 248)",
+            },
+          }}>
+          <Key size={18.75} style={{ marginRight: "0.5rem" }} />
+          <Typography>Change password</Typography>
+        </Button>
+        <ChangePasswordModal />
+      </Stack>
     </Container>
   );
 };

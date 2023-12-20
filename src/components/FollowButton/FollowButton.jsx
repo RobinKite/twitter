@@ -11,11 +11,10 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const handleFollow = (e) => {
-    e.stopPropagation();
+  const handleFollow = () => {
+    setOpenDialog(false);
     setIsFollowing(true);
     dispatch(postSubscribeToUser(id));
-    setOpenDialog(false);
   };
 
   const handleConfirmation = () => {
@@ -31,7 +30,8 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
         onClick={isFollowing ? () => setOpenDialog(true) : handleFollow}
         isFollowing={isFollowing}
         onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}>
+        onMouseLeave={() => setIsHovering(false)}
+        sx={{ minWidth: "110px", marginRight: "0.5rem" }}>
         {isHovering ? (
           <p>{isFollowing ? "Unfollow" : "Follow"}</p>
         ) : (

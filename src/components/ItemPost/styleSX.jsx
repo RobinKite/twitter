@@ -1,6 +1,4 @@
-export const tweetWrapperSX = {};
-
-export const tweetSX = {
+export const tweetWrapperSX = {
   borderBottomColor: (theme) =>
     theme.palette.mode === "light"
       ? theme.palette.light.search_light
@@ -11,10 +9,8 @@ export const tweetSX = {
   paddingBottom: "12px",
   paddingLeft: "16px",
   paddingRight: "16px",
-  display: "grid",
-  gridTemplateColumns: "40px 1fr",
-  gap: "12px",
   cursor: "pointer",
+  position: "relative",
   transition: "background-color 300ms linear",
 
   "&:hover": {
@@ -23,6 +19,34 @@ export const tweetSX = {
   "&:focus": {
     backgroundColor: "rgba(0,0,0,0.03)",
   },
+};
+
+export const tweetAdditionalInfoSX = {
+  display: "flex",
+  flexDirection: "row",
+  marginBottom: "2px",
+  paddingLeft: "14px",
+  fontSize: "13px",
+  fontWeight: "700",
+  color: "rgb(83, 100, 113)",
+
+  "& span": {
+    marginLeft: "16px",
+    fontSize: "13px",
+    fontWeight: "700",
+    color: "rgb(83, 100, 113)",
+  },
+
+  "&:hover": {
+    cursor: "pointer",
+    textDecoration: "underline",
+  },
+};
+
+export const tweetSX = {
+  display: "grid",
+  gridTemplateColumns: "40px 1fr",
+  gap: "12px",
 };
 
 export const avatarSX = {
@@ -35,7 +59,6 @@ export const avatarSX = {
 };
 
 export const tweetHeaderSX = {
-  position: "relative",
   display: "flex",
   flexDirection: "row",
   alignItems: "flex-start",
@@ -70,8 +93,8 @@ export const tweetUsertagSX = {
 
 export const iconDeleteSX = {
   position: "absolute",
-  top: "-2px",
-  right: "6px",
+  top: "0.25rem",
+  right: "0.375rem",
 };
 
 export const tweetContentSX = {
@@ -83,6 +106,7 @@ export const tweetContentSX = {
       : theme.palette.dark.light_grey,
   fontSize: "15px",
   lineHeight: 1.333,
+  overflowWrap: "anywhere",
 };
 
 export const tweetImgSX = {

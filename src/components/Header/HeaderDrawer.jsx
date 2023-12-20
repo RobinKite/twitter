@@ -59,7 +59,6 @@ const HeaderDrawer = () => {
       dispatch(logoutUserAction());
       storage.setTokens();
       navigate("/login");
-      console.log("Logged out!");
     }
   };
   const handleCloseDialog = () => {

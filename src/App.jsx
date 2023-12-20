@@ -1,20 +1,12 @@
 import { useSelector } from "react-redux";
 import { LoginFormModal } from "@/components";
-import { theme, Themes } from "@/themes/theme";
+import { theme } from "@/themes/theme";
 import AppRoutes from "./AppRoutes";
-import { useState } from "react";
-import { ThemeProvider, createTheme, CssBaseline, Button } from "@mui/material";
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 
 export default function App() {
   const isLoginModalOpen = useSelector((state) => state.app.isLoginModalActive);
-  const [currentMode, setCurrentMode] = useState(Themes.LIGHT);
-
-  const toggleThemeMode = () => {
-    setCurrentMode((prevMode) =>
-      prevMode === Themes.LIGHT ? Themes.DARK : Themes.LIGHT,
-    );
-  };
-
+  const currentMode = useSelector((state) => state.app.currentMode);
   const dynamicTheme = createTheme({
     ...theme,
     palette: {
@@ -28,7 +20,6 @@ export default function App() {
       <CssBaseline />
       <AppRoutes />
       {isLoginModalOpen && <LoginFormModal open={isLoginModalOpen} />}
-      <Button onClick={toggleThemeMode}>Toggle Theme</Button>
     </ThemeProvider>
   );
 }

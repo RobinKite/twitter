@@ -1,12 +1,12 @@
-import { MenuItem, Select, Stack, useMediaQuery, useTheme } from "@mui/material";
+import { MenuItem, Stack, useMediaQuery, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { ConfirmationDialog } from "..";
-import { getUserInfo, logoutUserAction } from "@/redux/slices/userSlice";
+import { ConfirmationDialog, CustomSelect } from "..";
+import { fetchUser, logoutUserAction } from "@/redux/slices/userSlice";
 import { useEffect, useState } from "react";
-import { MoreMenu } from "@/icons";
+import { More } from "@/icons";
 import { UserCard } from "../RecommendedUsers/RecommendedUsers";
-import { WrapperAccountMenuSX, moreSelectMenuPropsSX, moreSelectSX } from "./styledSX";
 import { storage } from "@/services";
+import { WrapperAccountMenuSX } from "./styledSX";
 
 const AccountMenu = () => {
   const theme = useTheme();
@@ -14,12 +14,10 @@ const AccountMenu = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
-
-  // const isTablet = useMediaQuery("(min-width: 768px) and (max-width:1023px)");
   const isMobile = useMediaQuery("(max-width: 767px)");
 
   useEffect(() => {
-    dispatch(getUserInfo());
+    dispatch(fetchUser());
   }, [dispatch]);
 
   const handleLogoutClick = () => {
@@ -48,43 +46,25 @@ const AccountMenu = () => {
           avatarUrl={user.avatarUrl}
           fullName={user.fullName}
           userTag={user.userTag}>
-          <MoreMenu
-            size={18}
-            // color="#0f1419"
-            style={{
-              display: "block",
-              fill:
-                theme.palette.mode === "light"
-                  ? theme.palette.light.secondary
-                  : theme.palette.dark.light_grey,
-            }}
-          />
+          <Stack sx={{ flexGrow: 1, justifyContent: "center", marginLeft: "0.75rem" }}>
+            <More size={18.75} color="#0f1419" style={{ display: "block" }} />
+          </Stack>
         </UserCard>
-        <Select
+        <CustomSelect
           open={isMenuOpen}
-          onClose={() => setIsMenuOpen(false)}
-          sx={moreSelectSX}
-          id="basic-menu"
-          MenuProps={moreSelectMenuPropsSX}>
+          onClose={setIsMenuOpen}
+          customStyles={{ width: "300px", fontSize: "15px" }}>
           <MenuItem
             onClick={handleLogoutClick}
             sx={{
-              color: (theme) =>
+              color:
                 theme.palette.mode === "light"
-                  ? theme.palette.light.secondary
+                  ? theme.palette.common.secondary
                   : theme.palette.dark.light_grey,
-              boxShadow: (theme) =>
-                `0 0 15px ${theme.palette[theme.palette.mode].box_shadow}`,
-              "&.Mui-selected": {
-                backgroundColor: (theme) => theme.palette[theme.palette.mode].primary,
-              },
-              "&.Mui-selected:hover": {
-                backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
-              },
             }}>
             Log out @{user.userTag || user.fullName}
           </MenuItem>
-        </Select>
+        </CustomSelect>
         {dialogOpen && (
           <ConfirmationDialog
             open={dialogOpen}

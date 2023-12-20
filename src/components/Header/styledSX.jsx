@@ -18,6 +18,7 @@ export const postButtonSX = {
       backgroundColor: (theme) => theme.palette[theme.palette.mode].hover_accent,
     },
   },
+
   tablet: {
     position: "unset",
     height: "50px",
@@ -28,6 +29,7 @@ export const postButtonSX = {
     borderRadius: "100%",
     alignSelf: "center",
   },
+
   desktop: {
     // color: "#ffffff",
     color: (theme) => theme.palette.light.primary,
@@ -39,7 +41,7 @@ export const postButtonSX = {
     fontWeight: 700,
     fontSize: "17px",
     padding: "11px 80px",
-    margin: "1rem 40px 0 4px",
+    margin: "1rem 2rem 0 0",
 
     "&:hover": {
       boxShadow: "none",
@@ -49,7 +51,6 @@ export const postButtonSX = {
 };
 
 export const moreButtonSX = {
-  //  color: "black",
   color: (theme) => theme.palette[theme.palette.mode].secondary,
   fontSize: "1.2rem",
   borderRadius: "2rem",
@@ -63,9 +64,10 @@ export const moreButtonSX = {
   lineHeight: 1,
 
   "&:hover": {
-    // backgroundColor: "rgb(221, 217, 217)",
-
-    backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
+    backgroundColor: (theme) =>
+      theme.palette.mode === "light"
+        ? theme.palette.light.hover_header
+        : theme.palette.dark.hover,
   },
 
   "& .css-1tnmhci-MuiButtonBase-root-MuiButton-root": {
@@ -74,17 +76,6 @@ export const moreButtonSX = {
   "& .css-1d6wzja-MuiButton-startIcon": {
     margin: 0,
   },
-};
-
-export const moreSelectSX = {
-  position: "relative",
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: "1px",
-  overflow: "hidden",
-  whiteSpace: "nowrap",
-  width: "1px",
-  backgroundColor: (theme) => theme.palette[theme.palette.mode].secondary,
 };
 
 export const logoutButton = {
@@ -106,40 +97,5 @@ export const logoutButton = {
   marginTop: "auto",
   "&:hover": {
     backgroundColor: "#fff",
-  },
-};
-
-export const moreSelectMenuPropsSX = {
-  anchorOrigin: {
-    vertical: "bottom",
-    horizontal: "left",
-  },
-  transformOrigin: {
-    vertical: "bottom",
-    horizontal: "left",
-  },
-  PaperProps: {
-    sx: {
-      position: "absolute",
-      borderRadius: 5,
-
-      "& .css-6hp17o-MuiList-root-MuiMenu-list": {
-        paddingTop: 0,
-        paddingBottom: 0,
-        // backgroundColor: "#ffffff",
-        backgroundColor: (theme) => theme.palette[theme.palette.mode].primary,
-      },
-      "& .MuiMenuItem-root": {
-        padding: 2,
-        fontSize: 20,
-        fontWeight: 700,
-        minWidth: 318,
-
-        gap: 3,
-        "&:hover": {
-          backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
-        },
-      },
-    },
   },
 };

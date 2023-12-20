@@ -1,19 +1,21 @@
-import { MenuItem, Select, useTheme } from "@mui/material";
-import { moreSelectMenuPropsSX, moreSelectSX } from "./styledSX";
+import { MenuItem, useTheme } from "@mui/material";
+
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Display, Gear } from "@/icons";
+import { CustomSelect, DisplayModal } from "..";
+import { useState } from "react";
 
 const HeaderSelect = ({ open, onClose }) => {
   const theme = useTheme();
+  const [isDisplayShown, setIsDisplayShown] = useState(false);
+
   return (
     <>
-      <Select
+      <CustomSelect
         open={open}
         onClose={onClose}
-        sx={moreSelectSX}
-        id="basic-menu"
-        MenuProps={moreSelectMenuPropsSX}>
+        customStyles={{ width: "318px", fontSize: 20, gap: 3 }}>
         <MenuItem
           component={Link}
           to="/settings"
@@ -22,8 +24,6 @@ const HeaderSelect = ({ open, onClose }) => {
               theme.palette.mode === "light"
                 ? theme.palette.common.secondary
                 : theme.palette.dark.light_grey,
-            // boxShadow: (theme) =>
-            //   `0 0 15px ${theme.palette[theme.palette.mode].box_shadow}`,
           }}>
           <Gear
             size={22}
@@ -34,6 +34,7 @@ const HeaderSelect = ({ open, onClose }) => {
           Settings
         </MenuItem>
         <MenuItem
+          onClick={() => setIsDisplayShown(true)}
           sx={{
             color:
               theme.palette.mode === "light"
@@ -48,7 +49,11 @@ const HeaderSelect = ({ open, onClose }) => {
           />
           Display
         </MenuItem>
-      </Select>
+      </CustomSelect>
+
+      {isDisplayShown && (
+        <DisplayModal onClose={() => setIsDisplayShown(false)} open={isDisplayShown} />
+      )}
     </>
   );
 };

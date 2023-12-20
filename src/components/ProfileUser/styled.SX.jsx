@@ -30,11 +30,10 @@ export const ContainerHederText = styled(Box)(() => ({
 }));
 
 export const EditButton = styled(Button)(({ theme }) => ({
-  // position: "absolute",
   display: "flex",
   marginLeft: "auto",
   borderRadius: "50px",
-  // border: "1px solid rgb(239, 243, 244)",
+
   borderStyle: "solid",
   borderWidth: "1px",
   borderColor:
