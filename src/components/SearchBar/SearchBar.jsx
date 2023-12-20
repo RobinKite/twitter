@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { SearchProgressBar } from "@/components";
 import { fetchFriedsSearch } from "@/redux/slices/userSlice";
-import { closeIconSX, inputSX, searchBarSX, searchIconSX } from "./styleSX";
+import { closeIconSX, inputSX, searchBarSX, searchIconSX, formSX } from "./styleSX";
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ export const SearchBar = () => {
 
   return (
     <Stack ref={parentRef} sx={searchBarSX}>
-      <FormControl fullWidth component="form">
+      <FormControl sx={formSX} fullWidth component="form">
         <Input
           sx={inputSX}
           placeholder="Search"

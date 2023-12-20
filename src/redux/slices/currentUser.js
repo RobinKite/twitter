@@ -1,5 +1,6 @@
 import { Endpoint } from "@/constants";
 import { client } from "@/services";
+import { setPostsTemplate } from "@/utils";
 import { createSlice } from "@reduxjs/toolkit";
 
 const currentUserSlice = createSlice({
@@ -9,51 +10,49 @@ const currentUserSlice = createSlice({
     currentPosts: [],
     currentLikedPosts: [],
     hasMore: true,
+    page: 0,
   },
   reducers: {
     setCurrentUser: (state, action) => {
       state.user = action.payload;
     },
-    setCurrentPosts: (state, action) => {
-      if (action.payload && action.payload.length !== 0) {
-        state.hasMore = true;
-        state.currentPosts = action.payload;
-      } else {
-        state.hasMore = false;
-        state.currentPosts = [];
-      }
-    },
+
     resetPosts: (state) => {
+      state.currentLikedPosts = [];
       state.currentPosts = [];
+      state.page = 0;
       state.hasMore = true;
     },
+    setCurrentPosts: (state, action) => {
+      setPostsTemplate(state, action, "currentPosts");
+    },
+
     setCurrentLikedPosts: (state, action) => {
-      state.currentLikedPosts = action.payload;
+      setPostsTemplate(state, action, "currentLikedPosts");
     },
   },
 });
 
-export const { setCurrentUser, setCurrentPosts, setCurrentLikedPosts } =
+export const { setCurrentUser, setCurrentPosts, setCurrentLikedPosts, resetPosts } =
   currentUserSlice.actions;
 export default currentUserSlice.reducer;
-
-export const getCurrentLikedPosts = (id) => async (dispatch) => {
+export const getCurrentLikedPosts = (page, id) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.LIKED_POSTS, {
-      params: { userId: id, page: 0, pageSize: 12 },
+      params: { userId: id, page: page, pageSize: 12 },
     });
-    dispatch(setCurrentLikedPosts(response.data.content));
+    const data = response.data;
+    dispatch(setCurrentLikedPosts(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
   }
 };
-
-export const getCurrentPosts = (id, page) => async (dispatch) => {
+export const getCurrentPosts = (page, id) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.GET_POSTS, {
       params: { id: id, page: page, pageSize: 12 },
     });
-    dispatch(setCurrentPosts(response.data.content));
+    dispatch(setCurrentPosts(response.data));
   } catch (error) {
     console.error("Error fetching user:", error);
   }

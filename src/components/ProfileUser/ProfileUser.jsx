@@ -210,7 +210,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
                 theme.palette.mode === "light"
                   ? theme.palette.common.secondary
                   : theme.palette.dark.light_grey,
-              fontWeight: "700",
+              fontWeight: 600,
             }}>
             {following}{" "}
           </Typography>

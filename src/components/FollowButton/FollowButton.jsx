@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -31,12 +32,10 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
         isFollowing={isFollowing}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
-        sx={{ minWidth: "110px", marginRight: "0.5rem" }}>
-        {isHovering ? (
-          <p>{isFollowing ? "Unfollow" : "Follow"}</p>
-        ) : (
-          <p>{isFollowing ? "Following" : "Follow"}</p>
-        )}
+        sx={{ padding: "0.375rem 1.175rem", marginRight: "0.5rem" }}>
+        <Typography sx={{ fontSize: "0.85rem" }}>
+          {!isFollowing ? "Follow" : isHovering ? "Unfollow" : "Following"}
+        </Typography>
       </FollowButtonStyled>
       {openDialog && (
         <ConfirmationDialog

@@ -22,13 +22,14 @@ export const tweetWrapperSX = {
 };
 
 export const tweetAdditionalInfoSX = {
-  display: "flex",
+  display: "inline-flex",
   flexDirection: "row",
   marginBottom: "2px",
-  paddingLeft: "14px",
+  alignItems: "center",
   fontSize: "13px",
   fontWeight: "700",
   color: "rgb(83, 100, 113)",
+  marginLeft: "1.25rem",
 
   "& span": {
     marginLeft: "16px",
@@ -107,6 +108,7 @@ export const tweetContentSX = {
   fontSize: "15px",
   lineHeight: 1.333,
   overflowWrap: "anywhere",
+  textAlign: "left",
 };
 
 export const tweetImgSX = {

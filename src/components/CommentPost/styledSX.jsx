@@ -39,6 +39,10 @@ export const ButtonPost = styled(MuiButton)(({ theme }) => ({
   color: "white",
   textTransform: "capitalize",
 
+  "&:disabled": {
+    color: "white",
+    opacity: 0.5,
+  },
   "&:hover": { backgroundColor: "#1a8cd8" },
 
   [theme.breakpoints.down("sm")]: {

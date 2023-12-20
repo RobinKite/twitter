@@ -26,7 +26,7 @@ export const FollowButtonStyled = styled(Button, {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    fontWeight: 500,
+    fontWeight: 700,
   },
 
   "&:hover": {

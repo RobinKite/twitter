@@ -6,8 +6,8 @@ export const sidebarSX = {
     position: "relative",
     marginLeft: "30px",
     width: "100%",
-    minWidth: 360,
-    maxWidth: 360,
+    minWidth: 350,
+    maxWidth: 350,
 
     backgroundColor: "inherit",
   },
@@ -24,10 +24,11 @@ export const containerSX = {
       ? theme.palette.light.background_light
       : theme.palette.dark.background_dark,
   borderRadius: "1rem",
+  overflow: "hidden",
 };
 
 export const titleSX = {
-  padding: "0.75rem 1rem 1rem 1rem",
+  padding: "1rem 1rem 0.75rem 1rem",
   fontFamily: "inherit",
   fontSize: "1.25rem",
   fontWeight: 800,

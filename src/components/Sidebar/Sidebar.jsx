@@ -13,7 +13,7 @@ export const Sidebar = () => {
       <SearchBar />
       <Stack sx={containerSX}>
         <Typography variant="h2" sx={titleSX}>
-          Who to follow
+          You might like
         </Typography>
         <RecommendedUsers
           useButton={true}

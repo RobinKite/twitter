@@ -13,13 +13,18 @@ export const searchBarSX = {
   borderWidth: "1px",
   boderStyle: "solid",
   borderColor: "transparent",
-  transition: "border-color 250ms linear, fill 250ms linear",
+  transition: "border-color 250ms linear",
 
   "& input:focus": {
     borderColor: "rgb(29, 155, 240)",
   },
+};
 
-  // FIXME: 👉 Affects any inner svg
+export const formSX = {
+  "& svg": {
+    transition: "fill 250ms linear",
+  },
+
   "&:focus-within svg": {
     fill: "rgb(29, 155, 240)",
   },

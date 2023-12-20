@@ -4,14 +4,19 @@ import { Container, ProfileTabs } from "@/components";
 import { title } from "./styleSX";
 import NotificationsList from "@/components/NotificationsList/NotificationsList";
 import RepliesList from "@/components/RepliesList/RepliesList";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useSelector } from "react-redux";
+import { getNotifications } from "@/redux/slices/userSlice";
+import useInfinityScroll from "@/hooks/useInfinityScroll";
 
 const tabs = [
   { label: "All", value: "0" },
-  // { label: "Verified", value: "1" },
   { label: "Mentions", value: "2" },
 ];
 
 export const Notifications = () => {
+  const notifications = useSelector((state) => state.user.notifications);
+
   return (
     <Container>
       <Stack
@@ -40,15 +45,13 @@ export const Notifications = () => {
             },
           }}>
           <TabPanel value="0" sx={{ padding: 0 }}>
-            <NotificationsList />
+            <InfiniteScroll
+              dataLength={notifications.length}
+              next={useInfinityScroll({ callback: getNotifications, slice: "user" })}
+              hasMore={true}>
+              <NotificationsList />
+            </InfiniteScroll>
           </TabPanel>
-          {/* <TabPanel value="1" sx={{ padding: 0 }}>
-            <NotificationTabContent
-              title="Nothing to see here — yet"
-              imageUrl={imageVerification}
-              text="Likes, mentions, reposts, and a whole lot more — when it comes from a verified account, you&#39;ll find it here."
-            />
-          </TabPanel> */}
           <TabPanel value="2" sx={{ padding: 0 }}>
             <RepliesList />
           </TabPanel>

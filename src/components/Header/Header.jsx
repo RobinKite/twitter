@@ -30,7 +30,7 @@ export const Header = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        alignItems: isTablet ? "center" : "flex-start",
+        alignItems: isTablet ? "center" : "unset",
         position: !isMobile ? "sticky" : "static",
         top: 0,
         left: 0,
@@ -54,7 +54,7 @@ export const Header = () => {
             onClick={() => setIsSelectOpen(true)}
             sx={moreButtonSX}>
             <MoreCircle
-              size={30}
+              size={26.25}
               style={{
                 fill:
                   theme.palette.mode === "light"
