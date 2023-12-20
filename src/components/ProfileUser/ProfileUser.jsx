@@ -58,6 +58,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
   const getUserFromState = (state) => (isSelf ? state.user.user : state.currentUser.user);
   const user = useSelector(getUserFromState);
   if (!user) return null;
+
   const {
     id,
     fullName,
@@ -75,6 +76,8 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
   const formattedBirthdate = formatTimestamp(birthdate);
   const registrationDate = formatTimestamp(createdAt);
 
+  console.log(isFollowedByUser);
+
   const handleLinkClick = (component, isFollowers) => {
     if ((isFollowers && followers === 0) || (!isFollowers && following === 0)) {
       return;
@@ -82,6 +85,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
 
     setLoading(true);
     const getUser = isFollowers ? getUserFollowers : getUserFollowing;
+
     return new Promise((resolve, reject) => {
       dispatch(getUser(id))
         .then(() => {
@@ -102,6 +106,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
   const redirectToPost = () => {
     navigate(`/`, { replace: true });
   };
+
   return (
     <>
       <HeaderPage>

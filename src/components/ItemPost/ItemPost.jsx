@@ -35,8 +35,7 @@ export function ItemPost({ post, disable }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const profileUser = useSelector((state) => state.user.user);
-  const accountUser = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user);
 
   if (!post) {
     return null;
@@ -78,28 +77,22 @@ export function ItemPost({ post, disable }) {
     navigate(`/post/${id}`);
   };
 
-  const redirectToUserProfile = () => {
-    try {
-      if (postUser && postUser.id && type !== PostType.QUOTE) {
-        navigate(`/user/${postUser.id}`);
-      } else if (isRepost) {
-        navigate(`/user/${parentPost?.user.id}`);
-      }
-    } catch (error) {
-      console.error("Error navigating to user profile:", error);
-    }
-  };
-
   const backgroundClick = (event) => {
     if (event.currentTarget === event.target) {
       redirectToPost();
     }
   };
 
+  const handlePostUserClick = (postUserId) => {
+    user?.id === postUserId ? navigate(`/profile`) : navigate(`/user/${postUserId}`);
+  };
+
   const handleUserClick = () => {
-    accountUser?.id === postUser.id
-      ? navigate(`/user/${postUser.id}`)
-      : redirectToUserProfile();
+    if (!isRepost) {
+      handlePostUserClick(postUser?.id);
+    } else {
+      handlePostUserClick(parentPost?.user.id);
+    }
   };
 
   const handleNavigateToPost = ({ target }) => {
@@ -109,10 +102,12 @@ export function ItemPost({ post, disable }) {
   return (
     <Stack ref={containerRef} onClick={handleNavigateToPost} sx={tweetWrapperSX}>
       {isRepost && (
-        <Stack sx={tweetAdditionalInfoSX} onClick={handleUserClick}>
+        <Stack
+          sx={tweetAdditionalInfoSX}
+          onClick={() => handlePostUserClick(postUser?.id)}>
           <RepostFilled fill="#536471" size={16} />
           <Typography component="span">
-            {accountUser?.id === postUser.id ? "You" : fullName} reposted
+            {user?.id === postUser.id ? "You" : fullName} reposted
           </Typography>
         </Stack>
       )}
@@ -136,7 +131,7 @@ export function ItemPost({ post, disable }) {
                 </Typography>
               )}
             </Stack>
-            {profileUser.id === postUser.id && (
+            {user.id === postUser.id && (
               <Stack>
                 <IconButton sx={iconDeleteSX} id="basic-button" onClick={handleClick}>
                   <MoreHorizIcon fontSize="small" />
