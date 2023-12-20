@@ -64,7 +64,6 @@ export function CurrentUser() {
                 ))}
               </InfiniteScroll>
             </TabPanel>
-            {/* <TabPanel value="1">Replies</TabPanel> */}
             <TabPanel value="2" sx={{ padding: 0 }}>
               <InfiniteScroll
                 dataLength={likedPosts.length}

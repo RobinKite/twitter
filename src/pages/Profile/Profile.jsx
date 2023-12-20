@@ -92,7 +92,6 @@ export function Profile() {
               {sortByCreatedAt(likedPosts).map((post) => (
                 <ItemPost key={post.id} post={post} />
               ))}
-              {/* <LikedPosts currentUser={false} /> */}
             </InfiniteScroll>
           </TabPanel>
         </ProfileTabs>
