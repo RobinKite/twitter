@@ -1,3 +1,5 @@
+import { Themes } from "@/themes/theme";
+
 export const postButtonSX = {
   mobile: {
     borderRadius: "100%",
@@ -66,7 +68,7 @@ export const moreButtonSX = {
 
   "&:hover": {
     backgroundColor: (theme) =>
-      theme.palette.mode === "light"
+      theme.palette.mode === Themes.LIGHT
         ? theme.palette.light.hover_header
         : theme.palette.dark.hover,
   },
@@ -84,7 +86,7 @@ export const logoutButton = {
   // color: "#0f1419",
   color: (theme) => theme.palette[theme.palette.mode].secondary,
   backgroundColor: (theme) =>
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.light.secondary
       : theme.palette.dark.light_grey,
 

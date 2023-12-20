@@ -1,3 +1,5 @@
+import { Themes } from "@/themes/theme";
+
 export const homeHeaderSX = {
   position: "relative",
   padding: "16px 0",
@@ -8,7 +10,7 @@ export const homeHeaderSX = {
   // color: "rgb(15, 20, 25)",
   // color: "rgb(83, 100, 113)",
   color: (theme) =>
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.secondary
       : theme.palette.dark.light_grey,
 

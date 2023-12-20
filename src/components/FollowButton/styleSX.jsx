@@ -1,6 +1,7 @@
 import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
+import { Themes } from "@/themes/theme";
 
 export const FollowButtonStyled = styled(Button, {
   shouldForwardProp: (prop) => prop !== "isFollowing",
@@ -32,7 +33,7 @@ export const FollowButtonStyled = styled(Button, {
   "&:hover": {
     backgroundColor: isFollowing
       ? theme.palette.dark.background_dark
-      : theme.palette.mode === "light"
+      : theme.palette.mode === Themes.LIGHT
         ? theme.palette.dark.background_dark
         : theme.palette.light.banner,
 
@@ -45,7 +46,7 @@ export const FollowButtonStyled = styled(Button, {
     // color: isFollowing ? "rgb(255, 0, 0)" : "rgb(255, 255, 255)",
     backgroundColor: isFollowing
       ? theme.palette.dark.background_dark
-      : theme.palette.mode === "light"
+      : theme.palette.mode === Themes.LIGHT
         ? theme.palette.dark.background_dark
         : theme.palette.light.banner,
     boxShadow: "none",

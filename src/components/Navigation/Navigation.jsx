@@ -7,6 +7,7 @@ import styles from "./Navigation.module.scss";
 import { Stack, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import NotificationAlert from "../NotificationAlert/NotificationAlert";
+import { Themes } from "@/themes/theme";
 
 const NavigationItem = ({ path, text, getIconComponent, notificationsCount }) => {
   const theme = useTheme();
@@ -20,7 +21,7 @@ const NavigationItem = ({ path, text, getIconComponent, notificationsCount }) =>
           <Icon
             style={{
               fill:
-                theme.palette.mode === "light"
+                theme.palette.mode === Themes.LIGHT
                   ? theme.palette.light.secondary
                   : theme.palette.dark.light_grey,
             }}

@@ -10,6 +10,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { PostType } from "@/constants";
 import useInfinityScroll from "@/hooks/useInfinityScroll";
 import { sortByCreatedAt } from "@/utils";
+import { Themes } from "@/themes/theme";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -59,7 +60,7 @@ export function Profile() {
           borderWidth: "1px",
           borderStyle: "solid",
           borderColor: (theme) =>
-            theme.palette.mode === "light"
+            theme.palette.mode === Themes.LIGHT
               ? theme.palette.dark.light_grey
               : theme.palette.dark.background_dark,
           height: "unset",

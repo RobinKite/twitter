@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getAllBookmarkPosts, resetPostsLiked } from "@/redux/slices/userSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useInfinityScroll from "@/hooks/useInfinityScroll";
+import { Themes } from "@/themes/theme";
 
 export const Bookmarks = () => {
   const dispatch = useDispatch();
@@ -23,14 +24,14 @@ export const Bookmarks = () => {
           borderRightWidth: "1px",
           borderRightStyle: "solid",
           borderRightColor: (theme) =>
-            theme.palette.mode === "light"
+            theme.palette.mode === Themes.LIGHT
               ? theme.palette.dark.light_grey
               : theme.palette.dark.border_grey,
 
           borderLefttWidth: "1px",
           borderLeftStyle: "solid",
           borderLeftColor: (theme) =>
-            theme.palette.mode === "light"
+            theme.palette.mode === Themes.LIGHT
               ? theme.palette.dark.light_grey
               : theme.palette.dark.border_grey,
 
@@ -42,7 +43,7 @@ export const Bookmarks = () => {
             padding: "0 16px",
             // color: "#0F1419",
             color: (theme) =>
-              theme.palette.mode === "light"
+              theme.palette.mode === Themes.LIGHT
                 ? theme.palette.light.secondary
                 : theme.palette.dark.light_grey,
             fontSize: "20px",
@@ -57,7 +58,7 @@ export const Bookmarks = () => {
             marginBottom: "4px",
             padding: "0 16px",
             color: (theme) =>
-              theme.palette.mode === "light"
+              theme.palette.mode === Themes.LIGHT
                 ? theme.palette.common.primary
                 : theme.palette.dark.text_grey,
             // color: "#536471",
@@ -79,7 +80,7 @@ export const Bookmarks = () => {
                 sx={{
                   // color: "#0F1419",
                   color: (theme) =>
-                    theme.palette.mode === "light"
+                    theme.palette.mode === Themes.LIGHT
                       ? theme.palette.light.secondary
                       : theme.palette.dark.light_grey,
                   // theme.palette[theme.palette.mode].primary
@@ -93,7 +94,7 @@ export const Bookmarks = () => {
                 variant="h5"
                 sx={{
                   color: (theme) =>
-                    theme.palette.mode === "light"
+                    theme.palette.mode === Themes.LIGHT
                       ? theme.palette.common.primary
                       : theme.palette.dark.text_grey,
                   // color: "#536471",

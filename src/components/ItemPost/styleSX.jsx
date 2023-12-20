@@ -1,6 +1,8 @@
+import { Themes } from "@/themes/theme";
+
 export const tweetWrapperSX = {
   borderBottomColor: (theme) =>
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.light.search_light
       : theme.palette.dark.border_grey,
   borderBottomStyle: "solid",
@@ -70,7 +72,7 @@ export const tweetUsernameSX = {
   marginBottom: "2px",
   // color: "rgb(15, 20, 25)",
   color: (theme) =>
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.secondary
       : theme.palette.dark.light_grey,
   fontSize: "15px",
@@ -87,7 +89,7 @@ export const tweetUsertagSX = {
   fontSize: "15px",
 
   color: (theme) =>
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.primary
       : theme.palette.dark.text_grey,
 };
@@ -102,7 +104,7 @@ export const tweetContentSX = {
   marginBottom: "12px",
   // color: "rgb(15, 20, 25)",
   color: (theme) =>
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.secondary
       : theme.palette.dark.light_grey,
   fontSize: "15px",

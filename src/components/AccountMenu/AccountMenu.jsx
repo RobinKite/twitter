@@ -7,6 +7,7 @@ import { More } from "@/icons";
 import { UserCard } from "../RecommendedUsers/RecommendedUsers";
 import { storage } from "@/services";
 import { WrapperAccountMenuSX } from "./styledSX";
+import { Themes } from "@/themes/theme";
 
 const AccountMenu = () => {
   const theme = useTheme();
@@ -58,7 +59,7 @@ const AccountMenu = () => {
             onClick={handleLogoutClick}
             sx={{
               color:
-                theme.palette.mode === "light"
+                theme.palette.mode === Themes.LIGHT
                   ? theme.palette.common.secondary
                   : theme.palette.dark.light_grey,
             }}>

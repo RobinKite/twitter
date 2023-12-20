@@ -7,6 +7,7 @@ import { getPosts, getPopularPosts, resetPosts } from "@/redux/slices/postsSlice
 import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useInfinityScroll from "@/hooks/useInfinityScroll";
+import { Themes } from "@/themes/theme";
 
 export const Home = () => {
   const theme = useTheme();
@@ -27,7 +28,7 @@ export const Home = () => {
           borderWidth: "1px",
           borderStyle: "solid",
           borderColor:
-            theme.palette.mode === "light"
+            theme.palette.mode === Themes.LIGHT
               ? theme.palette.dark.light_grey
               : theme.palette.dark.border_grey,
         }}>
@@ -42,17 +43,7 @@ export const Home = () => {
           buttonName="Post"
           type={PostType.TWEET}
         />
-        {!accountUser.following && !posts.length && (
-          <WelcomeMessage
-            stylesSX={{
-              marginTop: "0.75rem",
-              marginBottom: "1rem",
-              padding: "0 20px",
-              fontWeight: 500,
-              textAlign: "center",
-            }}
-          />
-        )}
+        {!accountUser.following && !posts.length && <WelcomeMessage />}
         <InfiniteScroll
           dataLength={posts.length}
           next={useInfinityScroll({ callback: getPosts, slice: "posts" })}

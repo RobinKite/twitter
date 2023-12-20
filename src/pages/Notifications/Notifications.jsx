@@ -8,6 +8,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
 import { getNotifications } from "@/redux/slices/userSlice";
 import useInfinityScroll from "@/hooks/useInfinityScroll";
+import { Themes } from "@/themes/theme";
 
 const tabs = [
   { label: "All", value: "0" },
@@ -24,7 +25,7 @@ export const Notifications = () => {
           borderWidth: "1px",
           borderStyle: "solid",
           borderColor: (theme) =>
-            theme.palette.mode === "light"
+            theme.palette.mode === Themes.LIGHT
               ? theme.palette.dark.light_grey
               : theme.palette.dark.border_grey,
 

@@ -1,3 +1,5 @@
+import { Themes } from "@/themes/theme";
+
 export const sidebarSX = {
   display: "none",
 
@@ -20,7 +22,7 @@ export const sidebarSX = {
 export const containerSX = {
   // backgroundColor: "rgb(248, 248, 248)",
   backgroundColor: (theme) =>
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.light.background_light
       : theme.palette.dark.background_dark,
   borderRadius: "1rem",

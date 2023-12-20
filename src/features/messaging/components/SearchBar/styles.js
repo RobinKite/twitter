@@ -1,3 +1,5 @@
+import { Themes } from "@/themes/theme";
+
 export const inputStyle = {
   // caretColor: "#1D9BF0",
   fontSize: "14px",
@@ -13,7 +15,7 @@ export const inputWrapperSx = {
   borderWidth: "1px",
   borderStyle: "solid",
   borderColor: (theme) =>
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.dark.light_grey
       : theme.palette.dark.border_grey,
 };

@@ -7,6 +7,7 @@ import { ReceptionPreference } from "@/features/messaging/constants";
 import { Radio, Checkbox } from "@/features/messaging/components";
 import { settingsSx, titleSx, headerSx, checkboxGroupSx, radioGroupSx } from "./styles";
 import { settingTitleSx, settingDescriptionSx, settingWrapperSx } from "./styles";
+import { Themes } from "@/themes/theme";
 
 export const ChatSettings = () => {
   const theme = useTheme();
@@ -50,7 +51,7 @@ export const ChatSettings = () => {
               <span
                 style={{
                   color:
-                    theme.palette.mode === "light"
+                    theme.palette.mode === Themes.LIGHT
                       ? theme.palette.common.secondary
                       : theme.palette.dark.light_grey,
                 }}>
@@ -61,7 +62,7 @@ export const ChatSettings = () => {
               <span
                 style={{
                   color:
-                    theme.palette.mode === "light"
+                    theme.palette.mode === Themes.LIGHT
                       ? theme.palette.common.primary
                       : theme.palette.dark.text_grey,
                 }}>
@@ -76,7 +77,7 @@ export const ChatSettings = () => {
               <span
                 style={{
                   color:
-                    theme.palette.mode === "light"
+                    theme.palette.mode === Themes.LIGHT
                       ? theme.palette.common.secondary
                       : theme.palette.dark.light_grey,
                 }}>
@@ -87,7 +88,7 @@ export const ChatSettings = () => {
               <span
                 style={{
                   color:
-                    theme.palette.mode === "light"
+                    theme.palette.mode === Themes.LIGHT
                       ? theme.palette.common.primary
                       : theme.palette.dark.text_grey,
                 }}>

@@ -7,6 +7,7 @@ import { FollowButton } from "@/components";
 import { fetchUsers } from "@/redux/slices/userSlice";
 import { setModalPost } from "@/redux/slices/appSlice";
 import { userCardSX } from "./styleSX";
+import { Themes } from "@/themes/theme";
 
 export const UserCard = ({
   avatarUrl,
@@ -37,7 +38,7 @@ export const UserCard = ({
                 fontWeight: 700,
                 textWrap: "nowrap",
                 color: (theme) =>
-                  theme.palette.mode === "light"
+                  theme.palette.mode === Themes.LIGHT
                     ? theme.palette.light.secondary
                     : theme.palette.dark.light_grey,
               }}>
@@ -48,7 +49,7 @@ export const UserCard = ({
               align="left"
               sx={{
                 color: (theme) =>
-                  theme.palette.mode === "light"
+                  theme.palette.mode === Themes.LIGHT
                     ? theme.palette.common.primary
                     : theme.palette.dark.text_grey,
               }}>

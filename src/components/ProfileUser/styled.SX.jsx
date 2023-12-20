@@ -1,3 +1,4 @@
+import { Themes } from "@/themes/theme";
 import { styled, Button, Box, Typography } from "@mui/material";
 
 export const HeaderPage = styled(Box)(() => ({
@@ -37,11 +38,11 @@ export const EditButton = styled(Button)(({ theme }) => ({
   borderStyle: "solid",
   borderWidth: "1px",
   borderColor:
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.light.banner
       : theme.palette.common.primary,
   color:
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.secondary
       : theme.palette.dark.light_grey,
 
@@ -51,11 +52,11 @@ export const EditButton = styled(Button)(({ theme }) => ({
     borderStyle: "solid",
     borderWidth: "1px",
     borderColor:
-      theme.palette.mode === "light"
+      theme.palette.mode === Themes.LIGHT
         ? theme.palette.light.banner
         : theme.palette.common.primary,
     background:
-      theme.palette.mode === "light"
+      theme.palette.mode === Themes.LIGHT
         ? theme.palette.light.banner
         : theme.palette.dark.hover,
   },

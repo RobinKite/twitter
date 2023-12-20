@@ -4,6 +4,7 @@ import TabContext from "@mui/lab/TabContext";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { Themes } from "@/themes/theme";
 
 export function ProfileTabs({ children, tabs, style }) {
   const [value, setValue] = useState("0");
@@ -28,12 +29,12 @@ export function ProfileTabs({ children, tabs, style }) {
                   textTransform: "none",
                   fontSize: 15,
                   color: (theme) =>
-                    theme.palette.mode === "light"
+                    theme.palette.mode === Themes.LIGHT
                       ? theme.palette.common.primary
                       : theme.palette.dark.text_grey,
                   "&:focus": {
                     color: (theme) =>
-                      theme.palette.mode === "light"
+                      theme.palette.mode === Themes.LIGHT
                         ? theme.palette.common.secondary
                         : theme.palette.dark.light_grey,
                     fontWeight: 700,

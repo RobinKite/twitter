@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import usePostData from "@/hooks/usePostData";
 import { PostType } from "@/constants";
+import { Themes } from "@/themes/theme";
 
 export function PostActions({ disable, openModal, post, onPostClick }) {
   const {
@@ -117,13 +118,13 @@ export function PostActions({ disable, openModal, post, onPostClick }) {
               onClick={handleRepostClick}
               sx={{
                 color:
-                  theme.palette.mode === "light"
+                  theme.palette.mode === Themes.LIGHT
                     ? theme.palette.common.secondary
                     : theme.palette.dark.light_grey,
               }}>
               <Repost
                 fill={
-                  theme.palette.mode === "light"
+                  theme.palette.mode === Themes.LIGHT
                     ? theme.palette.common.secondary
                     : theme.palette.dark.light_grey
                 }

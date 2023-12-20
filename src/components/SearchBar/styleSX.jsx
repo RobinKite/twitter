@@ -1,3 +1,5 @@
+import { Themes } from "@/themes/theme";
+
 export const searchBarSX = {
   position: "sticky",
   top: "0",
@@ -36,11 +38,11 @@ export const inputSX = {
     // color: "rgb(15,20,25)",
     // backgroundColor: "rgb(239, 243, 244)",
     color: (theme) =>
-      theme.palette.mode === "light"
+      theme.palette.mode === Themes.LIGHT
         ? theme.palette.light.secondary
         : theme.palette.dark.text_grey,
     backgroundColor: (theme) =>
-      theme.palette.mode === "light"
+      theme.palette.mode === Themes.LIGHT
         ? theme.palette.light.search_light
         : theme.palette.dark.background_dark,
     fontSize: "16px",

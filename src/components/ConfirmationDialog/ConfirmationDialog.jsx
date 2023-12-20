@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import { Dialog as MuiDialog, Button as MuiButton } from "@mui/material";
 import { styled } from "@mui/material";
 import PropTypes from "prop-types";
+import { Themes } from "@/themes/theme";
 
 const Dialog = styled(MuiDialog)(({ theme }) => ({
   fontSize: "0.9375rem",
@@ -25,7 +26,7 @@ const Title = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
   marginBottom: "0.5rem",
   color:
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.secondary
       : theme.palette.dark.light_grey,
 }));
@@ -34,7 +35,7 @@ const Description = styled(Typography)(({ theme }) => ({
   lineHeight: "1.25rem",
   // color: "#536471",
   color:
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.primary
       : theme.palette.dark.text_grey,
   fontSize: "inherit",
@@ -52,7 +53,7 @@ const Button = styled(MuiButton)(({ theme }) => ({
   borderWidth: "1px",
   borderStyle: "solid",
   borderColor:
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.primary
       : theme.palette.light.banner,
   fontWeight: 600,

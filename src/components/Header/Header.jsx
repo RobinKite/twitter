@@ -12,6 +12,7 @@ import HeaderMobile from "../HeaderMobile/HeaderMobile";
 import HeaderSelect from "@/components/Header/HeaderSelect";
 import HeaderDrawer from "./HeaderDrawer";
 import AcccountMenu from "../AccountMenu/AccountMenu";
+import { Themes } from "@/themes/theme";
 
 export const Header = () => {
   const theme = useTheme();
@@ -57,7 +58,7 @@ export const Header = () => {
               size={26.25}
               style={{
                 fill:
-                  theme.palette.mode === "light"
+                  theme.palette.mode === Themes.LIGHT
                     ? theme.palette.light.secondary
                     : theme.palette.dark.light_grey,
               }}

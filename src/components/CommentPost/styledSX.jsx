@@ -1,6 +1,7 @@
 import { Stack, styled } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import MuiButton from "@mui/material/Button";
+import { Themes } from "@/themes/theme";
 
 export const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -55,13 +56,13 @@ export const WrapperSX = styled(Stack)(({ theme }) => ({
   borderToptWidth: "1px",
   borderTopStyle: "solid",
   borderTopColor:
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.dark.light_grey
       : theme.palette.dark.border_grey,
   borderBottomtWidth: "1px",
   borderBottomStyle: "solid",
   borderBottomColor:
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.dark.light_grey
       : theme.palette.dark.border_grey,
   backgroundColor: theme.palette[theme.palette.mode].primary,

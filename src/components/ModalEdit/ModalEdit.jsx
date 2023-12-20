@@ -19,6 +19,7 @@ import {
   ModalHeader,
 } from "./styledSX.jsx";
 import { formatBirthdate, getDaysInMonth } from "@/utils/date.js";
+import { Themes } from "@/themes/theme.js";
 
 // TODO: 👉 Rewrite the component
 export function ModalEdit({ isOpen, onClose }) {
@@ -75,7 +76,7 @@ export function ModalEdit({ isOpen, onClose }) {
               variant="h5"
               sx={{
                 color: (theme) =>
-                  theme.palette.mode === "light"
+                  theme.palette.mode === Themes.LIGHT
                     ? theme.palette.common.secondary
                     : theme.palette.dark.light_grey,
                 display: "flex",
@@ -131,7 +132,7 @@ export function ModalEdit({ isOpen, onClose }) {
                   width: "100%",
                   marginTop: "25px",
                   color: (theme) =>
-                    theme.palette.mode === "light"
+                    theme.palette.mode === Themes.LIGHT
                       ? theme.palette.common.primary
                       : theme.palette.dark.text_grey,
                   "& .MuiOutlinedInput-input": {
@@ -143,7 +144,7 @@ export function ModalEdit({ isOpen, onClose }) {
                 InputProps={{
                   sx: {
                     color: (theme) =>
-                      theme.palette.mode === "light"
+                      theme.palette.mode === Themes.LIGHT
                         ? theme.palette.common.primary
                         : theme.palette.dark.text_grey,
                     padding: "16px 10px",
@@ -165,7 +166,7 @@ export function ModalEdit({ isOpen, onClose }) {
                   shrink: false,
                   sx: {
                     color: (theme) =>
-                      theme.palette.mode === "light"
+                      theme.palette.mode === Themes.LIGHT
                         ? theme.palette.common.primary
                         : theme.palette.dark.text_grey,
                     transform: formik.values[field.name] ? "translate(10px, 4px)" : null,
@@ -185,7 +186,7 @@ export function ModalEdit({ isOpen, onClose }) {
                   sx={{
                     width: "150px",
                     color: (theme) =>
-                      theme.palette.mode === "light"
+                      theme.palette.mode === Themes.LIGHT
                         ? theme.palette.common.primary
                         : theme.palette.dark.text_grey,
                   }}

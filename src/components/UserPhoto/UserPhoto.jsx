@@ -1,6 +1,7 @@
 import { Avatar, Box, Button, styled } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import PropTypes from "prop-types";
+import { Themes } from "@/themes/theme";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -75,7 +76,7 @@ export function UserPhoto({
       <ContainerPhoto
         sx={{
           backgroundColor: (theme) =>
-            theme.palette.mode === "light"
+            theme.palette.mode === Themes.LIGHT
               ? theme.palette.light.banner
               : theme.palette.dark.banner,
         }}>

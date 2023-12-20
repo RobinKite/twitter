@@ -11,6 +11,7 @@ import { ConfirmationDialog } from "..";
 import { logoutUserAction } from "@/redux/slices/userSlice";
 import { logoutButton } from "./styledSX";
 import { storage } from "@/services";
+import { Themes } from "@/themes/theme";
 
 const HeaderDrawerItem = ({ path, text, getIconComponent }) => {
   const location = useLocation();
@@ -75,7 +76,7 @@ const HeaderDrawer = () => {
           flexDirection: "column",
           backgroundColor: theme.palette[theme.palette.mode].primary,
           color:
-            theme.palette.mode === "light"
+            theme.palette.mode === Themes.LIGHT
               ? theme.palette.light.secondary
               : theme.palette.dark.light_grey,
         }}>

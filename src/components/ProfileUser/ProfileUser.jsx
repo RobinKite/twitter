@@ -23,6 +23,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useState } from "react";
 import { getUserFollowers, getUserFollowing } from "@/redux/slices/userSlice";
 import { formatTimestamp } from "@/utils/date";
+import { Themes } from "@/themes/theme";
 
 const LinkedUsers = ({ type }) => {
   const currentUser = useSelector((state) => state.user.user);
@@ -115,7 +116,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
             sx={{
               fontWeight: "700",
               color: (theme) =>
-                theme.palette.mode === "light"
+                theme.palette.mode === Themes.LIGHT
                   ? theme.palette.light.secondary
                   : theme.palette.dark.light_grey,
             }}>
@@ -142,7 +143,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
             fontSize: "20px",
             fontWeight: "800",
             color: (theme) =>
-              theme.palette.mode === "light"
+              theme.palette.mode === Themes.LIGHT
                 ? theme.palette.common.secondary
                 : theme.palette.dark.light_grey,
           }}>
@@ -153,7 +154,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
           // color={"rgb(83, 100, 113)"}
           sx={{
             color: (theme) =>
-              theme.palette.mode === "light"
+              theme.palette.mode === Themes.LIGHT
                 ? theme.palette.common.primary
                 : theme.palette.dark.text_grey,
           }}>
@@ -166,7 +167,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
           sx={{
             padding: "10px 0",
             color: (theme) =>
-              theme.palette.mode === "light"
+              theme.palette.mode === Themes.LIGHT
                 ? theme.palette.common.secondary
                 : theme.palette.dark.light_grey,
           }}>
@@ -177,7 +178,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
             <TypographyInfo
               sx={{
                 color: (theme) =>
-                  theme.palette.mode === "light"
+                  theme.palette.mode === Themes.LIGHT
                     ? theme.palette.common.primary
                     : theme.palette.dark.text_grey,
               }}>
@@ -207,7 +208,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
             variant="span"
             sx={{
               color: (theme) =>
-                theme.palette.mode === "light"
+                theme.palette.mode === Themes.LIGHT
                   ? theme.palette.common.secondary
                   : theme.palette.dark.light_grey,
               fontWeight: 600,
@@ -229,7 +230,7 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
             variant="span"
             sx={{
               color: (theme) =>
-                theme.palette.mode === "light"
+                theme.palette.mode === Themes.LIGHT
                   ? theme.palette.common.secondary
                   : theme.palette.dark.light_grey,
               fontWeight: "700",

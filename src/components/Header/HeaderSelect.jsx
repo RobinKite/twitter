@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { Display, Gear } from "@/icons";
 import { CustomSelect, DisplayModal } from "..";
 import { useState } from "react";
+import { Themes } from "@/themes/theme";
 
 const HeaderSelect = ({ open, onClose }) => {
   const theme = useTheme();
@@ -21,7 +22,7 @@ const HeaderSelect = ({ open, onClose }) => {
           to="/settings"
           sx={{
             color:
-              theme.palette.mode === "light"
+              theme.palette.mode === Themes.LIGHT
                 ? theme.palette.common.secondary
                 : theme.palette.dark.light_grey,
           }}>
@@ -37,7 +38,7 @@ const HeaderSelect = ({ open, onClose }) => {
           onClick={() => setIsDisplayShown(true)}
           sx={{
             color:
-              theme.palette.mode === "light"
+              theme.palette.mode === Themes.LIGHT
                 ? theme.palette.common.secondary
                 : theme.palette.dark.light_grey,
           }}>

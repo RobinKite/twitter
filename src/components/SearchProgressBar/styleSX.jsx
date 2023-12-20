@@ -1,3 +1,5 @@
+import { Themes } from "@/themes/theme";
+
 export const searchProgressBarContainerSX = {
   position: "absolute",
   top: "48px",
@@ -34,7 +36,7 @@ export const searchLineSX = {
   borderWidth: "1px",
   borderStyle: "solid",
   borderColor: (theme) =>
-    theme.palette.mode === "light"
+    theme.palette.mode === Themes.LIGHT
       ? theme.palette.dark.light_grey
       : theme.palette.dark.border_grey,
   width: "100%",
