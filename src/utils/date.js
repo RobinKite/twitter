@@ -54,3 +54,63 @@ export function getBirthdayInSeconds({ year, month, day }) {
   const seconds = Math.round(selectedDate.getTime() / 1000);
   return seconds;
 }
+
+export function convertDateFormat(inputDate) {
+  const date = new Date(inputDate);
+  const currentDate = new Date();
+  const daysAgo = Math.floor((currentDate - date) / (1000 * 60 * 60 * 24));
+
+  if (daysAgo < 7) {
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const dayOfWeek = daysOfWeek[date.getUTCDay()];
+
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+
+    return `${dayOfWeek} ${formattedHours}:${formattedMinutes} ${ampm}`;
+  } else {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const month = months[date.getUTCMonth()];
+    const day = date.getUTCDate();
+    const year = date.getUTCFullYear();
+
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    const ampm = hours >= 12 ? "AM" : "PM";
+    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+
+    return `${month} ${day}, ${year}, ${formattedHours}:${formattedMinutes} ${ampm}`;
+  }
+}
+
+export function convertToDelta(date) {
+  const deltaInSeconds = Math.floor((new Date() - new Date(date)) / 1000);
+  if (deltaInSeconds < 0) return "Now";
+  if (deltaInSeconds < 60) return `${deltaInSeconds}s`;
+
+  const deltaInMinutes = Math.floor(deltaInSeconds / 60);
+  if (deltaInMinutes < 60) return `${deltaInMinutes}m`;
+
+  const deltaInHours = Math.floor(deltaInMinutes / 60);
+  if (deltaInHours < 24) return `${deltaInHours}h`;
+
+  const deltaInDays = Math.floor(deltaInHours / 24);
+  return `${deltaInDays}d`;
+}

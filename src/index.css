@@ -28,7 +28,8 @@ img {
 }
 
 button,
-input {
+input,
+textarea {
   outline: none;
   border: none;
   font-family: inherit;

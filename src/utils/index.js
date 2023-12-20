@@ -19,3 +19,8 @@ export function capitalize(text) {
 export function createRange(start = 0, stop) {
   return Array.from({ length: stop - start }, (_, index) => start + index);
 }
+
+export function areArraysEqual(firstArray, secondArray) {
+  if (firstArray.length !== secondArray.length) return false;
+  return firstArray.every((element, index) => element === secondArray[index]);
+}

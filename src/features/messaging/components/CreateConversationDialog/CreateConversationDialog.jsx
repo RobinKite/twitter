@@ -8,6 +8,7 @@ import {
   setShowDialog,
 } from "@/redux/slices/messagingSlice";
 import { SearchField, SearchResults } from "./components";
+import { useNavigate } from "react-router-dom";
 
 const Dialog = styled(MuiDialog)({
   "& .MuiDialog-paper": {
@@ -51,6 +52,7 @@ const Wrapper = styled(Stack)({
 
 export const CreateConversationDialog = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const showDialog = useSelector((state) => state.messaging.showDialog);
   const selectedUsers = useSelector((state) => state.messaging.selectedUsers);
 
@@ -60,8 +62,7 @@ export const CreateConversationDialog = () => {
   };
 
   const handleProceed = () => {
-    // TODO: 👉 Redirect to existent conversation if found
-    dispatch(createConversation(selectedUsers));
+    dispatch(createConversation(selectedUsers, navigate));
     handleClose();
   };
 

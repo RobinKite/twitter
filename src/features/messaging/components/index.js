@@ -7,3 +7,4 @@ export { Radio } from "./Radio/Radio";
 export { Checkbox } from "./Checkbox/Checkbox";
 export { CreateConversationDialog } from "./CreateConversationDialog/CreateConversationDialog";
 export { ConversationItem } from "./ConversationItem/ConversationItem";
+export { Chat } from "./Chat/Chat";

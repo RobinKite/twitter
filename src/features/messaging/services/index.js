@@ -1,4 +1,5 @@
 import store from "@/redux/store";
+import { convertToDelta } from "@/utils/date";
 
 export class Parser {
   static parseConversation(conversation) {
@@ -35,7 +36,7 @@ export class Parser {
     if (conversation.lastMessage) {
       if (conversation.lastMessage.user.id === currentUser.id) messageText += "You: ";
       messageText += conversation.lastMessage.body;
-      messageDate += conversation.lastMessage.createdAt;
+      messageDate += convertToDelta(conversation.lastMessage.createdAt);
     } else {
       messageText += "This conversation has no messages.";
     }

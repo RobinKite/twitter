@@ -35,3 +35,5 @@ export { Media } from "./custom/Media";
 export { Emoji } from "./custom/Emoji";
 export { Cross } from "./custom/Cross";
 export { Search } from "./custom/Search";
+export { InfoCircle } from "./custom/InfoCircle";
+export { Send } from "./custom/Send";

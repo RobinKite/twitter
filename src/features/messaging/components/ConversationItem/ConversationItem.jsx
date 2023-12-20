@@ -26,6 +26,7 @@ const Title = styled(Typography, { shouldForwardProp: (prop) => prop !== "isActi
     fontWeight: isActive ? 500 : 600,
     fontSize: "0.9375rem",
     color: "#0F1419",
+    whiteSpace: "nowrap",
   }),
 );
 
@@ -53,6 +54,7 @@ const MenuItem = styled(MuiMenuItem)({
 });
 
 export const ConversationItem = ({ id, avatarURL, titleText, metaText, messageText }) => {
+  // TODO: 👉 Show delete or leave button depending on who is the creator
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
@@ -86,14 +88,26 @@ export const ConversationItem = ({ id, avatarURL, titleText, metaText, messageTe
         onClick={() => navigate(`/messages/${id}`)}
         sx={{ flexDirection: "row", padding: "1rem" }}>
         <Avatar src={avatarURL} sx={{ marginRight: "0.75rem" }} />
-        <Stack>
+        <Stack sx={{ overflow: "hidden", marginRight: "2.75rem" }}>
           <Stack direction="row" sx={{ columnGap: "0.5rem" }}>
             <Title isActive={isActive}>{titleText}</Title>
-            <Typography sx={{ fontSize: "0.9375rem", color: "#536471" }}>
+            <Typography
+              sx={{
+                fontSize: "0.9375rem",
+                color: "#536471",
+                whiteSpace: "nowrap",
+              }}>
               {metaText}
             </Typography>
           </Stack>
-          <Typography sx={{ fontSize: "0.9375rem", color: "#0F1419" }}>
+          <Typography
+            sx={{
+              fontSize: "0.9375rem",
+              color: "#0F1419",
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+              marginRight: "0.5rem",
+            }}>
             {messageText}
           </Typography>
         </Stack>

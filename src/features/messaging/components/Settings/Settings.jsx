@@ -19,7 +19,7 @@ export const Settings = () => {
   return (
     <Stack sx={settingsSx}>
       <Stack sx={headerSx}>
-        <IconButton onClick={() => navigate("/messages")}>
+        <IconButton onClick={() => navigate(-1)}>
           <ArrowBack size={20} />
         </IconButton>
         <Typography sx={titleSx}>Direct Messages</Typography>

@@ -6,7 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container } from "@/components";
 import { Settings, CreateConversationDialog } from "@/features/messaging/components";
 import { Conversations, CurrentConversation } from "@/features/messaging/components";
-import { fetchConversations, fetchRecommendedUsers } from "@/redux/slices/messagingSlice";
+import {
+  fetchConversations,
+  fetchMessages,
+  fetchRecommendedUsers,
+} from "@/redux/slices/messagingSlice";
 import { setCurrentConversation } from "@/redux/slices/messagingSlice";
 
 export const Messages = ({ withSettings }) => {
@@ -21,6 +25,7 @@ export const Messages = ({ withSettings }) => {
   }, [dispatch]);
 
   useEffect(() => {
+    if (conversations && !id) dispatch(setCurrentConversation(null));
     if (!conversations || !id) return;
     const [currentConversation] = conversations.filter(
       (conversation) => conversation.id === parseInt(id),
@@ -28,6 +33,7 @@ export const Messages = ({ withSettings }) => {
 
     if (currentConversation) {
       dispatch(setCurrentConversation(currentConversation));
+      dispatch(fetchMessages(currentConversation.id));
     } else {
       dispatch(setCurrentConversation(null));
       navigate("/messages");
