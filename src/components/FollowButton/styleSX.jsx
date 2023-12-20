@@ -30,12 +30,17 @@ export const FollowButtonStyled = styled(Button, {
     fontWeight: 700,
   },
 
+  // (theme == 'light') ? (isFollowing ? 'первый цвет' : 'второй цвет') : (isFollowing ? 'второй цвет' : 'первый цвет');
+
   "&:hover": {
-    backgroundColor: isFollowing
-      ? theme.palette.dark.background_dark
-      : theme.palette.mode === Themes.LIGHT
-        ? theme.palette.dark.background_dark
-        : theme.palette.light.banner,
+    backgroundColor:
+      theme.palette.mode === Themes.LIGHT
+        ? isFollowing
+          ? theme.palette.light.hover
+          : theme.palette.dark.hover
+        : !isFollowing
+          ? theme.palette.light.hover
+          : theme.palette.dark.hover,
 
     // color: isFollowing ? "rgb(255, 0, 0)" : "rgb(255, 255, 255)",
     boxShadow: "none",
@@ -44,11 +49,14 @@ export const FollowButtonStyled = styled(Button, {
   "&:focus": {
     // backgroundColor: isFollowing ? "rgb(255, 0, 0, 0.08)" : "rgb(0, 0, 0)",
     // color: isFollowing ? "rgb(255, 0, 0)" : "rgb(255, 255, 255)",
-    backgroundColor: isFollowing
-      ? theme.palette.dark.background_dark
-      : theme.palette.mode === Themes.LIGHT
-        ? theme.palette.dark.background_dark
-        : theme.palette.light.banner,
+    backgroundColor:
+      theme.palette.mode === Themes.LIGHT
+        ? isFollowing
+          ? theme.palette.light.hover
+          : theme.palette.dark.hover
+        : !isFollowing
+          ? theme.palette.light.hover
+          : theme.palette.dark.hover,
     boxShadow: "none",
   },
 }));

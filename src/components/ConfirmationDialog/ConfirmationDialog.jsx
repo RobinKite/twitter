@@ -81,11 +81,17 @@ const ActionButton = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette[theme.palette.mode].secondary,
 
   ":hover": {
-    backgroundColor: theme.palette[theme.palette.mode].hover,
+    backgroundColor:
+      theme.palette.mode === Themes.LIGHT
+        ? theme.palette.dark.hover
+        : theme.palette.light.hover,
   },
   ":active": {
     // backgroundColor: "#3f4347",
-    backgroundColor: theme.palette[theme.palette.mode].hover,
+    backgroundColor:
+      theme.palette.mode === Themes.LIGHT
+        ? theme.palette.dark.hover
+        : theme.palette.light.hover,
   },
 }));
 
