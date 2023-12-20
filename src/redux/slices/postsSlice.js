@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { client } from "@/services";
 import { Endpoint, PostType } from "@/constants";
+import { setPostsTemplate } from "@/utils";
 
 const postsSlice = createSlice({
   name: "posts",
@@ -12,23 +13,27 @@ const postsSlice = createSlice({
     myPosts: [],
     repostedPosts: [],
     hasMore: true,
+    page: 0,
   },
   reducers: {
     resetPosts: (state) => {
       state.posts = [];
+      state.postComments = [];
       state.myPosts = [];
+      state.page = 0;
       state.hasMore = true;
     },
     setPosts: (state, action) => {
-      if (!action.payload.length) return;
-      state.posts = action.payload;
+      setPostsTemplate(state, action, "posts");
     },
 
     setMyPosts: (state, action) => {
-      if (!action.payload.length) return;
-      state.myPosts = action.payload;
+      setPostsTemplate(state, action, "myPosts");
     },
 
+    setHasMore(state, action) {
+      state.hasMore = action.payload;
+    },
     addPost: (state, action) => {
       const newPost = action.payload;
       if (newPost.type === PostType.TWEET) {
@@ -77,6 +82,7 @@ const postsSlice = createSlice({
         const commentsToDelete = state.postComments.filter(
           (comment) => comment.parentPost.id === postIdToDelete,
         );
+
         state.selectedPost.replyCount = Math.max(
           (state.selectedPost.replyCount || 0) - commentsToDelete.length,
           0,
@@ -90,7 +96,7 @@ const postsSlice = createSlice({
       }
       state.myPosts = state.myPosts.filter((post) => post.id !== postIdToDelete);
       state.postComments = state.postComments.filter(
-        (post) => post.id !== postIdToDelete,
+        (comment) => comment.parentPost.id !== postIdToDelete,
       );
     },
 
@@ -107,9 +113,7 @@ const postsSlice = createSlice({
       state.selectedPost = post;
     },
     getPostComents: (state, action) => {
-      const comments = action.payload;
-
-      state.postComments = [...comments];
+      setPostsTemplate(state, action, "postComments");
     },
 
     like: (state, action) => {
@@ -188,8 +192,9 @@ export const {
   unlike,
   setMyPosts,
   resetPosts,
-  addRepostedPosts,
+  setHasMore,
   setPopularPosts,
+  addRepostedPosts,
 } = postsSlice.actions;
 export default postsSlice.reducer;
 
@@ -219,24 +224,13 @@ export const handleLike = (id) => async (dispatch) => {
   }
 };
 
-// TODO: 👉 Implement
-export const handleLikedPosts = (page) => async () => {
-  try {
-    const response = await client.get(Endpoint.LIKED_POSTS, {
-      params: { page: page, pageSize: 12 },
-    });
-    console.log(response);
-  } catch (error) {
-    console.error("Error liking the post:", error);
-  }
-};
-
-export const axiosPostComments = (id, page) => async (dispatch) => {
+export const axiosPostComments = (page, id) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.GET_POST_REPLIES, {
       params: { postId: id, page: page, pageSize: 12 },
     });
-    dispatch(getPostComents(response.data.content));
+
+    dispatch(getPostComents(response.data));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -257,7 +251,7 @@ export const getPosts = (page) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_ALL_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-    dispatch(setPosts(response.data.content));
+    dispatch(setPosts(response.data));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -280,7 +274,8 @@ export const getMyPosts = (page) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_MY_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-    dispatch(setMyPosts(response.data.content));
+
+    dispatch(setMyPosts(response.data));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }

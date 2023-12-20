@@ -4,7 +4,7 @@ import { setModalPost } from "@/redux/slices/appSlice";
 import { addPosts } from "@/redux/slices/postsSlice";
 import { PostType } from "@/constants";
 
-const usePostData = (type, callback, parentPostId) => {
+const usePostData = (type, parentPostId) => {
   const [files, setFiles] = useState([]);
   const [inputStr, setInputStr] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -35,9 +35,6 @@ const usePostData = (type, callback, parentPostId) => {
     if (type === PostType.TWEET) {
       dispatch(setModalPost(false));
     }
-    // else {
-    //   callback();
-    // }
   };
 
   const onEmojiClick = (event) => {

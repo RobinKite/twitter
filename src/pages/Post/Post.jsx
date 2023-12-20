@@ -5,7 +5,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ItemPost, Container, CommentPost } from "@/components";
 import { ArrowBack } from "@/icons";
 import { PostType } from "@/constants";
-import { axiosPostComments, fetchPostsOrRedirect } from "@/redux/slices/postsSlice";
+import {
+  axiosPostComments,
+  fetchPostsOrRedirect,
+  resetPosts,
+} from "@/redux/slices/postsSlice";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { sortByCreatedAt } from "@/utils";
+import useInfinityScroll from "@/hooks/useInfinityScroll";
 
 const HeaderPage = styled(Box)(() => ({
   display: "flex",
@@ -23,13 +30,15 @@ export const Post = () => {
   const { id } = useParams();
   const post = useSelector((state) => state.posts.selectedPost);
   const postComments = useSelector((state) => state.posts.postComments);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
+    dispatch(resetPosts());
     dispatch(fetchPostsOrRedirect(id, navigate));
-    dispatch(axiosPostComments(id));
-  }, [id, dispatch, navigate]);
+    dispatch(axiosPostComments(null, id));
+  }, [dispatch, id]);
 
   return (
     <Container>
@@ -49,20 +58,25 @@ export const Post = () => {
             Post
           </Typography>
         </HeaderPage>
-        {post && (
-          <>
+        <ItemPost key={post.id} post={post} />
+        <CommentPost
+          id={id}
+          placeholder="Post your reply"
+          buttonName="Reply"
+          type={PostType.REPLY}
+        />
+        <InfiniteScroll
+          dataLength={postComments.length}
+          next={useInfinityScroll({
+            callback: axiosPostComments,
+            slice: "posts",
+            id: id,
+          })}
+          hasMore={true}>
+          {sortByCreatedAt(postComments)?.map((post) => (
             <ItemPost key={post.id} post={post} />
-            <CommentPost
-              id={id}
-              placeholder="Post your reply"
-              buttonName="Reply"
-              type={PostType.REPLY}
-            />
-            {postComments?.map((post) => (
-              <ItemPost key={post.id} post={post} />
-            ))}
-          </>
-        )}
+          ))}
+        </InfiniteScroll>
       </Stack>
     </Container>
   );

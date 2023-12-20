@@ -1,8 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 
 const NotificationAlert = () => {
-  // const notifications = useSelector((state) => state.user.notifications);
-  // const unreadCount = notifications.unreadNotificationsCount || 0;
   // TODO: filter unread notifications and then show this component
   return (
     <>

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { client, storage } from "@/services";
 import { Endpoint } from "@/constants";
 import { getBirthdayInSeconds } from "@/utils/date";
+import { setPostsTemplate } from "@/utils";
 import { getCurrentUser } from "./currentUser";
 import { setIsLoading } from "./appSlice";
 
@@ -15,14 +16,22 @@ const userSlice = createSlice({
     friendRequests: [],
     friendSearches: [],
     likedPosts: [],
-    currentLikedPosts: [],
+    page: 0,
     bookmarkPosts: [],
     usersFollowing: [],
     usersFollowers: [],
     notifications: [],
     notificationsCount: 0,
+    hasMore: true,
   },
   reducers: {
+    resetPostsLiked: (state) => {
+      state.likedPosts = [];
+      state.notifications = [];
+      state.bookmarkPosts = [];
+      state.page = 0;
+      state.hasMore = true;
+    },
     usersFollowers: (state, action) => {
       state.usersFollowers = action.payload;
     },
@@ -59,13 +68,11 @@ const userSlice = createSlice({
       state.friendSearches = [];
     },
     setLikedPosts: (state, action) => {
-      state.likedPosts = action.payload;
+      setPostsTemplate(state, action, "likedPosts");
     },
-    setCurrentLikedPosts: (state, action) => {
-      state.currentLikedPosts = action.payload;
-    },
+
     setBookmarkPost: (state, action) => {
-      state.bookmarkPosts = action.payload;
+      setPostsTemplate(state, action, "bookmarkPosts");
     },
     removeBookmarkPost: (state, action) => {
       state.bookmarkPosts = state.bookmarkPosts.filter(
@@ -90,7 +97,7 @@ export const {
   googleRegisterAction,
   logoutUserAction,
   setLikedPosts,
-  setCurrentLikedPosts,
+  resetPostsLiked,
   setBookmarkPost,
   removeBookmarkPost,
   usersFollowing,
@@ -256,7 +263,8 @@ export const getLikedPosts = (page) => async (dispatch) => {
     const response = await client.get(Endpoint.LIKED_POSTS, {
       params: { page: page, pageSize: 12 },
     });
-    const data = response.data.content;
+    const data = response.data;
+
     dispatch(setLikedPosts(data));
   } catch (error) {
     console.error("Error fetching liked posts:", error);
@@ -281,10 +289,12 @@ export const deleteBookmarkPost = (postId) => async (dispatch) => {
   }
 };
 
-export const getAllBookmarkPosts = () => async (dispatch) => {
+export const getAllBookmarkPosts = (page) => async (dispatch) => {
   try {
-    const response = await client.get(Endpoint.BOOKMARKS);
-    const data = response.data.content;
+    const response = await client.get(Endpoint.BOOKMARKS, {
+      params: { page: page, pageSize: 12 },
+    });
+    const data = response.data;
     dispatch(setBookmarkPost(data));
   } catch (error) {
     console.error("Error: ", error);
@@ -317,6 +327,7 @@ export const getNotificationsCount = () => {
   return (dispatch) => {
     client.get(Endpoint.GET_NOTIFICATIONS_COUNT).then((response) => {
       const data = response.data.count;
+
       dispatch(setNotificationsCount(data));
     });
   };

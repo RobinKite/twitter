@@ -16,10 +16,6 @@ import usePostData from "@/hooks/usePostData";
 import { PostType } from "@/constants";
 
 export function PostActions({ disable, openModal, post, onPostClick }) {
-  const dispatch = useDispatch();
-  const containerRef = useRef(null);
-  const accountUser = useSelector((state) => state.user.user);
-  const [isMenuRepostOpen, setIsMenuRepostOpen] = useState(false);
   const {
     id,
     likeCount,
@@ -30,8 +26,12 @@ export function PostActions({ disable, openModal, post, onPostClick }) {
     imageUrls,
     user: { id: userId },
   } = post;
+  const dispatch = useDispatch();
+  const containerRef = useRef(null);
   const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
-  const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, null, id);
+  const [isMenuRepostOpen, setIsMenuRepostOpen] = useState(false);
+  const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, id);
+  const accountUser = useSelector((state) => state.user.user);
   const isReposted = post.type === PostType.QUOTE;
 
   const handleBookmarkClick = (postId) => {
