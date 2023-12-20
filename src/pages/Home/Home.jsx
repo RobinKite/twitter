@@ -6,7 +6,7 @@ import { homeHeaderSX } from "./stylesSX";
 import { getPosts, getPopularPosts, resetPosts } from "@/redux/slices/postsSlice";
 import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import useInfinstyScroll from "@/hooks/useInfinstyScroll";
+import useInfinityScroll from "@/hooks/useInfinityScroll";
 
 export const Home = () => {
   const accountUser = useSelector((state) => state.user.user);
@@ -46,7 +46,7 @@ export const Home = () => {
         {/* <CreatePost avatarUrl={accountUser.avatarUrl} /> */}
         <InfiniteScroll
           dataLength={posts.length}
-          next={useInfinstyScroll({ callback: getPosts, slice: "posts" })}
+          next={useInfinityScroll({ callback: getPosts, slice: "posts" })}
           hasMore={true}>
           <HomePostsContainer />
         </InfiniteScroll>

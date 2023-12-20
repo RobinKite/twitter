@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
-const useInfinstyScroll = ({ callback, slice, id }) => {
+const useInfinityScroll = ({ callback, slice, id }) => {
   const hasMore = useSelector((state) => state[slice]?.hasMore);
   const page = useSelector((state) => state[slice]?.page);
 
@@ -17,4 +17,4 @@ const useInfinstyScroll = ({ callback, slice, id }) => {
 
   return delayedFetchPosts;
 };
-export default useInfinstyScroll;
+export default useInfinityScroll;

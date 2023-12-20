@@ -8,7 +8,7 @@ import { PostType } from "@/constants";
 import { axiosPostComments, getPostById, resetPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { sortByCreatedAt } from "@/utils";
-import useInfinstyScroll from "@/hooks/useInfinstyScroll";
+import useInfinityScroll from "@/hooks/useInfinityScroll";
 
 const HeaderPage = styled(Box)(() => ({
   display: "flex",
@@ -60,7 +60,7 @@ export const Post = () => {
       />
       <InfiniteScroll
         dataLength={postComments.length}
-        next={useInfinstyScroll({
+        next={useInfinityScroll({
           callback: axiosPostComments,
           slice: "posts",
           id: id,

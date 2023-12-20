@@ -8,7 +8,7 @@ import { getLikedPosts, fetchUser, resetPostsLiked } from "@/redux/slices/userSl
 import { getMyPosts, resetPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { PostType } from "@/constants";
-import useInfinstyScroll from "@/hooks/useInfinstyScroll";
+import useInfinityScroll from "@/hooks/useInfinityScroll";
 import { sortByCreatedAt } from "@/utils";
 
 const tabs = [
@@ -69,7 +69,7 @@ export function Profile() {
           <TabPanel value="0" sx={{ padding: 0 }}>
             <InfiniteScroll
               dataLength={posts.length}
-              next={useInfinstyScroll({ callback: getMyPosts, slice: "posts" })}
+              next={useInfinityScroll({ callback: getMyPosts, slice: "posts" })}
               hasMore={true}>
               {sortByCreatedAt(posts).map((post) => (
                 <ItemPost key={post.id} post={post} />
@@ -87,7 +87,7 @@ export function Profile() {
           <TabPanel value="2">
             <InfiniteScroll
               dataLength={likedPosts.length}
-              next={useInfinstyScroll({ callback: getLikedPosts, slice: "user" })}
+              next={useInfinityScroll({ callback: getLikedPosts, slice: "user" })}
               hasMore={true}>
               {sortByCreatedAt(likedPosts).map((post) => (
                 <ItemPost key={post.id} post={post} />

@@ -12,7 +12,7 @@ import {
 } from "@/redux/slices/currentUser";
 import { resetPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
-import useInfinstyScroll from "@/hooks/useInfinstyScroll";
+import useInfinityScroll from "@/hooks/useInfinityScroll";
 import { sortByCreatedAt } from "@/utils";
 
 const tabs = [
@@ -53,7 +53,7 @@ export function CurrentUser() {
             <TabPanel value="0" sx={{ padding: 0 }}>
               <InfiniteScroll
                 dataLength={posts.length}
-                next={useInfinstyScroll({
+                next={useInfinityScroll({
                   callback: getCurrentPosts,
                   slice: "currentUser",
                   id: id,
@@ -68,7 +68,7 @@ export function CurrentUser() {
             <TabPanel value="2" sx={{ padding: 0 }}>
               <InfiniteScroll
                 dataLength={likedPosts.length}
-                next={useInfinstyScroll({
+                next={useInfinityScroll({
                   callback: getCurrentLikedPosts,
                   slice: "currentUser",
                   id: id,
