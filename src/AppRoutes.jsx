@@ -2,7 +2,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Registration, Home, Notifications, Post, Profile, Messages } from "@/pages";
-import { CurrentUser, Settings, Bookmarks, Timer } from "@/pages";
+import { CurrentUser, Settings, Bookmarks, Sockets } from "@/pages";
 import { Loader } from "@/components";
 import { storage } from "@/services";
 import { fetchUser } from "@/redux/slices/userSlice";
@@ -33,7 +33,7 @@ export default function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/" element={<Timer />}>
+      <Route path="/" element={<Sockets />}>
         <Route index element={<Home />} />
         <Route path="notifications" element={<Notifications />} />
         <Route path="messages">
