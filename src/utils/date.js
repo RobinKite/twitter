@@ -25,8 +25,12 @@ export const getDaysInMonth = (month) => {
   return Array.from({ length: 31 }, (_, i) => i + 1);
 };
 
+export const formatTimestamp = (timestamp) => {
+  return timestamp ? new Date(Number(timestamp) * 1000).toLocaleDateString() : null;
+};
+
 export const formatBirthdate = (birthdateInSeconds) => {
-  const birthdate = new Date(birthdateInSeconds * 1000); // Multiplying by 1000 to convert seconds to milliseconds
+  const birthdate = new Date(birthdateInSeconds * 1000);
 
   const day = birthdate.getDate();
   const month = monthsArray[birthdate.getMonth()];
@@ -114,3 +118,24 @@ export function convertToDelta(date) {
   const deltaInDays = Math.floor(deltaInHours / 24);
   return `${deltaInDays}d`;
 }
+
+export const getTimeDifference = (createdAt) => {
+  const postDate = new Date(createdAt);
+  const currentDate = new Date();
+
+  const difference = currentDate - postDate;
+  const seconds = Math.floor(difference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+
+  if (days > 0) {
+    return postDate.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  } else if (hours > 0) {
+    return `${hours}h`;
+  } else if (minutes > 0) {
+    return `${minutes}m`;
+  } else {
+    return `${seconds}s`;
+  }
+};

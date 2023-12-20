@@ -1,33 +1,29 @@
 import TabPanel from "@mui/lab/TabPanel";
-// import { Link } from "react-router-dom";
 import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProfileTabs, ItemPost, ModalEdit } from "@/components";
-// import { useLoadPost } from "@/hooks/useLoadPost";
+import { ProfileTabs, ItemPost, ModalEdit, ProfileUser, LikedPosts } from "@/components";
 import { Container as AppContainer } from "@/components";
-import { getLikedPosts, getUserInfo } from "@/redux/slices/userSlice";
+import { fetchUser } from "@/redux/slices/userSlice";
 import { getMyPosts } from "@/redux/slices/postsSlice";
-
-import ProfileUser from "@/components/ProfileUser/ProfileUser";
+import { PostType } from "@/constants";
 
 const tabs = [
   { label: "Post", value: "0" },
-  // { label: "Replies", value: "1" },
+  { label: "Replies", value: "1" },
   { label: "Likes", value: "2" },
 ];
 
 export function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
-  const likedPosts = useSelector((state) => state.user.likedPosts);
   const posts = useSelector((state) => state.posts.myPosts);
+  const repostPosts = posts.filter((post) => post.type === PostType.QUOTE);
   const dispatch = useDispatch();
-  console.log(likedPosts);
+
   useEffect(() => {
-    dispatch(getUserInfo());
+    dispatch(fetchUser());
     dispatch(getMyPosts());
-    dispatch(getLikedPosts());
   }, [dispatch]);
 
   useEffect(() => {
@@ -39,12 +35,6 @@ export function Profile() {
       unlisten();
     };
   }, []);
-
-  // const formattedBirthdate =
-  //   user && user.birthdate
-  //     ? new Date(Number(user.birthdate) * 1000).toLocaleDateString()
-  //     : "N/A";
-  // useLoadPost();
 
   return (
     <AppContainer>
@@ -60,24 +50,7 @@ export function Profile() {
         maxWidth="sm"
         disableGutters={true}
         sx={{ border: "1px solid rgb(239, 243, 244)", height: "unset" }}>
-        {user && (
-          <ProfileUser
-            id={user.id}
-            key={user.id}
-            fullName={user.fullName}
-            avatarUrl={user.avatarUrl}
-            imageUrl={user.imageUrl}
-            userTag={user.userTag}
-            bio={user.bio}
-            setIsModalOpen={setIsModalOpen}
-            birthdate={user.birthdate}
-            following={user.following}
-            followers={user.followers}
-            showFollowButton={false}
-            location={user.location}
-            createdAt={user.createdAt}
-          />
-        )}
+        <ProfileUser setIsModalOpen={setIsModalOpen} isSelf={true} />
         <ProfileTabs
           tabs={tabs}
           variant="scrollable"
@@ -89,47 +62,19 @@ export function Profile() {
           }}>
           <TabPanel value="0" sx={{ padding: 0 }}>
             {posts.map((post) => (
-              <ItemPost
-                key={post.id}
-                postUser={post.user}
-                avatarUrl={user.avatarUrl}
-                fullName={user.fullName}
-                replyCount={post.replyCount}
-                id={post.id}
-                content={post.body}
-                likeCount={post.likeCount}
-                liked={post.liked}
-                imageUrls={post.imageUrls}
-              />
+              <ItemPost key={post.id} post={post} />
             ))}
           </TabPanel>
 
-          {/* <TabPanel value="1">Replies</TabPanel> */}
-          <TabPanel value="2">
-            {
-              likedPosts.length ? (
-                likedPosts.map((post) => (
-                  <ItemPost
-                    postUser={post.user}
-                    avatarUrl={post.user.avatarUrl}
-                    fullName={post.user.fullName}
-                    key={post.id}
-                    content={post.body}
-                    imageUrls={post.imageUrls}
-                    id={post.id}
-                    likeCount={post.likeCount}
-                    liked={post.liked}
-                    replyCount={post.replyCount}
-                  />
-                ))
-              ) : (
-                <>You don&apos;t have any likes yet</>
-              )
-              // <NotificationTabContent
-              //   title={'You do not have any likes yet'}
-              //   text="Tap the heart on any post to show it some love. When you do, it’ll show up here."
-              // />
-            }
+          <TabPanel value="1" sx={{ padding: 0 }}>
+            {repostPosts.length ? (
+              repostPosts.map((post) => <ItemPost key={post.id} post={post} />)
+            ) : (
+              <>You don&apos;t have any reposts yet</>
+            )}
+          </TabPanel>
+          <TabPanel value="2" sx={{ padding: 0 }}>
+            <LikedPosts currentUser={false} />
           </TabPanel>
         </ProfileTabs>
       </Container>

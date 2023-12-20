@@ -1,14 +1,13 @@
 import { Outlet } from "react-router-dom";
-import { getNotificationsCount } from "@/redux/slices/userSlice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { getNotificationsCount } from "@/redux/slices/userSlice";
 
-const Timer = ({ timeout }) => {
+export const Timer = ({ timeout }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Initial request
     dispatch(getNotificationsCount());
     const notificationsTimer = setInterval(
       () => dispatch(getNotificationsCount()),
@@ -18,8 +17,6 @@ const Timer = ({ timeout }) => {
   }, [dispatch, timeout]);
   return <Outlet />;
 };
-
-export default Timer;
 
 Timer.propTypes = {
   timeout: PropTypes.number,
