@@ -15,7 +15,7 @@ import {
 import { useSelector } from "react-redux";
 
 export const CommentPost = (props) => {
-  const { id, closeModal, placeholder, buttonName, type } = props;
+  const { id, placeholder, buttonName, type } = props;
 
   const {
     inputStr,
@@ -26,7 +26,7 @@ export const CommentPost = (props) => {
     setFiles,
     setShowEmojiPicker,
     submit,
-  } = usePostData(type, closeModal, id);
+  } = usePostData(type, id);
 
   const avatarURL = useSelector((state) => state.user.user.avatarUrl);
 
@@ -122,7 +122,6 @@ export const CommentPost = (props) => {
 };
 
 CommentPost.propTypes = {
-  closeModal: PropTypes.func,
   placeholder: PropTypes.string,
   buttonName: PropTypes.string,
   id: PropTypes.string,

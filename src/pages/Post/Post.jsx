@@ -5,7 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ItemPost, Container, CommentPost } from "@/components";
 import { ArrowBack } from "@/icons";
 import { PostType } from "@/constants";
-import { axiosPostComments, getPostById } from "@/redux/slices/postsSlice";
+import { axiosPostComments, getPostById, resetPosts } from "@/redux/slices/postsSlice";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { sortByCreatedAt } from "@/utils";
+import useInfinityScroll from "@/hooks/useInfinityScroll";
 
 const HeaderPage = styled(Box)(() => ({
   display: "flex",
@@ -18,6 +21,7 @@ export const Post = () => {
   const { id } = useParams();
   const post = useSelector((state) => state.posts.selectedPost);
   const postComments = useSelector((state) => state.posts.postComments);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,8 +30,9 @@ export const Post = () => {
   };
 
   useEffect(() => {
+    dispatch(resetPosts());
     dispatch(getPostById(id));
-    dispatch(axiosPostComments(id));
+    dispatch(axiosPostComments(null, id));
   }, [dispatch, id]);
 
   return (
@@ -53,9 +58,18 @@ export const Post = () => {
         buttonName="Reply"
         type={PostType.REPLY}
       />
-      {postComments?.map((post) => (
-        <ItemPost key={post.id} post={post} />
-      ))}
+      <InfiniteScroll
+        dataLength={postComments.length}
+        next={useInfinityScroll({
+          callback: axiosPostComments,
+          slice: "posts",
+          id: id,
+        })}
+        hasMore={true}>
+        {sortByCreatedAt(postComments)?.map((post) => (
+          <ItemPost key={post.id} post={post} />
+        ))}
+      </InfiniteScroll>
     </Container>
   );
 };
