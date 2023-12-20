@@ -50,10 +50,7 @@ export const Navigation = () => {
     <nav className={styles.navigation}>
       <ul className={styles.list}>
         <li>
-          <NavLink
-            to="/"
-            // className={styles.logoLink}
-            className={`${styles.logoLink} ${styles[theme.palette.mode]}`}>
+          <NavLink to="/" className={`${styles.logoLink} ${styles[theme.palette.mode]}`}>
             <Twitter size={26.25} />
           </NavLink>
         </li>

@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Stomp from "stompjs";
 import { receiveMessage } from "@/redux/slices/messagingSlice";
+import { setNotifications, setNotificationsCount } from "@/redux/slices/userSlice";
+import store from "@/redux/store";
 
 const useWebSockets = (topic) => {
   const user = useSelector((state) => state.user.user);
@@ -26,7 +28,20 @@ const useWebSockets = (topic) => {
 
   const handleSocketOpen = () => {
     stompRef.current.subscribe(`/${topic}/${user.id}`, (message) => {
-      if (topic.includes("messages")) dispatch(receiveMessage(JSON.parse(message.body)));
+      if (topic.includes("messages")) {
+        dispatch(receiveMessage(JSON.parse(message.body)));
+        return;
+      }
+
+      if (topic.includes("notifications")) {
+        if (location.href.includes("/notifications")) {
+          const notifications = store.getState().user.notifications;
+          dispatch(setNotifications([JSON.parse(message.body), ...notifications]));
+        } else {
+          const notificationCount = store.getState().user.notificationsCount;
+          dispatch(setNotificationsCount(notificationCount + 1));
+        }
+      }
     });
 
     if (reconnectTimeoutRef.current) {
