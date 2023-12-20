@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { ConfirmationDialog } from "@/components";
@@ -8,7 +8,7 @@ import { FollowButtonStyled } from "./styleSX";
 
 export const FollowButton = ({ id, userName, isFollowedByUser }) => {
   const dispatch = useDispatch();
-  const [isFollowing, setIsFollowing] = useState(isFollowedByUser);
+  const [isFollowing, setIsFollowing] = useState(null);
   const [isHovering, setIsHovering] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -24,6 +24,10 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
     dispatch(deleteSubscribeToUser(id));
   };
 
+  useEffect(() => {
+    setIsFollowing(isFollowedByUser);
+  }, [isFollowedByUser]);
+
   return (
     <>
       <FollowButtonStyled
@@ -34,7 +38,13 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
         onMouseLeave={() => setIsHovering(false)}
         sx={{ padding: "0.375rem 1.175rem", marginRight: "0.5rem" }}>
         <Typography sx={{ fontSize: "0.85rem" }}>
-          {!isFollowing ? "Follow" : isHovering ? "Unfollow" : "Following"}
+          {isHovering
+            ? isFollowing
+              ? "Unfollow"
+              : "Follow"
+            : isFollowing
+              ? "Following"
+              : "Follow"}
         </Typography>
       </FollowButtonStyled>
       {openDialog && (

@@ -58,7 +58,7 @@ export const Post = () => {
             Post
           </Typography>
         </HeaderPage>
-        <ItemPost key={post.id} post={post} />
+        <ItemPost key={post?.id} post={post} />
         <CommentPost
           id={id}
           placeholder="Post your reply"

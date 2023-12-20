@@ -68,7 +68,7 @@ export const CommentPost = (props) => {
           }}
         />
 
-        <WrapperImgSX>
+        <WrapperImgSX onClick={() => setFiles([])}>
           {files.map((file, index) => (
             <img
               key={index}
@@ -77,7 +77,7 @@ export const CommentPost = (props) => {
                 objectFit: "cover",
               }}
               src={URL.createObjectURL(file)}
-              alt=""
+              alt="image"
               onClick={() => {
                 setFiles((prevState) => prevState.filter((_, i) => i !== index));
               }}
@@ -112,7 +112,10 @@ export const CommentPost = (props) => {
               <Emoji size={20} fill="#1D9BF0" />
             </IconButton>
           </Stack>
-          <ButtonPost type="submit" disabled={!inputStr.trim()} onClick={submit}>
+          <ButtonPost
+            type="submit"
+            disabled={!inputStr.trim() && !files.length}
+            onClick={submit}>
             {buttonName}
           </ButtonPost>
         </Stack>
