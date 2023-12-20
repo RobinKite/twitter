@@ -10,16 +10,17 @@ const usePostData = (type, callback, parentPostId) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   const dispatch = useDispatch();
-
-  // Creation of an object with post data
-
   const formData = new FormData();
 
   const submit = () => {
-    formData.append("body", inputStr);
+    if (!inputStr && files.length === 0) {
+      return;
+    }
 
+    formData.append("body", inputStr);
     formData.append("type", type);
-    if (type === PostType.REPLY) {
+
+    if (type === PostType.REPLY || type === PostType.QUOTE) {
       formData.append("parentPostId", parentPostId);
     }
     files.forEach((file) => {
@@ -30,14 +31,15 @@ const usePostData = (type, callback, parentPostId) => {
 
     setInputStr("");
     setFiles([]);
+
     if (type === PostType.TWEET) {
       dispatch(setModalPost(false));
-    } else {
-      callback();
     }
+    // else {
+    //   callback();
+    // }
   };
 
-  // Drawing emoticons
   const onEmojiClick = (event) => {
     setInputStr((prevInput) => {
       return (prevInput += event.emoji);

@@ -1,16 +1,11 @@
-export const tweetWrapperSX = {};
-
-export const tweetSX = {
-  position: "relative",
+export const tweetWrapperSX = {
   borderBottom: "1px solid rgb(239, 243, 244)",
   paddingTop: "12px",
   paddingBottom: "12px",
   paddingLeft: "16px",
   paddingRight: "16px",
-  display: "grid",
-  gridTemplateColumns: "40px 1fr",
-  gap: "12px",
   cursor: "pointer",
+  position: "relative",
   transition: "background-color 300ms linear",
 
   "&:hover": {
@@ -21,7 +16,36 @@ export const tweetSX = {
   },
 };
 
+export const tweetAdditionalInfoSX = {
+  display: "flex",
+  flexDirection: "row",
+  marginBottom: "2px",
+  paddingLeft: "14px",
+  fontSize: "13px",
+  fontWeight: "700",
+  color: "rgb(83, 100, 113)",
+
+  "& span": {
+    marginLeft: "16px",
+    fontSize: "13px",
+    fontWeight: "700",
+    color: "rgb(83, 100, 113)",
+  },
+
+  "&:hover": {
+    cursor: "pointer",
+    textDecoration: "underline",
+  },
+};
+
+export const tweetSX = {
+  display: "grid",
+  gridTemplateColumns: "40px 1fr",
+  gap: "12px",
+};
+
 export const avatarSX = {
+  position: "static",
   margin: 0,
   bgcolor: "rgb(8, 139, 226)",
   width: 40,
@@ -41,12 +65,22 @@ export const tweetUsernameSX = {
   fontSize: "15px",
   fontWeight: 700,
   lineHeight: 1.333,
+
+  "&:hover": {
+    textDecoration: "underline",
+  },
+};
+
+export const tweetUsertagSX = {
+  marginBottom: "2px",
+  fontSize: "15px",
+  color: "rgb(83, 100, 113)",
 };
 
 export const iconDeleteSX = {
   position: "absolute",
-  top: "4px",
-  right: "6px",
+  top: "0.25rem",
+  right: "0.375rem",
 };
 
 export const tweetContentSX = {
@@ -54,17 +88,42 @@ export const tweetContentSX = {
   color: "rgb(15, 20, 25)",
   fontSize: "15px",
   lineHeight: 1.333,
+  overflowWrap: "anywhere",
 };
 
 export const tweetImgSX = {
   borderRadius: "15px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
   overflow: "hidden",
+  display: "grid",
+  gap: "2px",
+
+  "& img": {
+    borderRadius: "15px",
+    maxWidth: "100%",
+    objectFit: "cover",
+  },
+};
+
+export const tweetImgEvenSX = {
+  gridTemplateColumns: "1fr 1fr",
+  border: "1px solid rgb(207,217,222)",
+  ...tweetImgSX,
 
   "& img": {
     maxWidth: "100%",
+    minHeight: "100%",
+    objectFit: "cover",
+  },
+};
+
+export const tweetImgOddSX = {
+  gridTemplateColumns: "repeat(3, 1fr)",
+  border: "1px solid rgb(207,217,222)",
+  ...tweetImgSX,
+
+  "& img": {
+    maxWidth: "100%",
+    minHeight: "100%",
     objectFit: "cover",
   },
 };
@@ -76,7 +135,7 @@ export const tweetActionsSX = {
   marginTop: "12px",
 };
 
-const iconSX = {
+export const iconSX = {
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "center",

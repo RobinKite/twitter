@@ -1,43 +1,49 @@
-import { useLoadPost } from "@/hooks/useLoadPost";
-import { Typography } from "@mui/material";
-import { useSelector, shallowEqual } from "react-redux";
-import { Container, CreatePost, ItemPost } from "@/components";
+import { Stack, Typography, Box } from "@mui/material";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { Container, WelcomeMessage, HomePostsContainer, CommentPost } from "@/components";
+import { PostType } from "@/constants";
+import { homeHeaderSX } from "./stylesSX";
+import { getPopularPosts, getPosts } from "@/redux/slices/postsSlice";
+import { useEffect } from "react";
 
 export const Home = () => {
+  const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
-  const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
 
-  useLoadPost();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts());
+    dispatch(getPopularPosts());
+  }, [dispatch]);
 
   return (
     <Container>
-      <div style={{ border: "1px solid rgb(239, 243, 244)" }}>
-        <Typography
-          variant="h6"
-          component="h2"
-          sx={{
-            fontSize: 25,
-            margin: "20px auto",
-            textAlign: "center",
-            fontWeight: "700",
-          }}>
-          Following
-        </Typography>
-        <CreatePost avatarUrl={avatarUrl} />
-        {posts.map((p) => (
-          <ItemPost
-            key={p.id}
-            avatarUrl={p.user.avatarUrl}
-            fullName={p.user.fullName}
-            content={p.body}
-            replyCount={p.replyCount}
-            imageUrls={p.imageUrls}
-            id={p.id}
-            likeCount={p.likeCount}
-            liked={p.liked}
+      <Box style={{ border: "1px solid rgb(239, 243, 244)", flexGrow: 1 }}>
+        <Stack sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+          <Typography variant="h2" component="h2" sx={homeHeaderSX}>
+            Following
+          </Typography>
+        </Stack>
+
+        <CommentPost
+          placeholder="What is happening?!"
+          buttonName="Post"
+          type={PostType.TWEET}
+        />
+        {!accountUser.following && !posts.length && (
+          <WelcomeMessage
+            stylesSX={{
+              marginTop: "0.75rem",
+              marginBottom: "1rem",
+              padding: "0 20px",
+              fontWeight: 500,
+              textAlign: "center",
+            }}
           />
-        ))}
-      </div>
+        )}
+        <HomePostsContainer />
+      </Box>
     </Container>
   );
 };

@@ -1,18 +1,9 @@
-import { Box } from "@mui/material";
-import { styled } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { ConfirmationDialog } from "@/components";
-import { deleteSubscribeToUser, postSubcribeToUser } from "@/redux/slices/userSlice";
+import { deleteSubscribeToUser, postSubscribeToUser } from "@/redux/slices/userSlice";
 import { FollowButtonStyled } from "./styleSX";
-
-const Container = styled(Box)({
-  minWidth: 110,
-  display: "flex",
-  justifyContent: "end",
-  marginLeft: "auto",
-});
 
 export const FollowButton = ({ id, userName, isFollowedByUser }) => {
   const dispatch = useDispatch();
@@ -21,9 +12,9 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleFollow = () => {
-    setIsFollowing(true);
-    dispatch(postSubcribeToUser(id));
     setOpenDialog(false);
+    setIsFollowing(true);
+    dispatch(postSubscribeToUser(id));
   };
 
   const handleConfirmation = () => {
@@ -33,14 +24,14 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
   };
 
   return (
-    <Container>
+    <>
       <FollowButtonStyled
         variant="contained"
         onClick={isFollowing ? () => setOpenDialog(true) : handleFollow}
         isFollowing={isFollowing}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
-        sx={{ minWidth: "110px" }}>
+        sx={{ minWidth: "110px", marginRight: "0.5rem" }}>
         {isHovering ? (
           <p>{isFollowing ? "Unfollow" : "Follow"}</p>
         ) : (
@@ -56,7 +47,7 @@ export const FollowButton = ({ id, userName, isFollowedByUser }) => {
           closeButton={{ title: "Cancel", callback: () => setOpenDialog(false) }}
         />
       )}
-    </Container>
+    </>
   );
 };
 

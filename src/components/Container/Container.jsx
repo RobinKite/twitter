@@ -1,14 +1,14 @@
 import PropTypes from "prop-types";
 import { Main, Header, Sidebar } from "@/components";
-import styles from "./Container.module.scss";
+import { ContainerSX } from "./styledSX";
 
 export const Container = ({ withSidebar, children }) => {
   return (
-    <div className={styles.container}>
+    <ContainerSX>
       <Header />
       <Main>{children}</Main>
       {withSidebar && <Sidebar />}
-    </div>
+    </ContainerSX>
   );
 };
 

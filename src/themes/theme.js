@@ -31,5 +31,12 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          width: "100%",
+        },
+      },
+    },
   },
 });

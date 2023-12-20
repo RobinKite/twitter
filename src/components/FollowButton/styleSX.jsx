@@ -6,15 +6,15 @@ export const FollowButtonStyled = styled(Button, {
   shouldForwardProp: (prop) => prop !== "isFollowing",
 })(({ isFollowing }) => ({
   border: isFollowing ? "1px solid rgb(207, 217, 222)" : "1px solid transparent",
-  borderRadius: 25,
-  padding: "0 16px",
-  height: "32px",
-  fontSize: "15px",
+  borderRadius: 50,
+  fontSize: "14px",
   color: isFollowing ? "rgb(0, 0, 0)" : "rgb(248, 248, 248)",
   backgroundColor: isFollowing ? "rgb(248, 248, 248)" : "rgb(0, 0, 0)",
   textTransform: "capitalize",
   transition: "background-color 250ms linear, color 250ms linear",
   boxShadow: "none",
+  display: "flex",
+  marginLeft: "auto",
 
   "& p": {
     display: "flex",
