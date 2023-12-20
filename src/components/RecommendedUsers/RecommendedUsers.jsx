@@ -116,7 +116,7 @@ RecommendedUserCard.propTypes = {
   avatarUrl: PropTypes.string,
   useButton: PropTypes.bool,
   id: PropTypes.string.isRequired,
-  isFollowedByUser: PropTypes.bool.isRequired,
+  isFollowedByUser: PropTypes.bool,
   isInModal: PropTypes.bool,
 };
 

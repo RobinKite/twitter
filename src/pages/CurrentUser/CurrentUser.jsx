@@ -9,8 +9,8 @@ import {
   getCurrentLikedPosts,
   getCurrentPosts,
   getCurrentUser,
+  resetPosts,
 } from "@/redux/slices/currentUser";
-import { resetPosts } from "@/redux/slices/postsSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useInfinityScroll from "@/hooks/useInfinityScroll";
 import { sortByCreatedAt } from "@/utils";
