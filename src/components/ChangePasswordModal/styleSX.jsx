@@ -17,7 +17,7 @@ export const modalTitleSX = {
   marginLeft: "24px",
   marginTop: "25px",
   marginBottom: "15px",
-  fontWeight: "700",
+  fontWeight: "600",
 };
 
 export const formContainerSX = {
