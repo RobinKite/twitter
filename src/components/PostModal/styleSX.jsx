@@ -7,6 +7,7 @@ export const ModalBody = styled(Box)(({ theme }) => ({
   transform: "translate(-50%, -50%)",
   maxWidth: "600px",
   width: "100%",
+  minHeight: "20em",
   maxHeight: "40em",
   overflowY: "auto",
   overflowX: "hidden",

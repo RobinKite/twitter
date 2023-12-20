@@ -1,11 +1,12 @@
 export const DialogContainerSX = {
-  "& .css-1t1j96h-MuiPaper-root-MuiDialog-paper": {
-    borderRadius: "16px",
-    padding: "32px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
+  "& .css-1t1j96h-MuiPaper-root-MuiDialog-paper, .css-ybqyer-MuiPaper-root-MuiDialog-paper":
+    {
+      borderRadius: "16px",
+      padding: "32px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+    },
 };
 
 export const FormLabelsContainerSX = {

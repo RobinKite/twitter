@@ -11,8 +11,9 @@ export const FooterContainer = styled(Box)({
   paddingY: "20px",
 });
 
-export const FooterLink = styled(Typography)({
-  color: "#536471",
+export const FooterLink = styled(Typography)(({ theme }) => ({
+  // color: "#536471",
+  color: theme.palette.common.primary,
   fontSize: "13px",
   textDecoration: "none",
-});
+}));

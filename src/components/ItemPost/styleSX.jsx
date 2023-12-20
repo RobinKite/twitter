@@ -1,5 +1,12 @@
+import { Themes } from "@/themes/theme";
+
 export const tweetWrapperSX = {
-  borderBottom: "1px solid rgb(239, 243, 244)",
+  borderBottomColor: (theme) =>
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.light.search_light
+      : theme.palette.dark.border_grey,
+  borderBottomStyle: "solid",
+  borderBottomWidth: "1px",
   paddingTop: "12px",
   paddingBottom: "12px",
   paddingLeft: "16px",
@@ -48,7 +55,8 @@ export const tweetSX = {
 export const avatarSX = {
   position: "static",
   margin: 0,
-  bgcolor: "rgb(8, 139, 226)",
+  // bgcolor: "rgb(8, 139, 226)",
+
   width: 40,
   height: 40,
 };
@@ -62,7 +70,11 @@ export const tweetHeaderSX = {
 
 export const tweetUsernameSX = {
   marginBottom: "2px",
-  color: "rgb(15, 20, 25)",
+  // color: "rgb(15, 20, 25)",
+  color: (theme) =>
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.common.secondary
+      : theme.palette.dark.light_grey,
   fontSize: "15px",
   fontWeight: 700,
   lineHeight: 1.333,
@@ -75,7 +87,11 @@ export const tweetUsernameSX = {
 export const tweetUsertagSX = {
   marginBottom: "2px",
   fontSize: "15px",
-  color: "rgb(83, 100, 113)",
+
+  color: (theme) =>
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.common.primary
+      : theme.palette.dark.text_grey,
 };
 
 export const iconDeleteSX = {
@@ -86,7 +102,11 @@ export const iconDeleteSX = {
 
 export const tweetContentSX = {
   marginBottom: "12px",
-  color: "rgb(15, 20, 25)",
+  // color: "rgb(15, 20, 25)",
+  color: (theme) =>
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.common.secondary
+      : theme.palette.dark.light_grey,
   fontSize: "15px",
   lineHeight: 1.333,
   overflowWrap: "anywhere",
@@ -148,7 +168,8 @@ export const iconSX = {
 export const replyCountSX = {
   ...iconSX,
   transition: "background-color 300ms linear, color 300ms linear",
-  color: "rgb(83, 100, 113)",
+  // color: "rgb(83, 100, 113)",
+  color: (theme) => theme.palette.common.primary,
   fontSize: "15px",
 
   "&:hover": {
@@ -174,7 +195,8 @@ export const likeCountSX = {
   ...iconSX,
   transition: "background-color 300ms linear, color 300ms linear",
   fontSize: "15px",
-  color: "rgb(83, 100, 113)",
+  // color: "rgb(83, 100, 113)",
+  color: (theme) => theme.palette.common.primary,
   "&:hover": {
     color: "rgb(249, 24, 128)",
     "& svg": {

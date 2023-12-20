@@ -22,10 +22,12 @@ export const moreSelectMenuPropsSX = ({ width, gap, fontSize }) => {
       sx: {
         position: "absolute",
         borderRadius: 5,
+
+        boxShadow: (theme) => theme.palette[theme.palette.mode].box_shadow,
         "& .css-6hp17o-MuiList-root-MuiMenu-list": {
           paddingTop: 0,
           paddingBottom: 0,
-          backgroundColor: "#ffffff",
+          backgroundColor: (theme) => theme.palette[theme.palette.mode].primary,
         },
         "& .MuiMenuItem-root": {
           padding: 2,
@@ -34,7 +36,7 @@ export const moreSelectMenuPropsSX = ({ width, gap, fontSize }) => {
           minWidth: width,
           gap: gap,
           "&:hover": {
-            backgroundColor: "#eff3f4",
+            backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
           },
         },
       },

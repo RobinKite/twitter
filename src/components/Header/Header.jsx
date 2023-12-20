@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,11 +12,13 @@ import HeaderMobile from "../HeaderMobile/HeaderMobile";
 import HeaderSelect from "@/components/Header/HeaderSelect";
 import HeaderDrawer from "./HeaderDrawer";
 import AcccountMenu from "../AccountMenu/AccountMenu";
+import { Themes } from "@/themes/theme";
 
 export const Header = () => {
+  const theme = useTheme();
   const posts = useSelector((state) => state.posts.posts);
   const avatarUrl = posts.length > 0 ? posts[0].user.avatarUrl : null;
-  const isActiveModal = useSelector((state) => state.app.isPostModalActive);
+  const isPostModalActive = useSelector((state) => state.app.isPostModalActive);
   const dispatch = useDispatch();
   const isMobile = useMediaQuery("(max-width: 767px)");
   const isTablet = useMediaQuery("(min-width: 767px) and (max-width: 1023px)");
@@ -52,7 +54,16 @@ export const Header = () => {
             id="basic-button"
             onClick={() => setIsSelectOpen(true)}
             sx={moreButtonSX}>
-            <MoreCircle size={26.25} /> {isDesktop && "More"}
+            <MoreCircle
+              size={26.25}
+              style={{
+                fill:
+                  theme.palette.mode === Themes.LIGHT
+                    ? theme.palette.light.secondary
+                    : theme.palette.dark.light_grey,
+              }}
+            />
+            {isDesktop && "More"}
           </Button>
           <HeaderSelect open={isSelectOpen} onClose={() => setIsSelectOpen(false)} />
         </>
@@ -79,7 +90,8 @@ export const Header = () => {
         {isDesktop ? "Post" : <Feather size={22} style={{ fill: "#fff" }} />}
       </Button>
 
-      {isActiveModal && <PostModal avatarUrl={avatarUrl} isOpen={isActiveModal} />}
+      <PostModal avatarUrl={avatarUrl} isOpen={isPostModalActive} />
+
       <AcccountMenu />
     </div>
   );

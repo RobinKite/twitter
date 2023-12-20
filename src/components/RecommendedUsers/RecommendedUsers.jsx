@@ -7,6 +7,7 @@ import { FollowButton } from "@/components";
 import { fetchUsers } from "@/redux/slices/userSlice";
 import { setModalPost } from "@/redux/slices/appSlice";
 import { userCardSX } from "./styleSX";
+import { Themes } from "@/themes/theme";
 
 export const UserCard = ({
   avatarUrl,
@@ -31,10 +32,28 @@ export const UserCard = ({
             flexGrow: 1,
           }}>
           <Stack sx={{ overflow: "hidden" }}>
-            <Typography variant="subtitle1" sx={{ fontWeight: 700, textWrap: "nowrap" }}>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                textAlign: "left",
+                fontWeight: 700,
+                textWrap: "nowrap",
+                color: (theme) =>
+                  theme.palette.mode === Themes.LIGHT
+                    ? theme.palette.light.secondary
+                    : theme.palette.dark.light_grey,
+              }}>
               {fullName}
             </Typography>
-            <Typography variant="body2" color="textSecondary" align="left">
+            <Typography
+              variant="body2"
+              align="left"
+              sx={{
+                color: (theme) =>
+                  theme.palette.mode === Themes.LIGHT
+                    ? theme.palette.common.primary
+                    : theme.palette.dark.text_grey,
+              }}>
               @{userTag}
             </Typography>
           </Stack>

@@ -1,9 +1,13 @@
+import { Themes } from "@/themes/theme";
+
 export const postButtonSX = {
   mobile: {
     borderRadius: "100%",
     margin: 0,
-    backgroundColor: "#1d9bf0",
-    color: "#ffffff",
+    // backgroundColor: "#1d9bf0",
+    // color: "#ffffff",
+    color: (theme) => theme.palette.light.primary,
+    backgroundColor: (theme) => theme.palette[theme.palette.mode].accent,
     bottom: "70px",
     right: "20px",
     top: "",
@@ -11,6 +15,10 @@ export const postButtonSX = {
     width: "50px",
     minWidth: 0,
     position: "fixed",
+
+    "&:hover": {
+      backgroundColor: (theme) => theme.palette[theme.palette.mode].hover_accent,
+    },
   },
 
   tablet: {
@@ -18,15 +26,18 @@ export const postButtonSX = {
     height: "50px",
     width: "50px",
     minWidth: 0,
-    backgroundColor: "#1d9bf0",
+    // backgroundColor: "#1d9bf0",
+    backgroundColor: (theme) => theme.palette[theme.palette.mode].accent,
     borderRadius: "100%",
     alignSelf: "center",
   },
 
   desktop: {
-    color: "#ffffff",
+    // color: "#ffffff",
+    color: (theme) => theme.palette.light.primary,
     boxShadow: "none",
-    backgroundColor: " #1d9bf0",
+    // backgroundColor: " #1d9bf0",
+    backgroundColor: (theme) => theme.palette[theme.palette.mode].accent,
     borderRadius: "45px",
     alignSelf: "flex-start",
     fontWeight: 600,
@@ -42,7 +53,7 @@ export const postButtonSX = {
 };
 
 export const moreButtonSX = {
-  color: "black",
+  color: (theme) => theme.palette[theme.palette.mode].secondary,
   fontSize: "1.225rem",
   borderRadius: "2rem",
   display: "flex",
@@ -56,7 +67,10 @@ export const moreButtonSX = {
   alignSelf: "start",
 
   "&:hover": {
-    backgroundColor: "rgb(221, 217, 217)",
+    backgroundColor: (theme) =>
+      theme.palette.mode === Themes.LIGHT
+        ? theme.palette.light.hover_header
+        : theme.palette.dark.hover,
   },
 
   "& .css-1tnmhci-MuiButtonBase-root-MuiButton-root": {
@@ -69,7 +83,13 @@ export const moreButtonSX = {
 
 export const logoutButton = {
   width: "100%",
-  color: "#0f1419",
+  // color: "#0f1419",
+  color: (theme) => theme.palette[theme.palette.mode].secondary,
+  backgroundColor: (theme) =>
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.light.secondary
+      : theme.palette.dark.light_grey,
+
   fontSize: "20px",
   fontWeight: 700,
   display: "flex",

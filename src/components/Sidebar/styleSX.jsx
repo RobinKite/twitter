@@ -1,3 +1,5 @@
+import { Themes } from "@/themes/theme";
+
 export const sidebarSX = {
   display: "none",
 
@@ -11,10 +13,18 @@ export const sidebarSX = {
 
     backgroundColor: "inherit",
   },
+
+  ".css-1p47gu2-MuiTypography-root-MuiLink-root:hover": {
+    backgroundColor: "unset",
+  },
 };
 
 export const containerSX = {
-  backgroundColor: "rgb(248, 248, 248)",
+  // backgroundColor: "rgb(248, 248, 248)",
+  backgroundColor: (theme) =>
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.light.background_light
+      : theme.palette.dark.background_dark,
   borderRadius: "1rem",
   overflow: "hidden",
 };
@@ -24,6 +34,7 @@ export const titleSX = {
   fontFamily: "inherit",
   fontSize: "1.25rem",
   fontWeight: 800,
+  color: (theme) => theme.palette[theme.palette.mode].secondary,
 };
 
 export const showMoreSX = {
@@ -32,11 +43,12 @@ export const showMoreSX = {
   borderBottomLeftRadius: "1rem",
   borderBottomRightRadius: "1rem",
   fontSize: "14px",
-  color: "rgb(29, 155, 240)",
+  // color: "rgb(29, 155, 240)",
+  color: (theme) => theme.palette[theme.palette.mode].accent,
   transition: "background-color 200ms",
 
-  ":hover": {
-    backgroundColor: "rgb(240, 240, 240)",
+  "&:hover": {
+    backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
   },
   ":focus": {
     backgroundColor: "rgb(240, 240, 240)",

@@ -10,8 +10,9 @@ export const WrapperAccountMenuSX = {
   marginRight: "0.5rem",
 
   "&:hover": {
-    backgroundColor: "rgb(240, 240, 240)",
+    backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
   },
+  "  .css-1vn8s31-MuiStack-root:hover": { backgroundColor: "unset" },
 };
 
 export const moreSelectSX = {
@@ -34,11 +35,13 @@ export const moreSelectMenuPropsSX = {
       position: "absolute",
       borderRadius: 4,
       marginTop: -8,
+      boxShadow: (theme) => theme.palette[theme.palette.mode].box_shadow,
       "& .css-6hp17o-MuiList-root-MuiMenu-list": {
         paddingTop: 0,
         paddingBottom: 0,
-        backgroundColor: "#ffffff",
+        // backgroundColor: "#ffffff",
       },
+
       "& .MuiMenuItem-root": {
         padding: 2,
         fontSize: 15,

@@ -1,4 +1,4 @@
-import { Stack, IconButton, Typography, Box, FormGroup } from "@mui/material";
+import { Stack, IconButton, Typography, Box, FormGroup, useTheme } from "@mui/material";
 import { FormControl, RadioGroup, FormLabel, Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -7,8 +7,10 @@ import { ReceptionPreference } from "@/features/messaging/constants";
 import { Radio, Checkbox } from "@/features/messaging/components";
 import { settingsSx, titleSx, headerSx, checkboxGroupSx, radioGroupSx } from "./styles";
 import { settingTitleSx, settingDescriptionSx, settingWrapperSx } from "./styles";
+import { Themes } from "@/themes/theme";
 
 export const ChatSettings = () => {
+  const theme = useTheme();
   const navigate = useNavigate();
   const [value, setValue] = useState(ReceptionPreference.VERIFIED);
 
@@ -20,7 +22,10 @@ export const ChatSettings = () => {
     <Stack sx={settingsSx}>
       <Stack sx={headerSx}>
         <IconButton onClick={() => navigate("/messages")}>
-          <ArrowBack size={20} />
+          <ArrowBack
+            size={20}
+            style={{ fill: theme.palette[theme.palette.mode].secondary }}
+          />
         </IconButton>
         <Typography sx={titleSx}>Direct Messages</Typography>
       </Stack>
@@ -42,14 +47,55 @@ export const ChatSettings = () => {
         <FormGroup sx={checkboxGroupSx}>
           <Checkbox
             isDisabled={value === ReceptionPreference.NONE}
-            labelText="Filter low-quality messages"
-            description="Hide message requests that have been detected as being potentially spam or
-            low-quality. These will be sent to a separate inbox at the bottom of your
-            message requests. You can still access them if you want."
+            labelText={
+              <span
+                style={{
+                  color:
+                    theme.palette.mode === Themes.LIGHT
+                      ? theme.palette.common.secondary
+                      : theme.palette.dark.light_grey,
+                }}>
+                Filter low-quality messages
+              </span>
+            }
+            description={
+              <span
+                style={{
+                  color:
+                    theme.palette.mode === Themes.LIGHT
+                      ? theme.palette.common.primary
+                      : theme.palette.dark.text_grey,
+                }}>
+                Hide message requests that have been detected as being potentially spam or
+                low-quality. These will be sent to a separate inbox at the bottom of your
+                message requests. You can still access them if you want.
+              </span>
+            }
           />
           <Checkbox
-            labelText="Show read receipts"
-            description="Let people you’re messaging with know when you’ve seen their messages. Read receipts are not shown on message requests."
+            labelText={
+              <span
+                style={{
+                  color:
+                    theme.palette.mode === Themes.LIGHT
+                      ? theme.palette.common.secondary
+                      : theme.palette.dark.light_grey,
+                }}>
+                Show read receipts
+              </span>
+            }
+            description={
+              <span
+                style={{
+                  color:
+                    theme.palette.mode === Themes.LIGHT
+                      ? theme.palette.common.primary
+                      : theme.palette.dark.text_grey,
+                }}>
+                Let people you’re messaging with know when you’ve seen their messages.
+                Read receipts are not shown on message requests.
+              </span>
+            }
           />
         </FormGroup>
       </Box>

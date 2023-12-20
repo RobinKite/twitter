@@ -1,4 +1,4 @@
-import { MenuItem, Stack, useMediaQuery } from "@mui/material";
+import { MenuItem, Stack, useMediaQuery, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { ConfirmationDialog, CustomSelect } from "..";
 import { fetchUser, logoutUserAction } from "@/redux/slices/userSlice";
@@ -7,8 +7,10 @@ import { More } from "@/icons";
 import { UserCard } from "../RecommendedUsers/RecommendedUsers";
 import { storage } from "@/services";
 import { WrapperAccountMenuSX } from "./styledSX";
+import { Themes } from "@/themes/theme";
 
 const AccountMenu = () => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -46,14 +48,25 @@ const AccountMenu = () => {
           fullName={user.fullName}
           userTag={user.userTag}>
           <Stack sx={{ flexGrow: 1, justifyContent: "center", marginLeft: "0.75rem" }}>
-            <More size={18.75} color="#0f1419" style={{ display: "block" }} />
+            <More
+              size={18.75}
+              fill={theme.palette[theme.palette.mode].secondary}
+              style={{ display: "block" }}
+            />
           </Stack>
         </UserCard>
         <CustomSelect
           open={isMenuOpen}
           onClose={setIsMenuOpen}
           customStyles={{ width: "300px", fontSize: "15px" }}>
-          <MenuItem onClick={handleLogoutClick}>
+          <MenuItem
+            onClick={handleLogoutClick}
+            sx={{
+              color:
+                theme.palette.mode === Themes.LIGHT
+                  ? theme.palette.common.secondary
+                  : theme.palette.dark.light_grey,
+            }}>
             Log out @{user.userTag || user.fullName}
           </MenuItem>
         </CustomSelect>

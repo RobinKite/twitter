@@ -22,11 +22,24 @@ export const Sidebar = () => {
         />
         {!isShowMore && (
           <Stack
-            sx={showMoreSX}
+            sx={{
+              ...showMoreSX,
+              "&:hover": {
+                backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
+              },
+            }}
             onClick={() => {
               setIsShowMore(true);
             }}>
-            <Link href="#">Show more</Link>
+            <Link
+              href="#"
+              sx={{
+                "&:hover": {
+                  backgroundColor: (theme) => theme.palette[theme.palette.mode].hover,
+                },
+              }}>
+              Show more
+            </Link>
           </Stack>
         )}
       </Stack>

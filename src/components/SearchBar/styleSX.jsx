@@ -1,3 +1,5 @@
+import { Themes } from "@/themes/theme";
+
 export const searchBarSX = {
   position: "sticky",
   top: "0",
@@ -5,8 +7,10 @@ export const searchBarSX = {
   border: "1px solid transparent",
   paddingTop: "6px",
   paddingBottom: "6px",
-  color: "rgb(83, 100, 113)",
-  backgroundColor: "#ffffff",
+  // color: "rgb(83, 100, 113)",
+  // backgroundColor: "#ffffff",
+  backgroundColor: (theme) => theme.palette[theme.palette.mode].primary,
+  color: (theme) => theme.palette.common.primary,
   zIndex: 1,
   borderWidth: "1px",
   boderStyle: "solid",
@@ -31,9 +35,18 @@ export const formSX = {
 export const inputSX = {
   "& input": {
     boxSizing: "border-box",
-    backgroundColor: "rgb(239, 243, 244)",
+    // color: "rgb(15,20,25)",
+    // backgroundColor: "rgb(239, 243, 244)",
+    color: (theme) =>
+      theme.palette.mode === Themes.LIGHT
+        ? theme.palette.light.secondary
+        : theme.palette.dark.text_grey,
+    backgroundColor: (theme) =>
+      theme.palette.mode === Themes.LIGHT
+        ? theme.palette.light.search_light
+        : theme.palette.dark.background_dark,
     fontSize: "16px",
-    color: "rgb(15,20,25)",
+
     width: "100%",
     minHeight: "42px",
     borderRadius: "25px",

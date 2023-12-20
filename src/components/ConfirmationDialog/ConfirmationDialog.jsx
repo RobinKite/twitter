@@ -3,9 +3,13 @@ import { Box, Typography } from "@mui/material";
 import { Dialog as MuiDialog, Button as MuiButton } from "@mui/material";
 import { styled } from "@mui/material";
 import PropTypes from "prop-types";
+import { Themes } from "@/themes/theme";
 
-const Dialog = styled(MuiDialog)({
+const Dialog = styled(MuiDialog)(({ theme }) => ({
   fontSize: "0.9375rem",
+  "& .css-ybqyer-MuiPaper-root-MuiDialog-paper": {
+    backgroundImage: "unset",
+  },
 
   "& .MuiDialog-paper": {
     maxWidth: 320,
@@ -13,20 +17,29 @@ const Dialog = styled(MuiDialog)({
     margin: "0 auto",
     padding: "2rem",
     borderRadius: "1rem",
+    backgroundColor: theme.palette[theme.palette.mode].primary,
   },
-});
+}));
 
-const Title = styled(Typography)({
+const Title = styled(Typography)(({ theme }) => ({
   fontSize: "1.25rem",
   fontWeight: 600,
   marginBottom: "0.5rem",
-});
+  color:
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.common.secondary
+      : theme.palette.dark.light_grey,
+}));
 
-const Description = styled(Typography)({
+const Description = styled(Typography)(({ theme }) => ({
   lineHeight: "1.25rem",
-  color: "#536471",
+  // color: "#536471",
+  color:
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.common.primary
+      : theme.palette.dark.text_grey,
   fontSize: "inherit",
-});
+}));
 
 const Actions = styled(Box)({
   marginTop: "1.5rem",
@@ -35,29 +48,44 @@ const Actions = styled(Box)({
   rowGap: "0.75rem",
 });
 
-const Button = styled(MuiButton)({
+const Button = styled(MuiButton)(({ theme }) => ({
   minHeight: 44,
-  border: "1px solid #cfd9de",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor:
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.common.primary
+      : theme.palette.light.banner,
   fontWeight: 600,
   transition: "background-color 200ms",
-
+  color: theme.palette[theme.palette.mode].secondary,
+  backgroundColor: theme.palette[theme.palette.mode].primary,
+  // ":hover": {
+  //   backgroundColor: "#e7e7e8",
+  // },
+  // ":active": {
+  //   backgroundColor: "#cfd0d1",
+  // },
   ":hover": {
-    backgroundColor: "#e7e7e8",
+    backgroundColor: theme.palette[theme.palette.mode].hover,
   },
   ":active": {
-    backgroundColor: "#cfd0d1",
+    // backgroundColor: "#3f4347",
+    backgroundColor: theme.palette[theme.palette.mode].hover,
   },
-});
+}));
 
 const ActionButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.common.white,
-  backgroundColor: theme.palette.common.black,
+  color: theme.palette[theme.palette.mode].primary,
+
+  backgroundColor: theme.palette[theme.palette.mode].secondary,
 
   ":hover": {
-    backgroundColor: "#272c30",
+    backgroundColor: theme.palette[theme.palette.mode].hover,
   },
   ":active": {
-    backgroundColor: "#3f4347",
+    // backgroundColor: "#3f4347",
+    backgroundColor: theme.palette[theme.palette.mode].hover,
   },
 }));
 

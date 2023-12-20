@@ -1,6 +1,7 @@
 import { Stack, styled } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import MuiButton from "@mui/material/Button";
+import { Themes } from "@/themes/theme";
 
 export const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -50,13 +51,23 @@ export const ButtonPost = styled(MuiButton)(({ theme }) => ({
   },
 }));
 
-export const WrapperSX = styled(Stack)({
-  display: "flex",
+export const WrapperSX = styled(Stack)(({ theme }) => ({
   flexDirection: "row",
-  borderTop: "1px solid rgb(239, 243, 244)",
-  borderBottom: "1px solid rgb(239, 243, 244)",
+  borderTopWidth: "1px",
+  borderTopStyle: "solid",
+  borderTopColor:
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.dark.light_grey
+      : theme.palette.dark.border_grey,
+  borderBottomWidth: "1px",
+  borderBottomStyle: "solid",
+  borderBottomColor:
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.dark.light_grey
+      : theme.palette.dark.border_grey,
+  backgroundColor: theme.palette[theme.palette.mode].primary,
   padding: "16px 16px 8px",
-});
+}));
 
 export const ConteinerPostSX = styled(Stack)({
   display: "flex",

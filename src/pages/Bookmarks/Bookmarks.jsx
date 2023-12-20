@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getAllBookmarkPosts, resetPostsLiked } from "@/redux/slices/userSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useInfinityScroll from "@/hooks/useInfinityScroll";
+import { Themes } from "@/themes/theme";
 
 export const Bookmarks = () => {
   const dispatch = useDispatch();
@@ -20,15 +21,31 @@ export const Bookmarks = () => {
     <Container>
       <Stack
         sx={{
-          flexGrow: 1,
-          borderRight: "1px solid #EFF3F4",
-          borderLeft: "1px solid #EFF3F4",
+          borderRightWidth: "1px",
+          borderRightStyle: "solid",
+          borderRightColor: (theme) =>
+            theme.palette.mode === Themes.LIGHT
+              ? theme.palette.dark.light_grey
+              : theme.palette.dark.border_grey,
+
+          borderLeftWidth: "1px",
+          borderLeftStyle: "solid",
+          borderLeftColor: (theme) =>
+            theme.palette.mode === Themes.LIGHT
+              ? theme.palette.dark.light_grey
+              : theme.palette.dark.border_grey,
+
+          height: "100vh",
         }}>
         <Typography
           variant="h1"
           sx={{
             padding: "0 16px",
-            color: "#0F1419",
+            // color: "#0F1419",
+            color: (theme) =>
+              theme.palette.mode === Themes.LIGHT
+                ? theme.palette.light.secondary
+                : theme.palette.dark.light_grey,
             fontSize: "20px",
             fontWeight: 700,
             marginTop: "10px",
@@ -40,7 +57,11 @@ export const Bookmarks = () => {
           sx={{
             marginBottom: "4px",
             padding: "0 16px",
-            color: "#536471",
+            color: (theme) =>
+              theme.palette.mode === Themes.LIGHT
+                ? theme.palette.common.primary
+                : theme.palette.dark.text_grey,
+            // color: "#536471",
             fontSize: "13px",
           }}>
           @{email}
@@ -57,14 +78,28 @@ export const Bookmarks = () => {
               <Typography
                 variant="h2"
                 sx={{
-                  color: "#0F1419",
+                  // color: "#0F1419",
+                  color: (theme) =>
+                    theme.palette.mode === Themes.LIGHT
+                      ? theme.palette.light.secondary
+                      : theme.palette.dark.light_grey,
+                  // theme.palette[theme.palette.mode].primary
                   fontSize: "30px",
                   fontWeight: 800,
                   marginBottom: "8px",
                 }}>
                 Save posts for later
               </Typography>
-              <Typography variant="h5" sx={{ color: "#536471", fontSize: "15px" }}>
+              <Typography
+                variant="h5"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === Themes.LIGHT
+                      ? theme.palette.common.primary
+                      : theme.palette.dark.text_grey,
+                  // color: "#536471",
+                  fontSize: "15px",
+                }}>
                 Bookmark posts to easily find them again in the future.
               </Typography>
             </Box>

@@ -31,7 +31,7 @@ export const SearchBar = () => {
 
   useEffect(() => {
     const handleClick = ({ target }) => {
-      if (!parentRef.current.contains(target)) clearInput();
+      if (!parentRef?.current.contains(target)) clearInput();
     };
     document.addEventListener("click", handleClick);
 

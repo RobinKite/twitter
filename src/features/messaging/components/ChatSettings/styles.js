@@ -1,10 +1,20 @@
+import { Themes } from "@/themes/theme";
+
 export const settingsSx = {
   borderRight: "1px solid #eff3f4",
+  borderRightColor: (theme) =>
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.light.search_light
+      : theme.palette.dark.border_grey,
 };
 
 export const titleSx = {
   fontWeight: 600,
   fontSize: "1.25rem",
+  color: (theme) =>
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.common.secondary
+      : theme.palette.dark.light_grey,
 };
 
 export const headerSx = {
@@ -23,17 +33,29 @@ export const radioGroupSx = {
   display: "flex",
   flexDirection: "column",
   rowGap: "0.35rem",
+  color: (theme) =>
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.common.secondary
+      : theme.palette.dark.light_grey,
 };
 
 export const settingTitleSx = {
   fontWeight: 600,
   fontSize: "0.9375rem",
-  color: "rgb(15, 20, 25)",
+  // color: "rgb(15, 20, 25)",
+  color: (theme) =>
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.common.secondary
+      : theme.palette.dark.light_grey,
 };
 
 export const settingDescriptionSx = {
   fontSize: "0.8rem",
-  color: "rgb(83, 100, 113)",
+  // color: "rgb(83, 100, 113)",
+  color: (theme) =>
+    theme.palette.mode === Themes.LIGHT
+      ? theme.palette.common.primary
+      : theme.palette.dark.text_grey,
   marginBottom: "0.25rem",
 };
 

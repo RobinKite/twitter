@@ -1,61 +1,42 @@
-import { Modal, Box, IconButton, Stack, styled } from "@mui/material";
+import { Modal, IconButton, Stack, useTheme } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Cross } from "@/icons";
 import { setModalPost } from "@/redux/slices/appSlice";
-
-export const ModalBody = styled(Box)(() => ({
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  maxWidth: "600px",
-  width: "100%",
-  minHeight: "20em",
-  maxHeight: "40em",
-  overflowY: "auto",
-  overflowX: "hidden",
-  backgroundColor: "white",
-  display: "flex",
-  justifyContent: "flex-start",
-  flexDirection: "column",
-  textAlign: "center",
-  borderRadius: 24,
-  paddingLeft: 16,
-  paddingRight: 16,
-
-  "@media(max-width: 700px)": {
-    minWidth: "100%",
-    minHeight: "100%",
-  },
-}));
+import { ModalBody } from "./styleSX";
 
 export function PostModal({ isOpen }) {
   const dispatch = useDispatch();
   const content = useSelector((state) => state.app.postModalContent);
+  const theme = useTheme();
 
   const handleClose = () => {
     dispatch(setModalPost(false));
   };
 
   return (
-    <div>
-      <Modal onClose={handleClose} open={isOpen}>
-        <ModalBody
+    <Modal onClose={handleClose} open={isOpen}>
+      <ModalBody
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "start",
+          padding: "0.5rem",
+          borderRadius: "1rem",
+        }}>
+        <IconButton
+          onClick={handleClose}
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "start",
-            padding: "0.5rem",
-            borderRadius: "1rem",
+            borderRadius: "50%",
+            "&:hover": {
+              backgroundColor: "rgba(255, 255, 255, 0.1)",
+            },
           }}>
-          <IconButton onClick={handleClose}>
-            <Cross />
-          </IconButton>
-          <Stack sx={{ width: "100%", justifyContent: "space-between" }}>{content}</Stack>
-        </ModalBody>
-      </Modal>
-    </div>
+          <Cross size={26.25} fill={theme.palette[theme.palette.mode].secondary} />
+        </IconButton>
+        <Stack sx={{ width: "100%", justifyContent: "space-between" }}>{content}</Stack>
+      </ModalBody>
+    </Modal>
   );
 }
 

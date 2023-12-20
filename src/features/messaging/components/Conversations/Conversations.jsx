@@ -1,14 +1,14 @@
-import { Box, Stack, Typography, IconButton } from "@mui/material";
+import { Box, Stack, Typography, IconButton, useTheme } from "@mui/material";
 import { Gear, MessagePlus } from "@/icons";
 import { WelcomeMessage } from "@/features/messaging/components";
-import { wrapperSx, headerSx, titleSx, buttonsSx, iconStyle } from "./styles";
+import { wrapperSx, headerSx, titleSx, buttonsSx } from "./styles";
 import { useNavigate } from "react-router-dom";
 
 export const Conversations = () => {
   const isEmpty = true;
   const navigate = useNavigate();
   const handleCreateCoversation = () => {};
-
+  const theme = useTheme();
   return (
     <Stack sx={wrapperSx}>
       <Stack sx={headerSx}>
@@ -17,10 +17,20 @@ export const Conversations = () => {
         </Typography>
         <Stack sx={buttonsSx}>
           <IconButton onClick={() => navigate("/messages/settings")}>
-            <Gear style={iconStyle} size={21} />
+            <Gear
+              style={{
+                fill: theme.palette[theme.palette.mode].secondary,
+              }}
+              size={21}
+            />
           </IconButton>
           <IconButton onClick={handleCreateCoversation}>
-            <MessagePlus style={iconStyle} size={20} />
+            <MessagePlus
+              style={{
+                fill: theme.palette[theme.palette.mode].secondary,
+              }}
+              size={20}
+            />
           </IconButton>
         </Stack>
       </Stack>

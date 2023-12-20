@@ -22,7 +22,7 @@ export function LikeItemNotification({ notification }) {
         "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.03)" },
       }}>
       <Stack sx={{ minWidth: "30px" }}>
-        <Heart size={30} color="#f91880" />
+        <Heart size={26.25} color="#f91880" />
       </Stack>
       <Stack flexGrow={1}>
         <Avatar src={initiator.avatarUrl} alt={`${initiator.fullName}'s avatar`} />
