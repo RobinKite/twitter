@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { More, Delete } from "@/icons";
-import { deleteConversation } from "@/redux/slices/messagingSlice";
+import { More, Delete, ExitChat } from "@/icons";
+import { deleteConversation, leaveConversation } from "@/redux/slices/messagingSlice";
 
 const Wrapper = styled(Stack, { shouldForwardProp: (prop) => prop !== "isActive" })(
   ({ isActive }) => ({
@@ -53,15 +53,23 @@ const MenuItem = styled(MuiMenuItem)({
   },
 });
 
-export const ConversationItem = ({ id, avatarURL, titleText, metaText, messageText }) => {
-  // TODO: 👉 Show delete or leave button depending on who is the creator
+export const ConversationItem = ({
+  id,
+  avatarURL,
+  titleText,
+  metaText,
+  messageText,
+  creator,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [anchorElement, setAnchorElement] = useState(null);
   const currentConversation = useSelector((state) => state.messaging.currentConversation);
+  const user = useSelector((state) => state.user.user);
   const isActive = currentConversation?.id === id;
+  const isCreator = creator?.id === user.id;
 
   const handleOpenMenu = ({ target }) => {
     setOpenMenu(true);
@@ -75,6 +83,12 @@ export const ConversationItem = ({ id, avatarURL, titleText, metaText, messageTe
 
   const handleDeleteConversation = () => {
     dispatch(deleteConversation(id));
+    handleCloseMenu();
+    navigate("/messages");
+  };
+
+  const handleLeaveConversation = () => {
+    dispatch(leaveConversation(id));
     handleCloseMenu();
     navigate("/messages");
   };
@@ -125,12 +139,21 @@ export const ConversationItem = ({ id, avatarURL, titleText, metaText, messageTe
             anchorEl={anchorElement}
             anchorOrigin={{ vertical: "top", horizontal: "right" }}
             transformOrigin={{ vertical: "top", horizontal: "right" }}>
-            <MenuItem onClick={handleDeleteConversation}>
-              <Delete fill="#F4232E" size={18.75} />
-              <Typography sx={{ fontWeight: 600, fontSize: "0.9125rem" }}>
-                Delete
-              </Typography>
-            </MenuItem>
+            {isCreator ? (
+              <MenuItem onClick={handleDeleteConversation}>
+                <Delete fill="#F4232E" size={18.75} />
+                <Typography sx={{ fontWeight: 600, fontSize: "0.9125rem" }}>
+                  Delete
+                </Typography>
+              </MenuItem>
+            ) : (
+              <MenuItem onClick={handleLeaveConversation}>
+                <ExitChat fill="#F4232E" size={18.75} />
+                <Typography sx={{ fontWeight: 600, fontSize: "0.9125rem" }}>
+                  Leave
+                </Typography>
+              </MenuItem>
+            )}
           </Menu>
         </>
       )}
@@ -144,4 +167,5 @@ ConversationItem.propTypes = {
   titleText: PropTypes.string.isRequired,
   metaText: PropTypes.string.isRequired,
   messageText: PropTypes.string.isRequired,
+  creator: PropTypes.object,
 };

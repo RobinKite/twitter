@@ -77,6 +77,15 @@ export const deleteConversation = (id) => async (dispatch, getState) => {
   dispatch(setCurrentConversation(null));
 };
 
+export const leaveConversation = (id) => async (dispatch, getState) => {
+  await client.delete(Endpoint.LEAVE_CHAT, { params: { id } });
+  const conversations = getState().messaging.conversations.filter(
+    (conversation) => conversation.id !== id,
+  );
+  dispatch(setConversations(conversations));
+  dispatch(setCurrentConversation(null));
+};
+
 export const fetchConversations = () => async (dispatch) => {
   const response = await client.get(Endpoint.CHATS);
   const conversations = [...response.data.content];

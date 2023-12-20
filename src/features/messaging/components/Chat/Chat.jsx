@@ -1,9 +1,11 @@
-import { Stack, TextareaAutosize, IconButton, Select, MenuItem } from "@mui/material";
+import { Stack, TextareaAutosize, IconButton } from "@mui/material";
+// import { Select, MenuItem  } from "@mui/material";
 import { Box, Typography, LinearProgress } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { Media, Emoji, More, Send } from "@/icons";
+import { Media, Emoji, Send } from "@/icons";
+// import {  More } from "@/icons";
 import { convertDateFormat } from "@/utils/date";
 import { createMessage } from "@/redux/slices/messagingSlice";
 
@@ -96,16 +98,16 @@ export const InputField = () => {
 };
 
 const Message = ({ body, createdAt, user }) => {
-  const [open, setOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+  // const [open, setOpen] = useState(false);
+  // const [isHovered, setIsHovered] = useState(false);
   const currentUser = useSelector((state) => state.user.user);
   const isSelf = currentUser.id === user.id;
   const formattedDate = convertDateFormat(createdAt);
 
   return (
     <Stack
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      // onMouseEnter={() => setIsHovered(true)}
+      // onMouseLeave={() => setIsHovered(false)}
       sx={{
         alignSelf: isSelf ? "flex-end" : "flex-start",
         marginBottom: "1rem",
@@ -128,7 +130,7 @@ const Message = ({ body, createdAt, user }) => {
           }}>
           {body}
         </Typography>
-        {isHovered && (
+        {/* {isHovered && (
           <Stack>
             <IconButton sx={{}} onClick={() => setOpen(true)}>
               <More />
@@ -149,7 +151,7 @@ const Message = ({ body, createdAt, user }) => {
               <MenuItem onClick={() => {}}>Delete</MenuItem>
             </Select>
           </Stack>
-        )}
+        )} */}
       </Stack>
       <Typography
         sx={{

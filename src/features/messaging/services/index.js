@@ -22,10 +22,10 @@ export class Parser {
   }
 
   static #parseGroupConversation(conversation) {
-    const { id, users, messageDate, messageText } =
+    const { id, users, messageDate, messageText, creator } =
       this.#getConversationCommonFields(conversation);
     const titleText = users.map((user) => user.fullName).join(", ");
-    return { id, titleText, avatarURL: "", metaText: messageDate, messageText };
+    return { id, titleText, avatarURL: "", metaText: messageDate, messageText, creator };
   }
 
   static #getConversationCommonFields(conversation) {
@@ -40,6 +40,13 @@ export class Parser {
     } else {
       messageText += "This conversation has no messages.";
     }
-    return { id: conversation.id, users, messageText, messageDate };
+
+    return {
+      id: conversation.id,
+      users,
+      messageText,
+      messageDate,
+      creator: conversation.creator,
+    };
   }
 }

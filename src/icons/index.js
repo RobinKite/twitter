@@ -7,6 +7,7 @@ export { PiHeartFill as Heart } from "react-icons/pi";
 export { IoPerson as ProfileIcon } from "react-icons/io5";
 export { MdDisplaySettings as Display } from "react-icons/md";
 export { IoIosMore as MoreMenu } from "react-icons/io";
+export { RxExit as ExitChat } from "react-icons/rx";
 export { Delete } from "./custom/Delete";
 export { View } from "./custom/View";
 export { Share } from "./custom/Share";
