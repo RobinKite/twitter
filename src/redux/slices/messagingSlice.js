@@ -118,7 +118,7 @@ export const fetchMessages = () => async (dispatch, getState) => {
   dispatch(setMessages(messages));
 };
 
-export const createMessage = (body) => async (getState) => {
+export const createMessage = (body) => async (_, getState) => {
   const conversationId = getState().messaging.currentConversation.id;
   const formData = new FormData();
   formData.append("body", body);

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Stomp from "stompjs";
-import { receiveMessage as receiveMessage } from "@/redux/slices/messagingSlice";
+import { receiveMessage } from "@/redux/slices/messagingSlice";
 
 const useWebSockets = (topic) => {
   const user = useSelector((state) => state.user.user);
@@ -26,7 +26,7 @@ const useWebSockets = (topic) => {
 
   const handleSocketOpen = () => {
     stompRef.current.subscribe(`/${topic}/${user.id}`, (message) => {
-      dispatch(receiveMessage(JSON.parse(message.body)));
+      if (topic.includes("messages")) dispatch(receiveMessage(JSON.parse(message.body)));
     });
 
     if (reconnectTimeoutRef.current) {
