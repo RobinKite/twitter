@@ -31,6 +31,7 @@ export function ItemPost({ post, disable }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const containerRef = useRef(null);
+  const avatarWrapperRef = useRef(null);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -96,7 +97,8 @@ export function ItemPost({ post, disable }) {
   };
 
   const handleNavigateToPost = ({ target }) => {
-    if (target === containerRef.current) navigate(`/post/${id}`);
+    if (target === containerRef.current || target === avatarWrapperRef.current)
+      navigate(`/post/${id}`);
   };
 
   return (
@@ -111,7 +113,7 @@ export function ItemPost({ post, disable }) {
           </Typography>
         </Stack>
       )}
-      <Stack sx={tweetSX}>
+      <Stack ref={avatarWrapperRef} sx={tweetSX}>
         <Avatar
           sx={avatarSX}
           src={isRepost ? parentPost?.user.avatarUrl : avatarUrl}
