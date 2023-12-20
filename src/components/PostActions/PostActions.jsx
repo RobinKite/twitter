@@ -32,6 +32,8 @@ export function PostActions({ disable, openModal, post, onPostClick }) {
   const dispatch = useDispatch();
   const containerRef = useRef(null);
   const [isBookmarkedPost, setIsBookmarkedPost] = useState(bookmarked);
+  const [isLiked, setIsLiked] = useState(liked);
+  const [likeCounter, setLikeCounter] = useState(likeCount);
   const [isMenuRepostOpen, setIsMenuRepostOpen] = useState(false);
   const { setInputStr, setFiles, submit } = usePostData(PostType.QUOTE, id, () =>
     dispatch(setModalPost(false)),
@@ -59,7 +61,12 @@ export function PostActions({ disable, openModal, post, onPostClick }) {
   };
 
   const handleLikeClick = () => {
-    liked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
+    setIsLiked((prev) => !prev);
+    setLikeCounter((prev) => {
+      isLiked ? prev-- : prev++;
+      return prev;
+    });
+    isLiked ? dispatch(handleUnlike(id)) : dispatch(handleLike(id));
   };
 
   const onContainerClick = ({ target }) => {
@@ -137,15 +144,15 @@ export function PostActions({ disable, openModal, post, onPostClick }) {
           </CustomSelect>
           <Stack sx={likeCountSX}>
             <IconButton onClick={handleLikeClick}>
-              {liked ? <LikeFalse /> : <Like />}
+              {isLiked ? <LikeFalse /> : <Like />}
             </IconButton>
             <Typography
               component="span"
               sx={{
                 minWidth: "2ch",
-                color: liked ? "rgb(249, 24, 128)" : "inherit",
+                color: isLiked ? "rgb(249, 24, 128)" : "inherit",
               }}>
-              {likeCount}
+              {likeCounter}
             </Typography>
           </Stack>
           <IconButton sx={replyCountSX} onClick={() => handleBookmarkClick(id)}>
