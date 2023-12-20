@@ -3,20 +3,21 @@ import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { Container, WelcomeMessage, HomePostsContainer, CommentPost } from "@/components";
 import { PostType } from "@/constants";
 import { homeHeaderSX } from "./stylesSX";
-import { getPopularPosts, getPosts } from "@/redux/slices/postsSlice";
+import { getPosts, getPopularPosts, resetPosts } from "@/redux/slices/postsSlice";
 import { useEffect } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import useInfinityScroll from "@/hooks/useInfinityScroll";
 
 export const Home = () => {
   const accountUser = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.posts, shallowEqual);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(resetPosts());
     dispatch(getPosts());
     dispatch(getPopularPosts());
   }, [dispatch]);
-
   return (
     <Container>
       <Box style={{ border: "1px solid rgb(239, 243, 244)", flexGrow: 1 }}>
@@ -42,7 +43,12 @@ export const Home = () => {
             }}
           />
         )}
-        <HomePostsContainer />
+        <InfiniteScroll
+          dataLength={posts.length}
+          next={useInfinityScroll({ callback: getPosts, slice: "posts" })}
+          hasMore={true}>
+          <HomePostsContainer />
+        </InfiniteScroll>
       </Box>
     </Container>
   );

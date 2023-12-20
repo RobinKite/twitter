@@ -39,3 +39,4 @@ export { Search } from "./custom/Search";
 export { InfoCircle } from "./custom/InfoCircle";
 export { Send } from "./custom/Send";
 export { Key } from "./custom/Key";
+export { RepostFilled } from "./custom/RepostFilled";

@@ -2,11 +2,14 @@ import TabPanel from "@mui/lab/TabPanel";
 import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProfileTabs, ItemPost, ModalEdit, ProfileUser, LikedPosts } from "@/components";
+import { ProfileTabs, ItemPost, ModalEdit, ProfileUser } from "@/components";
 import { Container as AppContainer } from "@/components";
-import { fetchUser } from "@/redux/slices/userSlice";
-import { getMyPosts } from "@/redux/slices/postsSlice";
+import { getLikedPosts, fetchUser, resetPostsLiked } from "@/redux/slices/userSlice";
+import { getMyPosts, resetPosts } from "@/redux/slices/postsSlice";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { PostType } from "@/constants";
+import useInfinityScroll from "@/hooks/useInfinityScroll";
+import { sortByCreatedAt } from "@/utils";
 
 const tabs = [
   { label: "Post", value: "0" },
@@ -19,11 +22,14 @@ export function Profile() {
   const user = useSelector((state) => state.user.user);
   const posts = useSelector((state) => state.posts.myPosts);
   const repostPosts = posts.filter((post) => post.type === PostType.QUOTE);
+  const likedPosts = useSelector((state) => state.user.likedPosts);
   const dispatch = useDispatch();
-
   useEffect(() => {
+    dispatch(resetPosts());
+    dispatch(resetPostsLiked());
     dispatch(fetchUser());
     dispatch(getMyPosts());
+    dispatch(getLikedPosts());
   }, [dispatch]);
 
   useEffect(() => {
@@ -61,9 +67,14 @@ export function Profile() {
             },
           }}>
           <TabPanel value="0" sx={{ padding: 0 }}>
-            {posts.map((post) => (
-              <ItemPost key={post.id} post={post} />
-            ))}
+            <InfiniteScroll
+              dataLength={posts.length}
+              next={useInfinityScroll({ callback: getMyPosts, slice: "posts" })}
+              hasMore={true}>
+              {sortByCreatedAt(posts).map((post) => (
+                <ItemPost key={post.id} post={post} />
+              ))}
+            </InfiniteScroll>
           </TabPanel>
 
           <TabPanel value="1" sx={{ padding: 0 }}>
@@ -73,8 +84,15 @@ export function Profile() {
               <>You don&apos;t have any reposts yet</>
             )}
           </TabPanel>
-          <TabPanel value="2" sx={{ padding: 0 }}>
-            <LikedPosts currentUser={false} />
+          <TabPanel value="2">
+            <InfiniteScroll
+              dataLength={likedPosts.length}
+              next={useInfinityScroll({ callback: getLikedPosts, slice: "user" })}
+              hasMore={true}>
+              {sortByCreatedAt(likedPosts).map((post) => (
+                <ItemPost key={post.id} post={post} />
+              ))}
+            </InfiniteScroll>
           </TabPanel>
         </ProfileTabs>
       </Container>

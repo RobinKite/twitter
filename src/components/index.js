@@ -30,5 +30,4 @@ export { CustomSelect } from "./CustomSelect/CustomSelect";
 export { HomePostsContainer } from "./HomePostsContainer/HomePostsContainer";
 export { ChangePasswordModal } from "./ChangePasswordModal/ChangePasswordModal";
 export { ProfileUser } from "./ProfileUser/ProfileUser";
-export { LikedPosts } from "./LikedPosts/LikedPosts";
 export { DisplayModal } from "./DisplayModal/DisplayModal";

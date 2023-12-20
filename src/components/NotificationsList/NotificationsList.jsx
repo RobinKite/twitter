@@ -2,12 +2,17 @@ import { Stack } from "@mui/material";
 import { NotificationItem, NotificationTabContent } from "..";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getNotifications, setNotificationsCount } from "@/redux/slices/userSlice";
+import {
+  getNotifications,
+  resetPostsLiked,
+  setNotificationsCount,
+} from "@/redux/slices/userSlice";
 
 const NotificationsList = () => {
   const notifications = useSelector((state) => state.user.notifications);
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(resetPostsLiked());
     dispatch(getNotifications());
     dispatch(setNotificationsCount(0));
   }, [dispatch]);

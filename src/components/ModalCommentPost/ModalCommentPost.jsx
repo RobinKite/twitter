@@ -20,7 +20,6 @@ export function ModalCommentPost({ isOpen, closeModal, id, post }) {
             <ItemPost key={id} disable={true} post={post} />
             <CommentPost
               id={id}
-              closeModal={closeModal}
               placeholder="Post your reply"
               buttonName="Reply"
               type={PostType.REPLY}
