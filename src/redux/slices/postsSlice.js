@@ -100,6 +100,10 @@ const postsSlice = createSlice({
       );
     },
 
+    setPostComments: (state, action) => {
+      state.postComments = action.payload;
+    },
+
     setPopularPosts: (state, action) => {
       state.popularPosts = action.payload;
     },
@@ -195,6 +199,7 @@ export const {
   setHasMore,
   setPopularPosts,
   addRepostedPosts,
+  setPostComments,
 } = postsSlice.actions;
 export default postsSlice.reducer;
 
@@ -290,10 +295,12 @@ export const addPosts = (formData) => async (dispatch) => {
   }
 };
 
-export const deletePost = (id) => async (dispatch) => {
+export const deletePost = (id) => async (dispatch, getState) => {
   try {
     await client.delete(Endpoint.DELETE_POST, { params: { id } });
     await dispatch(deleteFromPost(id));
+    const comments = getState().posts.postComments.filter((comment) => comment.id !== id);
+    dispatch(setPostComments(comments));
   } catch (error) {
     console.error("Error deleting post:", error);
   }
