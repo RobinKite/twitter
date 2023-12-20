@@ -6,7 +6,7 @@ const Icon = styled("span", {
 })(({ isDisabled, isRound }) => ({
   width: 20,
   height: 20,
-  borderWidth: 2,
+  borderWidth: "2px",
   borderStyle: "solid",
   borderColor: isDisabled ? "#bbb" : "#536471",
   borderRadius: isRound ? "50%" : "0.25rem",

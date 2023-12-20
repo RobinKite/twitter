@@ -6,5 +6,5 @@ export { Registration } from "./Registration/Registration";
 export { Messages } from "./Messages/Messages";
 export { Settings } from "./Settings/Settings";
 export { Bookmarks } from "./Bookmarks/Bookmarks";
-export { Timer } from "./Timer/Timer";
+export { Sockets } from "./Sockets/Sockets";
 export { CurrentUser } from "./CurrentUser/CurrentUser";

@@ -1,40 +1,72 @@
-import { Box, Stack, Typography, IconButton, useTheme } from "@mui/material";
-import { Gear, MessagePlus } from "@/icons";
-import { WelcomeMessage } from "@/features/messaging/components";
-import { wrapperSx, headerSx, titleSx, buttonsSx } from "./styles";
+import { Box, Stack, Typography, IconButton, styled, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Gear, MessagePlus } from "@/icons";
+import { setShowDialog } from "@/redux/slices/messagingSlice";
+import { WelcomeMessage, ConversationItem } from "@/features/messaging/components";
+import { Parser } from "@/features/messaging/services";
+import { useEffect, useState } from "react";
+
+const Wrapper = styled(Stack, { shouldForwardProp: (prop) => prop !== "maxHeight" })(
+  ({ maxHeight }) => ({
+    maxHeight,
+    overflowY: "auto",
+    borderLeft: "1px solid #EFF3F4",
+    borderRight: "1px solid #EFF3F4",
+  }),
+);
+
+const Header = styled(Stack)({
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  paddingBlock: "0.5rem",
+  paddingLeft: "1rem",
+  paddingRight: "0.5rem",
+  position: "sticky",
+  zIndex: 1,
+  top: 0,
+  backdropFilter: "blur(12px)",
+  backgroundColor: "rgba(255,255,255,0.85)",
+});
 
 export const Conversations = () => {
-  const isEmpty = true;
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleCreateCoversation = () => {};
+  const conversations = useSelector((state) => state.messaging.conversations);
+  const [maxHeight, setMaxHeight] = useState("unset");
+
+  useEffect(() => {
+    const handleResize = () => setMaxHeight(window.innerHeight);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const theme = useTheme();
   return (
-    <Stack sx={wrapperSx}>
-      <Stack sx={headerSx}>
-        <Typography variant="h2" sx={titleSx}>
+    <Wrapper maxHeight={maxHeight}>
+      <Header>
+        <Typography variant="h2" sx={{ fontSize: "1.2rem", fontWeight: 600 }}>
           Messages
         </Typography>
-        <Stack sx={buttonsSx}>
+        <Stack sx={{ flexDirection: "row" }}>
           <IconButton onClick={() => navigate("/messages/settings")}>
             <Gear
-              style={{
-                fill: theme.palette[theme.palette.mode].secondary,
-              }}
+              // fill="#0F1419"
+              fill={theme.palette[theme.palette.mode].secondary}
               size={21}
             />
           </IconButton>
-          <IconButton onClick={handleCreateCoversation}>
+          <IconButton onClick={() => dispatch(setShowDialog(true))}>
             <MessagePlus
-              style={{
-                fill: theme.palette[theme.palette.mode].secondary,
-              }}
+              // fill="#0F1419"
+              fill={theme.palette[theme.palette.mode].secondary}
               size={20}
             />
           </IconButton>
         </Stack>
-      </Stack>
-      {isEmpty && (
+      </Header>
+      {conversations?.length === 0 && (
         <Box sx={{ maxWidth: 340, margin: "0 auto", marginTop: "1.5rem" }}>
           <WelcomeMessage
             title="Welcome to your inbox!"
@@ -43,6 +75,16 @@ export const Conversations = () => {
           />
         </Box>
       )}
-    </Stack>
+      {conversations && (
+        <Stack>
+          {conversations.map((conversation) => (
+            <ConversationItem
+              key={conversation.id}
+              {...Parser.parseConversation(conversation)}
+            />
+          ))}
+        </Stack>
+      )}
+    </Wrapper>
   );
 };
