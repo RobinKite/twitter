@@ -224,18 +224,6 @@ export const handleLike = (id) => async (dispatch) => {
   }
 };
 
-// TODO: 👉 Implement
-export const handleLikedPosts = (page) => async () => {
-  try {
-    const response = await client.get(Endpoint.LIKED_POSTS, {
-      params: { page: page, pageSize: 12 },
-    });
-    console.log(response);
-  } catch (error) {
-    console.error("Error liking the post:", error);
-  }
-};
-
 export const axiosPostComments = (page, id) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.GET_POST_REPLIES, {

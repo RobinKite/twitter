@@ -52,7 +52,6 @@ export const getCurrentPosts = (page, id) => async (dispatch) => {
     const response = await client.get(Endpoint.GET_POSTS, {
       params: { id: id, page: page, pageSize: 12 },
     });
-    console.log(response);
     dispatch(setCurrentPosts(response.data));
   } catch (error) {
     console.error("Error fetching user:", error);

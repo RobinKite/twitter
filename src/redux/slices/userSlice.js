@@ -72,7 +72,6 @@ const userSlice = createSlice({
     },
 
     setBookmarkPost: (state, action) => {
-      console.log(action.payload);
       setPostsTemplate(state, action, "bookmarkPosts");
     },
     removeBookmarkPost: (state, action) => {
@@ -81,7 +80,6 @@ const userSlice = createSlice({
       );
     },
     setNotifications: (state, action) => {
-      console.log(action.payload);
       state.notifications = action.payload;
     },
     setNotificationsCount: (state, action) => {
