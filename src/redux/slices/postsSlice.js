@@ -242,11 +242,12 @@ export const axiosPostComments = (id, page) => async (dispatch) => {
   }
 };
 
-export const getPostById = (id) => async (dispatch) => {
+export const fetchPostsOrRedirect = (id, navigate) => async (dispatch) => {
   try {
     const response = await client.get(Endpoint.GET_POST, { params: { id } });
     dispatch(getPostId(response.data));
   } catch (error) {
+    navigate(-1);
     console.error("Error fetching posts:", error);
   }
 };

@@ -112,7 +112,7 @@ export const CommentPost = (props) => {
               <Emoji size={20} fill="#1D9BF0" />
             </IconButton>
           </Stack>
-          <ButtonPost type="submit" onClick={submit}>
+          <ButtonPost type="submit" disabled={!inputStr.trim()} onClick={submit}>
             {buttonName}
           </ButtonPost>
         </Stack>

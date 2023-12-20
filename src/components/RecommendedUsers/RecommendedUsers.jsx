@@ -28,6 +28,7 @@ export const UserCard = ({
             display: "grid",
             gridTemplateColumns: "1fr min-content",
             overflow: "hidden",
+            flexGrow: 1,
           }}>
           <Stack sx={{ overflow: "hidden" }}>
             <Typography variant="subtitle1" sx={{ fontWeight: 700, textWrap: "nowrap" }}>

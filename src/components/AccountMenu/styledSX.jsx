@@ -7,8 +7,7 @@ export const WrapperAccountMenuSX = {
   marginBottom: "12px",
   transition: "background-color 200ms linear",
   overflow: "hidden",
-  marginRight: "0.425rem",
-  width: "100%",
+  marginRight: "0.5rem",
 
   "&:hover": {
     backgroundColor: "rgb(240, 240, 240)",
