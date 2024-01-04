@@ -30,94 +30,6 @@ Over the extended development period, our team navigated the challenges, demonst
 
 - **Responsive Design** - optimized UI for tablets and mobile devices.
 
-## 📝 API Documentation
-
-In addition we're excited to provide you with an overview of the existing API server methods. These methods serve as the backbone of our app, facilitating seamless communication between the front-end and back-end functionalities.
-
-<details>
-<summary>Click to expand</summary>
-
-### API Endpoints
-
-#### User Authentication:
-
-- **POST `/auth/register`**: Register a new user with the provided credentials, specifying username, password, firstName, and lastName in the request body.
-- **POST `/auth/refresh-token`**: Refresh the authentication token.
-- **POST `/auth/login`**: Authenticate a user and obtain the authentication token.
-
-#### Image Upload:
-
-- **POST `/upload/bg_image`**: Upload a background image.
-- **POST `/upload/avatar`**: Upload an avatar image.
-
-#### Likes:
-
-- **POST `/likes/like`**: Like a post.
-- **DELETE `/likes/unlike`**: Remove a like from a post.
-
-#### Subscriptions:
-
-- **POST `/subscriptions`**: Subscribe to a user.
-- **DELETE `/subscriptions`**: Unsubscribe from a user.
-
-#### Users:
-
-- **PUT `/users/update`**: Update user information.
-- **POST `/users/change-password`**: Change the user's password.
-- **GET `/users/{id}`**: Get user information by user id.
-- **GET `/users/search`**: Search for users.
-- **GET `/users/recommended`**: Get recommended users.
-- **GET `/users/profile`**: Get the current user's profile.
-- **GET `/users/followers`**: Get followers of a user.
-- **GET `/users/followed`**: Get users followed by the current user.
-
-#### Posts:
-
-- **PUT `/posts/update`**: Edit a post.
-- **POST `/posts/create`**: Create a new post or repost an existing post.
-- **GET `/posts`**: Get posts by a specific user.
-- **GET `/posts/replies`**: Get comments (replies) to a post.
-- **GET `/posts/replied`**: Get posts that have been recently replied to by a user.
-- **GET `/posts/post`**: Get a specific post by id.
-- **GET `/posts/popular`**: Get popular posts.
-- **GET `/posts/liked`**: Get posts that have been recently liked by a user.
-- **GET `/posts/home`**: Get posts by the current user.
-- **GET `/posts/feed`**: Get posts from users that the current user is following.
-- **DELETE `/posts/delete`**: Delete a post.
-
-#### Chats:
-
-- **GET `/chats`**: Get a list of chats.
-- **PUT `/chats`**: Add a new user to a chat.
-- **POST `/chats`**: Create a new chat.
-- **DELETE `/chats`**: Delete a chat (only for the creator).
-- **GET `/chats/{id}`**: Get messages from a specific chat.
-- **POST `/chats/{id}`**: Create new messages in a chat.
-- **DELETE `/chats/leave-chat`**: Leave a chat.
-- **DELETE `/chats/delete-user`**: Delete a user from a chat (only for the creator).
-
-#### Settings:
-
-- **GET `/settings`**: Get user settings.
-- **POST `/settings`**: Save changes to user settings.
-
-#### OAuth2 Controller:
-
-- **POST `/oauth2/exchange-code/google`**: Exchange code for OAuth2 with Google.
-
-#### Bookmarks:
-
-- **GET `/bookmarks`**: Get posts added to bookmarks.
-- **POST `/bookmarks`**: Add a post to bookmarks by passing postId.
-- **DELETE `/bookmarks`**: Delete a post from bookmarks by passing postId.
-
-#### Notifications:
-
-- **GET `/notifications`**: Get notifications.
-- **GET `/notifications/count`**: Get the count of notifications.
-
-</details>
-
 ## 💻 Technologies
 
 The following technologies were used in this project:
@@ -263,6 +175,94 @@ The project owes its success to the committed collaboration of every team member
 - Utilized Cloudinary for efficient image processing.
 - Configured Maven for automated build, testing, and deployment on the Heroku platform.
 - Successfully implemented GitLab CI/CD for automating code build, testing, and deployment.
+
+</details>
+
+## 📝 API Documentation
+
+In addition we're excited to provide you with an overview of the existing API server methods. These methods serve as the backbone of our app, facilitating seamless communication between the front-end and back-end functionalities.
+
+<details>
+<summary>Click to expand</summary>
+
+### API Endpoints
+
+#### User Authentication:
+
+- **POST `/auth/register`**: Register a new user with the provided credentials, specifying username, password, firstName, and lastName in the request body.
+- **POST `/auth/refresh-token`**: Refresh the authentication token.
+- **POST `/auth/login`**: Authenticate a user and obtain the authentication token.
+
+#### Image Upload:
+
+- **POST `/upload/bg_image`**: Upload a background image.
+- **POST `/upload/avatar`**: Upload an avatar image.
+
+#### Likes:
+
+- **POST `/likes/like`**: Like a post.
+- **DELETE `/likes/unlike`**: Remove a like from a post.
+
+#### Subscriptions:
+
+- **POST `/subscriptions`**: Subscribe to a user.
+- **DELETE `/subscriptions`**: Unsubscribe from a user.
+
+#### Users:
+
+- **PUT `/users/update`**: Update user information.
+- **POST `/users/change-password`**: Change the user's password.
+- **GET `/users/{id}`**: Get user information by user id.
+- **GET `/users/search`**: Search for users.
+- **GET `/users/recommended`**: Get recommended users.
+- **GET `/users/profile`**: Get the current user's profile.
+- **GET `/users/followers`**: Get followers of a user.
+- **GET `/users/followed`**: Get users followed by the current user.
+
+#### Posts:
+
+- **PUT `/posts/update`**: Edit a post.
+- **POST `/posts/create`**: Create a new post or repost an existing post.
+- **GET `/posts`**: Get posts by a specific user.
+- **GET `/posts/replies`**: Get comments (replies) to a post.
+- **GET `/posts/replied`**: Get posts that have been recently replied to by a user.
+- **GET `/posts/post`**: Get a specific post by id.
+- **GET `/posts/popular`**: Get popular posts.
+- **GET `/posts/liked`**: Get posts that have been recently liked by a user.
+- **GET `/posts/home`**: Get posts by the current user.
+- **GET `/posts/feed`**: Get posts from users that the current user is following.
+- **DELETE `/posts/delete`**: Delete a post.
+
+#### Chats:
+
+- **GET `/chats`**: Get a list of chats.
+- **PUT `/chats`**: Add a new user to a chat.
+- **POST `/chats`**: Create a new chat.
+- **DELETE `/chats`**: Delete a chat (only for the creator).
+- **GET `/chats/{id}`**: Get messages from a specific chat.
+- **POST `/chats/{id}`**: Create new messages in a chat.
+- **DELETE `/chats/leave-chat`**: Leave a chat.
+- **DELETE `/chats/delete-user`**: Delete a user from a chat (only for the creator).
+
+#### Settings:
+
+- **GET `/settings`**: Get user settings.
+- **POST `/settings`**: Save changes to user settings.
+
+#### OAuth2 Controller:
+
+- **POST `/oauth2/exchange-code/google`**: Exchange code for OAuth2 with Google.
+
+#### Bookmarks:
+
+- **GET `/bookmarks`**: Get posts added to bookmarks.
+- **POST `/bookmarks`**: Add a post to bookmarks by passing postId.
+- **DELETE `/bookmarks`**: Delete a post from bookmarks by passing postId.
+
+#### Notifications:
+
+- **GET `/notifications`**: Get notifications.
+- **GET `/notifications/count`**: Get the count of notifications.
 
 </details>
 
