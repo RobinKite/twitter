@@ -292,55 +292,84 @@ The project owes its success to the committed collaboration of every team member
 ## 📸 Screenshots
 
 <details><summary>Login page</summary>
+
 ![Login page](https://imgur.com/qs8GcLN.png)
+
 </details>
 
 <details><summary>Registration form</summary>
+
 ![Registration form](https://imgur.com/HTKMbzT.png)
+
 </details>
 
 <details><summary>Login form</summary>
+
 ![Login form](https://imgur.com/vY2XtWf.png)
+
 </details>
 
 <details><summary>Home page feed</summary>
+
 ![Home page feed](https://imgur.com/0gFXao7.png)
+
 </details>
 
 <details><summary>Notifications</summary>
+
 ![Notifications](https://imgur.com/0L3VqBL.png)
+
 </details>
 
 <details><summary>Messages</summary>
+
 ![Chats](https://imgur.com/qr15r00.png) <br>
+
 ![Settings](https://imgur.com/NlWxiHI.png) <br>
+
 ![Create new chat modal](https://imgur.com/F2nS1TE.png) <br>
+
 </details>
 
 <details><summary>Bookmarks</summary>
+
 ![Bookmarks](https://imgur.com/diCMUrz.png)
+
 </details>
 
 <details><summary>User page</summary>
+
 ![User page](https://imgur.com/aB2wfrJ.png)
+
 </details>
 
 <details><summary>Post page</summary>
+
 ![Post page](https://imgur.com/5L8iyHd.png)
+
 </details>
 
 <details><summary>Dark theme</summary>
+
 ![Dark theme](https://imgur.com/yNycdMP.png)
+
 </details>
 
 <details><summary>Search</summary>
+
 ![Search](https://imgur.com/k2lOsKr.png)
+
 </details>
 
 <details><summary>Tablet version</summary>
+
 ![Tablet](https://imgur.com/dxypEYE.png)
+
 </details>
 
 <details><summary>Mobile version</summary>
+
 ![Mobile](https://imgur.com/NkxM1Aq.png)
+
 </details>
+
