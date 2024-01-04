@@ -8,50 +8,27 @@ Over the extended development period, our team navigated the challenges, demonst
 
 ## Key Features Implemented:
 
-### User Authentication:
+- **User Authentication** - implemented a secure login and registration system.
 
-- Implemented a secure login and registration system.
+- **Dynamic Home Feed** - developed infinite scrolling for a seamless browsing experience.
 
-### Dynamic Home Feed:
+- **Real-time Notifications** - notified users instantly of likes, comments, and interactions.
 
-- Developed infinite scrolling for a seamless browsing experience.
+- **Messaging Feature** - enabled private conversations with real-time chat functionality.
 
-### Real-time Notifications:
+- **Bookmarking System** - allowed users to save and access bookmarked posts.
 
-- Notified users instantly of likes, comments, and interactions.
+- **User Profiles and Post Pages** - created detailed user profiles and interactive post pages.
 
-### Messaging Feature:
+- **Reposting Functionality** - enabled users to share content through reposts.
 
-- Enabled private conversations with real-time chat functionality.
+- **Interactive Comments and Likes** - fostered engagement through comments and likes.
 
-### Bookmarking System:
+- **Visual Customization and Password Change** - offered a personalized experience with light/dark themes and implemented a secure password change form.
 
-- Allowed users to save and access bookmarked posts.
+- **Efficient User Search** - incorporated a responsive user search feature.
 
-### User Profiles and Post Pages:
-
-- Created detailed user profiles and interactive post pages.
-
-### Reposting Functionality:
-
-- Enabled users to share content through reposts.
-
-### Interactive Comments and Likes:
-
-- Fostered engagement through comments and likes.
-
-### Visual Customization and Password Change:
-
-- Offered a personalized experience with light/dark themes.
-- Implemented a secure password change form.
-
-### Efficient User Search:
-
-- Incorporated a responsive user search feature.
-
-### Responsive Design:
-
-- Optimized UI for tablets and mobile devices.
+- **Responsive Design** - optimized UI for tablets and mobile devices.
 
 ## 📝 API Documentation
 
