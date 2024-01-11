@@ -197,8 +197,8 @@ export const registerUser = (user) => {
   return (dispatch) => {
     client.post(Endpoint.REGISTER, data).then((response) => {
       const { access_token: accessToken, refresh_token: refreshToken } = response.data;
+      dispatch(registerUserAction(response.data.user));
       storage.setTokens(accessToken, refreshToken);
-      dispatch(registerUserAction(data));
     });
   };
 };
