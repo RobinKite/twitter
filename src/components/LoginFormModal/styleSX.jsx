@@ -12,7 +12,6 @@ export const ContainerSX = styled(Box)(({ theme }) => ({
   width: "600px",
   height: "650px",
   backgroundColor: theme.palette.light.primary,
-  // backgroundColor: "#fff",
   borderRadius: 14,
   boxShadow: 24,
   padding: " 20px 20px 130px ",
@@ -38,11 +37,9 @@ export const CloseButtonSX = styled(IconButton)(({ theme }) => ({
   left: "10px",
   top: "10px",
   color: theme.palette.common.secondary,
-  // color: "#0f1419",
 }));
 
 export const LoginTitleSX = styled(Typography)(({ theme }) => ({
-  // color: "#0f1419",
   color: theme.palette.common.secondary,
   fontSize: "31px",
   fontWeight: 700,
@@ -50,13 +47,11 @@ export const LoginTitleSX = styled(Typography)(({ theme }) => ({
 
 export const LoginTextSX = styled(Typography)(({ theme }) => ({
   fontSize: "15px",
-  // color: "#71767b",
   color: theme.palette.common.primary,
   marginTop: "40px",
 }));
 
 export const LinkSX = styled(Link)(({ theme }) => ({
-  // color: "#1d9bf0",
   color: theme.palette.light.accent,
   textDecoration: "none",
   cursor: "pointer",
@@ -70,13 +65,11 @@ export const LinesSpanSX = styled(Typography)(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "center",
   width: "300px",
-  // color: "#0f1419",
   color: theme.palette.common.secondary,
   margin: "10px 0",
   fontSize: "17px",
   "&::before": {
     content: "''",
-    // border: "1px solid #eff3f4",
     borderStyle: "solid",
     borderWidth: "1px",
     borderColor: theme.palette.light.search_light,
@@ -84,7 +77,6 @@ export const LinesSpanSX = styled(Typography)(({ theme }) => ({
   },
   "&::after": {
     content: "''",
-    // border: "1px solid #eff3f4",
     borderStyle: "solid",
     borderWidth: "1px",
     borderColor: theme.palette.light.search_light,
@@ -101,8 +93,6 @@ export const MainButtonSX = styled(Button)(({ theme }) => ({
   fontWeight: 700,
   backgroundColor: theme.palette.light.primary,
   color: theme.palette.common.secondary,
-  // backgroundColor: "#fff",
-  // color: "#0f1419",
   textTransform: "none",
   padding: "0 16px",
   "&:hover": {
@@ -119,8 +109,6 @@ export const NextButtonSX = styled(Button)(({ theme }) => ({
   fontWeight: 700,
   backgroundColor: theme.palette.light.secondary,
   color: theme.palette.light.primary,
-  // backgroundColor: "#000",
-  // color: "#fff",
   textTransform: "none",
   padding: "0 16px",
   margin: "12px 0",

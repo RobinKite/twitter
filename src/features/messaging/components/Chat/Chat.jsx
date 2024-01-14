@@ -1,11 +1,9 @@
 import { Stack, TextareaAutosize, IconButton } from "@mui/material";
-// import { Select, MenuItem  } from "@mui/material";
 import { Box, Typography, LinearProgress } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { Media, Emoji, Send } from "@/icons";
-// import {  More } from "@/icons";
 import { convertDateFormat } from "@/utils/date";
 import { createMessage } from "@/redux/slices/messagingSlice";
 
@@ -73,41 +71,18 @@ export const InputField = () => {
         <IconButton disabled={!value.trim()} onClick={handleSendMessage}>
           <Send size={20} fill="#1D9BF0" opacity={value.trim() ? 1 : 0.5} />
         </IconButton>
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            paddingInline: "0.8875rem",
-          }}>
-          <LinearProgress
-            variant="determinate"
-            value={(value.length / 255) * 100}
-            sx={{
-              borderRadius: "1rem",
-              "&.MuiLinearProgress-root": {
-                height: 2,
-              },
-            }}
-          />
-        </Box>
       </Stack>
     </Stack>
   );
 };
 
 const Message = ({ body, createdAt, user }) => {
-  // const [open, setOpen] = useState(false);
-  // const [isHovered, setIsHovered] = useState(false);
   const currentUser = useSelector((state) => state.user.user);
   const isSelf = currentUser.id === user.id;
   const formattedDate = convertDateFormat(createdAt);
 
   return (
     <Stack
-      // onMouseEnter={() => setIsHovered(true)}
-      // onMouseLeave={() => setIsHovered(false)}
       sx={{
         alignSelf: isSelf ? "flex-end" : "flex-start",
         marginBottom: "1rem",
@@ -130,28 +105,6 @@ const Message = ({ body, createdAt, user }) => {
           }}>
           {body}
         </Typography>
-        {/* {isHovered && (
-          <Stack>
-            <IconButton sx={{}} onClick={() => setOpen(true)}>
-              <More />
-            </IconButton>
-            <Select
-              open={open}
-              onClose={() => setOpen(false)}
-              sx={{
-                position: "relative",
-                clip: "rect(0 0 0 0)",
-                clipPath: "inset(50%)",
-                height: "1px",
-                overflow: "hidden",
-                whiteSpace: "nowrap",
-                width: "1px",
-              }}>
-              <MenuItem onClick={() => {}}>Reply</MenuItem>
-              <MenuItem onClick={() => {}}>Delete</MenuItem>
-            </Select>
-          </Stack>
-        )} */}
       </Stack>
       <Typography
         sx={{
@@ -189,6 +142,9 @@ export const Chat = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  console.log("MESSAGES");
+  console.log(messages);
 
   return (
     <Stack justifyContent="space-between" flexGrow="1">

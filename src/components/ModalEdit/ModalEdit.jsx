@@ -21,7 +21,6 @@ import {
 import { formatBirthdate, getDaysInMonth } from "@/utils/date.js";
 import { Themes } from "@/themes/theme.js";
 
-// TODO: 👉 Rewrite the component
 export function ModalEdit({ isOpen, onClose }) {
   const [imageUrl, setImageUrl] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");

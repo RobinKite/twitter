@@ -9,8 +9,6 @@ export const FollowButtonStyled = styled(Button, {
   border: isFollowing ? "1px solid rgb(207, 217, 222)" : "1px solid transparent",
   borderRadius: 50,
   fontSize: "14px",
-  // color: isFollowing ? "rgb(0, 0, 0)" : "rgb(248, 248, 248)",
-  // backgroundColor: isFollowing ? "rgb(248, 248, 248)" : "rgb(0, 0, 0)",
   textTransform: "capitalize",
   transition: "background-color 250ms linear, color 250ms linear",
   boxShadow: "none",
@@ -30,8 +28,6 @@ export const FollowButtonStyled = styled(Button, {
     fontWeight: 700,
   },
 
-  // (theme == 'light') ? (isFollowing ? 'первый цвет' : 'второй цвет') : (isFollowing ? 'второй цвет' : 'первый цвет');
-
   "&:hover": {
     backgroundColor:
       theme.palette.mode === Themes.LIGHT
@@ -42,13 +38,10 @@ export const FollowButtonStyled = styled(Button, {
           ? theme.palette.light.hover
           : theme.palette.dark.hover,
 
-    // color: isFollowing ? "rgb(255, 0, 0)" : "rgb(255, 255, 255)",
     boxShadow: "none",
   },
 
   "&:focus": {
-    // backgroundColor: isFollowing ? "rgb(255, 0, 0, 0.08)" : "rgb(0, 0, 0)",
-    // color: isFollowing ? "rgb(255, 0, 0)" : "rgb(255, 255, 255)",
     backgroundColor:
       theme.palette.mode === Themes.LIGHT
         ? isFollowing

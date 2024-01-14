@@ -4,8 +4,6 @@ export const postButtonSX = {
   mobile: {
     borderRadius: "100%",
     margin: 0,
-    // backgroundColor: "#1d9bf0",
-    // color: "#ffffff",
     color: (theme) => theme.palette.light.primary,
     backgroundColor: (theme) => theme.palette[theme.palette.mode].accent,
     bottom: "70px",
@@ -26,17 +24,14 @@ export const postButtonSX = {
     height: "50px",
     width: "50px",
     minWidth: 0,
-    // backgroundColor: "#1d9bf0",
     backgroundColor: (theme) => theme.palette[theme.palette.mode].accent,
     borderRadius: "100%",
     alignSelf: "center",
   },
 
   desktop: {
-    // color: "#ffffff",
     color: (theme) => theme.palette.light.primary,
     boxShadow: "none",
-    // backgroundColor: " #1d9bf0",
     backgroundColor: (theme) => theme.palette[theme.palette.mode].accent,
     borderRadius: "45px",
     alignSelf: "flex-start",
@@ -83,7 +78,6 @@ export const moreButtonSX = {
 
 export const logoutButton = {
   width: "100%",
-  // color: "#0f1419",
   color: (theme) => theme.palette[theme.palette.mode].secondary,
   backgroundColor: (theme) =>
     theme.palette.mode === Themes.LIGHT

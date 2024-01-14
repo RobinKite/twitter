@@ -12,7 +12,6 @@ export const titleSX = {
 
   fontSize: "31px",
   fontWeight: "800",
-  // color: "rgb(15, 20, 25)",
   color: (theme) =>
     theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.secondary
@@ -22,7 +21,6 @@ export const titleSX = {
 export const textSX = {
   fontSize: "15px",
   lineHeight: "1.33",
-  // color: "rgb(83, 100, 113)",
   color: (theme) =>
     theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.primary

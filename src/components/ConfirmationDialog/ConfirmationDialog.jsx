@@ -33,7 +33,6 @@ const Title = styled(Typography)(({ theme }) => ({
 
 const Description = styled(Typography)(({ theme }) => ({
   lineHeight: "1.25rem",
-  // color: "#536471",
   color:
     theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.primary
@@ -60,17 +59,10 @@ const Button = styled(MuiButton)(({ theme }) => ({
   transition: "background-color 200ms",
   color: theme.palette[theme.palette.mode].secondary,
   backgroundColor: theme.palette[theme.palette.mode].primary,
-  // ":hover": {
-  //   backgroundColor: "#e7e7e8",
-  // },
-  // ":active": {
-  //   backgroundColor: "#cfd0d1",
-  // },
   ":hover": {
     backgroundColor: theme.palette[theme.palette.mode].hover,
   },
   ":active": {
-    // backgroundColor: "#3f4347",
     backgroundColor: theme.palette[theme.palette.mode].hover,
   },
 }));
@@ -87,7 +79,6 @@ const ActionButton = styled(Button)(({ theme }) => ({
         : theme.palette.light.hover,
   },
   ":active": {
-    // backgroundColor: "#3f4347",
     backgroundColor:
       theme.palette.mode === Themes.LIGHT
         ? theme.palette.dark.hover

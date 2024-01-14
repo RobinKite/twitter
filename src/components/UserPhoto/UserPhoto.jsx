@@ -20,7 +20,7 @@ const ContainerPhoto = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "200px",
   position: "relative",
-  backgroundColor: theme.palette[theme.palette.mode].accent, //change to grey
+  backgroundColor: theme.palette[theme.palette.mode].accent,
   boxSizing: "border-box",
   backgroundSize: "cover",
   backgroundPosition: "center",
@@ -29,7 +29,6 @@ const ContainerPhoto = styled(Box)(({ theme }) => ({
 const IconAddPhoto = styled(Box)(({ theme }) => ({
   width: "40px",
   height: "40px",
-  // backgroundColor: "rgba(15, 20, 25, 0.75)",a
   backgroundColor: theme.palette.common.secondary,
   position: "absolute",
   top: "50%",
@@ -89,7 +88,6 @@ export function UserPhoto({
                   <AddAPhotoIcon
                     sx={{
                       margin: "0",
-                      // color: "white"
                       color: (theme) => theme.palette[theme.palette.mode].primary,
                       marginRight: "10px",
                     }}
@@ -130,7 +128,6 @@ export function UserPhoto({
                 <AddAPhotoIcon
                   sx={{
                     margin: "0px",
-                    // color: "white"
                     color: (theme) => theme.palette[theme.palette.mode].primary,
                     marginRight: "10px",
                   }}

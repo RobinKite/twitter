@@ -129,10 +129,8 @@ export const receiveMessage = (message) => async (dispatch, getState) => {
   const conversations = getState().messaging.conversations;
   const currentConversation = getState().messaging.currentConversation;
   const messages = getState().messaging.messages;
-
   const cutConversations = conversations.filter((entity) => entity.id !== message.chatId);
   const [conversation] = conversations.filter((entity) => entity.id === message.chatId);
-
   if (conversation) {
     const newConversation = JSON.parse(JSON.stringify(conversation));
     newConversation.lastMessage = message;
@@ -141,7 +139,7 @@ export const receiveMessage = (message) => async (dispatch, getState) => {
     dispatch(fetchConversations());
   }
   if (currentConversation?.id === message.chatId) {
-    dispatch(setMessages([...messages, message]));
+    dispatch(setMessages([message, ...messages]));
   }
 };
 

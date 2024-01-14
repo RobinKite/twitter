@@ -12,7 +12,6 @@ export const ContainerUserInfo = styled(Box)(() => ({
 }));
 
 export const ArrowSvg = styled(Box)(({ theme }) => ({
-  // backgroundColor: "white",
   backgroundColor: theme.palette[theme.palette.mode].primary,
   borderRadius: "50%",
   display: "flex",
@@ -29,7 +28,6 @@ export const ArrowSvg = styled(Box)(({ theme }) => ({
 export const ContainerHederText = styled(Box)(({ theme }) => ({
   paddingLeft: "20px",
   color: theme.palette[theme.palette.mode].secondary,
-  // color: "black",
 }));
 
 export const EditButton = styled(Button)(({ theme }) => ({
@@ -39,7 +37,6 @@ export const EditButton = styled(Button)(({ theme }) => ({
   top: "20px",
   border: "1px solid rgb(239, 243, 244)",
   color: theme.palette[theme.palette.mode].secondary,
-  // color: "black",
   " &:hover": {
     border: "1px solid rgb(207, 217, 222)",
     backgroundColor: theme.palette[theme.palette.mode].hover,

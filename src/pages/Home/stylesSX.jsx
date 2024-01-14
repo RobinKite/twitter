@@ -7,8 +7,6 @@ export const homeHeaderSX = {
   fontWeight: 700,
   lineHeight: 1.33,
   textAlign: "center",
-  // color: "rgb(15, 20, 25)",
-  // color: "rgb(83, 100, 113)",
   color: (theme) =>
     theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.secondary

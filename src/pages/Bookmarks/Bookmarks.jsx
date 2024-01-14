@@ -41,7 +41,6 @@ export const Bookmarks = () => {
           variant="h1"
           sx={{
             padding: "0 16px",
-            // color: "#0F1419",
             color: (theme) =>
               theme.palette.mode === Themes.LIGHT
                 ? theme.palette.light.secondary
@@ -61,7 +60,6 @@ export const Bookmarks = () => {
               theme.palette.mode === Themes.LIGHT
                 ? theme.palette.common.primary
                 : theme.palette.dark.text_grey,
-            // color: "#536471",
             fontSize: "13px",
           }}>
           @{email}
@@ -78,12 +76,10 @@ export const Bookmarks = () => {
               <Typography
                 variant="h2"
                 sx={{
-                  // color: "#0F1419",
                   color: (theme) =>
                     theme.palette.mode === Themes.LIGHT
                       ? theme.palette.light.secondary
                       : theme.palette.dark.light_grey,
-                  // theme.palette[theme.palette.mode].primary
                   fontSize: "30px",
                   fontWeight: 800,
                   marginBottom: "8px",
@@ -97,7 +93,6 @@ export const Bookmarks = () => {
                     theme.palette.mode === Themes.LIGHT
                       ? theme.palette.common.primary
                       : theme.palette.dark.text_grey,
-                  // color: "#536471",
                   fontSize: "15px",
                 }}>
                 Bookmark posts to easily find them again in the future.
