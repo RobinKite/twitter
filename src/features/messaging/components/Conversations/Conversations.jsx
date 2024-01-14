@@ -51,18 +51,10 @@ export const Conversations = () => {
         </Typography>
         <Stack sx={{ flexDirection: "row" }}>
           <IconButton onClick={() => navigate("/messages/settings")}>
-            <Gear
-              // fill="#0F1419"
-              fill={theme.palette[theme.palette.mode].secondary}
-              size={21}
-            />
+            <Gear fill={theme.palette[theme.palette.mode].secondary} size={21} />
           </IconButton>
           <IconButton onClick={() => dispatch(setShowDialog(true))}>
-            <MessagePlus
-              // fill="#0F1419"
-              fill={theme.palette[theme.palette.mode].secondary}
-              size={20}
-            />
+            <MessagePlus fill={theme.palette[theme.palette.mode].secondary} size={20} />
           </IconButton>
         </Stack>
       </Header>

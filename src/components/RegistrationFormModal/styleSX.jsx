@@ -28,7 +28,6 @@ export const ModalTitleSX = styled(Box)(({ theme }) => ({
   marginBottom: "20px",
   fontSize: "30px",
   fontWeight: "700",
-  // color: "#0f1419",
   color: theme.palette.common.secondary,
   [theme.breakpoints.down("767")]: {
     fontSize: "26px",
@@ -36,8 +35,6 @@ export const ModalTitleSX = styled(Box)(({ theme }) => ({
 }));
 
 export const SubmitButtonSX = styled(Button)(({ theme }) => ({
-  // backgroundColor: "#0f1419",
-  // color: "#fff",
   color: theme.palette[theme.palette.mode].primary,
   backgroundColor: theme.palette.common.secondary,
   padding: "0 32px",
@@ -60,6 +57,5 @@ export const CloseButtonSX = styled(IconButton)(({ theme }) => ({
   position: "absolute",
   left: "16px",
   top: "16px",
-  // color: "#0f1419",
   color: theme.palette.common.secondary,
 }));

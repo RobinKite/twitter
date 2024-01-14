@@ -1,7 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 
 const NotificationAlert = () => {
-  // TODO: filter unread notifications and then show this component
   return (
     <>
       <Stack>

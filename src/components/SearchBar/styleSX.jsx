@@ -7,8 +7,6 @@ export const searchBarSX = {
   border: "1px solid transparent",
   paddingTop: "6px",
   paddingBottom: "6px",
-  // color: "rgb(83, 100, 113)",
-  // backgroundColor: "#ffffff",
   backgroundColor: (theme) => theme.palette[theme.palette.mode].primary,
   color: (theme) => theme.palette.common.primary,
   zIndex: 1,
@@ -35,8 +33,6 @@ export const formSX = {
 export const inputSX = {
   "& input": {
     boxSizing: "border-box",
-    // color: "rgb(15,20,25)",
-    // backgroundColor: "rgb(239, 243, 244)",
     color: (theme) =>
       theme.palette.mode === Themes.LIGHT
         ? theme.palette.light.secondary

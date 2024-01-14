@@ -42,7 +42,6 @@ export const radioGroupSx = {
 export const settingTitleSx = {
   fontWeight: 600,
   fontSize: "0.9375rem",
-  // color: "rgb(15, 20, 25)",
   color: (theme) =>
     theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.secondary
@@ -51,7 +50,6 @@ export const settingTitleSx = {
 
 export const settingDescriptionSx = {
   fontSize: "0.8rem",
-  // color: "rgb(83, 100, 113)",
   color: (theme) =>
     theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.primary

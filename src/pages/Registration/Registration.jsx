@@ -67,8 +67,6 @@ export const Registration = () => {
             sx={{
               color: (theme) => theme.palette.light.primary,
               backgroundColor: (theme) => theme.palette.light.accent,
-              // color: "white",
-              // backgroundColor: "#1d9bf0",
               "&:hover": {
                 backgroundColor: (theme) =>
                   theme.palette[theme.palette.mode].hover_accent,
@@ -87,7 +85,6 @@ export const Registration = () => {
               margin: "0 0 8px",
               color: (theme) => theme.palette.light.accent,
               backgroundColor: (theme) => theme.palette.light.primary,
-              // color: "#1d9bf0",
               "&:hover": {
                 color: (theme) => theme.palette.dark.accent,
                 backgroundColor: (theme) => theme.palette.light.search_light,

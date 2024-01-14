@@ -39,7 +39,6 @@ export const moreSelectMenuPropsSX = {
       "& .css-6hp17o-MuiList-root-MuiMenu-list": {
         paddingTop: 0,
         paddingBottom: 0,
-        // backgroundColor: "#ffffff",
       },
 
       "& .MuiMenuItem-root": {

@@ -20,7 +20,6 @@ export const sidebarSX = {
 };
 
 export const containerSX = {
-  // backgroundColor: "rgb(248, 248, 248)",
   backgroundColor: (theme) =>
     theme.palette.mode === Themes.LIGHT
       ? theme.palette.light.background_light
@@ -43,7 +42,6 @@ export const showMoreSX = {
   borderBottomLeftRadius: "1rem",
   borderBottomRightRadius: "1rem",
   fontSize: "14px",
-  // color: "rgb(29, 155, 240)",
   color: (theme) => theme.palette[theme.palette.mode].accent,
   transition: "background-color 200ms",
 

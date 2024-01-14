@@ -18,8 +18,6 @@ export const ModalContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const CustomButton = styled(Button)(({ theme }) => ({
-  // backgroundColor: "black",
-  // color: "white",
   backgroundColor: theme.palette[theme.palette.mode].secondary,
   color: theme.palette[theme.palette.mode].primary,
   borderRadius: "15px",
@@ -42,7 +40,6 @@ export const ModalContent = styled(Box)(() => ({
 }));
 
 export const ModalHeader = styled(Toolbar)(({ theme }) => ({
-  // backgroundColor: "rgb(255, 255, 255)",
   backgroundColor: theme.palette[theme.palette.mode].primary,
   position: "sticky",
   top: 0,

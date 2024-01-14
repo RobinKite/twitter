@@ -20,7 +20,7 @@ export const InputField = () => {
     if (!value.trim()) return;
     dispatch(createMessage(value));
     setValue("");
-    // window.dispatchEvent(new Event("resize"));
+    window.dispatchEvent(new Event("resize"));
   };
 
   const onKeyDown = (event) => {

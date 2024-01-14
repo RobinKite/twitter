@@ -28,8 +28,6 @@ export const Notifications = () => {
             theme.palette.mode === Themes.LIGHT
               ? theme.palette.dark.light_grey
               : theme.palette.dark.border_grey,
-
-          // border: "1px solid rgb(239, 243, 244)"
           height: "unset",
           flexGrow: 1,
         }}>

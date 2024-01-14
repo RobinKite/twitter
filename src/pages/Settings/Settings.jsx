@@ -32,7 +32,6 @@ export const Settings = () => {
         <Typography
           variant="h1"
           sx={{
-            // color: "#0F1419",
             color: (theme) =>
               theme.palette.mode === Themes.LIGHT
                 ? theme.palette.common.secondary

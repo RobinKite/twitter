@@ -55,7 +55,6 @@ export const tweetSX = {
 export const avatarSX = {
   position: "static",
   margin: 0,
-  // bgcolor: "rgb(8, 139, 226)",
 
   width: 40,
   height: 40,
@@ -70,7 +69,6 @@ export const tweetHeaderSX = {
 
 export const tweetUsernameSX = {
   marginBottom: "2px",
-  // color: "rgb(15, 20, 25)",
   color: (theme) =>
     theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.secondary
@@ -102,7 +100,6 @@ export const iconDeleteSX = {
 
 export const tweetContentSX = {
   marginBottom: "12px",
-  // color: "rgb(15, 20, 25)",
   color: (theme) =>
     theme.palette.mode === Themes.LIGHT
       ? theme.palette.common.secondary
@@ -168,7 +165,6 @@ export const iconSX = {
 export const replyCountSX = {
   ...iconSX,
   transition: "background-color 300ms linear, color 300ms linear",
-  // color: "rgb(83, 100, 113)",
   color: (theme) => theme.palette.common.primary,
   fontSize: "15px",
 
@@ -195,7 +191,6 @@ export const likeCountSX = {
   ...iconSX,
   transition: "background-color 300ms linear, color 300ms linear",
   fontSize: "15px",
-  // color: "rgb(83, 100, 113)",
   color: (theme) => theme.palette.common.primary,
   "&:hover": {
     color: "rgb(249, 24, 128)",

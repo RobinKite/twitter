@@ -53,7 +53,6 @@ LinkedUsers.propTypes = {
 };
 
 export function ProfileUser({ isSelf, setIsModalOpen }) {
-  // const theme = useTheme();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -154,7 +153,6 @@ export function ProfileUser({ isSelf, setIsModalOpen }) {
         </Typography>
         <Typography
           variant="body1"
-          // color={"rgb(83, 100, 113)"}
           sx={{
             color: (theme) =>
               theme.palette.mode === Themes.LIGHT
